@@ -1,0 +1,1649 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:og="http://ogp.me/ns#"
+xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+<meta http-equiv = "content-type" content = "application/xhtml+xml; charset = UTF-8" />
+<meta content = 'width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0' name = 'viewport' /><meta name = "viewport" content = "width = device-width, maximum-scale = 1.0, initial-scale = 1.0"><meta name = "apple-mobile-web-app-capable" content = "yes"><meta name = "title" content = "Hoppy Lads" /><meta name = "description" content = "Jumpy Physics Game by Jambots" />
+<meta property="og:image"  content="http://jambots.com/hoppylads/square.png" />
+<title>Hoppy Lads</title>
+<script src="phonegap.js"></script>
+<link rel="image_src" href="http://jambots.com/hoppylads/thumb.png" />
+<link rel = "stylesheet" type = "text/css" href = "reset.css">
+<style type="text/css">
+*{-webkit-user-select:none;
+-webkit-backface-visibility:hidden;
+backface-visibility:hidden;
+}
+@font-face {
+    font-family: 'sack';
+    src: url('sackh.ttf') format('truetype')
+}
+</style>
+<script type="text/javascript" src="howler.min.js"></script>
+<script type = "text/javascript">
+var openedWithStupidLoop=false;
+var platform="unknown";
+var defaultPersistenceObject={"music":"off"};
+var persistenceObject=defaultPersistenceObject;
+var persistenceKeys=Object.keys(persistenceObject);
+var filePath="";
+function init(){
+  defineRefs();
+  var wLoc=""+window.location+"";
+  if(wLoc.indexOf("file:///")==0){
+    platform="local";
+    if(wLoc.indexOf("file:///var/mobile")==0){platform="dreamfreeze";}
+    if(wLoc.indexOf("file:///android_asset")==0){platform="android";}
+    }
+  if(wLoc.indexOf("http://")==0){platform="web";}
+    //should be good for android and iOS
+    var path = window.location.pathname;
+    path = path.substr( path, path.length - 10 );
+    filePath= '' + path+'sounds';
+    if(platform=="local"){filePath="sounds";}   
+    if(platform=="web"){filePath="sounds";}   
+  //dbuga("filePath: "+filePath);
+  //dbuga("platform: "+platform);
+  //dbuga("window.location: "+window.location);
+  initPersistence();
+  prepareWaveData(100*150);
+  sizeInterval=window.setInterval('screenTick()', 1000);
+  setGeometry();
+  initSound();
+  initGame();
+  }
+
+function initPersistence(){
+  if(platform=="dreamfreeze"){
+    requestLoadPersistenceData();
+    }
+  else{// pc and droid use localStorage
+    for (var k=0; k<persistenceKeys.length; k++){
+      var thisKey=persistenceKeys[k];
+      if (localStorage.getItem(thisKey) === null) {
+        // new key, save default value
+        localStorage.setItem(thisKey, persistenceObject[thisKey]);
+        }
+      else{
+        persistenceObject[thisKey]=localStorage.getItem(thisKey);
+        // test and fix number stored as string
+        }
+      }
+    }
+  }
+function setPersistence(){
+  if(platform=="dreamfreeze"){
+    requestSavePersistenceData();
+    }
+  else{
+    savePersistenceDataLocal();
+    }
+  }
+function savePersistenceDataLocal(){
+  for (var k=0; k<persistenceKeys.length; k++){
+    var thisKey=persistenceKeys[k];
+    localStorage.setItem(thisKey, persistenceObject[thisKey]);
+    }
+  }
+
+function loadPersistenceData(theData){
+  //dbuga('app called loadPersistenceData()');
+  if(theData == ""){
+    //dbuga('<br>theData is empty so requestSavePersistenceData()');
+    requestSavePersistenceData();
+    }
+  else{
+    var incomingPersistenceObject = eval('(' + theData + ')');
+    var newProperties=false;
+    for (var k=0; k<persistenceKeys.length; k++){
+      var thisKey=persistenceKeys[k];
+      // only set persistence object properties if incoming had them
+      if(incomingPersistenceObject.hasOwnProperty(thisKey)){
+        persistenceObject[thisKey]=incomingPersistenceObject[thisKey];
+        //dbuga(" - persistenceObject["+thisKey+"]: "+persistenceObject[thisKey]);
+        }
+      else{
+        //dbuga("new key: "+thisKey); 
+        newProperties=true;
+        }
+      }
+    if(newProperties){
+      //dbuga("newProperties so requestSavePersistenceData()");
+      requestSavePersistenceData();
+      }
+    }
+  if(persistenceObject.music=="on"){loopStart("musicloop");}
+  return true;
+  }
+
+var soundObject={};
+function initSound(){
+  //dbuga('initSound()');
+    loopLoad("musicloop");
+    oneShotLoad("up0");
+    oneShotLoad("up1");
+    oneShotLoad("chat0");
+    oneShotLoad("chat1");
+    oneShotLoad("chat2");
+    oneShotLoad("chat3");
+    oneShotLoad("chat4");
+    oneShotLoad("gameover");
+    oneShotLoad("boom0");
+    oneShotLoad("alert");
+    oneShotLoad("chirps");
+
+  //should already have localStorage into persistenceObject
+  //maybe not dreamfreeze though
+  }
+var soundRefByName={};
+function oneShot(soundName){
+  //dbuga("oneShot("+soundName+")");
+  if(persistenceObject.music=="on"){
+    if(platform=="android"){
+      if(soundRefByName.hasOwnProperty(soundName)){
+        //dbuga(' - extant '+soundName);
+        //soundRefByName[soundName].stop();
+        soundRefByName[soundName].play();
+        //dbuga(' - played');
+        }
+      else{
+        var newSound = new Media(filePath+"/"+soundName+".mp3");
+        soundRefByName[soundName]=newSound;
+        //dbuga('new Media '+soundName);
+        }
+      }
+    if((platform=="web")||(platform=="local")){
+      if(soundRefByName.hasOwnProperty(soundName)){
+        //dbuga(' - extant '+soundName);
+        //soundRefByName[soundName].stop();
+        soundRefByName[soundName].play();
+        //dbuga(' - played');
+        }
+      else{
+        var newSound = new Howl({
+          urls: [filePath+"/"+soundName+".mp3"],
+          autoplay: true,
+          loop: false,
+          volume: 0.5,
+          onend: function() {
+            //alert('Finished!');
+            }
+          });
+        soundRefByName[soundName]=newSound;
+        //dbuga('new howl '+soundName);
+ 
+        }  
+      }  
+    if(platform=="dreamfreeze"){
+      if(soundRefByName.hasOwnProperty(soundName)){
+        var soundChannel=soundRefByName[soundName];
+        comQueue.push("action=manageSound|channel="+soundChannel+"|mode=play");
+        comTick();
+        }
+      }
+    }  
+  }
+function loopStart(soundName){
+  //dbuga("loopStart("+soundName+") "+platform);
+  if(persistenceObject.music=="on"){
+    if(platform=="android"){
+      //dbuga('BOOYA!');
+      if(soundRefByName.hasOwnProperty(soundName)){
+        soundRefByName[soundName].play();
+        }
+      }
+    if((platform=="web")||(platform=="local")){
+      if(soundRefByName.hasOwnProperty(soundName)){
+        //dbuga('openedWithStupidLoop: '+ openedWithStupidLoop);
+        if(openedWithStupidLoop==false){
+          //dbuga(' - extant '+soundName);
+          soundRefByName[soundName].stop();
+          soundRefByName[soundName].play();
+          //dbuga(' - played');
+          }
+        }
+      else{
+        var newSound = new Howl({
+          urls: [filePath+"/"+soundName+".mp3"],
+          autoplay: true,
+          loop: true,
+          volume: 0.5,
+          onend: function() {
+            //alert('Finished!');
+            }
+          });
+        soundRefByName[soundName]=newSound;
+        //dbuga('new howl '+soundName);
+ 
+        }  
+      }  
+    if(platform=="dreamfreeze"){
+      if(soundRefByName.hasOwnProperty(soundName)){
+        var soundChannel=soundRefByName[soundName];
+        //dbuga("loopStart() "+soundChannel+" : "+soundName);
+        
+        comQueue.push("action=manageSound|channel="+soundChannel+"|loop=true|mode=play");
+        comTick();
+        }
+      }
+    }  
+  }
+
+function statusCallback(theStatus){
+  var statusArray=['MEDIA_NONE', 'MEDIA_STARTING', 'MEDIA_RUNNING', 'MEDIA_PAUSED', 'MEDIA_STOPPED'];
+  //dbuga('media status '+statusArray[theStatus]);
+  if(soundRefByName.hasOwnProperty("musicloop")){
+    var loopRef=soundRefByName["musicloop"];
+    loopRef.getCurrentPosition(
+        // success callback
+        function (position) {
+            if (position > -1) {
+                //dbuga((position) + " sec");
+            if((ladCount>0)&&(theStatus==4)&&(position<.01)){loopStart("musicloop");}//loop hack for bullshit media
+            }
+        },
+        // error callback
+        function (e) {
+            //dbuga("Error getting pos=" + e);
+        }
+    );
+    }
+  }
+function errorCallback(er){
+  //dbuga("media error "+JSON.stringify(er))
+  }
+function successCallback(evt){
+  //dbuga("HEY ": + JSON.stringify(evt));
+  //singMedia.play();
+  }
+
+
+function loopLoad(soundName){
+  if(platform=="android"){
+    if(soundRefByName.hasOwnProperty(soundName)){
+      //dbuga(' - extant '+soundName);
+      //soundRefByName[soundName].stop();
+      soundRefByName[soundName].play();
+      //dbuga(' - played');
+      }
+    else{
+      var newSound = new Media(filePath+"/"+soundName+".mp3", successCallback, errorCallback, statusCallback);
+      soundRefByName[soundName]=newSound;
+      //dbuga('new Media '+soundName);
+      }
+    }
+  if((platform=="web")||(platform=="local")){
+    if(soundRefByName.hasOwnProperty(soundName)){
+      //dbuga(' - extant: '+ soundName);
+      }
+    else{
+      var shallAutoplay=false;
+      if(persistenceObject.music=="on"){
+        shallAutoplay=true;
+        openedWithStupidLoop=true;
+        }
+      //dbuga(' - new Howl: '+ soundName);
+      var newSound = new Howl({
+        urls: [filePath+"/"+soundName+".mp3"],
+        autoplay: shallAutoplay,
+        loop: true,
+        volume: 0.5,
+        onend: function() {
+          //alert('Finished!');
+          }
+        });
+      soundRefByName[soundName]=newSound;
+      }  
+    }  
+  if(platform=="dreamfreeze"){
+    if(soundRefByName.hasOwnProperty(soundName)){
+      }
+    else{
+      var soundChannel=soundCount;
+      var soundFile="sounds/"+soundName+".mp3";
+      comQueue.push("action=manageSound|file="+soundFile+"|channel="+soundChannel+"|mode=prepare|loop=true");
+      soundRefByName[soundName]=soundChannel;
+      //dbuga("soundChannel: "+soundChannel+" soundName:"+soundName);
+      soundCount++;
+      }  
+    comTick();
+    }  
+  }
+var soundCount=0;
+function oneShotLoad(soundName){
+  if(platform=="android"){
+    var newSound = new Media(filePath+"/"+soundName+".mp3");
+    soundRefByName[soundName]=newSound;
+    //dbuga('new Media '+soundName);
+    }
+  if((platform=="web")||(platform=="local")){
+    if(soundRefByName.hasOwnProperty(soundName)){
+      //dbuga('extant');
+      }
+    else{
+      //dbuga('new howl');
+      var newSound = new Howl({
+        urls: [filePath+"/"+soundName+".mp3"],
+        autoplay: false,
+        loop: false,
+        volume: 0.5,
+        onend: function() {
+          //alert('Finished!');
+          }
+        });
+      soundRefByName[soundName]=newSound;
+      }  
+    }  
+  if(platform=="dreamfreeze"){
+    if(soundRefByName.hasOwnProperty(soundName)){
+      }
+    else{
+      var soundChannel=soundCount;
+      var soundFile="sounds/"+soundName+".mp3";
+      comQueue.push("action=manageSound|file="+soundFile+"|channel="+soundChannel+"|mode=prepare");
+      soundRefByName[soundName]=soundChannel;
+      //dbuga("soundChannel: "+soundChannel+" soundName:"+soundName);
+      soundCount++;
+      }  
+    comTick();
+    }
+  }
+function loopStop(soundName){
+  if(platform=="android"){
+    //dbuga('ANDROID loopStop');
+    if(soundRefByName.hasOwnProperty(soundName)){
+      //dbuga('extant '+soundName);
+      //dbuga('stop andriod');
+      soundRefByName[soundName].stop();
+      }  
+    }
+  if((platform=="web")||(platform=="local")){
+    openedWithStupidLoop=false;
+    if(soundRefByName.hasOwnProperty(soundName)){
+      //dbuga('extant '+soundName);
+      //dbuga('stop howl');
+      soundRefByName[soundName].stop();
+      }  
+    else{
+      //dbuga('non-extant '+soundName);
+      }
+    }  
+  if(platform=="dreamfreeze"){
+    if(soundRefByName.hasOwnProperty(soundName)){
+      var soundChannel=soundRefByName[soundName];
+      comQueue.push("action=manageSound|channel="+soundChannel+"|mode=pause");
+      comTick();
+      }
+    }
+
+  }
+function genericDefault(itemName, defaultValue){
+  if(platform=="android"){
+    if (localStorage.getItem(itemName) === null) {
+      localStorage.setItem(itemName, defaultValue);
+      }
+    }
+  }
+function genericSet(itemName, newValue){
+  if(platform=="android"){
+    localStorage.setItem(itemName, defaultValue);
+    }
+  }
+function genericGet(itemName){
+  var value="notSet";
+  if(platform=="android"){
+    value=localStorage.getItem(itemName);
+    }
+  return value;
+  }
+
+function transmitBgMusicState(){
+  if(musicOn == true){
+    comQueue.push("action=manageSound|channel=0|mode=play");
+    }
+  else{
+    comQueue.push("action=manageSound|channel=0|mode=pause");
+    }
+  comTick();
+  }
+
+var soundChannel=2;
+function playSound(theSound){
+  //dbug(sfxOn);
+  if((sfxOn == true)&&(paused==false)){
+    soundChannel=0;
+    if(theSound=="laytrack"){soundChannel=1;}
+    if(theSound=="carstart"){soundChannel=2;}
+    if(theSound=="carstop"){soundChannel=3;}
+    if(theSound=="trainstart"){soundChannel=4;}
+    if(theSound=="trainpause"){soundChannel=5;}
+    if(theSound=="applause"){soundChannel=6;}
+    
+    if(soundChannel != 0){
+      comQueue.push("action=manageSound|channel="+soundChannel+"|mode=play");
+      comTick();
+      }
+    }
+  }
+
+function requestLoadPersistenceData(){
+  //dbuga('requestLoadPersistenceData()');
+  comQueue.push("action=loadPersistenceData");
+  comTick();
+  }
+
+
+
+
+
+// ios shell browser interface and persistenceData
+var comQueue=new Array();
+function comTick(){
+  if(comQueue.length >0){
+    var thisCom=comQueue.join('&');
+    //dbuga("thisCom: "+thisCom);
+    comQueue=new Array();
+    pea=rnd(10000);
+    window.location.hash="#"+thisCom+"&unique="+pea;
+    }
+  comQueue=new Array();
+  }
+function requestSavePersistenceData(){
+  //dbug4('requestSavePersistenceData()');
+  comQueue.push("action=savePersistenceData");
+  comTick();
+  }
+function savePersistenceData(){
+  //dbug4('<br>app called savePersistenceData()');
+  json=JSON.stringify(persistenceObject);
+  return json;
+  }
+
+
+
+
+var sizeInterval;
+var gridUnits=160;
+var frameSize=110;
+var animTimeout;
+var boardWidth;
+var boardHeight;
+var grid;
+var topPad;
+var overscan=1;
+var pi=Math.PI;
+var cx;
+var cy;
+var leftPad;
+var atLegsX=1000;
+var atGridX=1000;
+var atGridY=427;
+var altGridY=10;
+var dropping=0;
+var g=.03;
+var jumped=false;
+var airDrag=.99;
+var groundDrag=.8;
+var minRad=2;
+var midRad=6;
+var maxRad=8;
+var minForce=g*5;
+var maxForce=g*9;
+var minForceCrouch=g*1;
+var maxForceCrouch=g*4;
+var mouseForce=g*3;
+var timeX=1;
+var ladCount=0;
+var coins=[];
+var excursion=gridUnits/2;
+
+var waveData=[];
+
+var ignoreTap=false;
+var ignoreTimeout;
+
+function ignoreTick(){
+
+  dbuga('<br>Tap to Start'); 
+
+  window.clearTimeout(ignoreTimeout);
+  ignoreTap=false;
+  }
+function wave(x){
+  if(x<=0){
+    return 0;
+    }
+  else{
+    var xFrame=Math.floor(x/frameSize);
+    if(xFrame<waveFrames.length){
+      return waveFrames[xFrame][x-frameSize*xFrame];
+      }
+    else{
+      return 0;
+      }
+    }
+  }
+function prepareWaveData(limit){
+  waveData=[];
+  for (var x=0; x<limit; x++){
+    waveData.push(calcWavePoint(x));
+    }
+  }
+function updateFrames(){
+  while(waveFrames.length<inFrame+2){
+    var newFrame=[];
+    for (var x=frameSize*waveFrames.length; x<frameSize*(waveFrames.length+1); x++){
+      newFrame.push(calcWavePoint(x));
+      }
+    waveFrames.push(newFrame);
+    }
+  //dbug("inFrame:"+inFrame);
+  //dbug("waveFrames.length:"+waveFrames.length);
+  }
+
+
+function calcWavePoint(x){  
+  var val=0;
+  val+=.1*ramp({"pos":x, "wavelength":450, "phase":.35, "amWavelength":1500, "amPhase":.5, "amAmount":1, "fmWavelength":450, "fmPhase":0, "fmAmount":0});
+  val+=.02*square({"pos":x, "wavelength":1656, "phase":0, "amWavelength":1500, "amPhase":0, "amAmount":1, "fmWavelength":450, "fmPhase":0, "fmAmount":.35});
+  val+=.1*sine({"pos":x, "wavelength":1720, "phase":0, "amWavelength":7500, "amPhase":0, "amAmount":1, "fmWavelength":450, "fmPhase":0, "fmAmount":.25});
+  val+=.3*triangle({"pos":x, "wavelength":3607, "phase":0, "amWavelength":2300, "amPhase":0, "amAmount":1, "fmWavelength":450, "fmPhase":0, "fmAmount":.25});
+  val+=.5*triangle({"pos":x, "wavelength":13607, "phase":0, "amWavelength":2400, "amPhase":0, "amAmount":1, "fmWavelength":450, "fmPhase":0, "fmAmount":.25});
+  val+=.25*sine({"pos":x, "wavelength":5920, "phase":0, "amWavelength":910, "amPhase":0, "amAmount":1, "fmWavelength":2450, "fmPhase":0, "fmAmount":.15});
+  val+=.25*sine({"pos":x, "wavelength":3312, "phase":0, "amWavelength":1308, "amPhase":0, "amAmount":1, "fmWavelength":3450, "fmPhase":0, "fmAmount":.3});
+  val*=excursion;
+  return val;
+  }
+
+function sine(w){
+  var useFmWavelength=w.fmWavelength;
+  var useFmPos=w.pos+useFmWavelength*(w.fmPhase+.75);
+  var fmVal=.5+(w.fmAmount*Math.sin(pi*2*useFmPos/useFmWavelength)/2); // 0 to 1
+  var useWavelength=w.wavelength*fmVal;
+  var usePos=w.pos+useWavelength*w.phase;
+  var s=Math.cos(pi*2*usePos/useWavelength);
+  var useAmWavelength=w.amWavelength;
+  var useAmPos=w.pos+useAmWavelength*(w.amPhase+.75);
+  var amAmp=.5+(w.amAmount*Math.sin(pi*2*useAmPos/useAmWavelength)/2); // 0 to 1
+  s*=amAmp;
+  return s;
+  }
+function saw(w){
+  //return 2*(p%w)/w-1;
+  var useFmWavelength=w.fmWavelength;
+  var useFmPos=w.pos+useFmWavelength*(w.fmPhase+.75);
+  var fmVal=.5+(w.fmAmount*Math.sin(pi*2*useFmPos/useFmWavelength)/2); // 0 to 1
+  var useWavelength=w.wavelength*fmVal;
+  var usePos=w.pos+useWavelength*w.phase;
+  var s=2*(usePos%useWavelength)/useWavelength-1;//Math.cos(pi*2*usePos/useWavelength);
+  var useAmWavelength=w.amWavelength;
+  var useAmPos=w.pos+useAmWavelength*(w.amPhase+.75);
+  var amAmp=.5+(w.amAmount*Math.sin(pi*2*useAmPos/useAmWavelength)/2); // 0 to 1
+  s*=amAmp;
+  return s;
+  }
+function ramp(w){
+  //return 1-2*(p%w)/w;
+  var useFmWavelength=w.fmWavelength;
+  var useFmPos=w.pos+useFmWavelength*(w.fmPhase+.75);
+  var fmVal=.5+(w.fmAmount*Math.sin(pi*2*useFmPos/useFmWavelength)/2); // 0 to 1
+  var useWavelength=w.wavelength*fmVal;
+  var usePos=w.pos+useWavelength*w.phase;
+  var s=1-2*(usePos%useWavelength)/useWavelength;//Math.cos(pi*2*usePos/useWavelength);
+  var useAmWavelength=w.amWavelength;
+  var useAmPos=w.pos+useAmWavelength*(w.amPhase+.75);
+  var amAmp=.5+(w.amAmount*Math.sin(pi*2*useAmPos/useAmWavelength)/2); // 0 to 1
+  s*=amAmp;
+  return s;
+  }
+function triangle(w){
+  //return Math.abs(4*(p%w)/w-2)-1;
+  var useFmWavelength=w.fmWavelength;
+  var useFmPos=w.pos+useFmWavelength*(w.fmPhase+.75);
+  var fmVal=.5+(w.fmAmount*Math.sin(pi*2*useFmPos/useFmWavelength)/2); // 0 to 1
+  var useWavelength=w.wavelength*fmVal;
+  var usePos=w.pos+useWavelength*w.phase;
+  var s=Math.abs(4*(usePos%useWavelength)/useWavelength-2)-1;
+  var useAmWavelength=w.amWavelength;
+  var useAmPos=w.pos+useAmWavelength*(w.amPhase+.75);
+  var amAmp=.5+(w.amAmount*Math.sin(pi*2*useAmPos/useAmWavelength)/2); // 0 to 1
+  s*=amAmp;
+  return s;
+
+  }
+function square(w){
+  //return Math.floor(2*(p%w)/w)*2-1;
+  var useFmWavelength=w.fmWavelength;
+  var useFmPos=w.pos+useFmWavelength*(w.fmPhase+.75);
+  var fmVal=.5+(w.fmAmount*Math.sin(pi*2*useFmPos/useFmWavelength)/2); // 0 to 1
+  var useWavelength=w.wavelength*fmVal;
+  var usePos=w.pos+useWavelength*w.phase;
+  var s=Math.floor(2*(usePos%useWavelength)/useWavelength)*2-1;
+  var useAmWavelength=w.amWavelength;
+  var useAmPos=w.pos+useAmWavelength*(w.amPhase+.75);
+  var amAmp=.5+(w.amAmount*Math.sin(pi*2*useAmPos/useAmWavelength)/2); // 0 to 1
+  s*=amAmp;
+  return s;
+  }
+
+
+var dctx;
+var dcanv;
+
+var crouching=false;
+var startX=0;
+var spawnProg=1;// complete
+var prevMs=0;
+var inFrame=0;
+var prevFrame=0;
+var waveFrames=[];
+var colorOffset=0;
+var finalCoins=0;
+var finalLads=0;
+var finalScore=0;
+var finalItem=0;
+
+function initGame(){
+  dbug('TOUCH to crouch.<br>HOLD to stay low.<br>RELEASE to jump.<br><br>COLLECT bytecoins to add lads.<br>TAP score to buy a coin for $'+coinCost);
+  //dbuga('initGame()');
+  finalCoins=0;
+  finalLads=0;
+  finalScore=0;
+  finalItem=0;
+  colorOffset=0;
+  spawnProg=1;
+  coins=[];
+  scoreStack=[];
+  coinStack=[];
+  score=0;
+  bank=0;
+  exploding=false;
+  sdiv.innerHTML="0";
+  catchingUp=0;
+  exploded=[];
+  joined=[];
+  drawStack=[];
+  atLegsX=startX;
+  atGridX=startX;
+  ladCount=1;
+  altGridY=10;
+  dropping=0;
+  inFrame=0;
+  updateFrames();
+  atGridY=wave(atGridX);
+  loopStart("musicloop");
+  animTick();
+  }
+var exploding=false;
+var yOffset;
+var exploded=[];
+var joined=[];
+var itemGap=150;
+function bombAtX(x){
+  var newBomb={"extant":false, "x":x, "y":1, "color":"black", "itemNum":0};
+  if(x%itemGap==0){
+    var itemNum=Math.floor((x-startX)/itemGap);
+    if(isPrime(itemNum)==false){
+      newBomb.color=colorArray[Math.floor(x/itemGap)%colorArray.length];
+      newBomb.extant=true;
+      newBomb.itemNum=itemNum;
+      if(x%(itemGap*3)==0){newBomb.y=24;}
+      found=false;
+      for (var e=0; e<exploded.length; e++){
+        if(exploded[e]==x){newBomb.extant=false;}
+        }
+      }
+    }
+  if(x<100){newBomb.extant=false;}
+
+  return newBomb;
+  }
+
+function ladAtX(x){
+  var newLad={"extant":false, "x":x, "y":1, "itemNum":1};
+  if(x%itemGap==0){
+    var itemNum=Math.floor((x-startX)/itemGap);
+    if(isPrime(itemNum)==true){
+      newLad.extant=true;
+      newLad.itemNum=itemNum;
+      if(itemNum%3==1){newLad.y=25;}
+      found=false;
+      for (var j=0; j<joined.length; j++){
+        if(joined[j]==x){newLad.extant=false;}
+        }
+      }
+    }
+  return newLad;
+  }
+var catchingUp=0;
+function animTick(){
+  clearTimeout(animTimeout);
+  //dbug(atGridX);
+  inFrame=Math.floor(atGridX/frameSize);
+  updateFrames();
+  dcanv.width=boardWidth;
+  dctx.lineWidth=grid/2;
+
+  if((exploding==false)&&(ladCount>0)){
+    atGridX+=timeX;
+
+    var legsSpin=timeX;
+    var terrainDelta=wave(atGridX-timeX)-wave(atGridX);
+
+    dropping+=g;
+    altGridY-=terrainDelta;
+    var useMax=maxRad;
+    if(crouching){useMax=midRad;}
+    var useMinForce=minForce;
+    if(crouching){useMinForce=minForceCrouch;}
+    var useMaxForce=maxForce;
+    if(crouching){useMaxForce=maxForceCrouch;}
+
+    var forceFrac=0;
+    var force=0;
+    altGridY-=dropping;
+    if(altGridY<=minRad){
+      //dbug("CRASH");
+      altGridY=minRad;
+      force=useMaxForce;
+      dropping*=.9;
+      }  
+    else{
+      //dbug("");
+      }
+    if((altGridY>minRad)&&(altGridY<useMax)){
+      forceFrac=1-(altGridY-minRad)/(useMax-minRad);
+      force=useMinForce+(useMaxForce-useMinForce)*forceFrac;
+      }
+    dropping-=force;
+    if(crouching){
+      legsSpin=0;
+      }
+
+    if((force!=0)&&(dropping>0)){// down sliding
+      legsSpin=0;
+      if(jumped){
+        //dbuga('jumped sliding boost='+dropping);
+        dropping*=-1; 
+        }
+      }
+    if(force==0){ //airborn
+      //if(jumped){oneShot("up0");}
+
+      jumped=false;
+      legsSpin*=.25;
+      dropping*=airDrag;
+      }
+    if(force!=0){// walking
+      if(jumped==false){
+        dropping*=groundDrag;
+        }
+      }
+    yOffset=wave(atGridX)-altGridY;
+    }// end of if not exploding    
+
+/*
+  //horizon
+  dctx.beginPath();
+  dctx.strokeStyle="#777";
+  dctx.moveTo(0, cy-grid*(yOffset-0));
+  dctx.lineTo(boardWidth, cy-grid*(yOffset-0));
+
+  //-1*excursion
+  dctx.moveTo(0, cy-grid*(yOffset-0+excursion));
+  dctx.lineTo(boardWidth, cy-grid*(yOffset-0+excursion));
+  dctx.stroke();
+*/
+
+  dctx.beginPath();
+  var started=false;
+  var bombs=[];
+  var lads=[];//coins
+ 
+  // terrain
+  //dbug('');
+  var waveMin=atGridX-Math.floor(gridUnits/3)-overscan;
+  var waveMax=atGridX+Math.floor(2*gridUnits/3)+overscan+1;
+  for (var x=waveMin; x<waveMax; x++){
+    var ix=Math.floor(x);
+    var bomb=bombAtX(x);
+    if(bomb.extant){
+      bombs.push(bomb);
+      //dbuga("b " + bomb.itemNum);
+      }
+    var lad=ladAtX(x);
+    if(lad.extant){
+      lads.push(lad);
+      }
+    if(started){
+      dctx.lineTo(cx+grid*(ix-atGridX), cy-grid*(yOffset-wave(ix)));
+      }
+    else{
+      dctx.moveTo(cx+grid*(ix-atGridX), cy-grid*(yOffset-wave(ix)));
+      started=true;
+      }
+    }
+  dctx.lineTo(boardWidth,boardHeight);
+  dctx.lineTo(0,boardHeight);
+  dctx.closePath();
+  dctx.fillStyle="#555";
+  dctx.fill();
+
+  if((exploding==false)&&(ladCount>0)){
+    // begin calculating player geometry
+    var pedalRad=(midRad-minRad)/2; //1.5
+    var shaftY=useMax-pedalRad; //
+/*
+
+  dctx.beginPath();
+  dctx.arc(cx,cy,grid*minRad,0,pi*2,true);
+  dctx.stroke();
+  dctx.beginPath();
+  dctx.arc(cx,cy,grid*midRad,0,pi*2,true);
+  dctx.stroke();
+  dctx.beginPath();
+  dctx.arc(cx,cy,grid*maxRad,0,pi*2,true);
+  dctx.stroke();
+  dctx.beginPath();
+  dctx.arc(cx,cy+grid*shaftY,grid*pedalRad,0,pi*2,true);
+  dctx.stroke();
+*/
+
+    atLegsX+=legsSpin;
+    pedalProg0=(atLegsX/2)%(pi*2);
+    pedalProg1=(atLegsX/2+pi)%(pi*2);
+    xAnkle0=-Math.cos(pedalProg0)*pedalRad;
+    yAnkle0=Math.sin(pedalProg0)*pedalRad-shaftY;
+    xAnkle1=-Math.cos(pedalProg1)*pedalRad;
+    yAnkle1=Math.sin(pedalProg1)*pedalRad-shaftY;
+
+
+    groundY0=yOffset-wave(atGridX+xAnkle0);
+    if(yAnkle0<groundY0){
+      yAnkle0=groundY0;
+      }
+    groundY1=yOffset-wave(atGridX+xAnkle1);
+    if(yAnkle1<groundY1){
+      yAnkle1=groundY1;
+      }
+
+    var xHip=0;
+    var yHip=0;
+
+    var dX0=xHip-xAnkle0;
+    var dY0=yHip-yAnkle0;
+    var cDelta0=Math.sqrt(dX0*dX0+dY0*dY0);
+    var aShin=maxRad/2;
+    var bThigh=maxRad/2;
+    //Side side side (SSS) case
+    if (aShin + bThigh <= cDelta0 || bThigh/2 + cDelta0 <= aShin || cDelta0 + aShin <= bThigh){
+      //dbug(" - No solution");
+      }
+    var Ahip0 = solveAngle(bThigh , cDelta0, aShin);
+    var Bankle0= solveAngle(cDelta0, aShin , bThigh);
+    var Cknee0 = solveAngle(aShin , bThigh , cDelta0);
+    var hipAnkle0=solveAngle(cDelta0,dX0,dY0);
+    var shinAngle0=hipAnkle0-Bankle0+1;
+    var xShin0=xAnkle0+.7*aShin*Math.cos((shinAngle0-20)/ 180 * pi);
+    var yShin0=yAnkle0+.7*aShin*Math.sin((shinAngle0-20)/ 180 * pi);
+    var xKnee0=xAnkle0+aShin*Math.cos(shinAngle0/ 180 * pi);
+    var yKnee0=yAnkle0+aShin*Math.sin(shinAngle0/ 180 * pi);
+    var xToe0=xAnkle0+1.25*Math.cos((-90+shinAngle0)/ 180 * pi);
+    var yToe0=yAnkle0+1.25*Math.sin((-90+shinAngle0)/ 180 * pi);
+
+    var dX1=xHip-xAnkle1;
+    var dY1=yHip-yAnkle1;
+    var cDelta1=Math.sqrt(dX1*dX1+dY1*dY1);
+    var aShin=maxRad/2;
+    var bThigh=maxRad/2;
+    //Side side side (SSS) case
+    if (aShin + bThigh <= cDelta1 || bThigh/2 + cDelta1 <= aShin || cDelta1 + aShin <= bThigh){
+      //dbug(" - No solution");
+      }
+    var Ahip1 = solveAngle(bThigh , cDelta1, aShin);
+    var Bankle1= solveAngle(cDelta1, aShin , bThigh);
+    var Cknee1 = solveAngle(aShin , bThigh , cDelta1);
+    var hipAnkle1=solveAngle(cDelta1,dX1,dY1);
+    var shinAngle1=hipAnkle1-Bankle1+1;
+    var xShin1=xAnkle1+.7*aShin*Math.cos((shinAngle1-20)/ 180 * pi);
+    var yShin1=yAnkle1+.7*aShin*Math.sin((shinAngle1-20)/ 180 * pi);
+    var xKnee1=xAnkle1+aShin*Math.cos(shinAngle1/ 180 * pi);
+    var yKnee1=yAnkle1+aShin*Math.sin(shinAngle1/ 180 * pi);
+    var xToe1=xAnkle1+1.5*Math.cos((-90+shinAngle1)/ 180 * pi);
+    var yToe1=yAnkle1+1.5*Math.sin((-90+shinAngle1)/ 180 * pi);
+  
+    var bodyAngle=285+dropping*10;
+    //if(crouching){bodyAngle+=10;}
+    var bx=midRad*Math.cos(bodyAngle*pi*2/360);
+    var by=midRad*Math.sin(bodyAngle*pi*2/360);
+  
+    var a0Angle=bodyAngle+110-dropping*45;
+    //if(crouching){a0Angle+=20;}
+    var a0x=bx+midRad*Math.cos(a0Angle*pi*2/360);
+    var a0y=by+midRad*Math.sin(a0Angle*pi*2/360);
+
+    var a1Angle=bodyAngle-110+dropping*45;
+    //if(crouching){a1Angle-=20;}
+    var a1x=bx+midRad*Math.cos(a1Angle*pi*2/360);
+    var a1y=by+midRad*Math.sin(a1Angle*pi*2/360);
+
+
+    var newObj={
+        "xAnkle0":xAnkle0,
+        "yAnkle0":yAnkle0,
+        "xKnee0":xKnee0,
+        "yKnee0":yKnee0,
+        "xToe0":xToe0,
+        "yToe0":yToe0,
+        "a0x":a0x,
+        "a0y":a0y,
+        "xAnkle1":xAnkle1,
+        "yAnkle1":yAnkle1,
+        "xKnee1":xKnee1,
+        "yKnee1":yKnee1,
+        "xToe1":xToe1,
+        "yToe1":yToe1,
+        "a1x":a1x,
+        "a1y":a1y,
+        "bx":bx,
+        "by":by,
+        "bodyAngle":bodyAngle,
+        "atGridX":atGridX,
+        "atGridY":atGridY,
+        "altGridY":altGridY,
+        "yOffset":yOffset,
+        };
+    drawStack.unshift(newObj);
+    }
+
+  var drawn=0;
+  //dbug('')
+  for (var s=catchingUp; s<drawStack.length; s+=delay){
+    if(drawn<ladCount){
+      //drawStack[s].color="white";//colorArray[drawn];
+      //dbug(s)
+      var colorNum=(drawn+colorOffset)%colorArray.length;
+      draw(s,colorNum);
+      drawn++;
+      }
+    }
+  stackLimit=delay*(ladCount+1);
+  if(drawStack.length>stackLimit){
+    var junk=drawStack.pop();
+    }
+  if((exploding==false)&&(ladCount>0)){
+    }
+  else{
+    catchingUp--;
+    if(catchingUp<1){
+      exploding=false;
+      atGridY=drawStack[0].atGridY;
+      altGridY=drawStack[0].altGridY;
+      }
+    //var junk=drawStack.pop();
+    }
+  for (var b=0; b<bombs.length; b++){
+    var bomb=bombs[b];
+    //dbuga("c "+bomb.itemNum);
+    var bombX=cx+grid*(bomb.x-atGridX);
+    var bombY=cy-grid*(yOffset-wave(bomb.x)+bomb.y);
+/*
+    dctx.beginPath();
+    dctx.strokeStyle="blue";
+    dctx.arc(bombX,bombY,grid*6,0,2*pi,true);
+    dctx.stroke();
+*/
+    dctx.fillStyle=bomb.color;//firecracker
+    dctx.fillRect(bombX-grid*1.5,bombY-grid*6,grid*3,grid*12);
+    
+    var scX=bombX;
+    var topY=bombY-grid*6;
+    for (var s=0; s<4; s++){
+      var scY=topY+1.5*grid*(1+s*2);
+      dctx.fillStyle="white";
+      dctx.beginPath();
+      for (var p=0;p<13;p++){
+        var rads=2*pi*(p+3)/12;
+        var dX=1.5*grid*Math.cos(rads);
+        var dY=1.5*grid*Math.sin(rads);
+        if(p%2==1){
+          dX*=.6;
+          dY*=.6;
+          }
+        if(p==0){dctx.moveTo(scX+dX, scY+dY);}
+        else{dctx.lineTo(scX+dX, scY+dY);}
+        }
+      dctx.fill();
+      }
+    dctx.fillStyle="#ccc";//fuse
+    dctx.fillRect(bombX-grid*.5,bombY-grid*9,grid*1,grid*3);
+    
+    dctx.strokeStyle="#ff0";//sparks
+    dctx.beginPath();
+    for (var s=0; s<2; s++){  
+      var sparkDeg=180+rnd(180);
+      var sparkDist=rnd(30)/10;
+      var sparkDx=grid*sparkDist*Math.cos(2*pi*sparkDeg/360);
+      var sparkDy=grid*sparkDist*Math.sin(2*pi*sparkDeg/360);
+      dctx.moveTo(bombX+sparkDx, bombY-grid*9+sparkDy);
+      dctx.lineTo(bombX+sparkDx*2, bombY-grid*9+sparkDy*2);
+      }
+    dctx.stroke();
+    dctx.fillStyle="white";
+    dctx.font=(grid*4)+"px sack";
+    dctx.textAlign= "center";    
+    dctx.textBaseline= "middle";  
+    dctx.fillText(bomb.itemNum, bombX,bombY+grid*8);
+
+    if(bomb.x==atGridX){
+      //dbuga(yOffset-wave(bomb.x)+bomb.y);
+      var headDeltaY=yOffset-wave(bomb.x)+bomb.y-8;
+      var hipDeltaY=yOffset-wave(bomb.x)+bomb.y;
+      var footDeltaY=yOffset-wave(bomb.x)+bomb.y+maxRad;
+      if(crouching==true){footDeltaY=yOffset-wave(bomb.x)+bomb.y+midRad;}
+      var headWithin=false;
+      var hipWithin=false;
+      var footWithin=false;
+      if(Math.abs(headDeltaY)<6){headWithin=true;}
+      if(Math.abs(hipDeltaY)<6){hipWithin=true;}
+      if(Math.abs(footDeltaY)<6){footWithin=true;}
+
+      //dbug("headWithin "+headWithin);
+      //dbuga("hipWithin "+hipWithin);
+      //dbuga("footWithin "+footWithin);
+
+      if((headWithin)||(hipWithin)||(footWithin)){
+        exploding=true;
+        oneShot("boom0");
+        finalLads++;
+        finalItem=bomb.itemNum;
+        colorOffset++;
+        bomb.extant=false;
+        ladCount--;
+        if(ladCount==0){
+          loopStop("musicloop");
+          oneShot("gameover");
+
+          dbug("GAME OVER");
+          dbuga("Total Lads: "+finalLads);
+          dbuga("Total Coins: "+finalCoins);
+          dbuga("Total Points: "+finalScore);
+          dbuga("Total Distance: "+finalItem);
+
+          window.clearTimeout(ignoreTimeout);
+          ignoreTap=true;
+          ignoreTimeout=window.setTimeout("ignoreTick()", 2000);
+          }
+        exploded.push(bomb.x);
+        catchingUp=delay;
+  	  }
+      }
+      // points for each lad
+    for (var l=0; l<ladCount; l++){
+      ladX=drawStack[l*delay].atGridX;
+      ladYO=drawStack[l*delay].yOffset;
+      if((ladX==bomb.x)&&(bomb.extant==true)){
+        var points=0-Math.floor(ladYO-wave(bomb.x)+bomb.y)*10-150;
+        //dbug(bomb.itemNum);
+        if(points>0){
+          oneShot("chirps");
+          scoreStack.push({"points":points, "prog":0, "x":bombX, "y":bombY});
+          finalScore+=points;
+          }
+        }
+      }
+    }
+  for (var l=0; l<lads.length; l++){// "lads" are actually coins in this case. WTF?
+    var lad=lads[l];
+    dctx.fillStyle="#fff";
+    dctx.beginPath();
+    var ladX=cx+grid*(lad.x-atGridX);
+    var ladY=cy-grid*(yOffset-wave(lad.x)+lad.y);
+    dctx.arc(ladX, ladY,grid*4, 0, pi*2,true);
+    dctx.fill();
+    dctx.fillStyle="black";
+    dctx.font=(grid*4)+"px sack";
+    dctx.textAlign= "center";    
+    dctx.textBaseline= "middle";    
+    dctx.fillText(lad.itemNum, ladX,ladY);
+    if(lad.x==atGridX){
+      //dbuga(yOffset-wave(lad.x)+lad.y);
+      //if(Math.abs(yOffset-wave(lad.x)+lad.y)<10){
+      var headDeltaY=yOffset-wave(lad.x)+lad.y-8;
+      var hipDeltaY=yOffset-wave(lad.x)+lad.y;
+      var footDeltaY=yOffset-wave(lad.x)+lad.y+maxRad;
+      if(crouching==true){footDeltaY=yOffset-wave(lad.x)+lad.y+midRad;}
+      var headWithin=false;
+      var hipWithin=false;
+      var footWithin=false;
+      if(Math.abs(headDeltaY)<4){headWithin=true;}
+      if(Math.abs(hipDeltaY)<4){hipWithin=true;}
+      if(Math.abs(footDeltaY)<4){footWithin=true;}
+      //dbug("headWithin "+headWithin);
+      //dbuga("hipWithin "+hipWithin);
+      //dbuga("footWithin "+footWithin);
+
+      if((headWithin)||(hipWithin)||(footWithin)){
+        coinStack.push({"itemNum":lad.itemNum,"prog":0, "x":ladX, "y":ladY});
+        oneShot("up0");
+      
+        finalCoins++;
+        finalItem=lad.itemNum;
+        joined.push(lad.x);
+  	  }
+      }
+    }
+  if(exploding==true){
+    dctx.beginPath();
+    dctx.fillStyle="rgba(255,255,0,"+catchingUp/delay+")";
+    dctx.arc(cx,cy,grid*(delay-catchingUp), 0,2*pi,true);
+    dctx.fill();
+    }
+  var copyStack=scoreStack;
+  scoreStack=[];
+  //dbug('');
+  for (var s=0; s<copyStack.length; s++){
+    //dbuga(JSON.stringify(copyStack[s]));
+    var points=copyStack[s].points;
+    var prog=copyStack[s].prog;
+    var x=copyStack[s].x;
+    var y=copyStack[s].y;
+    prog+=.02;
+    if(prog<1){
+      scoreStack.push({"points":points, "prog":prog, "x":x, "y":y});
+      var progX=x+prog*prog*(boardWidth-x);
+      var progY=y-prog*prog*(y);
+
+      dctx.font= (grid*4+grid*4*(1-prog))+"px sack";
+      dctx.textAlign= "center";
+      dctx.fillStyle="rgba(255,255,255,.75)";
+      dctx.fillText(points, progX, progY);
+      }
+    else{
+      bank+=points;
+      }
+    }
+  if(spawnProg<1){spawnProg+=.05;}
+  else{spawnProg=1;}
+  var prevScore=score;
+  if(bank>0){
+    if(bank>100){
+      bank-=50;
+      score+=50;
+      }
+    else{
+      bank-=10;
+      score+=10;
+      }
+    if((prevScore<coinCost)&&(score>=coinCost)){oneShot('alert');}
+    sdiv.innerHTML=score;
+    var useSize=6+bank/100;
+    if(useSize>8){useSize=8;}
+    sdiv.style.fontSize=(grid*useSize)+"px";
+    }
+
+  // move coins
+  var copyStack=coinStack;
+  coinStack=[];
+  //dbug('');
+  for (var s=0; s<copyStack.length; s++){
+    //dbuga(JSON.stringify(copyStack[s]));
+    var itemNum=copyStack[s].itemNum;
+    var prog=copyStack[s].prog;
+    var x=copyStack[s].x;
+    var y=copyStack[s].y;
+    prog+=.02;
+    if(prog<1){
+      coinStack.push({"itemNum":itemNum, "prog":prog, "x":x, "y":y});
+      var progX=(1-prog)*x+prog*prog*(boardWidth-(grid*(6+10*coins.length)));
+      var progY=(1-prog)*y+prog*prog*(grid*12);
+
+      dctx.fillStyle="#fff";
+      dctx.beginPath();
+      dctx.arc(progX, progY,grid*4, 0, pi*2,true);
+      dctx.fill();
+      dctx.fillStyle="black";
+      dctx.font=(grid*4)+"px sack";
+      dctx.textAlign= "center";    
+      dctx.textBaseline= "middle";    
+      dctx.fillText(itemNum, progX,progY);
+      }
+    else{
+      coins.push({"itemNum":itemNum, "prog":prog, "x":x, "y":y});
+      //// test for buy
+      if(coins.length>2){
+        var junk=coins.shift();
+        junk=coins.shift();
+        junk=coins.shift();
+        //coins=[];
+        ladCount++;  
+        spawnProg=0; 
+
+        oneShot("chat"+rnd(5));
+
+        }
+      }
+    }
+  for (var c=0; c<coins.length; c++){
+    var coin=coins[c];
+    var progX=boardWidth-grid*(6+10*c);// target coin slots 
+    var progY=grid*12;
+
+    dctx.fillStyle="#fff";
+    dctx.beginPath();
+    dctx.arc(progX, progY,grid*4, 0, pi*2,true);
+    dctx.fill();
+    dctx.fillStyle="black";
+    dctx.font=(grid*4)+"px sack";
+    dctx.textAlign= "center";    
+    dctx.textBaseline= "middle";    
+    dctx.fillText(coin.itemNum, progX,progY);    
+    }
+  if(score>=coinCost){
+    dctx.fillStyle="#fff";
+    dctx.beginPath();
+    dctx.arc(grid*134, grid*24,grid*4, 0, pi*2,true);
+    dctx.fill();
+    dctx.fillStyle="black";
+    dctx.font=(grid*4)+"px sack";
+    dctx.textAlign= "center";    
+    dctx.textBaseline= "middle";    
+    dctx.fillText("$", grid*134, grid*24);    
+    dctx.fillStyle="white";
+    dctx.textAlign= "left";    
+    dctx.font=(grid*5)+"px sack";
+    dctx.fillText(coinCost, grid*139, grid*24);    
+    }
+  for (var c=0; c<3; c++){
+    var progX=boardWidth-grid*(6+10*c);// target coin slots 
+    var progY=grid*12;
+
+    dctx.lineWidth=grid/2;
+    dctx.strokeStyle="#fff";
+    dctx.beginPath();
+    dctx.arc(progX, progY,grid*4, 0, pi*2,true);
+    dctx.stroke();
+    }
+
+  dctx.fillStyle="white";
+  dctx.font=(grid*4)+"px sack";
+  dctx.textAlign= "center";    
+  dctx.textBaseline= "middle";  
+  //dctx.strokeRect(0,0,grid*24,grid*24);
+  dctx.fillText("sound", grid*12, grid*6);
+  dctx.fillText(persistenceObject.music, grid*12, grid*11);
+  //dctx.fillText(platform, grid*16, boardHeight-grid*4);
+
+  var nowDate=new Date();
+  var nowMs=nowDate.getTime();
+  var deltaMs=nowMs-prevMs;
+  prevMs=nowMs;
+  var useMs=25-deltaMs;
+  if(useMs<1){useMs=1;}
+  //dbug(useMs);
+  animTimeout=window.setTimeout("animTick()", useMs);
+
+  //(bodyAngle);
+  }
+
+var wristPrimary=1.5;
+var wristSecondary=.5;
+var armPrimary=1.5;
+var armSecondary=.25;
+var bodyPrimary=2;
+var bodySecondary=.5;
+var chestPrimary=3;
+var chestSecondary=2;
+var thighPrimary=2;
+var thighSecondary=.5;
+var shinPrimary=1.5;
+var shinSecondary=.5;
+var footPrimary=1;
+
+function draw(s, colorNum){
+  dctx.lineJoin = 'round';
+
+
+  var primary=colorArray[colorNum];
+  var secondary="rgb(255,255,255)";
+
+  var obj=drawStack[s];
+  dctx.strokeStyle="white";
+  //derive cx and cy here
+  obj.cx=cx-grid*(atGridX-obj.atGridX);
+  obj.cy=cy-grid*(yOffset-obj.yOffset);
+
+  if(s/delay==ladCount-1){
+    //dbug(s/delay+" of "+ladCount)
+    //dbuga("spawnProg "+spawnProg);
+     if(spawnProg<1){
+      //obj.cx=cx-grid*(atGridX-obj.atGridX);
+      //obj.cy=cy-grid*(yOffset-obj.yOffset);
+      //dbuga('ran');
+      obj.cx=spawnProg*obj.cx+(1-spawnProg*spawnProg)*(boardWidth-grid*16);
+      obj.cy=spawnProg*spawnProg*spawnProg*obj.cy+(1-spawnProg)*(grid*12);
+      }
+    }
+
+
+  //shin 0
+  dctx.beginPath();
+  //dctx.arc(obj.cx+grid*obj.xAnkle0,obj.cy-grid*obj.yAnkle0,grid*.25,0,pi*2,true);
+  dctx.moveTo(obj.cx+grid*obj.xAnkle0,obj.cy-grid*obj.yAnkle0);
+  dctx.lineTo(obj.cx+grid*obj.xKnee0,obj.cy-grid*obj.yKnee0);
+  dctx.lineTo(obj.cx,obj.cy);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="round";
+  dctx.lineWidth=grid*shinPrimary;
+  dctx.stroke();
+
+  //thigh 0
+  dctx.beginPath();
+  //dctx.arc(obj.cx+grid*obj.xAnkle0,obj.cy-grid*obj.yAnkle0,grid*.25,0,pi*2,true);
+  dctx.moveTo(obj.cx+grid*obj.xKnee0,obj.cy-grid*obj.yKnee0);
+  dctx.lineTo(obj.cx,obj.cy);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="round";
+  dctx.lineWidth=grid*thighPrimary;
+  dctx.stroke();
+
+
+  //foot 0
+  dctx.beginPath();
+  dctx.moveTo(obj.cx+grid*obj.xAnkle0,obj.cy-grid*obj.yAnkle0);
+  dctx.lineTo(obj.cx+grid*obj.xToe0,obj.cy-grid*obj.yToe0);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="butt";
+  dctx.lineWidth=grid*footPrimary;
+  dctx.stroke();
+
+
+  //arm 0
+  dctx.beginPath();
+  dctx.moveTo(obj.cx+grid*obj.bx,obj.cy+grid*obj.by);
+  dctx.lineTo(obj.cx+grid*obj.a0x,obj.cy+grid*obj.a0y);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="round";
+  dctx.lineWidth=grid*armPrimary;
+  dctx.stroke();
+  dctx.strokeStyle=secondary;
+  dctx.lineCap="butt";
+  dctx.lineWidth=grid*armSecondary;
+  dctx.stroke();
+/*
+  dctx.beginPath();
+  dctx.moveTo(obj.cx,obj.cy);
+  dctx.lineTo(obj.cx+grid*obj.bx*1.25,obj.cy+grid*obj.by*1.25);
+*/ 
+  //head
+  dctx.fillStyle=primary;
+  dctx.fillRect(obj.cx+grid*(obj.bx*1.5-1),obj.cy+grid*(obj.by*1.5-1),grid*3,grid*3);
+  dctx.fillStyle=secondary;
+  dctx.fillRect(obj.cx+grid*(obj.bx*1.5+.5),obj.cy+grid*(obj.by*1.5-.75),grid*.85,grid*.75);
+
+
+
+  //body
+  dctx.beginPath();
+  dctx.moveTo(obj.cx,obj.cy);
+  dctx.lineTo(obj.cx+grid*obj.bx*.6,obj.cy+grid*obj.by*.6);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="round";
+  dctx.lineWidth=grid*bodyPrimary;
+  dctx.stroke();
+  dctx.strokeStyle=secondary;
+  dctx.lineCap="butt";
+  dctx.lineWidth=grid*bodySecondary;
+  dctx.stroke();
+
+  //chest
+  dctx.beginPath();
+  dctx.moveTo(obj.cx+grid*obj.bx*.7,obj.cy+grid*obj.by*.7);
+  dctx.lineTo(obj.cx+grid*obj.bx*1,obj.cy+grid*obj.by*1);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="round";
+  dctx.lineWidth=grid*chestPrimary;
+  dctx.stroke();
+  dctx.strokeStyle=secondary;
+  dctx.lineCap="butt";
+  dctx.lineWidth=grid*chestSecondary;
+  dctx.stroke();
+
+  //arm 1
+  dctx.beginPath();
+  dctx.moveTo(obj.cx+grid*obj.bx,obj.cy+grid*obj.by);
+  dctx.lineTo(obj.cx+grid*obj.a1x,obj.cy+grid*obj.a1y);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="round";
+  dctx.lineWidth=grid*armPrimary;
+  dctx.stroke();
+  dctx.strokeStyle=secondary;
+  dctx.lineCap="butt";
+  dctx.lineWidth=grid*armSecondary;
+  dctx.stroke();
+
+  //shin 1
+  dctx.beginPath();
+  //dctx.arc(obj.cx+grid*obj.xAnkle1,obj.cy-grid*obj.yAnkle1,grid*.25,0,pi*2,true);
+  dctx.moveTo(obj.cx+grid*obj.xAnkle1,obj.cy-grid*obj.yAnkle1);
+  dctx.lineTo(obj.cx+grid*obj.xKnee1,obj.cy-grid*obj.yKnee1);
+  dctx.lineTo(obj.cx,obj.cy);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="round";
+  dctx.lineWidth=grid*shinPrimary;
+  dctx.stroke();
+  dctx.strokeStyle=secondary;
+  dctx.lineCap="butt";
+  dctx.lineWidth=grid*shinSecondary;
+  dctx.stroke();
+
+  //thigh 1
+  dctx.beginPath();
+  //dctx.arc(obj.cx+grid*obj.xAnkle1,obj.cy-grid*obj.yAnkle1,grid*.25,0,pi*2,true);
+  dctx.moveTo(obj.cx+grid*obj.xKnee1,obj.cy-grid*obj.yKnee1);
+  dctx.lineTo(obj.cx,obj.cy);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="round";
+  dctx.lineWidth=grid*thighPrimary;
+  dctx.stroke();
+  dctx.strokeStyle=secondary;
+  dctx.lineCap="butt";
+  dctx.lineWidth=grid*thighSecondary;
+  dctx.stroke();
+
+
+  //foot 1
+  dctx.beginPath();
+  dctx.moveTo(obj.cx+grid*obj.xAnkle1,obj.cy-grid*obj.yAnkle1);
+  dctx.lineTo(obj.cx+grid*obj.xToe1,obj.cy-grid*obj.yToe1);
+  dctx.strokeStyle=primary;
+  dctx.lineCap="butt";
+  dctx.lineWidth=grid*footPrimary;
+  dctx.stroke();
+
+
+  }
+
+var coinCost=5000;
+function tryToBuy(x,y){
+  if((x>boardWidth-grid*32)&&(y<grid*32)){
+    if((score>=coinCost)&&(ladCount>0)){
+      score-=coinCost;
+      sdiv.innerHTML=score;
+      coinStack.push({"itemNum":"$","prog":0, "x":grid*134, "y":grid*24});
+      oneShot("up1");
+      }
+    }
+  }
+function tryToggleMute(x,y){
+  if((x<grid*24)&&(y<grid*24)){
+    if(persistenceObject.music=="on"){
+      persistenceObject.music="off";
+      loopStop("musicloop");
+      openedWithStupidLoop=false;
+      }
+    else{
+      persistenceObject.music="on";
+      loopStart("musicloop");
+      }
+    setPersistence();
+    }
+  }
+
+var bank=0;
+var score=0;
+var scoreStack=[];
+var coinStack=[];
+var delay=10;
+var stackLimit=50;
+var drawStack=[];
+function solveAngle(a, b, c) {  // Returns angle C using law of cosines
+  var temp = (a * a + b * b - c * c) / (2 * a * b);
+  if (temp >= -1 && temp <= 1){return radToDeg(Math.acos(temp));}
+  else{return "No solution";}
+  }
+function degToRad(x) {
+	return x / 180 * Math.PI;
+}
+
+function radToDeg(x) {
+	return x / Math.PI * 180;
+}
+function screenTick(){
+  if((screenWidth != window.innerWidth)||(screenHeight != window.innerHeight)){
+    setGeometry();
+    }
+  }
+var colorArray=[
+  "rgb(32,32,175)", 
+  "rgb(30,30,30)", 
+  "rgb(175,0,0)", 
+  "rgb(200,100,0)", 
+  "rgb(200,200,0)",
+  "rgb(0,128,0)", 
+  "purple"
+  ]; 
+function setGeometry(){
+  screenWidth = window.innerWidth;
+  screenHeight = window.innerHeight;
+  var aspect=screenWidth/screenHeight;
+  boardHeight=screenHeight;
+  boardWidth=screenWidth;
+    topPad=0;
+    leftPad=0;
+  grid=boardWidth/gridUnits;
+  dcanv.width=boardWidth;
+  dcanv.height=boardHeight;
+  dcanv.style.left=leftPad+"px";
+  dcanv.style.top=topPad+"px";
+
+  sdiv.style.width=(grid*40)+"px";
+  sdiv.style.height=grid*8+"px";
+  sdiv.style.fontSize=grid*6;
+  sdiv.style.left=(boardWidth-grid*41)+"px";
+
+  ddiv.style.width=(grid*120)+"px";
+  ddiv.style.left=grid*30+"px";
+  ddiv.style.top=grid+"px";
+  ddiv.style.fontSize=(grid*5)+"px";
+  
+  cx=boardWidth/3;
+  cy=boardHeight/2;
+  }
+var sdiv;
+function defineRefs(){
+  sdiv = document.getElementById('scoreDiv');
+  ddiv = document.getElementById('debugDiv');
+  dcanv = document.getElementById('drawCanvas');
+  dctx= dcanv.getContext('2d');
+  }
+function isPrime(n) {
+ if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false; 
+ if (n%2==0) return (n==2);
+ if (n%3==0) return (n==3);
+ var m=Math.sqrt(n);
+ for (var i=5;i<=m;i+=6) {
+  if (n%i==0)     return false;
+  if (n%(i+2)==0) return false;
+ }
+ return true;
+}
+function gestureStart(event){
+  //dbuga("gestureStart");
+  event.preventDefault();
+  }
+function gestureChange(event){
+  //dbuga("gestureChange");
+  event.preventDefault();
+  }
+function gestureEnd(event){
+  //dbuga("gestureEnd");
+  event.preventDefault();
+  }
+function touchStart(event){
+  event.preventDefault();
+  if(ignoreTap==false){
+    dbug('');
+    tryToBuy(event.touches[0].pageX,event.touches[0].pageY);
+    tryToggleMute(event.touches[0].pageX,event.touches[0].pageY);
+    crouching=true;
+    if(ladCount<1){initGame();}
+    }
+  }
+function touchMove(event){
+  event.preventDefault();
+  crouching=true;
+  }
+function touchEnd(event){
+  event.preventDefault();
+  crouching=false;
+  jumped=true;
+  }
+
+function dbug(str) {
+  if(str==''){
+    ddiv.style.display = "none";
+    }
+  else{ddiv.style.display = "block";}
+    ddiv.innerHTML = str;
+    }
+function dbuga(str) {
+  ddiv.style.display = "block";
+  ddiv.innerHTML += "<br />"+str;
+  }
+function rnd(range) {
+  return Math.floor(Math.random()*range);
+  }
+function mouseUp(){
+  crouching=false;
+  jumped=true;
+  }
+function mouseDown(e){
+  if(ignoreTap==false){
+    dbug('');
+    tryToBuy(e.pageX,e.pageY);
+    tryToggleMute(e.pageX,e.pageY);
+    crouching=true;
+    if(ladCount<1){initGame();}
+    }
+  }
+</script>
+
+</head>
+<body id = "body" onload = "init()" 
+onTouchStart="touchStart(event)" 
+onTouchMove="touchMove(event)" 
+onTouchEnd="touchEnd(event)"
+onGestureStart="gestureStart(event)" 
+onGestureChange="gestureChange(event)" 
+onGestureEnd="gestureEnd(event)"
+style="background-color:#ccc;"
+>
+<canvas id = "drawCanvas" onMousedown="javascript:mouseDown(event);" onMouseup="javascript:mouseUp();"  width=100 height=100 style="display:block; background-color:rgb(127,127,255); position:absolute; top:0px;"></canvas>
+<div id="audioDiv" style="display:none;"></div>
+<div id = "debugDiv" onMousedown="javascript:mouseDown(event);" onMouseup="javascript:mouseUp();"  style="display:none; zbackground-color:rgba(255,255,255,.5); position:absolute; font-family:sack; color:white; top:0px;left:0px;"></div>
+<div id = "scoreDiv" onMousedown="javascript:mouseDown(event);" onMouseup="javascript:mouseUp();"  style="display:block; zbackground-color:rgba(255,255,255,.5); text-align:right; font-family:sack; color:white; position:absolute; top:0px;left:0px;">0234567890</div>
+
+</body>
+</html>
