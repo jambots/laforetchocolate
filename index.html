@@ -1,0 +1,334 @@
+<html>
+<head>
+<meta http-equiv = "content-type" content = "application/xhtml+xml; charset = UTF-8" />
+<meta content = 'width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0' name = 'viewport' /><meta name = "viewport" content = "width = device-width, maximum-scale = 1.0, initial-scale = 1.0"><meta name = "apple-mobile-web-app-capable" content = "yes"><meta name = "title" content = "Cycle of Destruction" /><meta name = "description" content = "Card game based on the 5 Chinese elements" />
+<title>la for&circ;t chocolate</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<!--
+<script src="phonegap.js"></script>
+-->
+<script src="childbrowser.js"></script>
+<script type="text/javascript" src="iscroll-lite.js"></script>
+<link rel = "stylesheet" type = "text/css" href = "reset.css">
+<style>
+
+@font-face {
+    font-family: 'sack';
+    src: url('sackh.ttf') format('truetype');
+    font-weight:normal;
+    font-style:normal;
+}
+*{
+font-family: 'sack';
+-webkit-user-select:none;
+}
+
+#setSelectButton{
+  position:absolute;
+  top:0;
+  }
+#setSelectDone{
+  position:absolute;
+  top:0;
+  }
+#setSelectModal{
+  position:absolute;
+  background-color:#222;
+  width:200px;
+  height:300px;
+  top:10px;
+  left:10px;
+  }
+#setSelectDim{
+  top:0;
+  left:0;
+  position:absolute;
+  background-color:rgba(0,0,0,.5);
+  width:100%;
+  height:100%;
+  }
+#setSelectHolder{
+  position:absolute;
+  background-color:#333;
+  width:200px;
+  height:250px;
+  top:50px;
+  left:0px;
+  }
+#setSelectScroller{
+  background-color:#999;
+  width:180px;
+  }
+</style>
+<script>
+var ddiv;
+var sScroll;
+var sdiv
+function init(){
+  ddiv=document.getElementById('debugDiv');
+  sdiv=document.getElementById('setSelectScroller');
+  loadData();
+  //dbuga('init() ran');
+  clearInterval(dimensionInterval);
+  dimensionInterval=setInterval('dimensionTick()', 1000);
+  }
+var dimensionInterval;
+var ww=0;
+var wh=0;
+var orient="unset";
+function dimensionTick(){
+  if((ww!=window.innerWidth)||(wh!=window.innerHeight)){
+    measure();
+    populate();
+    }
+  }
+var grid=10;
+var cellsDown=10;
+function measure(){
+  ww=window.innerWidth;
+  wh=window.innerHeight;
+  var prevOrient=orient;
+  if(ww>wh){orient="landscape";}
+  else{orient="portrait";}
+  if(orient != prevOrient){
+    //dbuga('orient: '+orient);
+    }
+  grid=ww/48;
+  cellsDown=Math.floor(wh/grid);
+  }
+function selectSet(setNum){
+  //dbug(setNum);
+  selectedSetNum=setNum;
+  updateSelectButtons();
+  }
+function populate(){
+  var htmlString="";
+  htmlString+='<div style="height:'+grid*1.5+'px; width:'+grid*32+'px;float:left;"></div>';
+  for (var s=0; s<setKeys.length; s++){
+    htmlString+='<div style="height:'+grid*3+'px; width:'+grid*32+'px; padding-left:'+grid*2+'px; float:left;">';
+    htmlString+='<canvas onMouseDown="selectSet('+s+')" height='+Math.floor(grid*3)+' width='+Math.floor(grid*32)+' id="canv_'+s+'" style="position:absolute;"></canvas>';
+    htmlString+='</div>';
+    if(s==0){htmlString+='<div style="height:'+grid*1.5+'px; width:'+grid*32+'px;float:left;"></div>';}
+    sets[setKeys[s]].sort();
+    }
+  sdiv.innerHTML=htmlString;
+ 
+  document.getElementById("setSelectModal").style.width=grid*36+"px";
+  document.getElementById("setSelectModal").style.height=(grid*(cellsDown-12))+"px";
+  document.getElementById("setSelectModal").style.top=grid*6+"px";
+  document.getElementById("setSelectModal").style.left=grid*6+"px";
+
+  document.getElementById("setSelectHolder").style.width=grid*36+"px";
+  document.getElementById("setSelectHolder").style.height=(grid*(cellsDown-14))+"px";
+  document.getElementById("setSelectHolder").style.top=grid*4+"px";
+  document.getElementById("setSelectScroller").style.width=grid*36+"px";
+
+  sdiv.style.height=(setKeys.length+1.5)*grid*3+"px";
+  sScroll=new iScroll("setSelectHolder");
+  updateSelectButtons();
+
+  var canv=document.getElementById("setSelectDone");
+  canv.width=canv.width;
+  canv.width=Math.floor(grid*6);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  var ctx=canv.getContext('2d');
+  var rad=grid/2;
+  var pad=grid/8;
+  ctx.lineWidth=grid/8; 
+  ctx.strokeStyle="white";
+  ctx.beginPath();
+  ctx.moveTo(pad+rad,pad);
+  ctx.lineTo(canv.width-rad-pad,pad);
+  ctx.arc(canv.width-rad-pad,rad+pad, rad, pi*1.5, pi*2, false);
+  ctx.arc(canv.width-rad-pad,canv.height-rad-pad, rad, pi*0, pi*.5, false);
+  ctx.arc(rad+pad,canv.height-rad-pad, rad, pi*.5, pi*1, false);
+  ctx.arc(rad+pad,rad+pad, rad, pi*1, pi*1.5, false);
+  ctx.stroke();
+  ctx.fillStyle="white";
+  ctx.font=Math.floor(grid*1.25)+"px sack";
+  ctx.textBaseline= "middle";  
+  ctx.textAlign= "center";    
+  ctx.fillText("done",canv.width/2,canv.height/2);
+
+  var canv=document.getElementById("setSelectButton");
+  canv.width=Math.floor(grid*6);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  var ctx=canv.getContext('2d');
+  var rad=grid/2;
+  var pad=grid/8;
+  ctx.lineWidth=grid/8; 
+  ctx.strokeStyle="white";
+  ctx.beginPath();
+  ctx.moveTo(pad+rad,pad);
+  ctx.lineTo(canv.width-rad-pad,pad);
+  ctx.arc(canv.width-rad-pad,rad+pad, rad, pi*1.5, pi*2, false);
+  ctx.arc(canv.width-rad-pad,canv.height-rad-pad, rad, pi*0, pi*.5, false);
+  ctx.arc(rad+pad,canv.height-rad-pad, rad, pi*.5, pi*1, false);
+  ctx.arc(rad+pad,rad+pad, rad, pi*1, pi*1.5, false);
+  ctx.stroke();
+  ctx.fillStyle="white";
+  ctx.font=Math.floor(grid*1.25)+"px sack";
+  ctx.textBaseline= "middle";  
+  ctx.textAlign= "center";    
+  ctx.fillText("set",canv.width/2,canv.height/2);
+
+  }
+function updateSelectButtons(){
+ for (var s=0; s<setKeys.length; s++){
+    var canv=document.getElementById("canv_"+s);
+    canv.width=canv.width;
+    var ctx=canv.getContext('2d');
+    var rad=grid/2;
+    var pad=grid/8;
+    ctx.lineWidth=grid/8; 
+    ctx.strokeStyle="black";
+    ctx.beginPath();
+
+    if(s==0){
+      ctx.moveTo(pad+rad,pad);
+      ctx.lineTo(canv.width-rad-pad,pad);
+      ctx.arc(canv.width-rad-pad,rad+pad, rad, pi*1.5, pi*2, false);
+      ctx.arc(canv.width-rad-pad,canv.height-rad-pad, rad, pi*0, pi*.5, false);
+      ctx.arc(rad+pad,canv.height-rad-pad, rad, pi*.5, pi*1, false);
+      ctx.arc(rad+pad,rad+pad, rad, pi*1, pi*1.5, false);
+      }
+    else if(s==1){
+      ctx.arc(rad+pad,rad+pad, rad, pi*1, pi*1.5, false);
+      ctx.arc(canv.width-rad-pad,rad+pad, rad, pi*1.5, pi*2, false);
+      ctx.lineTo(canv.width-pad,canv.height-pad);
+      ctx.lineTo(pad,canv.height-pad);
+      ctx.lineTo(pad,pad+rad);
+      }
+    else if(s==setKeys.length-1){
+      ctx.moveTo(pad,pad);
+      ctx.lineTo(canv.width-pad,pad);
+      ctx.arc(canv.width-rad-pad,canv.height-rad-pad, rad, pi*0, pi*.5, false);
+      ctx.arc(rad+pad,canv.height-rad-pad, rad, pi*.5, pi*1, false);
+      ctx.lineTo(pad,pad);
+      }
+    else{
+      ctx.moveTo(pad,pad);
+      ctx.lineTo(canv.width-pad,pad);
+      ctx.lineTo(canv.width-pad,canv.height-pad);
+      ctx.lineTo(pad,canv.height-pad);
+      ctx.lineTo(pad,pad);
+      }
+    ctx.stroke();
+    ctx.fillStyle="white";
+    ctx.fill();
+
+    var temp=setKeys[s].split("_");
+    var title=temp[1];
+    ctx.fillStyle="black";
+    ctx.font=Math.floor(grid*1.5)+"px sack";
+    ctx.textBaseline= "middle";  
+    ctx.textAlign= "left";    
+    ctx.fillText(title,grid*1,canv.height/2);
+
+    
+
+    if(selectedSetNum==s){
+      ctx.lineWidth=grid/3;
+      ctx.strokeStyle="#555";
+      ctx.beginPath();
+      ctx.moveTo(canv.width-grid*2, grid*1.5);
+      ctx.lineTo(canv.width-grid*1.5, grid*2);
+      ctx.lineTo(canv.width-grid*1, grid*1);
+      ctx.stroke();
+      }
+    }
+  }
+var pi=Math.PI;
+function loadData(){
+  $(document).ready(function(){
+      $.getJSON('config.json', function(json) {
+         //dbuga(JSON.stringify(json));
+         parseData(json);
+         //debugData();
+         });
+       });
+    }
+
+var setKeys=["9999_Favorites"];
+var sets={"9999_Favorites":[]};
+var selectedSetNum=0;
+function parseData(theData){
+  var itemData=theData.config.assets;
+  var allKeys=Object.keys(itemData);
+  for (var k=0; k<allKeys.length; k++){
+    var thisKey=allKeys[k];
+    var tempArray=thisKey.split('/');
+    var thisSet=tempArray[1];
+    var thisItem=tempArray[2];
+    if(inArray(thisSet,setKeys)==false){
+      setKeys.push(thisSet);
+      //dbuga('<b>'+thisSet+'</b>');
+      sets[thisSet]=[];
+      }
+    sets[thisSet].push(thisItem);
+    }
+  setKeys.sort();
+  setKeys.reverse();
+  
+  for (var s=0; s<setKeys.length; s++){
+    sets[setKeys[s]].sort();
+    }
+  selectedSetNum=1;
+  }
+
+function debugData(){
+  for (var s=0; s<setKeys.length; s++){
+    var setKey=setKeys[s];
+    //dbuga('<b>'+setKey+'</b>');
+    var set=sets[setKey];
+    for (var i=0; i<set.length; i++){
+      //dbuga(' '+set[i]);
+      }
+    }
+  }
+function hideSetSelect(){
+  document.getElementById('setSelectModal').style.display="none";
+  }
+function showSetSelect(){
+  document.getElementById('setSelectModal').style.display="block";
+  }
+function inArray(needle, haystack) {
+  var length = haystack.length;
+  for(var i = 0; i < length; i++) {
+    if(haystack[i] == needle) return true;
+    }
+  return false;
+  }
+function dbug(str) {
+  if(str==''){
+    ddiv.style.display = "none";
+    }
+  else{ddiv.style.display = "block";}
+    ddiv.innerHTML = str;
+    }
+function dbuga(str) {
+  ddiv.style.display = "block";
+  ddiv.innerHTML += "<br />"+str;
+  }
+function rnd(range) {
+  return Math.floor(Math.random()*range);
+  }
+</script>
+</head>
+<body onload="init()">
+<div id="debugDiv" style="top:100px;"></div>
+<canvas id="setSelectButton" onMouseDown="showSetSelect()"  style="background-color:blue;"></canvas>
+<div id="setSelectDim">
+  <div id="setSelectModal">
+    <canvas id="setSelectDone" onMouseDown="hideSetSelect()"></canvas>
+    <div id="setSelectHolder">
+      <div id="setSelectScroller"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1110 @@
+{
+    "config": {
+        "assets": {
+            "chocolate/1003_Fall 2011/090.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/010.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/070.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/020.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/030.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/080.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/060.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/040.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/030.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/100.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1001_Spring 2011/050.jpg": {
+                "path": "chocolate/1001_Spring 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/070.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/080.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/100.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/080.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/080.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/090.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/090.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/010.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/020.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/050.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/030.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/080.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1001_Spring 2011/040.jpg": {
+                "path": "chocolate/1001_Spring 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/060.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/090.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/070.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/070.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/100.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/080.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/090.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/020.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/010.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/040.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/020.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1001_Spring 2011/030.jpg": {
+                "path": "chocolate/1001_Spring 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/050.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/060.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/060.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/070.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/100.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/080.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/070.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/090.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/030.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/010.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1001_Spring 2011/020.jpg": {
+                "path": "chocolate/1001_Spring 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/050.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1003_Fall 2011/010.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/040.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/050.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/060.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/010.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/070.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/100.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/080.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/090.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/020.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1003_Fall 2011/020.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/030.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/040.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1001_Spring 2011/010.jpg": {
+                "path": "chocolate/1001_Spring 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/040.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/010.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/050.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/100.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/060.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/060.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/100.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/010.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/080.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/070.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/010.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1003_Fall 2011/030.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/090.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/020.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/020.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/030.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/030.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/040.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1003_Fall 2011/040.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/050.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/020.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/060.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/070.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/030.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/100.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/080.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/010.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/020.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/020.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/050.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1003_Fall 2011/050.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/030.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/030.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/040.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/040.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/050.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/060.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/090.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/070.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1001_Spring 2011/080.jpg": {
+                "path": "chocolate/1001_Spring 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/040.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/010.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/010.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1003_Fall 2011/060.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1003_Fall 2011/100.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/020.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/050.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/030.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/040.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/050.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/100.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1003_Fall 2011/070.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/060.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/050.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/080.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/040.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1001_Spring 2011/070.jpg": {
+                "path": "chocolate/1001_Spring 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/090.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/060.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/100.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1000_Winter 2010/010.jpg": {
+                "path": "chocolate/1000_Winter 2010",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "010.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1006_Summer 2012/020.jpg": {
+                "path": "chocolate/1006_Summer 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "020.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1002_Summer 2011/030.jpg": {
+                "path": "chocolate/1002_Summer 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "030.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/060.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1009_Spring 2013/040.jpg": {
+                "path": "chocolate/1009_Spring 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "040.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1011_Fall 2013/100.jpg": {
+                "path": "chocolate/1011_Fall 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1003_Fall 2011/080.jpg": {
+                "path": "chocolate/1003_Fall 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1010_Summer 2013/070.jpg": {
+                "path": "chocolate/1010_Summer 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1005_Spring 2012/050.jpg": {
+                "path": "chocolate/1005_Spring 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "050.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/100.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "100.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1007_Fall 2012/070.jpg": {
+                "path": "chocolate/1007_Fall 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "070.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1008_Winter 2012/080.jpg": {
+                "path": "chocolate/1008_Winter 2012",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "080.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1013_Spring 2014/090.jpg": {
+                "path": "chocolate/1013_Spring 2014",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1012_Holiday 2013/090.jpg": {
+                "path": "chocolate/1012_Holiday 2013",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1001_Spring 2011/060.jpg": {
+                "path": "chocolate/1001_Spring 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "060.jpg"
+                ],
+                "version": "1"
+            },
+            "chocolate/1004_Winter 2011/090.jpg": {
+                "path": "chocolate/1004_Winter 2011",
+                "baseUrl": "http://laforetchocolate.com/app/",
+                "fileList": [
+                    "090.jpg"
+                ],
+                "version": "1"
+            }
+        }
+    }
+}
