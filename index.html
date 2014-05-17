@@ -169,14 +169,14 @@ function measure(){
   if(ww>wh){
     orient="landscape";
     deviceWidth=wh;
-    document.getElementById('portraitMain').style.display="none";
-    document.getElementById('landscapeMain').style.display="block";
+    document.getElementById('portraitMain').style.top=wh+"px";
+    document.getElementById('landscapeMain').style.top=0+"px";
     }
   else{
     orient="portrait";
     deviceWidth=ww;
-    document.getElementById('portraitMain').style.display="block";
-    document.getElementById('landscapeMain').style.display="none";
+    document.getElementById('portraitMain').style.top=0+"px";
+    document.getElementById('landscapeMain').style.top=wh+"px";
     }
   if(orient != prevOrient){
     //dbuga('orient: '+orient);
@@ -200,8 +200,8 @@ function selectSet(setNum){
   }
 var selectUp=true;
 function hideRotor(){
-  document.getElementById('thumbsUi').style.display="block";
-  document.getElementById('rotorUi').style.display="none";
+  document.getElementById('thumbsUi').style.top=0+"px";
+  document.getElementById('rotorUi').style.top=wh+"px";
   }
 function updateSet(){
   updateSelectButtons();
@@ -398,20 +398,20 @@ function setRelease(i){
   }
 function selectThumb(num){
   //dbuga("selectThumb("+num+")");
-  document.getElementById('thumbsUi').style.display="none";
-  document.getElementById('rotorUi').style.display="block";
+  document.getElementById('thumbsUi').style.top=wh+"px";
+  document.getElementById('rotorUi').style.top=0+"px";
   selectedThumbNum=num;
   }
 
 function hideSetSelect(){
   dbuga("hideSetSelect() called" +selectUp);
   selectUp=false; 
-  document.getElementById('setSelectDim').style.display="none";
+  document.getElementById('setSelectDim').style.top=wh+"px";
   }
 function showSetSelect(){
   dbuga("showSetSelect()" +selectUp);
   selectUp=true;
-  document.getElementById('setSelectDim').style.display="block";
+  document.getElementById('setSelectDim').style.top=0+"px";
   }
 
 function updateThumbButtons(){
