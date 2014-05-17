@@ -602,7 +602,7 @@ function rnd(range) {
 <div id="portraitMain">
   <div id="thumbsUi">
     <div id="thumbsNavTop"   style="background-color:blue;">
-      <canvas id="setSelectButton" onMouseDown="showSetSelect()"></canvas>
+      <canvas id="setSelectButton" onMouseUp="window.setTimeout('showSetSelect()', 100)"></canvas>
       <div id="thumbsLabel"></div>
 
       <canvas id="infoButton" onMouseDown="showInfo()"></canvas>
@@ -615,7 +615,7 @@ function rnd(range) {
     <div id="setSelectDim">
       <div id="setSelectModal">
       <div id="setSelectNavTop">
-        <canvas id="setSelectCancel" onMouseDown="hideSetSelect()"></canvas>
+        <canvas id="setSelectCancel" onMouseUp="window.setTimeout('hideSetSelect()', 100)"></canvas>
       </div>
         <div id="setSelectHolder">
           <div id="setSelectScroller"></div>
@@ -631,7 +631,7 @@ function rnd(range) {
     </div>
     <div id="rotorNavBottom"></div>
   </div><! end of rotorUi>
-  <div id="debugDiv" style="top:0px;left:0px; position:absolute;">debugDiv</div>
+  <div id="debugDiv" style="top:0px;left:100px; position:absolute;"></div>
 </div><! end of portraitMain>
 </body>
 </html>
