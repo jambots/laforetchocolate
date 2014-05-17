@@ -607,7 +607,7 @@ function rnd(range) {
 <div id="portraitMain">
   <div id="thumbsUi">
     <div id="thumbsNavTop"   style="background-color:blue;">
-      <canvas id="setSelectButton" onMouseUp="window.setTimeout('showSetSelect()', 100)"></canvas>
+      <canvas id="setSelectButton" ontouchend="window.setTimeout('showSetSelect()', 100)"></canvas>
       <div id="thumbsLabel"></div>
 
       <canvas id="infoButton" onMouseDown="showInfo()"></canvas>
@@ -620,7 +620,7 @@ function rnd(range) {
     <div id="setSelectDim">
       <div id="setSelectModal">
       <div id="setSelectNavTop">
-        <canvas id="setSelectCancel" onMouseUp="window.setTimeout('hideSetSelect()', 100)"></canvas>
+        <canvas id="setSelectCancel" ontouchend="window.setTimeout('hideSetSelect()', 100)"></canvas>
       </div>
         <div id="setSelectHolder">
           <div id="setSelectScroller"></div>
