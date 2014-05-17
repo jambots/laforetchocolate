@@ -193,11 +193,12 @@ function measure(){
     }
   }
 function selectSet(setNum){
-  //dbug(setNum);
+  dbuga("selectSet("+setNum+")");
   selectedSetNum=setNum;
   updateSet();
   hideSetSelect();
   }
+var selectUp=true;
 function hideRotor(){
   document.getElementById('thumbsUi').style.display="block";
   document.getElementById('rotorUi').style.display="none";
@@ -403,9 +404,13 @@ function selectThumb(num){
   }
 
 function hideSetSelect(){
+  dbuga("hideSetSelect() called" +selectUp);
+  selectUp=false; 
   document.getElementById('setSelectDim').style.display="none";
   }
 function showSetSelect(){
+  dbuga("showSetSelect()" +selectUp);
+  selectUp=true;
   document.getElementById('setSelectDim').style.display="block";
   }
 
