@@ -36,7 +36,7 @@ font-family: 'sack';
 #thumbsUi{
   background-color:#555;
   position:absolute;
-  top:0;
+  top:1000;
   width:100%;
   height:100%;
   }
@@ -49,13 +49,13 @@ font-family: 'sack';
   background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
   }
 #thumbsHolder{
-  background-color:#f88;
+  background-color:#fff;
   width:100%;
   position:absolute;
   top:0;
   }
 #thumbsScroller{
-  background-color:#66f;
+  background-color:#fff;
   width:100%;
   }
 #setSelectDim{
@@ -81,7 +81,7 @@ font-family: 'sack';
 
 #setSelectHolder{
   position:absolute;
-  background-color:#666;
+  background-color:#eee;
   width:200px;
   height:250px;
   top:50px;
@@ -92,11 +92,11 @@ font-family: 'sack';
   width:180px;
   }
 #rotorUi{
-  background-color:#ff0;
+  background-color:#fff;
   width:100%;
   height:100%;
   position:absolute;
-  top:0;
+  top:1000;
   overflow:hidden;
   }
 #rotor{
@@ -437,7 +437,7 @@ function updateRotor(){
 
   var htmlString="";
   for (var i=0; i<set.length; i++){
-    htmlString+='<img ontouchstart="rotorTap('+i+')" ontouchend="rotorRelease('+i+')" height='+imgHeight+' width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
+    htmlString+='<img ontouchstart="rotorTap('+i+')" ontouchend="rotorRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
     }
 
   document.getElementById("rotor").innerHTML=htmlString;
