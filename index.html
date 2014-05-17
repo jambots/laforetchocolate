@@ -92,7 +92,6 @@ font-family: 'sack';
   width:180px;
   }
 #rotorUi{
-  display:none;
   background-color:#ff0;
   width:100%;
   height:100%;
@@ -114,10 +113,6 @@ font-family: 'sack';
   position:absolute;
   }
 // butts
-#portraitRotor{
-  display:none;
-  position:absolute;
-  }
 #infoButton{
   position:absolute;
   top:0;
@@ -143,9 +138,9 @@ var sdiv
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
-  dbug('init()');
+  //dbug('init()');
   loadData();
-  dbuga('loadData() ran');
+  //dbuga('loadData() ran');
   clearInterval(dimensionInterval);
   dimensionInterval=setInterval('dimensionTick()', 1000);
   }
@@ -187,13 +182,13 @@ function measure(){
   if(grid != newGrid){// init or resize somehow, not on rotate
     grid=newGrid;
     cellsDown=Math.floor(wh/grid);
-    dbuga(ww+' '+wh);
-    dbuga(cellsAcross+' '+cellsDown);
+    //dbuga(ww+' '+wh);
+    //dbuga(cellsAcross+' '+cellsDown);
     populate();
     }
   }
 function selectSet(setNum){
-  dbuga("selectSet("+setNum+")");
+  //dbuga("selectSet("+setNum+")");
   selectedSetNum=setNum;
   updateSet();
   hideSetSelect();
@@ -240,7 +235,7 @@ function roundRect(canv, color, background, label, labelColor, font, pointy){
   ctx.fillText(label,canv.width/2,canv.height/2);
   }
 function populate(){
-  dbuga('populate()');
+  //dbuga('populate()');
   var modalWidth=32;	
   var selectWidth=28;	
   var modalMargin=(cellsAcross-modalWidth)/2;
@@ -249,7 +244,7 @@ function populate(){
   htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';
   for (var s=0; s<setKeys.length; s++){
     htmlString+='<div style="height:'+grid*4+'px; width:'+grid*selectWidth+'px; padding-left:'+grid*2+'px; float:left;">';
-    htmlString+='<canvas onMouseDown="setTap('+s+')" onMouseUp="setRelease('+s+')" height='+Math.floor(grid*4)+' width='+Math.floor(grid*selectWidth)+' id="canv_'+s+'" style="position:absolute;"></canvas>';
+    htmlString+='<canvas ontouchstart="setTap('+s+')" ontouchend="setRelease('+s+')" height='+Math.floor(grid*4)+' width='+Math.floor(grid*selectWidth)+' id="canv_'+s+'" style="position:absolute;"></canvas>';
     htmlString+='</div>';
     if(s==0){htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';}
     sets[setKeys[s]].sort();
@@ -404,12 +399,12 @@ function selectThumb(num){
   }
 
 function hideSetSelect(){
-  dbuga("hideSetSelect() called" +selectUp);
+  //dbuga("hideSetSelect() called" +selectUp);
   selectUp=false; 
   document.getElementById('setSelectDim').style.top=wh+"px";
   }
 function showSetSelect(){
-  dbuga("showSetSelect()" +selectUp);
+  //dbuga("showSetSelect()" +selectUp);
   selectUp=true;
   document.getElementById('setSelectDim').style.top=0+"px";
   }
@@ -425,7 +420,7 @@ function updateThumbButtons(){
   var rows=1+Math.floor((set.length-1)/cols);
   //dbuga("rows="+rows);
   for (var i=0; i<set.length; i++){
-    htmlString+='<img onMouseDown="thumbTap('+i+')" onMouseUp="thumbRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
+    htmlString+='<img ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
     }
 
   document.getElementById("thumbsScroller").innerHTML=htmlString;
@@ -442,7 +437,7 @@ function updateRotor(){
 
   var htmlString="";
   for (var i=0; i<set.length; i++){
-    htmlString+='<img onMouseDown="rotorTap('+i+')" onMouseUp="rotorRelease('+i+')" height='+imgHeight+' width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
+    htmlString+='<img ontouchstart="rotorTap('+i+')" ontouchend="rotorRelease('+i+')" height='+imgHeight+' width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
     }
 
   document.getElementById("rotor").innerHTML=htmlString;
@@ -610,7 +605,7 @@ function rnd(range) {
       <canvas id="setSelectButton" ontouchend="window.setTimeout('showSetSelect()', 100)"></canvas>
       <div id="thumbsLabel"></div>
 
-      <canvas id="infoButton" onMouseDown="showInfo()"></canvas>
+      <canvas id="infoButton" ontouchstart="showInfo()"></canvas>
     </div>
     <div id="thumbsNavBottom">
     </div>
@@ -632,7 +627,7 @@ function rnd(range) {
   <div id="rotorUi">
     <div id="rotor"></div>
     <div id="rotorNavTop" style="background-color:#0f0;">
-      <canvas id="thumbsButton" onMouseDown="hideRotor()"></canvas>
+      <canvas id="thumbsButton" ontouchstart="hideRotor()"></canvas>
     </div>
     <div id="rotorNavBottom"></div>
   </div><! end of rotorUi>
