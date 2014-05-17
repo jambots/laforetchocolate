@@ -141,9 +141,9 @@ var sScroll;
 var tScroll;
 var sdiv
 function init(){
-  dbug('init()');
   ddiv=document.getElementById('debugDiv');
-  sdiv=document.getElementById('setSelectScroller');
+  sdiv=document.getElementById('setSelectScroller'); 
+  dbug('init()');
   loadData();
   dbuga('loadData() ran');
   clearInterval(dimensionInterval);
@@ -584,8 +584,8 @@ function dbug(str) {
     ddiv.style.display = "none";
     }
   else{ddiv.style.display = "block";}
-    ddiv.innerHTML = str;
-    }
+  ddiv.innerHTML = str;
+  }
 function dbuga(str) {
   ddiv.style.display = "block";
   ddiv.innerHTML += "<br />"+str;
@@ -630,7 +630,7 @@ function rnd(range) {
     <div id="rotorNavBottom"></nav>
 
   </div><! end of rotorUi>
-  <div id="debugDiv" style="top:0px;left:160px;position:absolute;">debugDiv</div>
+  <div id="debugDiv" style="top:0px;left:0px; position:absolute;">debugDiv</div>
 </div><! end of portraitMain>
 </body>
 </html>
