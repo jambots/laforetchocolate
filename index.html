@@ -143,9 +143,9 @@ var sdiv
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
-  //dbug('init()');
+  dbug('init()');
   loadData();
-  //dbuga('loadData() ran');
+  dbuga('loadData() ran');
   clearInterval(dimensionInterval);
   dimensionInterval=setInterval('dimensionTick()', 1000);
   }
@@ -158,10 +158,10 @@ function dimensionTick(){
     measure();
     }
   }
-var grid=10;
+var grid=3;
 var cellsDown=10;
-var cellsAcross=48;
-var deviceWidth=480;
+var cellsAcross=33;
+var deviceWidth=330;
 function measure(){
   ww=window.innerWidth;
   wh=window.innerHeight;
@@ -187,8 +187,8 @@ function measure(){
   if(grid != newGrid){// init or resize somehow, not on rotate
     grid=newGrid;
     cellsDown=Math.floor(wh/grid);
-    //dbuga(ww+' '+wh);
-    //dbuga(cellsAcross+' '+cellsDown);
+    dbuga(ww+' '+wh);
+    dbuga(cellsAcross+' '+cellsDown);
     populate();
     }
   }
@@ -239,6 +239,7 @@ function roundRect(canv, color, background, label, labelColor, font, pointy){
   ctx.fillText(label,canv.width/2,canv.height/2);
   }
 function populate(){
+  dbuga('populate()');
   var modalWidth=32;	
   var selectWidth=28;	
   var modalMargin=(cellsAcross-modalWidth)/2;
