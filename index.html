@@ -143,9 +143,9 @@ var sdiv
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
-  dbug('init()');
+  //dbug('init()');
   loadData();
-  dbuga('loadData() ran');
+  //dbuga('loadData() ran');
   clearInterval(dimensionInterval);
   dimensionInterval=setInterval('dimensionTick()', 1000);
   }
@@ -187,8 +187,8 @@ function measure(){
   if(grid != newGrid){// init or resize somehow, not on rotate
     grid=newGrid;
     cellsDown=Math.floor(wh/grid);
-    dbuga(ww+' '+wh);
-    dbuga(cellsAcross+' '+cellsDown);
+    //dbuga(ww+' '+wh);
+    //dbuga(cellsAcross+' '+cellsDown);
     populate();
     }
   }
@@ -242,7 +242,7 @@ function populate(){
   var modalWidth=32;	
   var selectWidth=28;	
   var modalMargin=(cellsAcross-modalWidth)/2;
-  dbuga(modalMargin);
+  //dbuga(modalMargin);
   var htmlString="";
   htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';
   for (var s=0; s<setKeys.length; s++){
@@ -353,13 +353,13 @@ function rotorRelease(i){
   var deltaT=d.getTime()-rotorTappedMs;
   if(deltaT<400){
     //selectRotor(rotorTappedNum);
-    dbuga("rotorRelease("+i+") "+deltaT);
+    //dbuga("rotorRelease("+i+") "+deltaT);
     }
   rotorTappedMs=-1;
   }
 function thumbTap(i){
   thumbTappedNum=i;
-  dbuga("thumbTap("+i+") ");
+  //dbuga("thumbTap("+i+") ");
   var d = new Date();
   thumbTappedMs=d.getTime();
   }
@@ -370,13 +370,13 @@ function thumbRelease(i){
   var d = new Date();
   var deltaT=d.getTime()-thumbTappedMs;
   if(deltaT<400){
-    dbuga("thumbRelease("+i+") "+thumbTappedNum);
+    //dbuga("thumbRelease("+i+") "+thumbTappedNum);
     selectThumb(thumbTappedNum);
     }
   thumbTappedMs=-1;
   }
 function setTap(i){
-  dbuga("setTap("+i+") ");
+  //dbuga("setTap("+i+") ");
 
   setTappedNum=i;
   var d = new Date();
@@ -389,13 +389,13 @@ function setRelease(i){
   var d = new Date();
   var deltaT=d.getTime()-setTappedMs;
   if(deltaT<400){
-    dbuga("setRelease("+i+") "+deltaT);
+    //dbuga("setRelease("+i+") "+deltaT);
     selectSet(setTappedNum);
     }
   setTappedMs=-1;
   }
 function selectThumb(num){
-  dbuga("selectThumb("+num+")");
+  //dbuga("selectThumb("+num+")");
   document.getElementById('thumbsUi').style.display="none";
   document.getElementById('rotorUi').style.display="block";
   selectedThumbNum=num;
@@ -621,14 +621,14 @@ function rnd(range) {
         </div>
       </div>
     </div>
-  </div><! end of thumbsUi>
+  </div>
+  <! end of thumbsUi>
   <div id="rotorUi">
     <div id="rotor"></div>
     <div id="rotorNavTop" style="background-color:#0f0;">
       <canvas id="thumbsButton" onMouseDown="hideRotor()"></canvas>
     </div>
-    <div id="rotorNavBottom"></nav>
-
+    <div id="rotorNavBottom"></div>
   </div><! end of rotorUi>
   <div id="debugDiv" style="top:0px;left:0px; position:absolute;">debugDiv</div>
 </div><! end of portraitMain>
