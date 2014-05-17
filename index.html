@@ -141,10 +141,11 @@ var sScroll;
 var tScroll;
 var sdiv
 function init(){
+  dbug('init()');
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller');
   loadData();
-  //dbuga('init() ran');
+  dbuga('loadData() ran');
   clearInterval(dimensionInterval);
   dimensionInterval=setInterval('dimensionTick()', 1000);
   }
@@ -629,7 +630,7 @@ function rnd(range) {
     <div id="rotorNavBottom"></nav>
 
   </div><! end of rotorUi>
-  <div id="debugDiv" style="top:0px;left:160px;position:absolute;"></div>
+  <div id="debugDiv" style="top:0px;left:160px;position:absolute;">debugDiv</div>
 </div><! end of portraitMain>
 </body>
 </html>
