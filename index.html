@@ -138,6 +138,12 @@ var sdiv
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
+  document.ontouchmove=function(e) {
+    if(touchingRotor){
+      e.preventDefault();
+      touchSwipe(e);
+      }
+    }
   //dbug('init()');
   loadData();
   //dbuga('loadData() ran');
@@ -340,7 +346,9 @@ var thumbTappedMs=-1;
 var rotorTappedNum=0;
 var rotorTappedMs=-1;
 var touchingRotor=false;
-function rotorTap(i){
+function rotorTap(i, e){
+  e.preventDefault();
+  mouseX=e.touches[0].pageX;
   touchingRotor=true;
   rotorDragStartX=mouseX;
   rotorDragStartAt=rotorAtItem;
@@ -384,7 +392,7 @@ function updateRotor(){
 
   var htmlString="";
   for (var i=0; i<set.length; i++){
-    htmlString+='<img ontouchstart="rotorTap('+i+'); return false;" ontouchend="rotorRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
+    htmlString+='<img ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
     }
   rotorWidth=(imgWidth*set.length);
   rotorMax=rotorWidth-imgWidth;
@@ -664,11 +672,18 @@ function mouseSwipe(e){
   mouseX=e.pageX;
   }
 function touchSwipe(e){
-  mouseX=event.touches[0].pageX;
+  if(touchingRotor){
+    e.preventDefault();
+    mouseX=event.touches[0].pageX;
+    }
   }
+function gestureStart(e){
+  e.preventDefault();
+  }
+
 </script>
 </head>
-<body onload="init()" ontouchmove="touchSwipe(event)">
+<body onload="init()" ongesturestart="gestureStart(event)";>
 <div id="landscapeMain">
 </div>
 <div id="portraitMain">
