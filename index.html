@@ -10,6 +10,22 @@
 <script type="text/javascript" src="iscroll-lite.js"></script>
 <link rel = "stylesheet" type = "text/css" href = "reset.css">
 <style>
+#infoHolder{
+  background-image:url('info.png');
+  background-size:contain;
+  background-align:center top;
+  background-repeat:no-repeat;
+  }
+.flowPanel{
+  //background-color:yellow;
+  background-size:contain;
+  }
+@font-face {
+    font-family: 'signify';
+    src: url('signify.ttf') format('truetype');
+    font-weight:normal;
+    font-style:normal;
+}
 @font-face {
     font-family: 'sack';
     src: url('sackh.ttf') format('truetype');
@@ -17,15 +33,27 @@
     font-style:normal;
 }
 *{
-font-family: 'sack';
+font-family: 'Arial';
 -webkit-user-select:none;
+-webkit-backface-visibility:hidden;
 }
+#debugDiv{
+  }
 #landscapeMain{
-  background-color:#555;
+  background-color:#000;
   position:absolute;
   top:0;
   width:100%;
   height:100%;
+  top:-1000;
+  }
+#flow{
+  background-color:#77b;
+  position:absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
   }
 #portraitMain{
   background-color:#555;
@@ -79,7 +107,11 @@ font-family: 'sack';
   width:100%;
   background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
   }
-
+#setSelectLabel{
+  position:absolute;
+  text-align:center;
+  color:white;
+  }
 #setSelectHolder{
   position:absolute;
   background-color:#eee;
@@ -91,6 +123,59 @@ font-family: 'sack';
 #setSelectScroller{
   background-color:#ccc;
   width:180px;
+  }
+
+
+
+#infoDim{
+  top:-1000;
+  left:0;
+  position:absolute;
+  background-color:rgba(0,0,0,.5);
+  width:100%;
+  height:100%;
+  }
+#infoModal{
+  position:absolute;
+  background-color:#f00;
+  width:200px;
+  height:300px;
+  top:10px;
+  left:10px;
+  }
+#infoNavTop{
+  width:100%;
+  background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
+  position:absolute;
+  }
+#infoNavBottom{
+  width:100%;
+  background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
+  position:absolute;
+  }
+#infoLabel{
+  position:absolute;
+  text-align:center;
+  color:white;
+  }
+#infoHolder{
+  position:absolute;
+  background-color:#fff;
+  width:200px;
+  height:250px;
+  top:50px;
+  left:0px;
+  }
+
+#thumbsLabel{
+  position:absolute;
+  text-align:center;
+  color:white;
+  }
+#rotorLabel{
+  position:absolute;
+  text-align:center;
+  color:white;
   }
 #rotorUi{
   background-color:#fff;
@@ -113,11 +198,39 @@ font-family: 'sack';
   width:100%;
   position:absolute;
   }
-// butts
+
+
+/* butts */
+#mailButton{
+  position:absolute;
+  top:0;
+  } 
+#linkButton {
+  position:absolute;
+  top:0;
+  }
+#saveButton{
+  position:absolute;
+  top:0;
+  }
+#prevButton{
+  position:absolute;
+  top:0;
+  }
+#nextButton{
+  position:absolute;
+  top:0;
+  }
+#faveButton{
+  position:absolute;
+  top:0;
+  }
+
 #infoButton{
   position:absolute;
   top:0;
   }
+
 #thumbsButton{
   position:absolute;
   top:0;
@@ -130,33 +243,162 @@ font-family: 'sack';
   position:absolute;
   top:0;
   }
+#infoCancel{
+  position:absolute;
+  top:0;
+  }
+#jambotsButton{
+  position:absolute;
+  top:0;
+  }
 </style>
 <script>
 var ddiv;
 var sScroll;
 var tScroll;
-var sdiv;
+var sdiv
+var agent="unknown";
 
-function init(){
-  ddiv=document.getElementById('debugDiv');
-  sdiv=document.getElementById('setSelectScroller'); 
-  document.ontouchmove=function(e) {
-    if(touchingRotor){
-      e.preventDefault();
-      touchSwipe(e);
+function mailButton(){
+  window.location='mailto:info@laforetchocolate.com';
+  }
+function linkButton(){
+  window.plugins.childBrowser.openExternal("http://www.laforetchocolate.com");
+  }
+function jambotsButton(){
+  window.plugins.childBrowser.openExternal("http://www.jambots.com");
+  }
+function saveButton(){
+  var saveName=faveKey;
+  saveName=saveName.replace("/", "_");
+  saveName=saveName.replace("/", "_");
+  saveName=saveName.replace(".jpg", "");
+
+  dbuga(saveName);
+  savefile("http://www.laforetchocolate.com/app/"+faveKey, "laforet", saveName);
+  }
+var unfaveArray=[];
+function faveButton(){
+  var canv=document.getElementById('faveButton'); 
+  var selectedSetKey=setKeys[selectedSetNum];
+  var set=sets[selectedSetKey];
+  if(selectedSetKey=="9999_Favorites"){//toggle unfave
+    if(unfaveArray.indexOf(faveKey) == -1){
+      unfaveArray.push(faveKey);
+      }
+    else{
+      var temp=unfaveArray;
+      unfaveArray=[];
+      for (var i=0; i<temp.length; i++){
+        if(temp[i]!=faveKey){
+          unfaveArray.push(temp[i]);
+          }
+        }
       }
     }
+  else{// in normal set so toggle immediately
+    if(sets["9999_Favorites"].indexOf(faveKey) > -1){// copy remove loop
+      var temp=sets["9999_Favorites"];
+      sets["9999_Favorites"]=[];
+      for (var i=0; i<temp.length; i++){
+        if(temp[i]!=faveKey){
+          sets["9999_Favorites"].push(faveKey);
+          }
+        }
+      }
+    else{
+      sets["9999_Favorites"].push(faveKey);
+      }
+    localStorage.setItem("favorites", JSON.stringify(sets["9999_Favorites"]));
+    }
+
+  // update button display
+  if((sets["9999_Favorites"].indexOf(faveKey) > -1)&&(unfaveArray.indexOf(faveKey) == -1)){
+    roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+    }
+  else{
+    roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+    }
+  }
+
+function init(){
+
+  ddiv=document.getElementById('debugDiv');
+  sdiv=document.getElementById('setSelectScroller'); 
+
+
+  if(navigator.userAgent.indexOf('Windows')>-1){agent="windows";}
+  if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
+  //dbuga(agent);
+/*
+mailButton
+linkButton
+saveButton
+prevButton
+nextButton
+faveButton
+*/
+
+  if(agent=="windows"){
+    document.onmousemove=function(e){
+      //dbug(e.pageX);
+      if((touchingRotor)||(touchingFlow)){
+        e.preventDefault();
+        mouseSwipe(e);
+        }
+      }
+    document.getElementById("infoCancel").onmousedown=function(e){infoCancel();}
+    document.getElementById("jambotsButton").onmousedown=function(e){jambotsButton();}
+    document.getElementById("setSelectCancel").onmousedown=function(e){hideSetSelect();}
+    document.getElementById("setSelectButton").onmousedown=function(e){showSetSelect();}
+    document.getElementById("infoButton").onmousedown=function(e){showInfo();}
+    document.getElementById("thumbsButton").onmousedown=function(e){hideRotor();}
+    document.getElementById("mailButton").onmousedown=function(e){mailButton();}
+    document.getElementById("linkButton").onmousedown=function(e){linkButton();}
+    document.getElementById("saveButton").onmousedown=function(e){saveButton();}
+    document.getElementById("prevButton").onmousedown=function(e){prevButton();}
+    document.getElementById("nextButton").onmousedown=function(e){nextButton();}
+    document.getElementById("faveButton").onmousedown=function(e){faveButton();}
+    document.getElementById("landscapeMain").onmousedown=function(e){flowClick(event);}
+    document.getElementById("landscapeMain").onmouseup=function(e){flowMouseup(event);}
+    }
+  if(agent=="droid"){
+    document.ontouchmove=function(e){
+      if((touchingRotor)||(touchingFlow)){
+        e.preventDefault();
+        touchSwipe(e);
+        }
+      }
+    document.getElementById("infoCancel").ontouchstart=function(e){infoCancel();}
+    document.getElementById("jambotsButton").ontouchstart=function(e){jambotsButton();}
+    document.getElementById("setSelectCancel").ontouchstart=function(e){hideSetSelect();}
+    document.getElementById("setSelectButton").ontouchstart=function(e){showSetSelect();}
+    document.getElementById("infoButton").ontouchstart=function(e){showInfo();}
+    document.getElementById("thumbsButton").ontouchstart=function(e){hideRotor();}
+    document.getElementById("mailButton").ontouchstart=function(e){mailButton();}
+    document.getElementById("linkButton").ontouchstart=function(e){linkButton();}
+    document.getElementById("saveButton").ontouchstart=function(e){saveButton();}
+    document.getElementById("prevButton").ontouchstart=function(e){prevButton();}
+    document.getElementById("nextButton").ontouchstart=function(e){nextButton();}
+    document.getElementById("faveButton").ontouchstart=function(e){faveButton();}
+    document.getElementById("landscapeMain").ontouchstart=function(e){flowTap(event);}
+    document.getElementById("landscapeMain").ontouchend=function(e){flowRelease(event);}
+    }
+
   //dbug('init()');
   loadData();
+
+  if(localStorage.getItem("favorites") === null) {
+    localStorage.setItem("favorites", "[]");
+    }
+  else{
+    var favoritesString=localStorage.getItem("favorites");
+    sets["9999_Favorites"]=JSON.parse(favoritesString);
+    }
   //dbuga('loadData() ran');
   clearInterval(dimensionInterval);
   dimensionInterval=setInterval('dimensionTick()', 1000);
-  //savefile("http://www.laforetchocolate.com/app/info.png", "laforet", "info.png");
   }
-
-
-
-
 var dimensionInterval;
 var ww=0;
 var wh=0;
@@ -187,7 +429,8 @@ function measure(){
     document.getElementById('landscapeMain').style.top=(0-wh)+"px";
     }
   if(orient != prevOrient){
-    //dbuga('orient: '+orient);
+    if(orient=="portrait"){rotorAtItem=flowAtItem;}
+    else{flowAtItem=rotorAtItem;}
     }
   cellsAcross=32;
   if(deviceWidth>540){cellsAcross=48;}
@@ -211,15 +454,90 @@ function hideRotor(){
   rotorUp=false;
   document.getElementById('thumbsUi').style.top=0+"px";
   document.getElementById('rotorUi').style.top=(0-wh)+"px";
+  var selectedSetKey=setKeys[selectedSetNum];
+  if(selectedSetKey=="9999_Favorites"){
+    var temp=sets["9999_Favorites"];
+    sets["9999_Favorites"]=[];
+    for (var i=0; i<temp.length; i++){
+      if(unfaveArray.indexOf(temp[i])==-1){
+        sets["9999_Favorites"].push(temp[i]);
+        }
+      }
+    localStorage.setItem("favorites", JSON.stringify(sets["9999_Favorites"]));
+    unfaveArray=[];
+    updateSet();
+    }
   }
+var setReady=false;
 function updateSet(){
   updateSelectButtons();
   updateThumbButtons();
   updateRotor();
-  updateCoverflow();
+  updateFlow();
+  setReady=true;
   }
-function updateCoverflow(){
+var touchingFlow=false;
+var flowWidth=0;
+var flowAtItem=0;
+var flowProg=1;
+var flowMax=0;
+var flowDockStartAt=0;
+var flowDockStartX=0;
+var flowDragStartAt=0;
+var flowDragStartX=0;
+
+function updateFlow(){
+  var selectedSetKey=setKeys[selectedSetNum];
+  var set=sets[selectedSetKey];
+  
+  var imgHeight=deviceWidth*.9;
+  var imgWidth=Math.floor(imgHeight*3/4);
+
+
+  var htmlString="";
+  //dbuga(imgWidth);
+  for (var i=0; i<set.length; i++){
+    htmlString+='<div class="flowPanel" id="flow_'+i+'" style="background-color:blue; background-image:url(\'http://laforetchocolate.com/app/'+set[i]+'\'); width:'+imgWidth+'px; height:'+imgHeight+'px; position:absolute; left:'+imgWidth*i+'px;" zsrc="http://laforetchocolate.com/app/'+set[i]+'"></div>';
+//http://laforetchocolate.com/app/'+set[i]+'
+    }
+  flowWidth=(imgWidth*set.length);
+  flowMax=rotorWidth-imgWidth;
+  document.getElementById("flow").innerHTML=htmlString;
+  //document.getElementById("flow").style.width=flowWidth+"px";
   }
+
+function flowClick(e){
+  //dbuga('flowClick');
+  if(agent=="droid"){return false;}
+  e.preventDefault();
+  mouseX=e.pageX;
+  touchingFlow=true;
+  flowDragStartX=mouseX;
+  flowDragStartAt=flowAtItem;
+  //rotorTappedNum=i;
+  var d = new Date();
+  flowTappedMs=d.getTime();
+  }
+function flowMouseup(e){
+  //dbuga('flowMouseup');
+  if(agent=="droid"){return false;}
+  if(flowTappedMs==-1){
+    return false;
+    }
+  var d = new Date();
+  var deltaT=d.getTime()-flowTappedMs;
+  if(deltaT<400){
+    //selectFlow(flowTappedNum);
+    }
+  else{
+    }
+  flowProg=1;
+  flowDockStartAt=flowAtItem;
+  flowDockStartX=mouseX;
+  touchingFlow=false;
+  flowTappedMs=-1;
+  }
+
 function roundRect(canv, color, background, label, labelColor, font, pointy){
   var ctx=canv.getContext('2d');
   var rad=grid/2;
@@ -248,6 +566,10 @@ function roundRect(canv, color, background, label, labelColor, font, pointy){
   ctx.font=font;  
   ctx.fillText(label,canv.width/2,canv.height/2);
   }
+function infoCancel(){
+  hideInfo();
+  }
+
 function populate(){
   //dbuga('populate()');
   var modalWidth=32;	
@@ -258,13 +580,33 @@ function populate(){
   htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';
   for (var s=0; s<setKeys.length; s++){
     htmlString+='<div style="height:'+grid*4+'px; width:'+grid*selectWidth+'px; padding-left:'+grid*2+'px; float:left;">';
-    htmlString+='<canvas ontouchstart="setTap('+s+')" ontouchend="setRelease('+s+')" height='+Math.floor(grid*4)+' width='+Math.floor(grid*selectWidth)+' id="canv_'+s+'" style="position:absolute;"></canvas>';
+    htmlString+='<canvas onmousedown="setTap('+s+')" onmouseup="setRelease('+s+')" ontouchstart="setTap('+s+')" ontouchend="setRelease('+s+')" height='+Math.floor(grid*4)+' width='+Math.floor(grid*selectWidth)+' id="canv_'+s+'" style="position:absolute;"></canvas>';
     htmlString+='</div>';
     if(s==0){htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';}
     sets[setKeys[s]].sort();
     }
   sdiv.innerHTML=htmlString;
- 
+
+  document.getElementById("infoLabel").style.width=grid*modalWidth/2+"px";
+  document.getElementById("infoLabel").style.left=grid*modalWidth/4+"px";
+  document.getElementById("infoLabel").style.top=grid*1+"px";
+  document.getElementById("infoLabel").style.fontSize=grid*2+"px";
+
+  document.getElementById("setSelectLabel").style.width=grid*modalWidth/2+"px";
+  document.getElementById("setSelectLabel").style.left=grid*modalWidth/4+"px";
+  document.getElementById("setSelectLabel").style.top=grid*1+"px";
+  document.getElementById("setSelectLabel").style.fontSize=grid*2+"px";
+
+  document.getElementById("thumbsLabel").style.width=ww/2+"px";
+  document.getElementById("thumbsLabel").style.left=ww/4+"px";
+  document.getElementById("thumbsLabel").style.top=grid*1+"px";
+  document.getElementById("thumbsLabel").style.fontSize=grid*2+"px";
+   
+  document.getElementById("rotorLabel").style.width=ww/2+"px";
+  document.getElementById("rotorLabel").style.left=ww/4+"px";
+  document.getElementById("rotorLabel").style.top=grid*1+"px";
+  document.getElementById("rotorLabel").style.fontSize=grid*2+"px";
+   
   document.getElementById("setSelectModal").style.width=grid*modalWidth+"px";
   document.getElementById("setSelectModal").style.height=(grid*(cellsDown-2*modalMargin))+"px";
   document.getElementById("setSelectModal").style.top=grid*modalMargin+"px";
@@ -274,6 +616,22 @@ function populate(){
   document.getElementById("setSelectHolder").style.height=(wh-grid*4-grid*modalMargin*2)+"px";
   document.getElementById("setSelectHolder").style.top=grid*4+"px";
   document.getElementById("setSelectScroller").style.width=grid*modalWidth+"px";
+
+  document.getElementById("infoModal").style.width=grid*modalWidth+"px";
+  document.getElementById("infoModal").style.height=(grid*(cellsDown-2*modalMargin))+"px";
+  document.getElementById("infoModal").style.top=grid*modalMargin+"px";
+  document.getElementById("infoModal").style.left=grid*modalMargin+"px";
+
+  document.getElementById("infoHolder").style.width=grid*modalWidth+"px";
+  document.getElementById("infoHolder").style.height=(wh-grid*8-grid*modalMargin*2)+"px";
+  document.getElementById("infoHolder").style.top=grid*4+"px";
+
+  document.getElementById("infoNavTop").style.height=grid*4+"px";
+  document.getElementById("infoNavTop").style.width=grid*modalWidth+"px";
+  document.getElementById("infoNavBottom").style.top=(wh-grid*4-grid*modalMargin*2)+"px";
+  document.getElementById("infoNavBottom").style.height=grid*4+"px";
+  document.getElementById("infoNavBottom").style.width=grid*modalWidth+"px";
+
 
   sdiv.style.height=(setKeys.length+1.5)*grid*4+"px";
 
@@ -294,11 +652,65 @@ function populate(){
 
   document.getElementById("setSelectNavTop").style.height=grid*4+"px";
 
+
+
   updateSet();
   tScroll=new iScroll("thumbsHolder");
   sScroll=new iScroll("setSelectHolder");
 
   // buttons  
+
+
+  var canv=document.getElementById("mailButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "E", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("linkButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=ww-grid*3.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "A", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("jambotsButton");
+  canv.width=Math.floor(grid*9);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=(grid*modalWidth-grid*9.5)+"px";
+  roundRect(canv, "#666", "#222", "jambots apps", "#fff", Math.floor(grid*1.25)+"px Arial", false);
+
+  var canv=document.getElementById("saveButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "G", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("prevButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=ww*.333-grid*1.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "4", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("nextButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=ww*.666-grid*1.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "2", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("faveButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=ww-grid*3.5+"px";
+  roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+
+
 
 
 
@@ -307,13 +719,21 @@ function populate(){
   canv.height=Math.floor(grid*3);
   canv.style.top=grid*.5+"px";
   canv.style.left=grid*.5+"px";
-  roundRect(canv, "#666", "#222", "Cancel", "#fff", Math.floor(grid*1.25)+"px sack", false);
+  roundRect(canv, "#666", "#222", "Cancel", "#fff", Math.floor(grid*1.25)+"px Arial", false);
+
+  var canv=document.getElementById("infoCancel");
+  canv.width=Math.floor(grid*6);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  roundRect(canv, "#666", "#222", "Cancel", "#fff", Math.floor(grid*1.25)+"px Arial", false);
 
   var canv=document.getElementById("infoButton");
   canv.width=Math.floor(grid*3);
   canv.height=Math.floor(grid*3);
   canv.style.top=grid*.5+"px";
   canv.style.left=(ww-grid*4.5)+"px";
+
   var ctx=canv.getContext('2d');
   ctx.beginPath();
   ctx.arc(grid*1.5, grid*1.5,grid*1,0,pi*2,true);
@@ -353,7 +773,19 @@ var thumbTappedMs=-1;
 var rotorTappedNum=0;
 var rotorTappedMs=-1;
 var touchingRotor=false;
+function flowTap(e){
+  //dbuga('flowTap');
+  e.preventDefault();
+  mouseX=e.touches[0].pageX;
+  touchingFlow=true;
+  flowDragStartX=mouseX;
+  flowDragStartAt=flowAtItem;
+  var d = new Date();
+  flowTappedMs=d.getTime();
+  }
+
 function rotorTap(i, e){
+  //dbuga('rotorTap '+rotorTappedMs);
   e.preventDefault();
   mouseX=e.touches[0].pageX;
   touchingRotor=true;
@@ -363,20 +795,87 @@ function rotorTap(i, e){
   var d = new Date();
   rotorTappedMs=d.getTime();
   }
-function rotorRelease(i){
-  rotorProg=1;
-  rotorDockStartAt=rotorAtItem;
-  rotorDockStartX=mouseX;
+function rotorClick(i, e){
+  if(agent=="droid"){return false;}
+  e.preventDefault();
+  mouseX=e.pageX;
+  //dbuga('rotorClick '+rotorTappedMs);
+  touchingRotor=true;
+  rotorDragStartX=mouseX;
+  rotorDragStartAt=rotorAtItem;
+  rotorTappedNum=i;
+  var d = new Date();
+  rotorTappedMs=d.getTime();
+  }
+function rotorMouseup(i){
+  if(agent=="droid"){return false;}
   if(rotorTappedMs==-1){
     return false;
     }
-  touchingRotor=false;
   var d = new Date();
   var deltaT=d.getTime()-rotorTappedMs;
   if(deltaT<400){
     //selectRotor(rotorTappedNum);
     //dbuga("rotorRelease("+i+") "+deltaT);
     }
+  else{
+    }
+  rotorProg=1;
+  rotorDockStartAt=rotorAtItem;
+  rotorDockStartX=mouseX;
+  touchingRotor=false;
+  rotorTappedMs=-1;
+  }
+
+function prevButton(){// fake a gesture
+  rotorProg=1;
+  rotorDockStartAt=rotorAtItem-.01;
+  rotorDockStartX=1;
+  rotorDragStartX=0;
+  }
+function nextButton(){//fake a gesture
+  rotorProg=1;
+  rotorDockStartAt=rotorAtItem+.01;
+  rotorDockStartX=0;
+  rotorDragStartX=1;
+  }
+
+
+function flowRelease(){
+  if(flowTappedMs==-1){
+    return false;
+    }
+  var d = new Date();
+  var deltaT=d.getTime()-flowTappedMs;
+  if(deltaT<400){
+    //selectflow(flowTappedNum);
+    //dbuga("flowRelease("+i+") "+deltaT);
+    }
+  else{
+    }
+  flowProg=1;
+  flowDockStartAt=flowAtItem;
+  flowDockStartX=mouseX;
+  touchingFlow=false;
+  flowTappedMs=-1;
+  }
+
+function rotorRelease(i){
+  if(rotorTappedMs==-1){
+    return false;
+    }
+  var d = new Date();
+  var deltaT=d.getTime()-rotorTappedMs;
+  if(deltaT<400){
+    //selectRotor(rotorTappedNum);
+    //dbuga("rotorRelease("+i+") "+deltaT);
+    }
+  else{
+    }
+  rotorProg=1;
+  rotorDockStartAt=rotorAtItem;
+  rotorDockStartX=mouseX;
+  touchingRotor=false;
   rotorTappedMs=-1;
   }
 var rotorUp=false;
@@ -399,7 +898,12 @@ function updateRotor(){
 
   var htmlString="";
   for (var i=0; i<set.length; i++){
-    htmlString+='<img ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
+    if(agent=="windows"){
+      htmlString+='<img onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+      }
+    if(agent=="droid"){
+      htmlString+='<img ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+      }
     }
   rotorWidth=(imgWidth*set.length);
   rotorMax=rotorWidth-imgWidth;
@@ -410,17 +914,116 @@ function clip(num){
   return Math.floor(num*100)/100;
   }
 var animTimeout;
+var faveKey="";
+
 function animTick(){
   window.clearTimeout(animTimeout);
+  if(setReady){
+    if(orient=="portrait"){portraitAnim();}
+    else{landscapeAnim();}
+    }
+  animTimeout=window.setTimeout("animTick()", 25);
+  }
+function landscapeAnim(){
+  var imgHeight=deviceWidth*.9;
+  var imgWidth=Math.floor(imgHeight*3/4);
+  var setKey=setKeys[selectedSetNum];
+  var set=sets[setKeys[selectedSetNum]];
+
+  if(touchingFlow==true){
+    var deltaX=mouseX-flowDragStartX;
+    var deltaItem=deltaX/imgWidth;
+    flowAtItem=flowDragStartAt-deltaItem;
+    if(flowAtItem<-.1){flowAtItem=-.1;}
+    if(flowAtItem>set.length-.9){flowAtItem=set.length-.9;}
+    }
+  else{
+    if(flowProg>0){
+      flowProg-=.1;
+      if(flowProg<0){flowProg=0;}
+      var target=Math.floor(flowDockStartAt);
+      if(flowDockStartX>flowDragStartX){target=Math.floor(flowDockStartAt);}
+      if(flowDockStartX<flowDragStartX){target=Math.floor(flowDockStartAt+1);}
+      if(target<0){target=0;}
+      if(target>set.length-1){target=set.length-1;}
+      //dbug("target "+target);
+      if(target>flowDragStartAt+1){
+        target--;
+        //dbuga("target--");
+        }
+      if(target<flowDragStartAt-1){
+        target++;
+        //dbuga("target++");
+        }
+      var atDelta=target-flowDockStartAt;
+      var atDeltaProg=atDelta*(1-flowProg*flowProg);
+      flowAtItem=flowDockStartAt+atDeltaProg;
+
+      if(flowProg<=0){
+        rotorAtItem=flowAtItem;       
+        document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
+        faveKey=set[target];
+        var canv=document.getElementById("faveButton");
+        if((sets["9999_Favorites"].indexOf(faveKey) > -1)&&(unfaveArray.indexOf(faveKey) == -1)){
+          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        else{
+          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        }
+
+      }
+    }
+  var middle=ww/2-imgWidth/2;
+  document.getElementById('flow').style.webkitPerspective=wh+"px";
+  document.getElementById('flow').style.webkitTransform="translate3d(0,0,0)";
+  //dbug('');
+
+  //dbug(" "+Math.floor(flowAtItem*100)/100);
+
+  for(var i=0; i<set.length; i++){
+    var deltaAt=(i-flowAtItem);
+    var itemsFromAt=Math.abs(deltaAt);
+    var filedAmount=deltaAt;
+    if(filedAmount>1){filedAmount=1;}
+    if(filedAmount<-1){filedAmount=-1;}
+    var filedFraction=Math.abs(filedAmount);
+    //if(i==3){dbuga(Math.floor(filedFraction*100)/100);}
+    var x=Math.floor(imgWidth*(i-flowAtItem+filedAmount)/2);
+    var y=0;
+    var z=-Math.floor(imgWidth*(filedFraction/3+itemsFromAt/3));
+    var r=-90*filedAmount;
+    var thisFlow=document.getElementById("flow_"+i);
+    thisFlow.style.left=middle+"px";
+    thisFlow.style.top=wh*.05+"px";
+  
+    thisFlow.style.webkitTransformOrigin="center center";
+    thisFlow.style.webkitTransform="translateZ("+z+"px) translateX("+x+"px) rotateY("+r+"deg)";
+    }
+
+/*
+  //dbug("touchingFlow "+touchingFlow);
+dbuga("x  "+x);
+dbuga("flowAtItem "+clip(flowAtItem));
+dbuga("flowDragStartX "+clip(flowDragStartX));
+dbuga("flowDragStartAt "+clip(flowDragStartAt));
+dbuga("flowDockStartX "+clip(flowDockStartX));
+dbuga("flowDockStartAt "+clip(flowDockStartAt));
+dbuga("mouseX "+mouseX);
+*/
+  }
+
+function portraitAnim(){
   var imgWidth=ww;
+  var setKey=setKeys[selectedSetNum];
   var set=sets[setKeys[selectedSetNum]];
 
   if(touchingRotor==true){
     var deltaX=mouseX-rotorDragStartX;
     var deltaItem=deltaX/ww;
     rotorAtItem=rotorDragStartAt-deltaItem;
-    if(rotorAtItem<0){rotorAtItem=0;}
-    if(rotorAtItem>set.length-1){rotorAtItem=set.length-1;}
+    if(rotorAtItem<-.1){rotorAtItem=-.1;}
+    if(rotorAtItem>set.length-.9){rotorAtItem=set.length-.9;}
     }
   else{
     if(rotorProg>0){
@@ -428,32 +1031,50 @@ function animTick(){
       if(rotorProg<0){rotorProg=0;}
       var target=Math.floor(rotorDockStartAt);
       if(rotorDockStartX>rotorDragStartX){target=Math.floor(rotorDockStartAt);}
-      else{target=Math.floor(rotorDockStartAt+1);}
+      if(rotorDockStartX<rotorDragStartX){target=Math.floor(rotorDockStartAt+1);}
       if(target<0){target=0;}
       if(target>set.length-1){target=set.length-1;}
       //dbuga("target "+target);
       var atDelta=target-rotorDockStartAt;
       var atDeltaProg=atDelta*(1-rotorProg*rotorProg);
       rotorAtItem=rotorDockStartAt+atDeltaProg;
+      if(rotorProg<=0){
+        flowAtItem=rotorAtItem;
+        document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
+        faveKey=set[target];
+        var canv=document.getElementById("faveButton");
+        //if(sets["9999_Favorites"].indexOf(faveKey) > -1){
+        if((sets["9999_Favorites"].indexOf(faveKey) > -1)&&(unfaveArray.indexOf(faveKey) == -1)){
+          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        else{
+          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        }
       }
     }
   if(rotorUp){
     document.getElementById("rotor").style.left=(0-rotorAtItem*imgWidth)+"px";
     }
 /*
-  dbug("touchingRotor "+touchingRotor);
-  dbuga("rotorAtItem "+clip(rotorAtItem));
-  dbuga("rotorDragStartX "+clip(rotorDragStartX));
-  dbuga("rotorDragStartAt "+clip(rotorDragStartAt));
-  dbuga("rotorDockStartX "+clip(rotorDockStartX));
-  dbuga("rotorDockStartAt "+clip(rotorDockStartAt));
-  dbuga("mouseX "+mouseX);
+  //dbug("touchingRotor "+touchingRotor);
+dbuga("rotorAtItem "+clip(rotorAtItem));
+dbuga("rotorDragStartX "+clip(rotorDragStartX));
+dbuga("rotorDragStartAt "+clip(rotorDragStartAt));
+dbuga("rotorDockStartX "+clip(rotorDockStartX));
+dbuga("rotorDockStartAt "+clip(rotorDockStartAt));
+dbuga("mouseX "+mouseX);
 */
-
-  animTimeout=window.setTimeout("animTick()", 25);
   }
 
 
+function thumbClick(i){
+  if(agent=="droid"){return false;}
+  thumbTappedNum=i;
+  //dbuga("thumbTap("+i+") ");
+  var d = new Date();
+  thumbTappedMs=d.getTime();
+  }
 function thumbTap(i){
   thumbTappedNum=i;
   //dbuga("thumbTap("+i+") ");
@@ -466,7 +1087,7 @@ function thumbRelease(i){
     }
   var d = new Date();
   var deltaT=d.getTime()-thumbTappedMs;
-  if(deltaT<400){
+  if(deltaT<300){
     //dbuga("thumbRelease("+i+") "+thumbTappedNum);
     selectThumb(thumbTappedNum);
     }
@@ -485,7 +1106,7 @@ function setRelease(i){
     }
   var d = new Date();
   var deltaT=d.getTime()-setTappedMs;
-  if(deltaT<400){
+  if(deltaT<300){
     //dbuga("setRelease("+i+") "+deltaT);
     selectSet(setTappedNum);
     }
@@ -498,6 +1119,27 @@ function selectThumb(num){
   document.getElementById('thumbsUi').style.top=(0-wh)+"px";
   document.getElementById('rotorUi').style.top=0+"px";
   selectedThumbNum=num;
+  var set=sets[setKeys[selectedSetNum]];
+  document.getElementById("rotorLabel").innerHTML=(selectedThumbNum+1)+" of "+set.length;
+  faveKey=set[selectedThumbNum];
+  //dbuga("faveKey "+faveKey);
+        var canv=document.getElementById("faveButton");
+        if(sets["9999_Favorites"].indexOf(faveKey) > -1){
+          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        else{
+          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+  }
+var infoUp=false;
+function hideInfo(){
+  selectUp=false; 
+  document.getElementById('infoDim').style.top=(0-wh)+"px";
+  }
+function showInfo(){
+  //dbuga("showSetSelect()" +selectUp);
+  infoUp=true;
+  document.getElementById('infoDim').style.top=0+"px";
   }
 
 function hideSetSelect(){
@@ -515,6 +1157,11 @@ function updateThumbButtons(){
   var cols=cellsAcross/16;
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
+
+  var temp=selectedSetKey.split("_");
+  var title=temp[1];
+  document.getElementById("thumbsLabel").innerHTML=title;
+
   //selectedSetKey=selectedSetKey.replace("%20", " ");
   var imgWidth=Math.floor(ww/cols);
   var imgHeight=Math.floor(imgWidth*4.2/3);
@@ -522,7 +1169,7 @@ function updateThumbButtons(){
   var rows=1+Math.floor((set.length-1)/cols);
   //dbuga("rows="+rows);
   for (var i=0; i<set.length; i++){
-    htmlString+='<img ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+imgWidth+' src="http://laforetchocolate.com/app/chocolate/'+selectedSetKey+'/'+ set[i]+'" />';
+    htmlString+='<img onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
     }
 
   document.getElementById("thumbsScroller").innerHTML=htmlString;
@@ -575,7 +1222,7 @@ function updateSelectButtons(){
     var temp=setKeys[s].split("_");
     var title=temp[1];
     ctx.fillStyle="#333";
-    ctx.font=Math.floor(grid*2)+"px sack";
+    ctx.font=Math.floor(grid*2)+"px Arial";
     ctx.textBaseline= "middle";  
     ctx.textAlign= "left";    
     ctx.fillText(title,grid*1,canv.height/2);
@@ -593,11 +1240,11 @@ function updateSelectButtons(){
 
 
       var canv=document.getElementById("thumbsButton");
-      canv.width=Math.floor(grid*12);
+      canv.width=Math.floor(grid*10);
       canv.height=Math.floor(grid*3);
       canv.style.top=grid*.5+"px";
       canv.style.left=grid*.5+"px";
-      roundRect(canv, "#666", "#222", title, "#fff", Math.floor(grid*1.25)+"px sack", true);
+      roundRect(canv, "#666", "#222", title, "#fff", Math.floor(grid*1.25)+"px Arial", true);
 
 
       }
@@ -631,7 +1278,7 @@ function parseData(theData){
       //dbuga('<b>'+thisSet+'</b>');
       sets[thisSet]=[];
       }
-    sets[thisSet].push(thisItem);
+    sets[thisSet].push(thisKey);
     }
   setKeys.sort();
   setKeys.reverse();
@@ -676,10 +1323,15 @@ function rnd(range) {
   return Math.floor(Math.random()*range);
   }
 function mouseSwipe(e){
+  //dbug(e.pageX);
   mouseX=e.pageX;
   }
 function touchSwipe(e){
   if(touchingRotor){
+    e.preventDefault();
+    mouseX=event.touches[0].pageX;
+    }
+  if(touchingFlow){
     e.preventDefault();
     mouseX=event.touches[0].pageX;
     }
@@ -691,17 +1343,21 @@ function gestureStart(e){
 </script>
 </head>
 <body onload="init()" ongesturestart="gestureStart(event)";>
+<div style="font-family:sack; position:absolute;">sack</div>
+<div style="font-family:signify; position:absolute;">signify</div>
 <div id="landscapeMain">
+  <div id="flow"></div>
 </div>
 <div id="portraitMain">
   <div id="thumbsUi">
     <div id="thumbsNavTop"   style="background-color:blue;">
-      <canvas id="setSelectButton" ontouchstart="showSetSelect(); return false;"></canvas>
-      <div id="thumbsLabel"></div>
-
-      <canvas id="infoButton" ontouchstart="showInfo(); return false;"></canvas>
+      <canvas id="setSelectButton" ></canvas>
+      <div id="thumbsLabel">thumbsLabel</div>
+      <canvas id="infoButton" ></canvas>
     </div>
     <div id="thumbsNavBottom">
+      <canvas id="mailButton" ></canvas>
+      <canvas id="linkButton" ></canvas>
     </div>
     <div id="thumbsHolder">
       <div id="thumbsScroller"></div>
@@ -709,10 +1365,23 @@ function gestureStart(e){
     <div id="setSelectDim">
       <div id="setSelectModal">
       <div id="setSelectNavTop">
-        <canvas id="setSelectCancel" ontouchstart="hideSetSelect(); return false;"></canvas>
+        <canvas id="setSelectCancel"></canvas>
+        <div id="setSelectLabel">Select Season</div>
       </div>
         <div id="setSelectHolder">
           <div id="setSelectScroller"></div>
+        </div>
+      </div>
+    </div>
+    <div id="infoDim">
+      <div id="infoModal">
+        <div id="infoHolder"></div>
+        <div id="infoNavTop">
+          <canvas id="infoCancel"></canvas>
+          <div id="infoLabel">About</div>
+        </div>
+        <div id="infoNavBottom">
+          <canvas id="jambotsButton"></canvas>
         </div>
       </div>
     </div>
@@ -721,11 +1390,17 @@ function gestureStart(e){
   <div id="rotorUi">
     <div id="rotor"></div>
     <div id="rotorNavTop" style="background-color:#0f0;">
-      <canvas id="thumbsButton" ontouchstart="hideRotor(); return false;"></canvas>
+      <canvas id="thumbsButton" ></canvas>
+      <div id="rotorLabel">rotorLabel</div>
     </div>
-    <div id="rotorNavBottom"></div>
+    <div id="rotorNavBottom">
+      <canvas id="saveButton" ></canvas>
+      <canvas id="prevButton" ></canvas>
+      <canvas id="nextButton" ></canvas>
+      <canvas id="faveButton" ></canvas>
+    </div>
   </div><! end of rotorUi>
-  <div id="debugDiv" style="top:60px;left:60px; position:absolute;"></div>
 </div><! end of portraitMain>
+<div id="debugDiv" style="top:0px;left:60px; position:absolute;"></div>
 </body>
 </html>

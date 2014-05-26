@@ -51,7 +51,7 @@ function onDirectoryFail(error) {
 }
 function filetransfer(download_link, fp) {
 fp=fp.replace("//", "file:///storage/sdcard0/");
-dbuga("fp "+fp);
+//dbuga("fp "+fp);
 var fileTransfer = new FileTransfer();
 // File download function with URL and local path
 fileTransfer.download(download_link, fp,
