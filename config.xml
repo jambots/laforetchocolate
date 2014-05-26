@@ -25,4 +25,5 @@
 <access origin="*" />
 
 <icon src="icon512.png" />
+<gap:plugin name="com.phonegap.plugins.childbrowser" />
 </widget>
