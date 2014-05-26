@@ -50,6 +50,7 @@ function onDirectoryFail(error) {
  }
 }
 function filetransfer(download_link, fp) {
+dbuga("fp "+fp);
 var fileTransfer = new FileTransfer();
 // File download function with URL and local path
 fileTransfer.download(download_link, fp,
