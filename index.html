@@ -5,6 +5,7 @@
 <title>la for&circ;t chocolate</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="phonegap.js"></script>
+<script src="savefile.js"></script>
 <script src="childbrowser.js"></script>
 <script type="text/javascript" src="iscroll-lite.js"></script>
 <link rel = "stylesheet" type = "text/css" href = "reset.css">
@@ -134,7 +135,8 @@ font-family: 'sack';
 var ddiv;
 var sScroll;
 var tScroll;
-var sdiv
+var sdiv;
+
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
@@ -149,7 +151,12 @@ function init(){
   //dbuga('loadData() ran');
   clearInterval(dimensionInterval);
   dimensionInterval=setInterval('dimensionTick()', 1000);
+  savefile("http://www.laforetchocolate.com/app/info.png", "laforet", "info.png");
   }
+
+
+
+
 var dimensionInterval;
 var ww=0;
 var wh=0;

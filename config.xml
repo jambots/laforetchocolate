@@ -19,6 +19,8 @@
 <preference name="Orientation" value="landscape" />
 <gap:splash src="splash960.png" />
 <gap:plugin name="org.apache.cordova.media" version="0.2.8" />
+<gap:plugin name="org.apache.cordova.file" version="1.0.1" />
+<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
 <access origin="*" />
 
 <icon src="icon512.png" />
