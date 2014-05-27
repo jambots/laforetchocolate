@@ -322,7 +322,7 @@ function faveButton(){
     roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
     }
   }
-
+var fileSystem;
 function init(){
 
   ddiv=document.getElementById('debugDiv');
@@ -366,6 +366,7 @@ faveButton
     document.getElementById("landscapeMain").onmouseup=function(e){flowMouseup(event);}
     }
   if(agent=="droid"){
+    window.requestFileSystem(**LocalFileSystem**.PERSISTENT, 0, function (fs) {fileSystem=fs;});
     document.ontouchmove=function(e){
       if((touchingRotor)||(touchingFlow)){
         e.preventDefault();
