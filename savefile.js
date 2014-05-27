@@ -28,7 +28,9 @@ function download(URL, Folder_Name, File_Name) {
   dbuga('download');
   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
   }
+var debugFS={};
 function fileSystemSuccess(fileSystem) {
+  debugFS=fileSystem;
   dbuga("fileSystemSuccess() 0");
   var download_link = encodeURI(dlURL);
   ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
@@ -38,7 +40,7 @@ function fileSystemSuccess(fileSystem) {
     
   directoryEntry.getDirectory(dlFolder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
   var rootdir = fileSystem.root;
-  var fp = rootdir.fullPath; // Returns Fulpath of local directory
+  var fp = rootdir.fullPath; // Returns Full path of local directory
   dbuga("fileSystemSuccess() 2");
 
   fp = fp + "/" + dlFolder_Name + "/" + dlFile_Name + "." + ext; // fullpath and name of the file which we want to give
