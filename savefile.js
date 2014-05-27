@@ -2,6 +2,8 @@
 // ***********************
 //First step check parameters mismatch and checking network connection if available call    download function
 function savefile(URL, Folder_Name, File_Name) {
+  dbuga("savefile("+URL+", "+Folder_Name+", "+File_Name+") {
+
 //Parameters mismatch check
 if (URL == null && Folder_Name == null && File_Name == null) {
     return;
@@ -46,7 +48,7 @@ function onDirectoryFail(error) {
     alert("Unable to create new directory: " + error.code);
 }
 
-  function fileSystemFail(evt) {
+function fileSystemFail(evt) {
     //Unable to access file system
     alert(evt.target.error.code);
  }
