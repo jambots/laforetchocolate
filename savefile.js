@@ -1,4 +1,4 @@
-
+var fs;
 // ***********************
 //First step check parameters mismatch and checking network connection if available call download function
 function savefile(URL, Folder_Name, File_Name) {
@@ -11,6 +11,7 @@ if (URL == null && Folder_Name == null && File_Name == null) {
 else {
     //checking Internet connection availablity
     var networkState = navigator.connection.type;
+    
     if (networkState == Connection.NONE) {
         return;
     } else {
@@ -20,9 +21,10 @@ else {
 }
 
 function download(URL, Folder_Name, File_Name) {
-//step to request a file system 
+  //step to request a file system 
+    dbuga('download');
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
-
+    }
 function fileSystemSuccess(fileSystem) {
     dbuga("fileSystemSuccess("+JSON.stringify(fileSystem)+")");
     var download_link = encodeURI(URL);
@@ -54,8 +56,8 @@ function fileSystemFail(evt) {
  }
 }
 function filetransfer(download_link, fp) {
-fp=fp.replace("//", "file:///storage/sdcard0/");
-//dbuga("fp "+fp);
+//fp=fp.replace("//", "file:///storage/sdcard0/");
+dbuga("fp "+fp);
 var fileTransfer = new FileTransfer();
 // File download function with URL and local path
 fileTransfer.download(download_link, fp,
