@@ -18,8 +18,12 @@ function savefile(URL, Folder_Name, File_Name) {
     }
   }
 var dlURL="";
+var dlFolder_Name="";
+var dlFile_Name="";
 function download(URL, Folder_Name, File_Name) {
   dlURL=URL;
+  dlFolder_Name = Folder_Name;
+  dlFile_Name= File_Name;
   //step to request a file system 
   dbuga('download');
   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
@@ -32,12 +36,12 @@ function fileSystemSuccess(fileSystem) {
   
   var directoryEntry = fileSystem.root; // to get root path of directory
     
-  directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
+  directoryEntry.getDirectory(dlFolder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
   var rootdir = fileSystem.root;
   var fp = rootdir.fullPath; // Returns Fulpath of local directory
   dbuga("fileSystemSuccess() 2");
 
-  fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
+  fp = fp + "/" + dlFolder_Name + "/" + dlFile_Name + "." + ext; // fullpath and name of the file which we want to give
   // download function call
   dbuga("fss 3 fp="+fp);
   filetransfer(download_link, fp);
