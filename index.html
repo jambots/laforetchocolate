@@ -421,14 +421,14 @@ function measure(){
   if(ww>wh){
     orient="landscape";
     deviceWidth=wh;
-    document.getElementById('portraitMain').style.top=(0-wh)+"px";
+    document.getElementById('portraitMain').style.top=(0-wh-ww)+"px";
     document.getElementById('landscapeMain').style.top=0+"px";
     }
   else{
     orient="portrait";
     deviceWidth=ww;
     document.getElementById('portraitMain').style.top=0+"px";
-    document.getElementById('landscapeMain').style.top=(0-wh)+"px";
+    document.getElementById('landscapeMain').style.top=(0-wh-ww)+"px";
     }
   if(orient != prevOrient){
     if(orient=="portrait"){rotorAtItem=flowAtItem;}
