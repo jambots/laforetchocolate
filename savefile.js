@@ -17,27 +17,31 @@ function savefile(URL, Folder_Name, File_Name) {
       }
     }
   }
-
+var dlURL="";
 function download(URL, Folder_Name, File_Name) {
+  dlURL=URL;
   //step to request a file system 
   dbuga('download');
   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
   }
 function fileSystemSuccess(fileSystem) {
-  dbuga("fileSystemSuccess()");
-  var download_link = encodeURI(URL);
+  dbuga("fileSystemSuccess() 0");
+  var download_link = encodeURI(dlURL);
   ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
-
+  dbuga("fileSystemSuccess() 1");
+  
   var directoryEntry = fileSystem.root; // to get root path of directory
     
   directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
   var rootdir = fileSystem.root;
   var fp = rootdir.fullPath; // Returns Fulpath of local directory
+  dbuga("fileSystemSuccess() 2");
 
   fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
   // download function call
-  dbuga("fss fp="+fp);
+  dbuga("fss 3 fp="+fp);
   filetransfer(download_link, fp);
+  dbuga("fileSystemSuccess() 4");
   }
 
 function onDirectorySuccess(parent) {
