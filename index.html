@@ -41,7 +41,6 @@ font-family: 'Arial';
 #landscapeMain{
   background-color:#000;
   position:absolute;
-  top:0;
   width:100%;
   height:100%;
   top:-1000;
@@ -57,7 +56,7 @@ font-family: 'Arial';
 #portraitMain{
   background-color:#555;
   position:absolute;
-  top:0;
+  top:-1000;
   width:100%;
   height:100%;
   }
@@ -250,6 +249,7 @@ font-family: 'Arial';
   position:absolute;
   top:0;
   }
+
 </style>
 <script>
 var ddiv;
@@ -258,76 +258,6 @@ var tScroll;
 var sdiv
 var agent="unknown";
 
-function mailButton(){
-  window.location='mailto:info@laforetchocolate.com';
-  }
-function linkButton(){
-  //window.plugins.childBrowser.openExternal("http://www.laforetchocolate.com");
-  navigator.app.loadUrl("http://www.laforetchocolate.com", {openExternal: true});
-  }
-function jambotsButton(){
-  //dbuga('jambotsButton');
-  //window.plugins.childBrowser.openExternal("http://www.jambots.com");
-  navigator.app.loadUrl("http://www.jambots.com", {openExternal: true});
-  }
-function saveButton(){
-  var saveName=faveKey;
-  var temp=saveName.split("/");
-  var cat=temp[0];
-  var season=temp[1];
-  var fileName=temp[2];
-  fileName = fileName.replace(".jpg", "");
-
-  var temp=season.split("_");
-  saveName=season+"_"+fileName;
-  
-  //dbuga(saveName);
-  savefile("http://www.laforetchocolate.com/app/"+faveKey, "laforet", saveName);
-  }
-var unfaveArray=[];
-function faveButton(){
-  var canv=document.getElementById('faveButton'); 
-  var selectedSetKey=setKeys[selectedSetNum];
-  var set=sets[selectedSetKey];
-  if(selectedSetKey=="9999_Favorites"){//toggle unfave
-    if(unfaveArray.indexOf(faveKey) == -1){
-      unfaveArray.push(faveKey);
-      }
-    else{
-      var temp=unfaveArray;
-      unfaveArray=[];
-      for (var i=0; i<temp.length; i++){
-        if(temp[i]!=faveKey){
-          unfaveArray.push(temp[i]);
-          }
-        }
-      }
-    }
-  else{// in normal set so toggle immediately
-    if(sets["9999_Favorites"].indexOf(faveKey) > -1){// copy remove loop
-      var temp=sets["9999_Favorites"];
-      sets["9999_Favorites"]=[];
-      for (var i=0; i<temp.length; i++){
-        if(temp[i]!=faveKey){
-          sets["9999_Favorites"].push(faveKey);
-          }
-        }
-      }
-    else{
-      sets["9999_Favorites"].push(faveKey);
-      }
-    localStorage.setItem("favorites", JSON.stringify(sets["9999_Favorites"]));
-    }
-
-  // update button display
-  if((sets["9999_Favorites"].indexOf(faveKey) > -1)&&(unfaveArray.indexOf(faveKey) == -1)){
-    roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-    }
-  else{
-    roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-    }
-  }
-var fileSystem;
 function init(){
 
   ddiv=document.getElementById('debugDiv');
@@ -337,16 +267,7 @@ function init(){
   if(navigator.userAgent.indexOf('Windows')>-1){agent="windows";}
   if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
   if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
-  dbuga(agent);
-/*
-mailButton
-linkButton
-saveButton
-prevButton
-nextButton
-faveButton
-*/
-
+  //dbuga(agent);
   if((agent=="windows")||(agent=="mac")){
     document.onmousemove=function(e){
       //dbug(e.pageX);
@@ -406,8 +327,79 @@ faveButton
     }
   //dbuga('loadData() ran');
   clearInterval(dimensionInterval);
-  dimensionInterval=setInterval('dimensionTick()', 1000);
+  dimensionInterval=setInterval('dimensionTick()', 100);
   }
+function mailButton(){
+  window.location='mailto:info@laforetchocolate.com';
+  }
+function linkButton(){
+  //window.plugins.childBrowser.openExternal("http://www.laforetchocolate.com");
+  navigator.app.loadUrl("http://www.laforetchocolate.com", {openExternal: true});
+  }
+function jambotsButton(){
+  //dbuga('jambotsButton');
+  //window.plugins.childBrowser.openExternal("http://www.jambots.com");
+  navigator.app.loadUrl("http://www.jambots.com", {openExternal: true});
+  }
+function saveButton(){
+  var saveName=faveKey;
+  var temp=saveName.split("/");
+  var cat=temp[0];
+  var season=temp[1];
+  var fileName=temp[2];
+  fileName = fileName.replace(".jpg", "");
+
+  var temp=season.split("_");
+  season=temp[1];
+  saveName=season+"_"+fileName;
+  
+  //dbuga(saveName);
+  savefile("http://www.laforetchocolate.com/app/"+faveKey, "laforet", saveName);
+  }
+var unfaveArray=[];
+function faveButton(){
+  var canv=document.getElementById('faveButton'); 
+  var selectedSetKey=setKeys[selectedSetNum];
+  var set=sets[selectedSetKey];
+  if(selectedSetKey=="9999_Favorites"){//toggle unfave
+    if(unfaveArray.indexOf(faveKey) == -1){
+      unfaveArray.push(faveKey);
+      }
+    else{
+      var temp=unfaveArray;
+      unfaveArray=[];
+      for (var i=0; i<temp.length; i++){
+        if(temp[i]!=faveKey){
+          unfaveArray.push(temp[i]);
+          }
+        }
+      }
+    }
+  else{// in normal set so toggle immediately
+    if(sets["9999_Favorites"].indexOf(faveKey) > -1){// copy remove loop
+      var temp=sets["9999_Favorites"];
+      sets["9999_Favorites"]=[];
+      for (var i=0; i<temp.length; i++){
+        if(temp[i]!=faveKey){
+          sets["9999_Favorites"].push(faveKey);
+          }
+        }
+      }
+    else{
+      sets["9999_Favorites"].push(faveKey);
+      }
+    localStorage.setItem("favorites", JSON.stringify(sets["9999_Favorites"]));
+    }
+
+  // update button display
+  if((sets["9999_Favorites"].indexOf(faveKey) > -1)&&(unfaveArray.indexOf(faveKey) == -1)){
+    roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+    }
+  else{
+    roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+    }
+  }
+var fileSystem;
 
 var dimensionInterval;
 var ww=0;
@@ -1361,8 +1353,8 @@ function gestureStart(e){
 </script>
 </head>
 <body onload="init()" ongesturestart="gestureStart(event)";>
-<div style="font-family:sack; position:absolute;">sack</div>
-<div style="font-family:signify; position:absolute;">signify</div>
+<div style="font-family:sack; position:absolute; top:-1000px;">sack</div>
+<div style="font-family:signify; position:absolute; top:-1000;">signify</div>
 <div id="landscapeMain">
   <div id="flow"></div>
 </div>
