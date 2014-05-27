@@ -272,10 +272,15 @@ function jambotsButton(){
   }
 function saveButton(){
   var saveName=faveKey;
-  saveName=saveName.replace("/", "_");
-  saveName=saveName.replace("/", "_");
-  saveName=saveName.replace(".jpg", "");
+  var temp=saveName.split("/");
+  var cat=temp[0];
+  var season=temp[1];
+  var fileName=temp[2];
+  fileName = fileName.replace(".jpg", "");
 
+  var temp=season.split("_");
+  saveName=season+"_"+fileName;
+  
   //dbuga(saveName);
   savefile("http://www.laforetchocolate.com/app/"+faveKey, "laforet", saveName);
   }
