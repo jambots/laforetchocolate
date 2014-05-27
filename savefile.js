@@ -24,7 +24,7 @@ function download(URL, Folder_Name, File_Name) {
   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
   }
 function fileSystemSuccess(fileSystem) {
-  dbuga("fileSystemSuccess("+JSON.stringify(fileSystem)+")");
+  dbuga("fileSystemSuccess()");
   var download_link = encodeURI(URL);
   ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
 
@@ -36,10 +36,12 @@ function fileSystemSuccess(fileSystem) {
 
   fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
   // download function call
+  dbuga("fss fp="+fp);
   filetransfer(download_link, fp);
   }
 
 function onDirectorySuccess(parent) {
+  dbuga("onDirectorySuccess");
   // Directory created successfuly
   }
 
@@ -54,7 +56,7 @@ function fileSystemFail(evt) {
   }
 function filetransfer(download_link, fp) {
   //fp=fp.replace("//", "file:///storage/sdcard0/");
-  dbuga("fp "+fp);
+  dbuga("filetransfer fp "+fp);
   var fileTransfer = new FileTransfer();
   // File download function with URL and local path
   fileTransfer.download(download_link, fp,
