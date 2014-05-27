@@ -331,7 +331,8 @@ function init(){
 
   if(navigator.userAgent.indexOf('Windows')>-1){agent="windows";}
   if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
-  //dbuga(agent);
+  if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
+  dbuga(agent);
 /*
 mailButton
 linkButton
@@ -341,7 +342,7 @@ nextButton
 faveButton
 */
 
-  if(agent=="windows"){
+  if((agent=="windows")||(agent=="mac")){
     document.onmousemove=function(e){
       //dbug(e.pageX);
       if((touchingRotor)||(touchingFlow)){
@@ -451,6 +452,7 @@ function selectSet(setNum){
   selectedSetNum=setNum;
   updateSet();
   hideSetSelect();
+  tScroll.scrollTo(0,0,0,false);
   }
 var selectUp=true;
 function hideRotor(){
@@ -477,7 +479,6 @@ function updateSet(){
   updateThumbButtons();
   updateRotor();
   updateFlow();
-  tScroll.scrollTo(0,0,0);
   setReady=true;
   }
 var touchingFlow=false;
@@ -902,7 +903,7 @@ function updateRotor(){
 
   var htmlString="";
   for (var i=0; i<set.length; i++){
-    if(agent=="windows"){
+    if((agent=="windows")||(agent=="mac")){
       htmlString+='<img onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
       }
     if(agent=="droid"){
