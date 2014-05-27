@@ -366,7 +366,6 @@ faveButton
     document.getElementById("landscapeMain").onmouseup=function(e){flowMouseup(event);}
     }
   if(agent=="droid"){
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, null);
     document.ontouchmove=function(e){
       if((touchingRotor)||(touchingFlow)){
         e.preventDefault();
@@ -404,9 +403,7 @@ faveButton
   clearInterval(dimensionInterval);
   dimensionInterval=setInterval('dimensionTick()', 1000);
   }
-function fsSuccess(fs){
-  fileSystem=fs;
-  }
+
 var dimensionInterval;
 var ww=0;
 var wh=0;

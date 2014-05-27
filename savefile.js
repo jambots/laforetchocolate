@@ -22,6 +22,7 @@ function download(URL, Folder_Name, File_Name) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
 function fileSystemSuccess(fileSystem) {
+    dbuga("fileSystemSuccess("+JSON.stringify(fileSystem)+")");
     var download_link = encodeURI(URL);
     ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
 
