@@ -386,6 +386,7 @@ faveButton
     document.getElementById("faveButton").ontouchstart=function(e){faveButton();}
     document.getElementById("landscapeMain").ontouchstart=function(e){flowTap(event);}
     document.getElementById("landscapeMain").ontouchend=function(e){flowRelease(event);}
+    document.addEventListener("backbutton", onBackKeyDown, false);
     }
 
   //dbug('init()');
@@ -1136,7 +1137,7 @@ function selectThumb(num){
   }
 var infoUp=false;
 function hideInfo(){
-  selectUp=false; 
+  infoUpUp=false; 
   document.getElementById('infoDim').style.top=(0-wh)+"px";
   }
 function showInfo(){
@@ -1150,6 +1151,13 @@ function hideSetSelect(){
   selectUp=false; 
   document.getElementById('setSelectDim').style.top=(0-wh)+"px";
   }
+function onBackKeyDown() {
+  // Handle the back button
+  if(orient=="portrait"){
+    showSetSelect();
+    }
+  }
+
 function showSetSelect(){
   //dbuga("showSetSelect()" +selectUp);
   selectUp=true;
