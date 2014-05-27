@@ -2,7 +2,7 @@ var fs;
 // ***********************
 //First step check parameters mismatch and checking network connection if available call download function
 function savefile(URL, Folder_Name, File_Name) {
-  dbuga("savefile("+URL+", "+Folder_Name+", "+File_Name+")");
+  //dbuga("savefile("+URL+", "+Folder_Name+", "+File_Name+")");
   if (URL == null && Folder_Name == null && File_Name == null) {
     return;
     }
@@ -25,33 +25,33 @@ function download(URL, Folder_Name, File_Name) {
   dlFolder_Name = Folder_Name;
   dlFile_Name= File_Name;
   //step to request a file system 
-  dbuga('download');
+  //dbuga('download');
   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
   }
 var debugFS={};
 function fileSystemSuccess(fileSystem) {
   debugFS=fileSystem;
-  dbuga("fileSystemSuccess() 0");
+  //dbuga("fileSystemSuccess() 0");
   var download_link = encodeURI(dlURL);
   ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
-  dbuga("fileSystemSuccess() 1");
+  //dbuga("fileSystemSuccess() 1");
   
   var directoryEntry = fileSystem.root; // to get root path of directory
     
   directoryEntry.getDirectory(dlFolder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
   var rootdir = fileSystem.root;
   var fp = rootdir.fullPath; // Returns Full path of local directory
-  dbuga("fileSystemSuccess() 2");
+  //dbuga("fileSystemSuccess() 2");
 
   fp = fp + "/" + dlFolder_Name + "/" + dlFile_Name + "." + ext; // fullpath and name of the file which we want to give
   // download function call
-  dbuga("fss 3 fp="+fp);
+  //dbuga("fss 3 fp="+fp);
   filetransfer(download_link, fp);
-  dbuga("fileSystemSuccess() 4");
+  //dbuga("fileSystemSuccess() 4");
   }
 
 function onDirectorySuccess(parent) {
-  dbuga("onDirectorySuccess");
+  //dbuga("onDirectorySuccess");
   // Directory created successfuly
   }
 
@@ -65,8 +65,8 @@ function fileSystemFail(evt) {
   alert(evt.target.error.code);
   }
 function filetransfer(download_link, fp) {
-  //fp=fp.replace("//", "file:///storage/sdcard0/");
-  dbuga("filetransfer fp "+fp);
+  fp=fp.replace("//", "file:///storage/sdcard0/");
+  //dbuga("filetransfer fp "+fp);
   var fileTransfer = new FileTransfer();
   // File download function with URL and local path
   fileTransfer.download(download_link, fp,
