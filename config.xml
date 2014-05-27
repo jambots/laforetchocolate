@@ -8,8 +8,8 @@
 
     <!-- versionCode is optional and Android only -->
 
-    <name>la for&ecirc;t chocolate</name>
-    <description>la for&ecirc;t chocolate allocation chocolates</description>
+    <name>La Forêt</name>
+    <description>La Forêt chocolate</description>
 <gap:platform name="android" />
 <gap:config-file platform="android" parent="/manifest/application">
     <activity android:launchMode="singleInstance" />
