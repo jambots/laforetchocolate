@@ -1154,6 +1154,7 @@ function onBackKeyDown() {
   // Handle the back button
   if(orient=="portrait"){
     showSetSelect();
+    hideInfo();
     }
   }
 
@@ -1263,7 +1264,7 @@ function updateSelectButtons(){
 var pi=Math.PI;
 function loadData(){
   $(document).ready(function(){
-      $.getJSON('config.json', function(json) {
+      $.getJSON('http://laforetchocolate.com/app/config.json', function(json) {
          //dbuga(JSON.stringify(json));
          parseData(json);
          //debugData();
