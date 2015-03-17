@@ -1192,7 +1192,7 @@ function updateThumbButtons(){
   var rows=1+Math.floor((set.length-1)/cols);
   //dbuga("rows="+rows);
   for (var i=0; i<set.length; i++){
-    htmlString+='<img onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+    htmlString+='<img id="thumbImage'+i+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
     }
 
   document.getElementById("thumbsScroller").innerHTML=htmlString;
