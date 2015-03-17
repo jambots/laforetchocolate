@@ -7,9 +7,9 @@
 <script src="phonegap.js"></script>
 <script src="savefile.js"></script>
 <script src="childbrowser.js"></script>
-<!--
+
 <script type="text/javascript" src="iscroll-lite.js"></script>
--->
+
 <link rel = "stylesheet" type = "text/css" href = "reset.css">
 <style>
 #infoHolder{
@@ -78,7 +78,7 @@ font-family: 'Arial';
   background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
   }
 #thumbsHolder{
-  -webkit-overflow-scrolling: touch;
+  //-webkit-overflow-scrolling: touch;
   background-color:#fff;
   width:100%;
   position:absolute;
@@ -121,7 +121,7 @@ font-family: 'Arial';
   color:white;
   }
 #setSelectHolder{
-  -webkit-overflow-scrolling: touch;
+  //-webkit-overflow-scrolling: touch;
   position:absolute;
   background-color:#eee;
   width:200px;
@@ -670,8 +670,8 @@ function populate(){
 
 
   updateSet();
-  //tScroll=new iScroll("thumbsHolder");
-  //sScroll=new iScroll("setSelectHolder");
+  tScroll=new iScroll("thumbsHolder");
+  sScroll=new iScroll("setSelectHolder");
 
   // buttons  
 
