@@ -45,7 +45,7 @@ font-family: 'Arial';
   position:absolute;
   width:100%;
   height:100%;
-  top:-1000;
+  top:-3000px;
   }
 #flow{
   background-color:#000;
@@ -58,7 +58,7 @@ font-family: 'Arial';
 #portraitMain{
   background-color:#555;
   position:absolute;
-  top:-1000;
+  top:-3000px;
   width:100%;
   height:100%;
   }
@@ -70,7 +70,7 @@ font-family: 'Arial';
   height:100%;
   }
 #thumbsNavTop{
-  position:absolute;
+  position:absolute; 
   background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
   }
 #thumbsNavBottom{
@@ -141,7 +141,7 @@ font-family: 'Arial';
 
 
 #infoDim{
-  top:-1000;
+  top:-3000px;
   left:0;
   position:absolute;
   background-color:rgba(0,0,0,.5);
@@ -195,7 +195,7 @@ font-family: 'Arial';
   width:100%;
   height:100%;
   position:absolute;
-  top:-1000;
+  top:-3000px;
   overflow:hidden;
   }
 #rotor{
@@ -1387,14 +1387,14 @@ function gestureStart(e){
 </script>
 </head>
 <body onload="init()" ongesturestart="gestureStart(event)";>
-<div style="font-family:sack; position:absolute; top:-1000px;">sack</div>
-<div style="font-family:signify; position:absolute; top:-1000;">signify</div>
+<div style="font-family:sack; position:absolute; top:-3000px;">sack</div>
+<div style="font-family:signify; position:absolute; top:-3000;">signify</div>
 <div id="landscapeMain">
   <div id="flow"></div>
 </div>
 <div id="portraitMain">
   <div id="thumbsUi">
-    <div id="thumbsNavTop"   style="background-color:blue;">
+    <div id="thumbsNavTop">
       <canvas id="setSelectButton" ></canvas>
       <div id="thumbsLabel">thumbsLabel</div>
       <canvas id="infoButton" ></canvas>
