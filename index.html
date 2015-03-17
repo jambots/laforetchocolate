@@ -1196,8 +1196,29 @@ function updateThumbButtons(){
     }
 
   document.getElementById("thumbsScroller").innerHTML=htmlString;
-  document.getElementById("thumbsScroller").style.height=(imgHeight*rows)+"px";
+  for (var i=0; i<set.length; i++){
+    resizeImage(document.getElementById("thumbImage"+i), imgWidth, imgHeight);
+    }
+  //document.getElementById("thumbsScroller").style.height=(imgHeight*rows)+"px";
   }
+function resizeImage (imageObject, width, height) {
+
+    // Calculate a new scale
+    // The new scale will be the minimum of the two possible scales
+    var scale = Math.min((width / imageObject.width), (height/ imageObject.height));
+
+    // New canvas
+    var dstCanvas = document.createElement('canvas');
+    dstCanvas.width = imageObject.width * scale;
+    dstCanvas.height = imageObject.height * scale;
+
+    // Draw Image content in canvas
+    var dstContext = dstCanvas.getContext('2d');
+    dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
+
+    // Replace source of Image
+    imageObject.src = dstCanvas.toDataURL();
+}
 function updateSelectButtons(){
  for (var s=0; s<setKeys.length; s++){
     var canv=document.getElementById("canv_"+s);
