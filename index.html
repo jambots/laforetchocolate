@@ -86,6 +86,7 @@ font-family: 'Arial';
   -webkit-transform: translate3d(0, 0, 0);
   }
 #thumbsScroller{
+  -webkit-overflow-scrolling: touch;
   -webkit-perspective: 1000;
   -webkit-transform: translate3d(0, 0, 0);
   background-color:#fff;
@@ -132,6 +133,7 @@ font-family: 'Arial';
 #setSelectScroller{
   background-color:#ccc;
   width:180px;
+  -webkit-overflow-scrolling: touch;
   -webkit-perspective: 1000;
   -webkit-transform: translate3d(0, 0, 0);
   }
@@ -266,8 +268,6 @@ font-family: 'Arial';
 </style>
 <script>
 var ddiv;
-var sScroll;
-var tScroll;
 var sdiv
 var agent="unknown";
 
@@ -463,7 +463,6 @@ function selectSet(setNum){
   selectedSetNum=setNum;
   updateSet();
   hideSetSelect();
-  tScroll.scrollTo(0,0,0,false);
   }
 var selectUp=true;
 function hideRotor(){
