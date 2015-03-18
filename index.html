@@ -1199,7 +1199,7 @@ function updateThumbButtons(){
   for (var i=0; i<set.length; i++){
     var ref=document.getElementById("thumbImage"+i);
     ref.onload = function(){
-      dbuga('loaded '+this.id)
+      dbuga('loaded '+this.src)
       var that=this;
       resizeImage(that);
       }
@@ -1208,7 +1208,7 @@ function updateThumbButtons(){
   //document.getElementById("thumbsScroller").style.height=(imgHeight*rows)+"px";
   }
 function resizeImage (imageObject){
-  dbuga("resizeImage ("+imageObject.id+")");
+  dbuga("resizeImage ("+imageObject.src+")");
   var cols=cellsAcross/16;
   var width=Math.floor(ww/cols);
   var height=Math.floor(imgWidth*4.2/3);
