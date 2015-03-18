@@ -1199,7 +1199,9 @@ function updateThumbButtons(){
   for (var i=0; i<set.length; i++){
     var ref=document.getElementById("thumbImage"+i);
     ref.onload = function(){
-      resizeImage(ref);
+      dbuga('loaded '+this)
+      var that=this;
+      resizeImage(that);
       }
 
     }
