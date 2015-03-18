@@ -1177,6 +1177,7 @@ function showSetSelect(){
   }
 
 function updateThumbButtons(){
+  dbug("updateThumbButtons()");
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
 
@@ -1199,7 +1200,7 @@ function updateThumbButtons(){
   for (var i=0; i<set.length; i++){
     var ref=document.getElementById("thumbImage"+i);
     ref.onload = function(){
-      dbuga('loaded '+this.src)
+      //dbuga('loaded '+this.src)
       var that=this;
       resizeImage(that);
       }
@@ -1208,6 +1209,7 @@ function updateThumbButtons(){
   //document.getElementById("thumbsScroller").style.height=(imgHeight*rows)+"px";
   }
 function resizeImage (imageObject){
+  imageObject.onload=null;
   dbuga("resizeImage ("+imageObject.src+")");
   var cols=cellsAcross/16;
   var width=Math.floor(ww/cols);
