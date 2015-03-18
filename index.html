@@ -1177,7 +1177,7 @@ function showSetSelect(){
   }
 
 function updateThumbButtons(){
-  dbug("updateThumbButtons()");
+  //dbug("updateThumbButtons()");
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
 
@@ -1206,11 +1206,11 @@ function updateThumbButtons(){
       }
 
     }
-  //document.getElementById("thumbsScroller").style.height=(imgHeight*rows)+"px";
+  document.getElementById("thumbsScroller").style.height=(imgHeight*rows)+"px";
   }
 function resizeImage (imageObject){
   imageObject.onload=null;
-  dbuga("resizeImage ("+imageObject.src+")");
+  //dbuga("resizeImage ("+imageObject.src+")");
   var cols=cellsAcross/16;
   var width=Math.floor(ww/cols);
   var height=Math.floor(width*4.2/3);
