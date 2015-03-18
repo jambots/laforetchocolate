@@ -1177,7 +1177,6 @@ function showSetSelect(){
   }
 
 function updateThumbButtons(){
-  var cols=cellsAcross/16;
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
 
@@ -1186,6 +1185,7 @@ function updateThumbButtons(){
   document.getElementById("thumbsLabel").innerHTML=title;
 
   //selectedSetKey=selectedSetKey.replace("%20", " ");
+  var cols=cellsAcross/16;
   var imgWidth=Math.floor(ww/cols);
   var imgHeight=Math.floor(imgWidth*4.2/3);
   var htmlString="";
@@ -1197,11 +1197,19 @@ function updateThumbButtons(){
 
   document.getElementById("thumbsScroller").innerHTML=htmlString;
   for (var i=0; i<set.length; i++){
-    resizeImage(document.getElementById("thumbImage"+i), imgWidth, imgHeight);
+    var ref=document.getElementById("thumbImage"+i);
+    ref.onload = function(){
+      resizeImage(ref);
+      }
+
     }
   //document.getElementById("thumbsScroller").style.height=(imgHeight*rows)+"px";
   }
-function resizeImage (imageObject, width, height) {
+function resizeImage (imageObject){
+  var cols=cellsAcross/16;
+  var width=Math.floor(ww/cols);
+  var height=Math.floor(imgWidth*4.2/3);
+
 
     // Calculate a new scale
     // The new scale will be the minimum of the two possible scales
