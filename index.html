@@ -914,16 +914,25 @@ function updateRotor(){
   var htmlString="";
   for (var i=0; i<set.length; i++){
     if((agent=="windows")||(agent=="mac")){
-      htmlString+='<img onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+      htmlString+='<img id="rotorImage'+i+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
       }
     if(agent=="droid"){
-      htmlString+='<img ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+      htmlString+='<img id="rotorImage'+i+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
       }
     }
   rotorWidth=(imgWidth*set.length);
   rotorMax=rotorWidth-imgWidth;
   document.getElementById("rotor").innerHTML=htmlString;
   document.getElementById("rotor").style.width=rotorWidth+"px";
+  for (var i=0; i<set.length; i++){
+    var ref=document.getElementById("rotorImage"+i);
+    ref.onload = function(){
+      dbuga('rotor loaded '+this.src)
+      var that=this;
+      resizeImage(that);
+      }
+
+    }
   }
 function clip(num){
   return Math.floor(num*100)/100;
@@ -1198,9 +1207,9 @@ function updateThumbButtons(){
 
   document.getElementById("thumbsScroller").innerHTML=htmlString;
   for (var i=0; i<set.length; i++){
+    //dbuga('load '+imgWidth)
     var ref=document.getElementById("thumbImage"+i);
     ref.onload = function(){
-      //dbuga('loaded '+this.src)
       var that=this;
       resizeImage(that);
       }
@@ -1210,9 +1219,9 @@ function updateThumbButtons(){
   }
 function resizeImage (imageObject){
   imageObject.onload=null;
-  //dbuga("resizeImage ("+imageObject.src+")");
-  var cols=cellsAcross/16;
-  var width=Math.floor(ww/cols);
+  dbuga("resizeImage ("+imageObject.width+")");
+  //var cols=cellsAcross/16;
+  var width= imageObject.width;
   var height=Math.floor(width*4.2/3);
 
 
