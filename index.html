@@ -519,11 +519,13 @@ function debugGeometry(){
   dbuga("device="+ JSON.stringify(device));
   dbuga("window.outerWidth="+ window.outerWidth);
   dbuga("window.outerHeight="+ window.outerHeight);
+  dbuga("window.screen.availWidth="+ window.screen.availWidth);
+  dbuga("window.screen.availHeight="+ window.screen.availHeight);
   }
 
 function initGeometry(){
-  screenWidth = screen.width;
-  screenHeight = screen.height;
+  screenWidth = window.screen.width;
+  screenHeight = window.screen.height;
   viewportWidth = window.innerWidth;
   viewportHeight = window.innerHeight;
 
