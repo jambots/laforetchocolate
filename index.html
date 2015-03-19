@@ -273,19 +273,24 @@ var sdiv
 var agent="unknown";
 
 function init(){
-  document.addEventListener("deviceready", "resumeInit()" , false);
-  }
-function resumeInit(){
-  dbug('resumeInit()');
-  initGeometry();
-  debugGeometry();
-  ddiv=document.getElementById('debugDiv');
-  sdiv=document.getElementById('setSelectScroller'); 
-
-
   if(navigator.userAgent.indexOf('Windows')>-1){agent="windows";}
   if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
   if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
+  if(agent=="droid"){
+    document.addEventListener("deviceready", "resumeInit()" , false);
+    }
+  else{
+    reumeInit();
+    }
+  }
+function resumeInit(){
+  ddiv=document.getElementById('debugDiv');
+  sdiv=document.getElementById('setSelectScroller'); 
+  dbug('resumeInit()');
+  initGeometry();
+  debugGeometry();
+
+
   //dbuga(agent);
   if((agent=="windows")||(agent=="mac")){
     document.onmousemove=function(e){
