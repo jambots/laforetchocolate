@@ -1054,7 +1054,7 @@ function animTick(){
   animTimeout=window.setTimeout("animTick()", 25);
   }
 function landscapeAnim(){
-  var imgHeight=landscapeScreenHeight.9;
+  var imgHeight=landscapeScreenHeight*.9;
   var imgWidth=Math.floor(imgHeight*3/4);
   var setKey=setKeys[selectedSetNum];
   var set=sets[setKeys[selectedSetNum]];
@@ -1316,7 +1316,7 @@ function updateThumbButtons(){
       }
 
     }
-  document.getElementById("thumbsScroller").style.height=(imgHeight*rows)+"px";
+  document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
   }
 function resizeImage (imageObject, targetType){
   imageObject.onload=null;
