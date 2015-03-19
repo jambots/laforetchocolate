@@ -501,7 +501,7 @@ var blingHeight=100;
 var screenAspect=1;
 
 function debugGeometry(){
-  dbuga("grid="+ grid);
+  dbug("grid="+ grid);
   dbuga("sourceHeight="+ sourceHeight);
   dbuga("sourceWidth="+ sourceWidth);
   dbuga("sourceAspect="+ sourceAspect);
@@ -558,7 +558,7 @@ function imageGeometry(){
       dbuga("taller");
       }
     if(prevWidth==100){
-      alert('so updateThumbs();');
+      alert('so updateThumbs(); ');
       updateThumbButtons();
       updateFlow();
       }
@@ -616,18 +616,15 @@ function updateFlow(){
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
   
-  var imgHeight=deviceWidth*.9;
-  var imgWidth=Math.floor(imgHeight*3/4);
-
 
   var htmlString="";
   //dbuga(imgWidth);
   for (var i=0; i<set.length; i++){
-    htmlString+='<div class="flowPanel" id="flow_'+i+'" style="background-color:blue; background-image:url(\'http://laforetchocolate.com/app/'+set[i]+'\'); width:'+imgWidth+'px; height:'+imgHeight+'px; position:absolute; left:'+imgWidth*i+'px;" zsrc="http://laforetchocolate.com/app/'+set[i]+'"></div>';
+    htmlString+='<div class="flowPanel" id="flow_'+i+'" style="background-color:blue; background-image:url(\'http://laforetchocolate.com/app/'+set[i]+'\'); width:'+portraitWidth+'px; height:'+portraitHeight+'px; position:absolute; left:'+portraitWidth*i+'px;" zsrc="http://laforetchocolate.com/app/'+set[i]+'"></div>';
 //http://laforetchocolate.com/app/'+set[i]+'
     }
-  flowWidth=(imgWidth*set.length);
-  flowMax=rotorWidth-imgWidth;
+  flowWidth=(portraitWidth*set.length);
+  flowMax=rotorWidth-portraitWidth;
   document.getElementById("flow").innerHTML=htmlString;
   //document.getElementById("flow").style.width=flowWidth+"px";
   }
@@ -1037,7 +1034,7 @@ function updateRotor(){
     ref.onload = function(){
       //dbuga('rotor loaded '+this.src)
       var that=this;
-      resizeImage(that);
+      resizeImage(that, "panel");
       }
 
     }
@@ -1057,7 +1054,7 @@ function animTick(){
   animTimeout=window.setTimeout("animTick()", 25);
   }
 function landscapeAnim(){
-  var imgHeight=absScreenWidth*.9;
+  var imgHeight=landscapeScreenHeight.9;
   var imgWidth=Math.floor(imgHeight*3/4);
   var setKey=setKeys[selectedSetNum];
   var set=sets[setKeys[selectedSetNum]];
@@ -1146,7 +1143,6 @@ dbuga("mouseX "+mouseX);
   }
 
 function portraitAnim(){
-  var imgWidth=ww;
   var setKey=setKeys[selectedSetNum];
   var set=sets[setKeys[selectedSetNum]];
 
@@ -1186,7 +1182,7 @@ function portraitAnim(){
       }
     }
   if(rotorUp){
-    document.getElementById("rotor").style.left=(0-rotorAtItem*imgWidth)+"px";
+    document.getElementById("rotor").style.left=(0-rotorAtItem*portraitWidth)+"px";
     }
 /*
   //dbug("touchingRotor "+touchingRotor);
@@ -1304,30 +1300,27 @@ function updateThumbButtons(){
 
   //selectedSetKey=selectedSetKey.replace("%20", " ");
   var cols=cellsAcross/16;
-  var imgWidth=Math.floor(ww/cols);
-  var imgHeight=Math.floor(imgWidth*4.2/3);
   var htmlString="";
   var rows=1+Math.floor((set.length-1)/cols);
   //dbuga("rows="+rows);
   for (var i=0; i<set.length; i++){
-    htmlString+='<img id="thumbImage'+i+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+    htmlString+='<img id="thumbImage'+i+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
     }
 
   document.getElementById("thumbsScroller").innerHTML=htmlString;
   for (var i=0; i<set.length; i++){
-    //dbuga('load '+imgWidth)
     var ref=document.getElementById("thumbImage"+i);
     ref.onload = function(){
       var that=this;
-      resizeImage(that);
+      resizeImage(that, "thumb");
       }
 
     }
   document.getElementById("thumbsScroller").style.height=(imgHeight*rows)+"px";
   }
-function resizeImage (imageObject){
+function resizeImage (imageObject, targetType){
   imageObject.onload=null;
-  //dbuga("resizeImage ("+imageObject.width+")");
+  dbuga("resizeImage ("+imageObject.width+") "+targetType);
   //var cols=cellsAcross/16;
   var width= imageObject.width;
   var height=Math.floor(width*4.2/3);
