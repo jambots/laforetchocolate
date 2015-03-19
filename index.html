@@ -1,7 +1,12 @@
 <html>
 <head>
 <meta http-equiv = "content-type" content = "application/xhtml+xml; charset = UTF-8" />
-<meta content = 'width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0' name = 'viewport' /><meta name = "viewport" content = "width = device-width, maximum-scale = 1.0, initial-scale = 1.0"><meta name = "apple-mobile-web-app-capable" content = "yes"><meta name = "title" content = "La Forêt" /><meta name = "description" content = "La Forêt chocolate" />
+<meta content = 'width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0' name = 'viewport' /><meta name = "viewport" content = "width = device-width, maximum-scale = 1.0, initial-scale = 1.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+<meta name = "apple-mobile-web-app-capable" content = "yes">
+<meta name = "title" content = "La Forêt" /><meta name = "description" content = "La Forêt chocolate" />
 <title>La Forêt</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="savefile.js"></script>
@@ -496,21 +501,22 @@ function debugGeometry(){
   dbuga("sourceHeight="+ sourceHeight);
   dbuga("sourceWidth="+ sourceWidth);
   dbuga("sourceAspect="+ sourceAspect);
-  dbuga("thumbWidth"+ thumbWidth);
-  dbuga("thumbHeight"+thumbHeight);
-  dbuga("portraitWidth"+portraitWidth);
-  dbuga("portraitHeight"+portraitHeight);
-  dbuga("panelWidth"+ panelWidth);
-  dbuga("panelHeight"+ panelHeight);
+  dbuga("thumbWidth="+ thumbWidth);
+  dbuga("thumbHeight="+thumbHeight);
+  dbuga("portraitWidth="+portraitWidth);
+  dbuga("portraitHeight="+portraitHeight);
+  dbuga("panelWidth="+ panelWidth);
+  dbuga("panelHeight="+ panelHeight);
   dbuga("screenWidth="+ screenWidth);
   dbuga("screenHeight="+ screenHeight);
   dbuga("viewportWidth="+ viewportWidth);
   dbuga("viewportHeight="+ viewportHeight);
   dbuga("viewportAspect="+ viewportAspect);
-  dbuga("portraitScreenHeight"+ portraitScreenHeight);
-  dbuga("landscapeScreenHeight"+ landscapeScreenHeight);
+  dbuga("portraitScreenHeight="+ portraitScreenHeight);
+  dbuga("landscapeScreenHeight="+ landscapeScreenHeight);
   dbuga("blingHeight="+ blingHeight);
   dbuga("screenAspect="+ screenAspect);
+  dbuga("device="+ JSON.stringify(device));
   }
 
 function initGeometry(){
