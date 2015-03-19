@@ -1054,7 +1054,7 @@ function animTick(){
   }
 function landscapeAnim(){
   var imgHeight=landscapeScreenHeight*.9;
-  var imgWidth=Math.floor(imgHeight*3/4);
+  var imgWidth=imgHeight*sourceAspect;
   var setKey=setKeys[selectedSetNum];
   var set=sets[setKeys[selectedSetNum]];
 
@@ -1287,7 +1287,7 @@ function showSetSelect(){
   selectUp=true;
   document.getElementById('setSelectDim').style.top=0+"px";
   }
-
+var cols;
 function updateThumbButtons(){
   dbuga("updateThumbButtons()");
   var selectedSetKey=setKeys[selectedSetNum];
@@ -1298,7 +1298,7 @@ function updateThumbButtons(){
   document.getElementById("thumbsLabel").innerHTML=title;
 
   //selectedSetKey=selectedSetKey.replace("%20", " ");
-  var cols=cellsAcross/16;
+  cols=Math.floor(cellsAcross/16);
   var htmlString="";
   var rows=1+Math.floor((set.length-1)/cols);
   //dbuga("rows="+rows);
@@ -1320,7 +1320,6 @@ function updateThumbButtons(){
 function resizeImage (imageObject, targetType){
   imageObject.onload=null;
   dbuga("resizeImage ("+imageObject.width+") "+targetType);
-  //var cols=cellsAcross/16;
   var width= imageObject.width;
   var height=Math.floor(width*4.2/3);
 
