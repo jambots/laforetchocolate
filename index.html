@@ -296,7 +296,7 @@ function resumeInit(){
   imageGeometry();
   debugGeometry();
 
-  populate();
+  //populate();
   //dbuga(agent);
   if((agent=="windows")||(agent=="mac")){
     document.onmousemove=function(e){
@@ -453,13 +453,11 @@ function measure(){
   var prevOrient=orient;
   if(ww>wh){
     orient="landscape";
-    deviceWidth=wh;
     document.getElementById('portraitMain').style.top=(0-wh-ww)+"px";
     document.getElementById('landscapeMain').style.top=0+"px";
     }
   else{
     orient="portrait";
-    deviceWidth=ww;
     document.getElementById('portraitMain').style.top=0+"px";
     document.getElementById('landscapeMain').style.top=(0-wh-ww)+"px";
     }
@@ -468,14 +466,14 @@ function measure(){
     else{flowAtItem=rotorAtItem;}
     }
   cellsAcross=32;
-  if(deviceWidth>540){cellsAcross=48;}
+  if(absScreenWidth>540){cellsAcross=48;}
   var newGrid=deviceWidth/cellsAcross;
   if(grid != newGrid){// init or resize somehow, not on rotate
     grid=newGrid;
     cellsDown=Math.floor(wh/grid);
     //dbuga(ww+' '+wh);
     //dbuga(cellsAcross+' '+cellsDown);
-    //populate();
+    populate();
     }
   }
 
