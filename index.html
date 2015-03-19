@@ -693,7 +693,7 @@ function infoCancel(){
   }
 
 function populate(){
-  //dbuga('populate()');
+  dbuga('populate() cellsAcross='+ cellsAcross);
   var modalWidth=32;	
   var selectWidth=28;	
   var modalMargin=(cellsAcross-modalWidth)/2;
@@ -719,13 +719,13 @@ function populate(){
   document.getElementById("setSelectLabel").style.top=grid*1+"px";
   document.getElementById("setSelectLabel").style.fontSize=grid*2+"px";
 
-  document.getElementById("thumbsLabel").style.width=ww/2+"px";
-  document.getElementById("thumbsLabel").style.left=ww/4+"px";
+  document.getElementById("thumbsLabel").style.width=portraitScreenWidth/2+"px";
+  document.getElementById("thumbsLabel").style.left=portraitScreenWidth/4+"px";
   document.getElementById("thumbsLabel").style.top=grid*1+"px";
   document.getElementById("thumbsLabel").style.fontSize=grid*2+"px";
    
-  document.getElementById("rotorLabel").style.width=ww/2+"px";
-  document.getElementById("rotorLabel").style.left=ww/4+"px";
+  document.getElementById("rotorLabel").style.width=portraitScreenWidth/2+"px";
+  document.getElementById("rotorLabel").style.left=portraitScreenWidth/4+"px";
   document.getElementById("rotorLabel").style.top=grid*1+"px";
   document.getElementById("rotorLabel").style.fontSize=grid*2+"px";
    
@@ -760,17 +760,17 @@ function populate(){
   document.getElementById("thumbsHolder").style.height=(wh-grid*8)+"px";
   document.getElementById("thumbsHolder").style.top=grid*4+"px";
   document.getElementById("thumbsNavTop").style.height=grid*4+"px";
-  document.getElementById("thumbsNavTop").style.width=ww+"px";
+  document.getElementById("thumbsNavTop").style.width=portraitScreenWidth+"px";
   document.getElementById("thumbsNavBottom").style.top=(wh-grid*4)+"px";
   document.getElementById("thumbsNavBottom").style.height=grid*4+"px";
-  document.getElementById("thumbsNavBottom").style.width=ww+"px";
+  document.getElementById("thumbsNavBottom").style.width=portraitScreenWidth+"px";
 
   document.getElementById("rotor").style.top=(grid*4)+"px";
   document.getElementById("rotorNavTop").style.height=grid*4+"px";
-  document.getElementById("rotorNavTop").style.width=ww+"px";
+  document.getElementById("rotorNavTop").style.width=portraitScreenWidth+"px";
   document.getElementById("rotorNavBottom").style.top=(wh-grid*4)+"px";
   document.getElementById("rotorNavBottom").style.height=grid*4+"px";
-  document.getElementById("rotorNavBottom").style.width=ww+"px";
+  document.getElementById("rotorNavBottom").style.width=portraitScreenWidth+"px";
 
   document.getElementById("setSelectNavTop").style.height=grid*4+"px";
 
@@ -794,7 +794,7 @@ function populate(){
   canv.width=Math.floor(grid*3);
   canv.height=Math.floor(grid*3);
   canv.style.top=grid*.5+"px";
-  canv.style.left=ww-grid*3.5+"px";
+  canv.style.left=portraitScreenWidth-grid*3.5+"px";
   roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "A", "#fff", Math.floor(grid*2)+"px signify", false);
 
   var canv=document.getElementById("jambotsButton");
@@ -815,21 +815,21 @@ function populate(){
   canv.width=Math.floor(grid*3);
   canv.height=Math.floor(grid*3);
   canv.style.top=grid*.5+"px";
-  canv.style.left=ww*.333-grid*1.5+"px";
+  canv.style.left=portraitScreenWidth*.333-grid*1.5+"px";
   roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "4", "#fff", Math.floor(grid*2)+"px signify", false);
 
   var canv=document.getElementById("nextButton");
   canv.width=Math.floor(grid*3);
   canv.height=Math.floor(grid*3);
   canv.style.top=grid*.5+"px";
-  canv.style.left=ww*.666-grid*1.5+"px";
+  canv.style.left=portraitScreenWidth*.666-grid*1.5+"px";
   roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "2", "#fff", Math.floor(grid*2)+"px signify", false);
 
   var canv=document.getElementById("faveButton");
   canv.width=Math.floor(grid*3);
   canv.height=Math.floor(grid*3);
   canv.style.top=grid*.5+"px";
-  canv.style.left=ww-grid*3.5+"px";
+  canv.style.left=portraitScreenWidth-grid*3.5+"px";
   roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
 
 
@@ -854,7 +854,7 @@ function populate(){
   canv.width=Math.floor(grid*3);
   canv.height=Math.floor(grid*3);
   canv.style.top=grid*.5+"px";
-  canv.style.left=(ww-grid*4.5)+"px";
+  canv.style.left=(portraitScreenWidth-grid*4.5)+"px";
 
   var ctx=canv.getContext('2d');
   ctx.beginPath();
@@ -1102,7 +1102,7 @@ function landscapeAnim(){
 
       }
     }
-  var middle=ww/2-imgWidth/2;
+  var middle=portraitScreenWidth/2-imgWidth/2;
   document.getElementById('flow').style.webkitPerspective=wh+"px";
   document.getElementById('flow').style.webkitTransform="translate3d(0,0,0)";
   //dbug('');
@@ -1147,7 +1147,7 @@ function portraitAnim(){
 
   if(touchingRotor==true){
     var deltaX=mouseX-rotorDragStartX;
-    var deltaItem=deltaX/ww;
+    var deltaItem=deltaX/portraitScreenWidth;
     rotorAtItem=rotorDragStartAt-deltaItem;
     if(rotorAtItem<-.1){rotorAtItem=-.1;}
     if(rotorAtItem>set.length-.9){rotorAtItem=set.length-.9;}
@@ -1319,7 +1319,7 @@ function updateThumbButtons(){
   }
 function resizeImage (imageObject, targetType){
   imageObject.onload=null;
-  dbuga("resizeImage ("+imageObject.width+") "+targetType);
+  //dbuga("resizeImage ("+imageObject.width+") "+targetType);
   var width= imageObject.width;
   var height=Math.floor(width*4.2/3);
 
