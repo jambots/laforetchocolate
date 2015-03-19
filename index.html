@@ -280,7 +280,7 @@ function init(){
   if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
   dbuga("agent="+agent);
   if(agent=="droid"){
-    document.addEventListener("deviceready", "resumeInit()" , false);
+    document.addEventListener("deviceready", resumeInit, false);
     }
   else{
     resumeInit();
