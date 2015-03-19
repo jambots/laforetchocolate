@@ -17,6 +17,7 @@
 <preference name="Fullscreen" value="true" />
 <preference name="Orientation" value="landscape" />
 <gap:splash src="splash960.png" />
+<gap:plugin name="org.apache.cordova.device" version="0.2.12" />
 <gap:plugin name="org.apache.cordova.media" version="0.2.8" />
 <gap:plugin name="org.apache.cordova.network-information" />
 <gap:plugin name="org.apache.cordova.file" version="1.0.1" />
