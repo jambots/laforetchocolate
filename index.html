@@ -293,7 +293,7 @@ function init(){
   }
 function resumeInit(){
   dbuga('resumeInit()');
-  initGeometry();
+  imageGeometry();
   debugGeometry();
 
 
@@ -437,6 +437,7 @@ var orient="unset";
 function dimensionTick(){
   if((ww!=window.innerWidth)||(wh!=window.innerHeight)){
     measure();
+    imageGeometry();
     }
   }
 
@@ -482,17 +483,19 @@ var sourceHeight=1092;
 var sourceAspect=sourceWidth/sourceHeight;
 var thumbWidth;
 var thumbHeight;
-var portraitWidth;
-var portraitHeight;
-var panelWidth;
-var panelHeight;
-var screenWidth=100;
-var screenHeight=100;
+var portraitWidth=100;
+var portraitHeight=100;
+var panelWidth=100;
+var panelHeight=100;
+var absScreenWidth=100;
+var absScreenHeight=100;
 var viewportWidth=100;
 var viewportHeight=100;
 var viewportAspect=1;
-var portraitScreenHeight;
-var landscapeScreenHeight;
+var portraitScreenHeight=100;
+var landscapeScreenHeight=100;
+var portraitScreenWidth=100;
+var landscapeScreenWidth=100;
 var blingHeight=100;
 var screenAspect=1;
 
@@ -507,62 +510,63 @@ function debugGeometry(){
   dbuga("portraitHeight="+portraitHeight);
   dbuga("panelWidth="+ panelWidth);
   dbuga("panelHeight="+ panelHeight);
-  dbuga("screenWidth="+ screenWidth);
-  dbuga("screenHeight="+ screenHeight);
+  dbuga("absScreenWidth="+ absScreenWidth);
+  dbuga("absScreenHeight="+ absScreenHeight);
   dbuga("viewportWidth="+ viewportWidth);
   dbuga("viewportHeight="+ viewportHeight);
-  dbuga("viewportAspect="+ viewportAspect);
+  dbuga("portraitScreenWidth="+ portraitScreenWidth);
   dbuga("portraitScreenHeight="+ portraitScreenHeight);
+  dbuga("landscapeScreenWidth="+ landscapeScreenWidth);
   dbuga("landscapeScreenHeight="+ landscapeScreenHeight);
   dbuga("blingHeight="+ blingHeight);
-  dbuga("screenAspect ="+ screenAspect);
-  dbuga("device="+ JSON.stringify(device));
-  dbuga("window.outerWidth="+ window.outerWidth);
-  dbuga("window.outerHeight="+ window.outerHeight);
-  dbuga("window.screen.availWidth="+ window.screen.availWidth);
-  dbuga("window.screen.availHeight="+ window.screen.availHeight);
   }
 
-function initGeometry(){
-  screenWidth = window.screen.width;
-  screenHeight = window.screen.height;
+function imageGeometry(){
+
   viewportWidth = window.innerWidth;
   viewportHeight = window.innerHeight;
-
-  if(screenWidth>screenHeight){
-    screenWidth = screen.height;
-    screenHeight = screen.width;
-    dbuga('Landroid so swap screen dimensions');
-    }// screen width is consistent with iOS now, width < height
-
   if(viewportWidth>viewportHeight){// landscape
-    blingHeight=screenWidth-viewportHeight;
+    var prevWidth=landscapeScreenWidth; 
+    landscapeScreenWidth = viewportWidth;
+    landscapeScreenHeight = viewportHeight;
+    absScreenHeight=landscapeScreenWidth;
+    panelHeight=landscapeScreenHeight;
+    panelWidth=Math.floor(panelHeight*sourceAspect);
+    if(prevWidth==100){
+      alert('so updateRotor();');
+      }
     }
   else{// portrait
-    blingHeight=screenHeight-viewportHeight;
-    }
-  viewportAspect=viewportWidth/viewportHeight;
-  portraitScreenHeight=screenHeight-blingHeight;
-  landscapeScreenHeight=screenWidth-blingHeight;
-  screenAspect=screenWidth/screenHeight;
-  
-  thumbWidth=Math.floor(screenWidth/3);
-  thumbHeight=Math.floor(thumbWidth/sourceAspect);
+    var prevWidth=portraitScreenWidth;
+    portraitScreenWidth = viewportWidth;
+    portraitScreenHeight = viewportHeight;
+    absScreenWidth=portraitScreenWidth;
 
-  var portraitContentHeight=portraitScreenHeight-grid*4;
-  var portraitContentAspect=screenWidth/portraitContentHeight;
-  if(portraitContentAspect<sourceAspect){// squatter so pad top
-    portraitWidth=screenWidth;
-    portraitHeight=Math.floor(portraitWidth/sourceAspect);
-    dbuga("squatter");
+    thumbWidth=Math.floor(portraitScreenWidth/3);
+    thumbHeight=Math.floor(thumbWidth/sourceAspect);
+    var portraitContentHeight=portraitScreenHeight-grid*4;
+    var portraitContentAspect=portraitScreenWidth/portraitContentHeight;
+    if(portraitContentAspect<sourceAspect){// squatter so pad top
+      portraitWidth=portraitScreenWidth;
+      portraitHeight=Math.floor(portraitWidth/sourceAspect);
+      dbuga("squatter");
+      }
+    else{// taller
+      portraitHeight=Math.floor(portraitContentHeight);
+      portraitWidth=portraitHeight*sourceAspect;
+      dbuga("taller");
+      }
+    if(prevWidth==100){
+      alert('so updateThumbs();');
+      //updateThumbButtons();
+      //updateRotor();
+      //updateFlow();
+      }
+
     }
-  else{// taller
-    portraitHeight=Math.floor(portraitContentHeight);
-    portraitWidth=portraitHeight*sourceAspect;
-    dbuga("taller");
+  if((absScreenWidth != 100)&&(absScreenHeight != 100)){
+    blingHeight=absScreenHeight-portraitScreenHeight;
     }
-  panelHeight=screenWidth;
-  panelWidth=Math.floor(panelHeight*sourceAspect);
   }
 
 function selectSet(setNum){
@@ -1014,21 +1018,18 @@ function updateRotor(){
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
   
-  var imgWidth=ww;
-  var imgHeight=Math.floor(imgWidth*4/3);
-
 
   var htmlString="";
   for (var i=0; i<set.length; i++){
     if((agent=="windows")||(agent=="mac")){
-      htmlString+='<img id="rotorImage'+i+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+      htmlString+='<img id="rotorImage'+i+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+panelWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
       }
     if(agent=="droid"){
-      htmlString+='<img id="rotorImage'+i+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+imgWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+      htmlString+='<img id="rotorImage'+i+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+panelWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
       }
     }
-  rotorWidth=(imgWidth*set.length);
-  rotorMax=rotorWidth-imgWidth;
+  rotorWidth=(panelWidth*set.length);
+  rotorMax=rotorWidth-panelWidth;
   document.getElementById("rotor").innerHTML=htmlString;
   document.getElementById("rotor").style.width=rotorWidth+"px";
   for (var i=0; i<set.length; i++){
@@ -1056,7 +1057,7 @@ function animTick(){
   animTimeout=window.setTimeout("animTick()", 25);
   }
 function landscapeAnim(){
-  var imgHeight=deviceWidth*.9;
+  var imgHeight=absScreenWidth*.9;
   var imgWidth=Math.floor(imgHeight*3/4);
   var setKey=setKeys[selectedSetNum];
   var set=sets[setKeys[selectedSetNum]];
