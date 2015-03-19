@@ -296,7 +296,7 @@ function resumeInit(){
   imageGeometry();
   debugGeometry();
 
-
+  populate();
   //dbuga(agent);
   if((agent=="windows")||(agent=="mac")){
     document.onmousemove=function(e){
@@ -475,7 +475,7 @@ function measure(){
     cellsDown=Math.floor(wh/grid);
     //dbuga(ww+' '+wh);
     //dbuga(cellsAcross+' '+cellsDown);
-    populate();
+    //populate();
     }
   }
 
@@ -596,6 +596,7 @@ function hideRotor(){
   }
 var setReady=false;
 function updateSet(){
+  alert("updateSet()");
   updateSelectButtons();
   updateThumbButtons();
   updateRotor();
@@ -1290,7 +1291,7 @@ function showSetSelect(){
   }
 
 function updateThumbButtons(){
-  //dbug("updateThumbButtons()");
+  dbuga("updateThumbButtons()");
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
 
