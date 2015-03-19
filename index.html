@@ -273,6 +273,8 @@ var sdiv
 var agent="unknown";
 
 function init(){
+  ddiv=document.getElementById('debugDiv');
+  sdiv=document.getElementById('setSelectScroller'); 
   if(navigator.userAgent.indexOf('Windows')>-1){agent="windows";}
   if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
   if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
@@ -280,12 +282,10 @@ function init(){
     document.addEventListener("deviceready", "resumeInit()" , false);
     }
   else{
-    reumeInit();
+    resumeInit();
     }
   }
 function resumeInit(){
-  ddiv=document.getElementById('debugDiv');
-  sdiv=document.getElementById('setSelectScroller'); 
   dbug('resumeInit()');
   initGeometry();
   debugGeometry();
