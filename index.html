@@ -4,10 +4,11 @@
 <meta content = 'width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0' name = 'viewport' /><meta name = "viewport" content = "width = device-width, maximum-scale = 1.0, initial-scale = 1.0"><meta name = "apple-mobile-web-app-capable" content = "yes"><meta name = "title" content = "La Forêt" /><meta name = "description" content = "La Forêt chocolate" />
 <title>La Forêt</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="phonegap.js"></script>
 <script src="savefile.js"></script>
+<!--
+<script src="phonegap.js"></script>
 <script src="childbrowser.js"></script>
-
+-->
 <script type="text/javascript" src="iscroll-lite.js"></script>
 
 <link rel = "stylesheet" type = "text/css" href = "reset.css">
@@ -272,7 +273,12 @@ var sdiv
 var agent="unknown";
 
 function init(){
-
+  document.addEventListener("deviceready", "resumeInit()" , false);
+  }
+function resumeInit(){
+  dbug('resumeInit()');
+  initGeometry();
+  debugGeometry();
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
 
@@ -328,7 +334,6 @@ function init(){
     document.addEventListener("backbutton", onBackKeyDown, false);
     }
 
-  //dbug('init()');
   loadData();
 
   if(localStorage.getItem("favorites") === null) {
@@ -423,10 +428,12 @@ function dimensionTick(){
     measure();
     }
   }
+
 var grid=3;
 var cellsDown=10;
 var cellsAcross=33;
 var deviceWidth=330;
+
 function measure(){
   ww=window.innerWidth;
   wh=window.innerHeight;
@@ -458,8 +465,92 @@ function measure(){
     populate();
     }
   }
+
+var sourceHeight=798;
+var sourceWidth=1092;
+var sourceAspect=sourceWidth/sourceHeight;
+var thumbWidth;
+var thumbHeight;
+var portraitWidth;
+var portraitHeight;
+var panelWidth;
+var panelHeight;
+var screenWidth=100;
+var screenHeight=100;
+var viewportWidth=100;
+var viewportHeight=100;
+var viewportAspect=1;
+var portraitScreenHeight;
+var landscapeScreenHeight;
+var blingHeight=100;
+var screenAspect=1;
+
+function debugGeometry(){
+  dbuga("grid="+ grid);
+  dbuga("sourceHeight="+ sourceHeight);
+  dbuga("sourceWidth="+ sourceWidth);
+  dbuga("sourceAspect="+ sourceAspect);
+  dbuga("thumbWidth"+ thumbWidth);
+  dbuga("thumbHeight"+thumbHeight);
+  dbuga("portraitWidth"+portraitWidth);
+  dbuga("portraitHeight"+portraitHeight);
+  dbuga("panelWidth"+ panelWidth);
+  dbuga("panelHeight"+ panelHeight);
+  dbuga("screenWidth="+ screenWidth);
+  dbuga("screenHeight="+ screenHeight);
+  dbuga("viewportWidth="+ viewportWidth);
+  dbuga("viewportHeight="+ viewportHeight);
+  dbuga("viewportAspect="+ viewportAspect);
+  dbuga("portraitScreenHeight"+ portraitScreenHeight);
+  dbuga("landscapeScreenHeight"+ landscapeScreenHeight);
+  dbuga("blingHeight="+ blingHeight);
+  dbuga("screenAspect="+ screenAspect);
+  }
+
+function initGeometry(){
+  screenWidth = screen.width;
+  screenHeight = screen.height;
+  viewportWidth = window.innerWidth;
+  viewportHeight = window.innerHeight;
+
+  if(screenWidth>screenHeight){
+    screenWidth = screen.height;
+    screenHeight = screen.width;
+    dbuga('Landroid so swap screen dimensions');
+    }// screen width is consistent with iOS now, width < height
+
+  if(viewportWidth>viewportHeight){// landscape
+    blingHeight=screenWidth-viewportHeight;
+    }
+  else{// portrait
+    blingHeight=screenHeight-viewportHeight;
+    }
+  viewportAspect=viewportWidth/viewportHeight;
+  portraitScreenHeight=screenHeight-blingHeight;
+  landscapeScreenHeight=screenWidth-blingHeight;
+  screenAspect=screenWidth/screenHeight;
+  
+  thumbWidth=Math.floor(screenWidth/3);
+  thumbHeight=Math.floor(thumbWidth/sourceAspect);
+
+  var portraitContentHeight=portraitScreenHeight-grid*4;
+  var portraitContentAspect=screenWidth/portraitContentHeight;
+  if(portraitContentAspect<sourceAspect){// squatter so pad top
+    portraitWidth=screenWidth;
+    portraitHeight=Math.floor(portraitWidth/sourceAspect);
+    dbuga("squatter");
+    }
+  else{// taller
+    portraitHeight=Math.floor(portraitContentHeight);
+    portraitWidth=portraitHeight*sourceAspect;
+    dbuga("taller");
+    }
+  panelHeight=screenWidth;
+  panelWidth=Math.floor(panelHeight*sourceAspect);
+  }
+
 function selectSet(setNum){
-  //dbuga("selectSet("+setNum+")");
+  //dbug("selectSet("+setNum+")");
   selectedSetNum=setNum;
   updateSet();
   hideSetSelect();
@@ -1219,7 +1310,7 @@ function updateThumbButtons(){
   }
 function resizeImage (imageObject){
   imageObject.onload=null;
-  dbuga("resizeImage ("+imageObject.width+")");
+  //dbuga("resizeImage ("+imageObject.width+")");
   //var cols=cellsAcross/16;
   var width= imageObject.width;
   var height=Math.floor(width*4.2/3);
