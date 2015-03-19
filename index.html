@@ -438,6 +438,7 @@ function dimensionTick(){
   if((ww!=window.innerWidth)||(wh!=window.innerHeight)){
     measure();
     imageGeometry();
+    debugGeometry();
     }
   }
 
@@ -533,7 +534,7 @@ function imageGeometry(){
     panelHeight=landscapeScreenHeight;
     panelWidth=Math.floor(panelHeight*sourceAspect);
     if(prevWidth==100){
-      alert('so updateRotor();');
+      updateRotor();
       }
     }
   else{// portrait
@@ -558,9 +559,8 @@ function imageGeometry(){
       }
     if(prevWidth==100){
       alert('so updateThumbs();');
-      //updateThumbButtons();
-      //updateRotor();
-      //updateFlow();
+      updateThumbButtons();
+      updateFlow();
       }
 
     }
