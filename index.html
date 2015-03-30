@@ -84,7 +84,6 @@ font-family: 'Arial';
   background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
   }
 #thumbsHolder{
-  //-webkit-overflow-scrolling: touch;
   background-color:#fff;
   width:100%;
   position:absolute;
@@ -124,10 +123,9 @@ font-family: 'Arial';
 #setSelectLabel{
   position:absolute;
   text-align:center;
-  color:white;
+  color:#fff;
   }
 #setSelectHolder{
-  //-webkit-overflow-scrolling: touch;
   position:absolute;
   background-color:#eee;
   width:200px;
@@ -175,7 +173,7 @@ font-family: 'Arial';
 #infoLabel{
   position:absolute;
   text-align:center;
-  color:white;
+  color:#fff;
   }
 #infoHolder{
   position:absolute;
@@ -189,12 +187,12 @@ font-family: 'Arial';
 #thumbsLabel{
   position:absolute;
   text-align:center;
-  color:white;
+  color:#fff;
   }
 #rotorLabel{
   position:absolute;
   text-align:center;
-  color:white;
+  color:#fff;
   }
 #rotorUi{
   background-color:#fff;
@@ -293,8 +291,8 @@ function init(){
   }
 function resumeInit(){
   dbuga('resumeInit()');
-  imageGeometry();
-  debugGeometry();
+  //imageGeometry();
+  //debugGeometry();
 
   //populate();
   //dbuga(agent);
@@ -354,9 +352,9 @@ function resumeInit(){
     var favoritesString=localStorage.getItem("favorites");
     sets["9999_Favorites"]=JSON.parse(favoritesString);
     }
-  //dbuga('loadData() ran');
-  clearInterval(dimensionInterval);
-  dimensionInterval=setInterval('dimensionTick()', 100);
+  dbuga('loadData() ran');
+  clearInterval(orientationInterval);
+  orientationInterval=setInterval('orientationTick()', 100);
   }
 function mailButton(){
   window.location='mailto:info@laforetchocolate.com';
@@ -430,12 +428,10 @@ function faveButton(){
   }
 var fileSystem;
 
-var dimensionInterval;
-var ww=0;
-var wh=0;
+var orientationInterval;
 var orient="unset";
-function dimensionTick(){
-  if((ww!=window.innerWidth)||(wh!=window.innerHeight)){
+function orientationTick(){
+  if(viewportWidth != window.innerWidth){
     measure();
     imageGeometry();
     debugGeometry();
@@ -447,19 +443,43 @@ var cellsDown=10;
 var cellsAcross=33;
 var deviceWidth=330;
 
-function measure(){
-  ww=window.innerWidth;
-  wh=window.innerHeight;
+function measure(){ //fires after window.innerWidth changed in orientation tick
+  var bothKnown=false;
+  if((portraitKnown)&&(landscapeKnown)){bothKnown=true;}
+  viewportWidth=window.innerWidth;
+  viewportHeight=window.innerHeight;
   var prevOrient=orient;
-  if(ww>wh){
+  if(viewportWidth>viewportHeight){
     orient="landscape";
-    document.getElementById('portraitMain').style.top=(0-wh-ww)+"px";
-    document.getElementById('landscapeMain').style.top=0+"px";
+    landscapeKnown=true;
+    landscapeScreenWidth=viewportWidth;
+    landscapeScreenHeight=viewportHeight;
+    absScreenHeight=landscapeScreenWidth;
+      if(portraitKnown==false){// let's play guess the portrait dimension! 
+      portraitScreenWidth=viewportHeight;
+      portraitScreenHeight=viewportWidth;
+      absScreenWidth=portraitScreenWidth;
+      }
     }
   else{
     orient="portrait";
-    document.getElementById('portraitMain').style.top=0+"px";
-    document.getElementById('landscapeMain').style.top=(0-wh-ww)+"px";
+    portraitKnown=true;
+    portraitScreenWidth=viewportWidth;
+    portraitScreenHeight=viewportHeight;
+    absScreenWidth= portraitScreenWidth;
+      if(portraitKnown==false){// let's play guess the landscape dimension! 
+      landscapeScreenWidth=viewportHeight;
+      landscapeScreenHeight=viewportWidth;
+      absScreenHeight=viewportWidth;
+      }
+    }
+
+  if(orient != prevOrient){
+    if((portraitKnown)&&(landscapeKnown)&&(bothKnown==false)){
+      bothKnown=true;
+      bling=portraitScreenWidth-landscapeScreenHeight;
+      alert("bling="+bling);
+      }
     }
   if(orient != prevOrient){
     if(orient=="portrait"){rotorAtItem=flowAtItem;}
@@ -467,13 +487,21 @@ function measure(){
     }
   cellsAcross=32;
   if(absScreenWidth>540){cellsAcross=48;}
-  var newGrid=deviceWidth/cellsAcross;
+  var newGrid=absScreenWidth/cellsAcross;
   if(grid != newGrid){// init or resize somehow, not on rotate
     grid=newGrid;
-    cellsDown=Math.floor(wh/grid);
-    //dbuga(ww+' '+wh);
-    //dbuga(cellsAcross+' '+cellsDown);
+    cellsDown=Math.floor(absScreenHeight/grid);
     populate();
+    }
+  if(orient=="landscape"){
+    //main hide landscape
+    document.getElementById('portraitMain').style.top=(0-viewportHeight-viewportWidth)+"px";
+    document.getElementById('landscapeMain').style.top=0+"px";
+    }
+  else{
+    //main hide portrait
+    document.getElementById('portraitMain').style.top=0+"px";
+    document.getElementById('landscapeMain').style.top=(0-viewportHeight-viewportWidth)+"px";
     }
   }
 
@@ -497,9 +525,13 @@ var portraitScreenWidth=100;
 var landscapeScreenWidth=100;
 var blingHeight=100;
 var screenAspect=1;
-
+var landscapeKnown=false;
+var portraitKnown=false;
 function debugGeometry(){
-  dbug("grid="+ grid);
+  dbug("<br>grid="+ grid);
+  dbuga("agent="+ agent);
+  dbuga("portraitKnown="+ portraitKnown);
+  dbuga("landscapeKnown ="+ landscapeKnown);
   dbuga("sourceHeight="+ sourceHeight);
   dbuga("sourceWidth="+ sourceWidth);
   dbuga("sourceAspect="+ sourceAspect);
@@ -528,7 +560,6 @@ function imageGeometry(){
     var prevWidth=landscapeScreenWidth; 
     landscapeScreenWidth = viewportWidth;
     landscapeScreenHeight = viewportHeight;
-    absScreenHeight=landscapeScreenWidth;
     panelHeight=landscapeScreenHeight;
     panelWidth=Math.floor(panelHeight*sourceAspect);
     if(prevWidth==100){
@@ -539,8 +570,7 @@ function imageGeometry(){
     var prevWidth=portraitScreenWidth;
     portraitScreenWidth = viewportWidth;
     portraitScreenHeight = viewportHeight;
-    absScreenWidth=portraitScreenWidth;
-
+    
     thumbWidth=Math.floor(portraitScreenWidth/3);
     thumbHeight=Math.floor(thumbWidth/sourceAspect);
     var portraitContentHeight=portraitScreenHeight-grid*4;
@@ -562,9 +592,6 @@ function imageGeometry(){
       }
 
     }
-  if((absScreenWidth != 100)&&(absScreenHeight != 100)){
-    blingHeight=absScreenHeight-portraitScreenHeight;
-    }
   }
 
 function selectSet(setNum){
@@ -577,7 +604,7 @@ var selectUp=true;
 function hideRotor(){
   rotorUp=false;
   document.getElementById('thumbsUi').style.top=0+"px";
-  document.getElementById('rotorUi').style.top=(0-wh)+"px";
+  document.getElementById('rotorUi').style.top=(0-portraitScreenHeight)+"px";
   var selectedSetKey=setKeys[selectedSetNum];
   if(selectedSetKey=="9999_Favorites"){
     var temp=sets["9999_Favorites"];
@@ -594,7 +621,7 @@ function hideRotor(){
   }
 var setReady=false;
 function updateSet(){
-  alert("updateSet()");
+  //alert("updateSet()");
   updateSelectButtons();
   updateThumbButtons();
   updateRotor();
@@ -735,7 +762,7 @@ function populate(){
   document.getElementById("setSelectModal").style.left=grid*modalMargin+"px";
 
   document.getElementById("setSelectHolder").style.width=grid*modalWidth+"px";
-  document.getElementById("setSelectHolder").style.height=(wh-grid*4-grid*modalMargin*2)+"px";
+  document.getElementById("setSelectHolder").style.height=(portraitScreenHeight-grid*4-grid*modalMargin*2)+"px";
   document.getElementById("setSelectHolder").style.top=grid*4+"px";
   document.getElementById("setSelectScroller").style.width=grid*modalWidth+"px";
 
@@ -745,30 +772,30 @@ function populate(){
   document.getElementById("infoModal").style.left=grid*modalMargin+"px";
 
   document.getElementById("infoHolder").style.width=grid*modalWidth+"px";
-  document.getElementById("infoHolder").style.height=(wh-grid*8-grid*modalMargin*2)+"px";
+  document.getElementById("infoHolder").style.height=(portraitScreenHeight-grid*8-grid*modalMargin*2)+"px";
   document.getElementById("infoHolder").style.top=grid*4+"px";
 
   document.getElementById("infoNavTop").style.height=grid*4+"px";
   document.getElementById("infoNavTop").style.width=grid*modalWidth+"px";
-  document.getElementById("infoNavBottom").style.top=(wh-grid*4-grid*modalMargin*2)+"px";
+  document.getElementById("infoNavBottom").style.top=(portraitScreenHeight-grid*4-grid*modalMargin*2)+"px";
   document.getElementById("infoNavBottom").style.height=grid*4+"px";
   document.getElementById("infoNavBottom").style.width=grid*modalWidth+"px";
 
 
   sdiv.style.height=(setKeys.length+1.5)*grid*4+"px";
 
-  document.getElementById("thumbsHolder").style.height=(wh-grid*8)+"px";
+  document.getElementById("thumbsHolder").style.height=(portraitScreenHeight-grid*8)+"px";
   document.getElementById("thumbsHolder").style.top=grid*4+"px";
   document.getElementById("thumbsNavTop").style.height=grid*4+"px";
   document.getElementById("thumbsNavTop").style.width=portraitScreenWidth+"px";
-  document.getElementById("thumbsNavBottom").style.top=(wh-grid*4)+"px";
+  document.getElementById("thumbsNavBottom").style.top=(portraitScreenHeight-grid*4)+"px";
   document.getElementById("thumbsNavBottom").style.height=grid*4+"px";
   document.getElementById("thumbsNavBottom").style.width=portraitScreenWidth+"px";
 
   document.getElementById("rotor").style.top=(grid*4)+"px";
   document.getElementById("rotorNavTop").style.height=grid*4+"px";
   document.getElementById("rotorNavTop").style.width=portraitScreenWidth+"px";
-  document.getElementById("rotorNavBottom").style.top=(wh-grid*4)+"px";
+  document.getElementById("rotorNavBottom").style.top=(portraitScreenHeight-grid*4)+"px";
   document.getElementById("rotorNavBottom").style.height=grid*4+"px";
   document.getElementById("rotorNavBottom").style.width=portraitScreenWidth+"px";
 
@@ -859,7 +886,7 @@ function populate(){
   var ctx=canv.getContext('2d');
   ctx.beginPath();
   ctx.arc(grid*1.5, grid*1.5,grid*1,0,pi*2,true);
-  ctx.fillStyle="white";
+  ctx.fillStyle="#fff";
   ctx.fill();
   ctx.font = "italic";
   roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "i", "#444", "bold italic "+Math.floor(grid*1.5)+"px Georgia", false);
@@ -872,7 +899,7 @@ function populate(){
   roundRect(canv, "#666", "#222", "", "", "", false);
   var ctx=canv.getContext('2d');
   ctx.lineWidth=grid/4; 
-  ctx.strokeStyle="white";
+  ctx.strokeStyle="#fff";
   ctx.beginPath();
   ctx.moveTo(grid,grid*1);
   ctx.lineTo(grid*3,grid*1);
@@ -1103,7 +1130,7 @@ function landscapeAnim(){
       }
     }
   var middle=portraitScreenWidth/2-imgWidth/2;
-  document.getElementById('flow').style.webkitPerspective=wh+"px";
+  document.getElementById('flow').style.webkitPerspective= portraitScreenHeight +"px";
   document.getElementById('flow').style.webkitTransform="translate3d(0,0,0)";
   //dbug('');
 
@@ -1123,7 +1150,7 @@ function landscapeAnim(){
     var r=-90*filedAmount;
     var thisFlow=document.getElementById("flow_"+i);
     thisFlow.style.left=middle+"px";
-    thisFlow.style.top=wh*.05+"px";
+    thisFlow.style.top= portraitScreenHeight*.05+"px";
   
     thisFlow.style.webkitTransformOrigin="center center";
     thisFlow.style.webkitTransform="translateZ("+z+"px) translateX("+x+"px) rotateY("+r+"deg)";
@@ -1243,7 +1270,7 @@ function selectThumb(num){
   rotorAtItem=num;
   rotorUp=true;
   //dbuga("selectThumb("+num+")");
-  document.getElementById('thumbsUi').style.top=(0-wh)+"px";
+  document.getElementById('thumbsUi').style.top=(0-portraitScreenHeight)+"px";
   document.getElementById('rotorUi').style.top=0+"px";
   selectedThumbNum=num;
   var set=sets[setKeys[selectedSetNum]];
@@ -1261,7 +1288,7 @@ function selectThumb(num){
 var infoUp=false;
 function hideInfo(){
   infoUpUp=false; 
-  document.getElementById('infoDim').style.top=(0-wh)+"px";
+  document.getElementById('infoDim').style.top=(0-portraitScreenHeight)+"px";
   }
 function showInfo(){
   //dbuga("showSetSelect()" +selectUp);
@@ -1272,7 +1299,7 @@ function showInfo(){
 function hideSetSelect(){
   //dbuga("hideSetSelect() called" +selectUp);
   selectUp=false; 
-  document.getElementById('setSelectDim').style.top=(0-wh)+"px";
+  document.getElementById('setSelectDim').style.top=(0-portraitScreenHeight)+"px";
   }
 function onBackKeyDown() {
   // Handle the back button
@@ -1381,7 +1408,7 @@ function updateSelectButtons(){
       ctx.lineTo(pad,pad);
       }
     ctx.stroke();
-    ctx.fillStyle="white";
+    ctx.fillStyle="#fff";
     ctx.fill();
 
     var temp=setKeys[s].split("_");
@@ -1566,6 +1593,6 @@ function gestureStart(e){
     </div>
   </div><! end of rotorUi>
 </div><! end of portraitMain>
-<div id="debugDiv" style="top:0px;left:60px; position:absolute;"></div>
+<div id="debugDiv" style="top:0px;left:60px; position:absolute; background-color(rgba(255,255,255,.75);"></div>
 </body>
 </html>
