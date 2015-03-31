@@ -1130,7 +1130,8 @@ function updateRotor(){
         this.src=dataUrl; // put resized data into image source
         saveLocal(this.id, dataUrl);
         var temp=this.id.split("~");
-        document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + this.src + "')";
+        var cleaned=this.src.replace(/(\r\n|\n|\r)/gm, "");
+        document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + cleaned + "')";
         //dbuga(temp[1]);
         }
       rotorRef.src="http://laforetchocolate.com/app/"+set[i];
@@ -1462,7 +1463,7 @@ function updateThumbButtons(){
       ref.src="http://laforetchocolate.com/app/"+set[i];
       }
     else{//use cached dataUrl
-      dbuga("cached "+ ref.id);
+      dbuga("use cached "+ ref.id);
       ref.src=localStorage.getItem(ref.id);
       }
     }
