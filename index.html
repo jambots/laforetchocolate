@@ -1489,7 +1489,7 @@ function returnResizedData(imageObject){
     dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
 
     // Replace source of Image
-    var dataUrl=dstCanvas.toDataURL("image/jpeg", .3);
+    var dataUrl=dstCanvas.toDataURL("image/jpeg", .8);
     //dbuga("returnResizedData("+imageObject.id+") chars: "+Math.floor(dataUrl.length/1000));
     return dataUrl;
 
