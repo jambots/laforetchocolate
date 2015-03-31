@@ -640,7 +640,7 @@ function imageGeometry(){
   }
 
 function selectSet(setNum){
-  dbug("selectSet("+setNum+")");
+  dbuga("selectSet("+setNum+")");
   
   selectedSetNum=setNum;
   localStorage.setItem("selectedSetNum", setNum);
@@ -1405,7 +1405,7 @@ function hideInfo(){
   document.getElementById('infoDim').style.top=(0-portraitScreenHeight)+"px";
   }
 function showInfo(){
-  //dbuga("showSetSelect()" +selectUp);
+  dbug("showSetSelect()" +selectUp);
   infoUp=true;
   document.getElementById('infoDim').style.top=0+"px";
   }
