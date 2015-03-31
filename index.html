@@ -1107,7 +1107,7 @@ function updateRotor(){
   var htmlString="";
   for (var i=0; i<set.length; i++){
     if((agent=="windows")||(agent=="mac")){
-      htmlString+='<img id="rotorImage_'+set[i]+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+rotorItemWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+      htmlString+='<img id="rotorImage_'+set[i]+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+rotorItemWidth+' src="loadanim.gif" />';
       }
     if((agent=="droid")||(agent=="ios")){
       htmlString+='<img id="rotorImage~'+set[i]+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+rotorItemWidth+' src="loadanim.gif" />';
@@ -1133,7 +1133,7 @@ function updateRotor(){
         document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + this.src + "')";
         //dbuga(temp[1]);
         }
-      rotorRef.src=set[i];
+      rotorRef.src="http://laforetchocolate.com/app/"+set[i];
 
       }
     else{//use cached dataUrl
