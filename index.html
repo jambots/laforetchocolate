@@ -640,7 +640,7 @@ function imageGeometry(){
   }
 
 function selectSet(setNum){
-  dbuga("selectSet("+setNum+")");
+  dbug("selectSet("+setNum+")");
   
   selectedSetNum=setNum;
   localStorage.setItem("selectedSetNum", setNum);
@@ -1424,7 +1424,7 @@ function onBackKeyDown() {
   }
 
 function showSetSelect(){
-  //dbuga("showSetSelect()" +selectUp);
+  dbug("showSetSelect()" +selectUp);
   selectUp=true;
   document.getElementById('setSelectDim').style.top=0+"px";
   }
