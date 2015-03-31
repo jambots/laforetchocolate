@@ -10,7 +10,10 @@
 <title>La Forêt</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="savefile.js"></script>
-<script src="phonegap.js"></script>
+<script>
+var web=false;
+</script>
+<script src="phonegap.js?2"></script>
 <!--
 <script src="childbrowser.js"></script>
 -->
@@ -204,6 +207,8 @@ font-family: 'Arial';
   }
 #rotor{
   position:absolute;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
   }
 #rotorNavTop{
   background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
@@ -274,27 +279,28 @@ font-family: 'Arial';
 var ddiv;
 var sdiv
 var agent="unknown";
-
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
   if(navigator.userAgent.indexOf('Windows')>-1){agent="windows";}
   if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
   if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
-  dbuga("agent="+agent);
-  if(agent=="droid"){
-    document.addEventListener("deviceready", resumeInit, false);
-    }
+  if(navigator.userAgent.indexOf('iPad')>-1){agent="ios";}
+  //dbuga("agent="+agent);
+  //dbuga("web="+web);
+  
+  if(web){resumeInit();}
   else{
-    resumeInit();
+    document.addEventListener("deviceready", resumeInit, false);
+    //dbuga("uh... web="+web);
     }
   }
 function resumeInit(){
-  dbuga('resumeInit()');
+  //dbuga('resumeInit()');
   //imageGeometry();
   //debugGeometry();
 
-  //populate();
+  //populateSelect();
   //dbuga(agent);
   if((agent=="windows")||(agent=="mac")){
     document.onmousemove=function(e){
@@ -319,7 +325,7 @@ function resumeInit(){
     document.getElementById("landscapeMain").onmousedown=function(e){flowClick(event);}
     document.getElementById("landscapeMain").onmouseup=function(e){flowMouseup(event);}
     }
-  if(agent=="droid"){
+  if((agent=="droid")||(agent=="ios")){
     document.ontouchmove=function(e){
       if((touchingRotor)||(touchingFlow)){
         e.preventDefault();
@@ -343,8 +349,41 @@ function resumeInit(){
     document.addEventListener("backbutton", onBackKeyDown, false);
     }
 
+  
+  orientationTick();
+  //dbuga('end of resumeInit orientationTick() ran');
+  //dbuga('loadData() ran');
+  setupLocalStorage();
   loadData();
+  clearInterval(orientationInterval);
+  orientationInterval=setInterval('orientationTick()', 100);
+  }
+function setupLocalStorage(){
 
+//var setKeys =["9999_Favorites"];
+//var sets={"9999_Favorites":[]};
+
+  if(localStorage.getItem("selectedSetNum") === null) {
+    localStorage.setItem("selectedSetNum", "0");
+    }
+  else{
+    selectedSetNum=Number(localStorage.getItem("selectedSetNum"));
+    }
+  
+  if(localStorage.getItem("sets") === null) {
+    dbuga("set sets to local");
+    localStorage.setItem("sets", JSON.stringify(sets));
+    }
+  else{
+    dbuga("read sets from local");
+    sets=JSON.parse(localStorage.getItem("sets"));
+    }
+  if(localStorage.getItem("setKeys") === null) {
+    localStorage.setItem("setKeys", JSON.stringify(setKeys));
+    }
+  else{
+    setKeys=JSON.parse(localStorage.getItem("setKeys"));
+    }
   if(localStorage.getItem("favorites") === null) {
     localStorage.setItem("favorites", "[]");
     }
@@ -352,9 +391,9 @@ function resumeInit(){
     var favoritesString=localStorage.getItem("favorites");
     sets["9999_Favorites"]=JSON.parse(favoritesString);
     }
-  dbuga('loadData() ran');
-  clearInterval(orientationInterval);
-  orientationInterval=setInterval('orientationTick()', 100);
+  if(localStorage.getItem("nameStack") === null) {
+    localStorage.setItem("nameStack", "[]");
+    }
   }
 function mailButton(){
   window.location='mailto:info@laforetchocolate.com';
@@ -433,8 +472,8 @@ var orient="unset";
 function orientationTick(){
   if(viewportWidth != window.innerWidth){
     measure();
-    imageGeometry();
-    debugGeometry();
+    //imageGeometry();
+    //debugGeometry();
     }
   }
 
@@ -444,6 +483,7 @@ var cellsAcross=33;
 var deviceWidth=330;
 
 function measure(){ //fires after window.innerWidth changed in orientation tick
+  //dbuga("measure()");
   var bothKnown=false;
   if((portraitKnown)&&(landscapeKnown)){bothKnown=true;}
   viewportWidth=window.innerWidth;
@@ -455,7 +495,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     landscapeScreenWidth=viewportWidth;
     landscapeScreenHeight=viewportHeight;
     absScreenHeight=landscapeScreenWidth;
-      if(portraitKnown==false){// let's play guess the portrait dimension! 
+    if(portraitKnown==false){// let's play guess the portrait dimension! 
       portraitScreenWidth=viewportHeight;
       portraitScreenHeight=viewportWidth;
       absScreenWidth=portraitScreenWidth;
@@ -467,7 +507,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     portraitScreenWidth=viewportWidth;
     portraitScreenHeight=viewportHeight;
     absScreenWidth= portraitScreenWidth;
-      if(portraitKnown==false){// let's play guess the landscape dimension! 
+      if(landscapeKnown==false){// let's play guess the landscape dimension! 
       landscapeScreenWidth=viewportHeight;
       landscapeScreenHeight=viewportWidth;
       absScreenHeight=viewportWidth;
@@ -477,8 +517,10 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
   if(orient != prevOrient){
     if((portraitKnown)&&(landscapeKnown)&&(bothKnown==false)){
       bothKnown=true;
-      bling=portraitScreenWidth-landscapeScreenHeight;
-      alert("bling="+bling);
+      absScreenWidth=portraitScreenWidth;
+      absScreenHeight=landscapeScreenWidth;
+      blingHeight=portraitScreenWidth-landscapeScreenHeight;
+      //alert("blingHeight ="+ blingHeight);
       }
     }
   if(orient != prevOrient){
@@ -491,7 +533,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
   if(grid != newGrid){// init or resize somehow, not on rotate
     grid=newGrid;
     cellsDown=Math.floor(absScreenHeight/grid);
-    populate();
+    populateSelect();
     }
   if(orient=="landscape"){
     //main hide landscape
@@ -503,6 +545,9 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     document.getElementById('portraitMain').style.top=0+"px";
     document.getElementById('landscapeMain').style.top=(0-viewportHeight-viewportWidth)+"px";
     }
+  imageGeometry();
+  //debugGeometry();
+  //dbuga("measured");
   }
 
 var sourceWidth=798;
@@ -510,10 +555,11 @@ var sourceHeight=1092;
 var sourceAspect=sourceWidth/sourceHeight;
 var thumbWidth;
 var thumbHeight;
-var portraitWidth=100;
-var portraitHeight=100;
-var panelWidth=100;
-var panelHeight=100;
+var rotorItemWidth=100;
+var rotorItemHeight=100;
+var rotorItemFit="unset";
+var flowItemWidth=100;
+var flowItemHeight=100;
 var absScreenWidth=100;
 var absScreenHeight=100;
 var viewportWidth=100;
@@ -523,13 +569,15 @@ var portraitScreenHeight=100;
 var landscapeScreenHeight=100;
 var portraitScreenWidth=100;
 var landscapeScreenWidth=100;
-var blingHeight=100;
+var blingHeight=0;
 var screenAspect=1;
 var landscapeKnown=false;
 var portraitKnown=false;
 function debugGeometry(){
   dbug("<br>grid="+ grid);
   dbuga("agent="+ agent);
+  dbuga("web="+ web);
+  dbuga("rotorItemFit="+ rotorItemFit);
   dbuga("portraitKnown="+ portraitKnown);
   dbuga("landscapeKnown ="+ landscapeKnown);
   dbuga("sourceHeight="+ sourceHeight);
@@ -537,10 +585,10 @@ function debugGeometry(){
   dbuga("sourceAspect="+ sourceAspect);
   dbuga("thumbWidth="+ thumbWidth);
   dbuga("thumbHeight="+thumbHeight);
-  dbuga("portraitWidth="+portraitWidth);
-  dbuga("portraitHeight="+portraitHeight);
-  dbuga("panelWidth="+ panelWidth);
-  dbuga("panelHeight="+ panelHeight);
+  dbuga("rotorItemWidth="+rotorItemWidth);
+  dbuga("rotorItemHeight="+rotorItemHeight);
+  dbuga("flowItemWidth="+ flowItemWidth);
+  dbuga("flowItemHeight="+ flowItemHeight);
   dbuga("absScreenWidth="+ absScreenWidth);
   dbuga("absScreenHeight="+ absScreenHeight);
   dbuga("viewportWidth="+ viewportWidth);
@@ -550,43 +598,40 @@ function debugGeometry(){
   dbuga("landscapeScreenWidth="+ landscapeScreenWidth);
   dbuga("landscapeScreenHeight="+ landscapeScreenHeight);
   dbuga("blingHeight="+ blingHeight);
+  dbuga("selectedSetNum="+ selectedSetNum);
   }
 
 function imageGeometry(){
 
-  viewportWidth = window.innerWidth;
-  viewportHeight = window.innerHeight;
-  if(viewportWidth>viewportHeight){// landscape
+  flowItemHeight=Math.floor(landscapeScreenHeight*.8);
+  flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
+  if(orient=="landscape"){
     var prevWidth=landscapeScreenWidth; 
-    landscapeScreenWidth = viewportWidth;
-    landscapeScreenHeight = viewportHeight;
-    panelHeight=landscapeScreenHeight;
-    panelWidth=Math.floor(panelHeight*sourceAspect);
     if(prevWidth==100){
+      //dbuga("image geometry prevWidth==100 so updateRotor");
       updateRotor();
       }
     }
   else{// portrait
     var prevWidth=portraitScreenWidth;
-    portraitScreenWidth = viewportWidth;
-    portraitScreenHeight = viewportHeight;
+
     
     thumbWidth=Math.floor(portraitScreenWidth/3);
     thumbHeight=Math.floor(thumbWidth/sourceAspect);
     var portraitContentHeight=portraitScreenHeight-grid*4;
     var portraitContentAspect=portraitScreenWidth/portraitContentHeight;
     if(portraitContentAspect<sourceAspect){// squatter so pad top
-      portraitWidth=portraitScreenWidth;
-      portraitHeight=Math.floor(portraitWidth/sourceAspect);
-      dbuga("squatter");
+      rotorItemWidth=portraitScreenWidth;
+      rotorItemHeight=Math.floor(rotorItemWidth/sourceAspect);
+      rotorItemFit="squatter";
       }
     else{// taller
-      portraitHeight=Math.floor(portraitContentHeight);
-      portraitWidth=portraitHeight*sourceAspect;
-      dbuga("taller");
+      rotorItemHeight=Math.floor(portraitContentHeight);
+      rotorItemWidth=rotorItemHeight*sourceAspect;
+      rotorItemFit="taller";
       }
     if(prevWidth==100){
-      alert('so updateThumbs(); ');
+      //dbuga('prevWidth==100 so updateThumbButtons('+thumbWidth+') and updateFlow('+flowItemWidth+') ');
       updateThumbButtons();
       updateFlow();
       }
@@ -595,8 +640,10 @@ function imageGeometry(){
   }
 
 function selectSet(setNum){
-  //dbug("selectSet("+setNum+")");
+  dbug("selectSet("+setNum+")");
+  
   selectedSetNum=setNum;
+  localStorage.setItem("selectedSetNum", setNum);
   updateSet();
   hideSetSelect();
   }
@@ -623,9 +670,13 @@ var setReady=false;
 function updateSet(){
   //alert("updateSet()");
   updateSelectButtons();
+  //dbuga('updateSet() so updateThumbButtons('+thumbWidth+')');
   updateThumbButtons();
-  updateRotor();
+  //dbuga("updateSet so UpdateRotor("+rotorItemWidth+")");
+
   updateFlow();
+  window.setTimeout("updateRotor()", 5000);
+  
   setReady=true;
   }
 var touchingFlow=false;
@@ -646,13 +697,13 @@ function updateFlow(){
   var htmlString="";
   //dbuga(imgWidth);
   for (var i=0; i<set.length; i++){
-    htmlString+='<div class="flowPanel" id="flow_'+i+'" style="background-color:blue; background-image:url(\'http://laforetchocolate.com/app/'+set[i]+'\'); width:'+portraitWidth+'px; height:'+portraitHeight+'px; position:absolute; left:'+portraitWidth*i+'px;" zsrc="http://laforetchocolate.com/app/'+set[i]+'"></div>';
-//http://laforetchocolate.com/app/'+set[i]+'
+    htmlString+='<div class="flowPanel" id="flowImage~'+set[i]+'" style="background-color:blue; background-image:url(\'loadanim.gif\'); width:'+flowItemWidth+'px; height:'+flowItemHeight+'px; position:absolute; left:'+flowItemWidth*i+'px;" zsrc="http://laforetchocolate.com/app/'+set[i]+'"></div>';
     }
-  flowWidth=(portraitWidth*set.length);
-  flowMax=rotorWidth-portraitWidth;
+  flowWidth=(flowItemWidth*set.length);
+  flowMax=flowWidth-flowItemWidth;
   document.getElementById("flow").innerHTML=htmlString;
   //document.getElementById("flow").style.width=flowWidth+"px";
+  // resize?
   }
 
 function flowClick(e){
@@ -719,8 +770,8 @@ function infoCancel(){
   hideInfo();
   }
 
-function populate(){
-  dbuga('populate() cellsAcross='+ cellsAcross);
+function populateSelect(){
+  //dbuga('populateSelect() cellsAcross='+ cellsAcross);
   var modalWidth=32;	
   var selectWidth=28;	
   var modalMargin=(cellsAcross-modalWidth)/2;
@@ -803,7 +854,7 @@ function populate(){
 
 
 
-  updateSet();
+  //updateSet();
   tScroll=new iScroll("thumbsHolder");
   sScroll=new iScroll("setSelectHolder");
 
@@ -1037,6 +1088,17 @@ var rotorDockStartX=0;
 var rotorDragStartAt=0;
 var rotorDragStartX=0;
 var mouseX=0;
+function inArray(needle, haystack) {
+    var length = haystack.length;
+    for(var i = 0; i < length; i++) {
+        if(haystack[i] == needle) return true;
+    }
+    return false;
+}
+function isCached(imageKey){
+  return inArray(imageKey, JSON.parse(localStorage.getItem("nameStack"))); 
+  }
+
 function updateRotor(){
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
@@ -1045,25 +1107,74 @@ function updateRotor(){
   var htmlString="";
   for (var i=0; i<set.length; i++){
     if((agent=="windows")||(agent=="mac")){
-      htmlString+='<img id="rotorImage'+i+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+panelWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+      htmlString+='<img id="rotorImage_'+set[i]+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+rotorItemWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
       }
-    if(agent=="droid"){
-      htmlString+='<img id="rotorImage'+i+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+panelWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+    if((agent=="droid")||(agent=="ios")){
+      htmlString+='<img id="rotorImage~'+set[i]+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+rotorItemWidth+' src="loadanim.gif" />';
       }
     }
-  rotorWidth=(panelWidth*set.length);
-  rotorMax=rotorWidth-panelWidth;
+  rotorWidth=(rotorItemWidth*set.length);
+  rotorMax=rotorWidth-rotorItemWidth;
   document.getElementById("rotor").innerHTML=htmlString;
   document.getElementById("rotor").style.width=rotorWidth+"px";
   for (var i=0; i<set.length; i++){
-    var ref=document.getElementById("rotorImage"+i);
-    ref.onload = function(){
-      //dbuga('rotor loaded '+this.src)
-      var that=this;
-      resizeImage(that, "panel");
-      }
+    var rotorRef=document.getElementById("rotorImage~"+set[i]);
+    var flowRef=document.getElementById("flowImage~"+set[i]);
+    
+    if(isCached(rotorRef.id)==false){
+      rotorRef.onload = function(){// resize then cache on load
+        var that=this;
+        //resizeImage(that, "rotorItem in updateRotor "+rotorItemWidth);
+        var dataUrl=returnResizedData(that);
+        //dbuga('step2');
+        this.src=dataUrl; // put resized data into image source
+        saveLocal(this.id, dataUrl);
+        var temp=this.id.split("~");
+        document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + this.src + "')";
+        //dbuga(temp[1]);
+        }
+      rotorRef.src=set[i];
 
+      }
+    else{//use cached dataUrl
+      dbuga(" use cached "+ rotorRef.id);
+      dbuga(" use cached "+ flowRef.id);
+      rotorRef.src=localStorage.getItem(rotorRef.id);
+      flowRef.style.backgroundImage="url('" + rotorRef.src + "')";
+      }
     }
+  }
+function saveLocal(key, data){
+  var nameStack=JSON.parse(localStorage.getItem("nameStack"));
+  var saved=true;
+  
+  try{
+    localStorage.setItem(key, data);
+    } catch(e) {
+    //dbuga(e);
+    saved=false;
+    }
+  while((saved==false)&&(nameStack.length>0)){
+    var delKey=nameStack.shift();
+    localStorage.setItem(delKey, "");
+    dbuga('purged '+delKey);
+    saved=true;
+    try{
+      localStorage.setItem(key, data);
+      } catch(e) {
+      //dbuga(e);
+      saved=false;
+      }
+    }
+
+  if(saved){
+    nameStack.push(key);
+    dbuga('saved '+nameStack.length+' '+key);
+    }
+  else{
+    dbuga('failed '+key);
+    }
+  localStorage.setItem("nameStack", JSON.stringify(nameStack));
   }
 function clip(num){
   return Math.floor(num*100)/100;
@@ -1080,7 +1191,8 @@ function animTick(){
   animTimeout=window.setTimeout("animTick()", 25);
   }
 function landscapeAnim(){
-  var imgHeight=landscapeScreenHeight*.9;
+  if(landscapeKnown==false){return false;}
+  var imgHeight= flowItemHeight;
   var imgWidth=imgHeight*sourceAspect;
   var setKey=setKeys[selectedSetNum];
   var set=sets[setKeys[selectedSetNum]];
@@ -1129,8 +1241,8 @@ function landscapeAnim(){
 
       }
     }
-  var middle=portraitScreenWidth/2-imgWidth/2;
-  document.getElementById('flow').style.webkitPerspective= portraitScreenHeight +"px";
+  var middle=landscapeScreenWidth/2-imgWidth/2;
+  document.getElementById('flow').style.webkitPerspective= landscapeScreenWidth +"px";
   document.getElementById('flow').style.webkitTransform="translate3d(0,0,0)";
   //dbug('');
 
@@ -1148,7 +1260,7 @@ function landscapeAnim(){
     var y=0;
     var z=-Math.floor(imgWidth*(filedFraction/3+itemsFromAt/3));
     var r=-90*filedAmount;
-    var thisFlow=document.getElementById("flow_"+i);
+    var thisFlow=document.getElementById("flowImage~"+set[i]);
     thisFlow.style.left=middle+"px";
     thisFlow.style.top= portraitScreenHeight*.05+"px";
   
@@ -1208,7 +1320,9 @@ function portraitAnim(){
       }
     }
   if(rotorUp){
-    document.getElementById("rotor").style.left=(0-rotorAtItem*portraitWidth)+"px";
+    var rotorOffset=0;
+    if(rotorItemWidth<portraitScreenWidth){rotorOffset=(portraitScreenWidth-rotorItemWidth)/2;}
+    document.getElementById("rotor").style.left=(0-rotorAtItem*rotorItemWidth+rotorOffset)+"px";
     }
 /*
   //dbug("touchingRotor "+touchingRotor);
@@ -1316,7 +1430,7 @@ function showSetSelect(){
   }
 var cols;
 function updateThumbButtons(){
-  dbuga("updateThumbButtons()");
+  //dbuga("updateThumbButtons() ");
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
 
@@ -1330,23 +1444,32 @@ function updateThumbButtons(){
   var rows=1+Math.floor((set.length-1)/cols);
   //dbuga("rows="+rows);
   for (var i=0; i<set.length; i++){
-    htmlString+='<img id="thumbImage'+i+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="http://laforetchocolate.com/app/'+set[i]+'" />';
+    htmlString+='<img id="thumbImage~'+set[i]+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="loadanim.gif" />';
     }
 
   document.getElementById("thumbsScroller").innerHTML=htmlString;
   for (var i=0; i<set.length; i++){
-    var ref=document.getElementById("thumbImage"+i);
-    ref.onload = function(){
-      var that=this;
-      resizeImage(that, "thumb");
+    var ref=document.getElementById("thumbImage~"+set[i]);
+    if(isCached(ref.id)==false){
+      ref.onload = function(){// resize then cache on load
+        var that=this;
+        //resizeImage(that, "rotorItem in updateRotor "+rotorItemWidth);
+        var dataUrl=returnResizedData(that);
+        //dbuga('step2');
+        this.src=dataUrl; // put resized data into image source
+        saveLocal(this.id, dataUrl);
+        }
+      ref.src=set[i];
       }
-
+    else{//use cached dataUrl
+      dbuga("cached "+ ref.id);
+      ref.src=localStorage.getItem(ref.id);
+      }
     }
   document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
   }
-function resizeImage (imageObject, targetType){
-  imageObject.onload=null;
-  //dbuga("resizeImage ("+imageObject.width+") "+targetType);
+function returnResizedData(imageObject){
+  imageObject.onload=null;//prevents double firing from fast events
   var width= imageObject.width;
   var height=Math.floor(width*4.2/3);
 
@@ -1365,7 +1488,37 @@ function resizeImage (imageObject, targetType){
     dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
 
     // Replace source of Image
-    imageObject.src = dstCanvas.toDataURL();
+    var dataUrl=dstCanvas.toDataURL("image/jpeg", .3);
+    //dbuga("returnResizedData("+imageObject.id+") chars: "+Math.floor(dataUrl.length/1000));
+    return dataUrl;
+
+}
+
+function resizeImage(imageObject, targetType){
+  imageObject.onload=null;//prevents double firing from fast events
+  var width= imageObject.width;
+  var height=Math.floor(width*4.2/3);
+
+
+    // Calculate a new scale
+    // The new scale will be the minimum of the two possible scales
+    var scale = Math.min((width / imageObject.width), (height/ imageObject.height));
+
+    // New canvas
+    var dstCanvas = document.createElement('canvas');
+    dstCanvas.width = imageObject.width * scale;
+    dstCanvas.height = imageObject.height * scale;
+
+    // Draw Image content in canvas
+    var dstContext = dstCanvas.getContext('2d');
+    dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
+
+    // Replace source of Image
+    var dataUrl=dstCanvas.toDataURL("image/jpeg", .7);
+    
+    imageObject.src = dataUrl;
+    //dbuga("resizeImage() w: "+imageObject.width+" chars: "+Math.floor(dataUrl.length/1000));
+
 }
 function updateSelectButtons(){
  for (var s=0; s<setKeys.length; s++){
@@ -1448,7 +1601,16 @@ function loadData(){
       $.getJSON('http://laforetchocolate.com/app/config.json', function(json) {
          //dbuga(JSON.stringify(json));
          parseData(json);
-         //debugData();
+         populateSelect();
+         updateSet();
+         })
+         .fail(function() {
+         dbuga("fail");
+         populateSelect();
+         updateSet();
+         window.clearTimeout(animTimeout);
+         animTimeout=window.setTimeout("animTick()", 25);
+
          });
        });
     }
@@ -1458,6 +1620,8 @@ var sets={"9999_Favorites":[]};
 var selectedSetNum=0;
 var selectedThumbNum=0;
 function parseData(theData){
+  setKeys=["9999_Favorites"];
+  sets={"9999_Favorites":JSON.parse(localStorage.getItem("favorites"))}
   var itemData=theData.config.assets;
   var allKeys=Object.keys(itemData);
   for (var k=0; k<allKeys.length; k++){
@@ -1478,8 +1642,13 @@ function parseData(theData){
   for (var s=0; s<setKeys.length; s++){
     sets[setKeys[s]].sort();
     }
-  selectedSetNum=1;
-  //dbuga('animTimeout');
+  if(setKeys.length>1){
+    //selectedSetNum=1;
+    }
+  dbuga('dataParsed ');
+  localStorage.setItem("setKeys", JSON.stringify(setKeys));
+  localStorage.setItem("sets", JSON.stringify(sets));
+  window.clearTimeout(animTimeout);
   animTimeout=window.setTimeout("animTick()", 25);
   }
 
@@ -1593,6 +1762,6 @@ function gestureStart(e){
     </div>
   </div><! end of rotorUi>
 </div><! end of portraitMain>
-<div id="debugDiv" style="top:0px;left:60px; position:absolute; background-color(rgba(255,255,255,.75);"></div>
+<div id="debugDiv" style="top:0px;left:60px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
 </body>
 </html>
