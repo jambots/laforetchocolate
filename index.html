@@ -1492,15 +1492,20 @@ function updateThumbButtons(){
   for (var i=0; i<set.length; i++){
     var ref=document.getElementById("thumbImage~"+set[i]);
     if(isCached(ref.id)==false){
-      ref.onload = function(){// resize then cache on load
-        var that=this;
-        //resizeImage(that, "rotorItem in updateRotor "+rotorItemWidth);
-        var dataUrl=returnResizedData(that);
-        //dbuga('step2');
-        this.src=dataUrl; // put resized data into image source
-        saveLocal(this.id, dataUrl);
+      if(dataLoaded){
+        ref.onload = function(){// resize then cache on load
+          var that=this;
+          //resizeImage(that, "rotorItem in updateRotor "+rotorItemWidth);
+          var dataUrl=returnResizedData(that);
+          //dbuga('step2');
+          this.src=dataUrl; // put resized data into image source
+          saveLocal(this.id, dataUrl);
+          }
+        ref.src="http://laforetchocolate.com/app/"+set[i];
         }
-      ref.src="http://laforetchocolate.com/app/"+set[i];
+      else{
+        ref.src="unnabletoloadimages.jpg";
+        }
       }
     else{//use cached dataUrl
       //dbuga("use cached "+ ref.id);
@@ -1642,25 +1647,24 @@ function updateSelectButtons(){
     }
   }
 var pi=Math.PI;
-function purgeSets(){
-dbuga('purgeSets() '+JSON.parse(localStorage.getItem("nameStack")).length);
-}
+var dataLoaded=false;
+
 function loadData(){
   $(document).ready(function(){
       $.getJSON('http://laforetchocolate.com/app/config.json', function(json) {
          //dbuga(JSON.stringify(json));
          parseData(json);
+         dataLoaded=true;
          populateSelect();
          updateSet();
          })
          .fail(function() {
          //dbuga("fail");
-         purgeSets();
          populateSelect();
          updateSet();
          window.clearTimeout(animTimeout);
          animTimeout=window.setTimeout("animTick()", 25);
-
+         dataLoaded=false;
          });
        });
     }
