@@ -1488,7 +1488,7 @@ function returnResizedData(imageObject){
     dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
 
     // Replace source of Image
-    var dataUrl=dstCanvas.toDataURL();
+    var dataUrl=dstCanvas.toDataURL("image/jpeg", 1.0);
     //dbuga("returnResizedData("+imageObject.id+") chars: "+Math.floor(dataUrl.length/1000));
     return dataUrl;
 
@@ -1514,7 +1514,7 @@ function resizeImage(imageObject, targetType){
     dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
 
     // Replace source of Image
-    var dataUrl=dstCanvas.toDataURL();
+    var dataUrl=dstCanvas.toDataURL("image/jpeg", 1.0);
     
     imageObject.src = dataUrl;
     //dbuga("resizeImage() w: "+imageObject.width+" chars: "+Math.floor(dataUrl.length/1000));
