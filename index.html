@@ -1504,13 +1504,13 @@ function returnResizedData(imageObject){
         width: $dstCanvas.width(),
         height: $dstCanvas.height()
     };
-        window.canvasplugin(dstCanvas, offset, 'image/png', function(val) {
+        window.canvasplugin(dstCanvas, offset, 'image/jpeg', function(val) {
             dataUrl = val.data;
             dbuga("canvasplugin");
         });
 
-  //dbuga("returnResizedData("+imageObject.id+") width:"+width+" chars:"+Math.floor(dataUrl.length/1000));
-  dbuga("returnResizedData() width:"+width+" height:"+height+" targetHeight:"+ targetHeight);
+  dbuga("returnResizedData("+imageObject.id+") width:"+width+" chars:"+Math.floor(dataUrl.length/1000));
+  //dbuga("returnResizedData() width:"+width+" height:"+height+" targetHeight:"+ targetHeight);
   return dataUrl;
 
 }
