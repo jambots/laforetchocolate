@@ -1124,20 +1124,19 @@ function updateRotor(){
     var flowRef=document.getElementById("flowImage~"+set[i]);
     
     if(isCached(rotorRef.id)==false){
-/*
+
       rotorRef.onload = function(){// resize then cache on load
         var that=this;
         //resizeImage(that, "rotorItem in updateRotor "+rotorItemWidth);
         var dataUrl=returnResizedData(that);
         //dbuga('step2');
         this.src=dataUrl; // put resized data into image source
-        saveLocal(this.id, dataUrl);
+        //saveLocal(this.id, dataUrl);
         var temp=this.id.split("~");
-        var cleaned=this.src.replace(/(\r\n|\n|\r)/gm, "");
+        var cleaned=dataUrl.replace(/(\r\n|\n|\r)/gm, "");
         document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + cleaned + "')";
         //dbuga(temp[1]);
         }
-*/
       rotorRef.src="http://laforetchocolate.com/app/"+set[i];
 
       }
