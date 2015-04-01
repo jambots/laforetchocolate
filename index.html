@@ -1139,7 +1139,6 @@ function updateRotor(){
       }
     else{//use cached dataUrl
       dbuga(" use cached "+ rotorRef.id);
-      dbuga(" use cached "+ flowRef.id);
       rotorRef.src=localStorage.getItem(rotorRef.id);
       flowRef.style.backgroundImage="url('" + rotorRef.src + "')";
       }
@@ -1489,7 +1488,7 @@ function returnResizedData(imageObject){
     dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
 
     // Replace source of Image
-    var dataUrl=dstCanvas.toDataURL("image/jpeg", .8);
+    var dataUrl=dstCanvas.toDataURL();
     //dbuga("returnResizedData("+imageObject.id+") chars: "+Math.floor(dataUrl.length/1000));
     return dataUrl;
 
@@ -1515,7 +1514,7 @@ function resizeImage(imageObject, targetType){
     dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
 
     // Replace source of Image
-    var dataUrl=dstCanvas.toDataURL("image/jpeg", .7);
+    var dataUrl=dstCanvas.toDataURL();
     
     imageObject.src = dataUrl;
     //dbuga("resizeImage() w: "+imageObject.width+" chars: "+Math.floor(dataUrl.length/1000));
