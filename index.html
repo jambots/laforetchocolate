@@ -1175,11 +1175,11 @@ function saveLocal(key, data){
 
   if(saved){
     nameStack.push(key);
-    dbuga(' saved: '+nameStack.length+' purged: '+purged+' '+key);
+    //dbuga(' saved: '+nameStack.length+' purged: '+purged+' '+key);
     purged=0;
     }
   else{
-    dbuga('failed '+key);
+    //dbuga('failed '+key);
     }
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
   }
@@ -1495,8 +1495,8 @@ function returnResizedData(imageObject){
   dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
   
   // Replace source of Image
-  //var dataUrl=dstCanvas.toDataURL("image/jpeg", .5);
-
+  var dataUrl=dstCanvas.toDataURL("image/jpeg", .5);
+/*
     var dataUrl="";
     var offset = {
         left: $dstCanvas.offset().left,
@@ -1508,8 +1508,8 @@ function returnResizedData(imageObject){
             dataUrl = val.data;
             dbuga("canvasplugin");
         });
-
-  dbuga("returnResizedData("+imageObject.id+") width:"+width+" chars:"+Math.floor(dataUrl.length/1000));
+*/
+  dbuga("r("+imageObject.id+") w:"+width+" chars:"+dataUrl.length);
   //dbuga("returnResizedData() width:"+width+" height:"+height+" targetHeight:"+ targetHeight);
   return dataUrl;
 
