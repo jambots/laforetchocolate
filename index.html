@@ -528,6 +528,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       }
     }
   if(orient != prevOrient){
+    if(rotorReady==false){updateRotor();}
     if(orient=="portrait"){rotorAtItem=flowAtItem;}
     else{flowAtItem=rotorAtItem;}
     }
@@ -679,10 +680,10 @@ function updateSet(){
   //dbuga("updateSet so UpdateRotor("+rotorItemWidth+")");
 
   updateFlow();
-  window.setTimeout("updateRotor()", 5000);
-  
+  rotorReady=false;  
   setReady=true;
   }
+var rotorReady=false;
 var touchingFlow=false;
 var flowWidth=0;
 var flowAtItem=0;
@@ -1104,6 +1105,7 @@ function isCached(imageKey){
   }
 
 function updateRotor(){
+
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
   
@@ -1143,11 +1145,12 @@ function updateRotor(){
 
       }
     else{//use cached dataUrl
-      //dbuga(" use cached "+ rotorRef.id);
+      dbuga(" use cached "+ rotorRef.id);
       rotorRef.src=localStorage.getItem(rotorRef.id);
       flowRef.style.backgroundImage="url('" + rotorRef.src + "')";
       }
     }
+  rotorReady=true;
   }
 
 function saveLocal(key, data){
@@ -1422,6 +1425,8 @@ function setRelease(i){
   setTappedMs=-1;
   }
 function selectThumb(num){
+  if(rotorReady==false){updateRotor();}
+
   rotorAtItem=num;
   rotorUp=true;
   //dbuga("selectThumb("+num+")");
@@ -1513,6 +1518,7 @@ function updateThumbButtons(){
       }
     }
   document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
+  
   }
 function returnResizedData(imageObject){
   imageObject.onload=null;//prevents double firing from fast events
