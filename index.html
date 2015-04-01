@@ -29,6 +29,8 @@ var web=false;
   }
 .flowPanel{
   background-size:contain;
+  background-repeat:no-repeat;
+  background-position:50% 50%;
   }
 @font-face {
     font-family: 'signify';
@@ -1144,7 +1146,9 @@ function updateRotor(){
       }
     }
   }
+
 function saveLocal(key, data){
+  var purged=0;
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
   var saved=true;
   
@@ -1157,7 +1161,8 @@ function saveLocal(key, data){
   while((saved==false)&&(nameStack.length>0)){
     var delKey=nameStack.shift();
     localStorage.setItem(delKey, "");
-    dbuga('purged '+delKey);
+    //dbuga('purged '+delKey);
+    purged++;
     saved=true;
     try{
       localStorage.setItem(key, data);
@@ -1169,7 +1174,8 @@ function saveLocal(key, data){
 
   if(saved){
     nameStack.push(key);
-    dbuga('saved '+nameStack.length+' '+key);
+    dbuga(' saved: '+nameStack.length+' purged: '+purged+' '+key);
+    purged=0;
     }
   else{
     dbuga('failed '+key);
@@ -1471,26 +1477,26 @@ function updateThumbButtons(){
 function returnResizedData(imageObject){
   imageObject.onload=null;//prevents double firing from fast events
   var width= imageObject.width;
-  var height=Math.floor(width*4.2/3);
-
-
-    // Calculate a new scale
-    // The new scale will be the minimum of the two possible scales
-    var scale = Math.min((width / imageObject.width), (height/ imageObject.height));
-
-    // New canvas
-    var dstCanvas = document.createElement('canvas');
-    dstCanvas.width = imageObject.width * scale;
-    dstCanvas.height = imageObject.height * scale;
-
+  var height=imageObject.height;
+  var imageAspect=width/height;
+  var targetHeight=width/sourceAspect;
+  var topPad=targetHeight/2-height/2;
+  // New canvas
+  var dstCanvas = document.createElement('canvas');
+  dstCanvas.width = width;
+  dstCanvas.height = targetHeight;
+    
     // Draw Image content in canvas
-    var dstContext = dstCanvas.getContext('2d');
-    dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
+  var dstContext = dstCanvas.getContext('2d');
+  dstContext.fillStyle="yellow";
+  dstContext.fillRect(0, 0, width, targetHeight);
+  dstContext.drawImage(imageObject, 0, topPad, width, height);
 
-    // Replace source of Image
-    var dataUrl=dstCanvas.toDataURL("image/jpeg", .5);
-    //dbuga("returnResizedData("+imageObject.id+") chars: "+Math.floor(dataUrl.length/1000));
-    return dataUrl;
+  // Replace source of Image
+  var dataUrl=dstCanvas.toDataURL("image/jpeg", .5);
+  //dbuga("returnResizedData("+imageObject.id+") width:"+width+" chars:"+Math.floor(dataUrl.length/1000));
+  dbuga("returnResizedData() width:"+width+" height:"+height+" targetHeight:"+ targetHeight);
+  return dataUrl;
 
 }
 
@@ -1596,6 +1602,9 @@ function updateSelectButtons(){
     }
   }
 var pi=Math.PI;
+function purgeSets(){
+dbuga('purgeSets() '+JSON.parse(localStorage.getItem("nameStack")).length);
+}
 function loadData(){
   $(document).ready(function(){
       $.getJSON('http://laforetchocolate.com/app/config.json', function(json) {
@@ -1606,6 +1615,7 @@ function loadData(){
          })
          .fail(function() {
          dbuga("fail");
+         purgeSets();
          populateSelect();
          updateSet();
          window.clearTimeout(animTimeout);
