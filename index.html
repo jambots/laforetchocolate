@@ -1492,7 +1492,7 @@ function returnResizedData(imageObject){
   dstContext.fillStyle="yellow";
   dstContext.fillRect(0, 0, width, targetHeight);
   dstContext.drawImage(imageObject, 0, topPad, width, height);
-  dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2, );
+  dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
   
   // Replace source of Image
   var dataUrl=dstCanvas.toDataURL("image/jpeg", .5);
