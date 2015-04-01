@@ -1124,6 +1124,7 @@ function updateRotor(){
     var flowRef=document.getElementById("flowImage~"+set[i]);
     
     if(isCached(rotorRef.id)==false){
+/*
       rotorRef.onload = function(){// resize then cache on load
         var that=this;
         //resizeImage(that, "rotorItem in updateRotor "+rotorItemWidth);
@@ -1136,6 +1137,7 @@ function updateRotor(){
         document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + cleaned + "')";
         //dbuga(temp[1]);
         }
+*/
       rotorRef.src="http://laforetchocolate.com/app/"+set[i];
 
       }
@@ -1772,6 +1774,6 @@ function gestureStart(e){
     </div>
   </div><! end of rotorUi>
 </div><! end of portraitMain>
-<div id="debugDiv" style="top:0px;left:60px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
+<div id="debugDiv" style="top:0px;left:100px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
 </body>
 </html>
