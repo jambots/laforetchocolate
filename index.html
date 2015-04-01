@@ -10,6 +10,7 @@
 <title>La Forêt</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="savefile.js"></script>
+<script src="jpeg_encoder_basic.js"></script>
 <script>
 var web=false;
 </script>
@@ -353,6 +354,7 @@ function resumeInit(){
 
   
   orientationTick();
+  //debugGeometry();
   //dbuga('end of resumeInit orientationTick() ran');
   //dbuga('loadData() ran');
   setupLocalStorage();
@@ -1131,7 +1133,7 @@ function updateRotor(){
         var dataUrl=returnResizedData(that);
         //dbuga('step2');
         this.src=dataUrl; // put resized data into image source
-        //saveLocal(this.id, dataUrl);
+        saveLocal(this.id, dataUrl);
         var temp=this.id.split("~");
         var cleaned=dataUrl.replace(/(\r\n|\n|\r)/gm, "");
         document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + cleaned + "')";
@@ -1175,7 +1177,7 @@ function saveLocal(key, data){
 
   if(saved){
     nameStack.push(key);
-    //dbuga(' saved: '+nameStack.length+' purged: '+purged+' '+key);
+    dbuga(' saved: '+nameStack.length+' purged: '+purged+' '+key);
     purged=0;
     }
   else{
@@ -1352,7 +1354,7 @@ function thumbClick(i){
   }
 function thumbTap(i){
   thumbTappedNum=i;
-  //dbuga("thumbTap("+i+") ");
+  dbug("thumbTap("+i+") ");
   var d = new Date();
   thumbTappedMs=d.getTime();
   }
@@ -1369,7 +1371,7 @@ function thumbRelease(i){
   thumbTappedMs=-1;
   }
 function setTap(i){
-  //dbuga("setTap("+i+") ");
+  dbug("setTap("+i+") ");
 
   setTappedNum=i;
   var d = new Date();
@@ -1493,25 +1495,16 @@ function returnResizedData(imageObject){
   dstContext.fillRect(0, 0, width, targetHeight);
   dstContext.drawImage(imageObject, 0, topPad, width, height);
   dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
-  
+  //dbuga('resize');
   // Replace source of Image
-  var dataUrl=dstCanvas.toDataURL("image/jpeg", .5);
-/*
-    var dataUrl="";
-    var offset = {
-        left: $dstCanvas.offset().left,
-        top: $dstCanvas.offset().top,
-        width: $dstCanvas.width(),
-        height: $dstCanvas.height()
-    };
-        window.canvasplugin(dstCanvas, offset, 'image/jpeg', function(val) {
-            dataUrl = val.data;
-            dbuga("canvasplugin");
-        });
-*/
-  dbuga("r("+imageObject.id+") w:"+width+" chars:"+dataUrl.length);
-  //dbuga("returnResizedData() width:"+width+" height:"+height+" targetHeight:"+ targetHeight);
-  return dataUrl;
+  var dataUrl=dstCanvas.toDataURL();
+  var pixelArray=dstContext.getImageData(0,0,width,targetHeight); 
+  var pngLength=dataUrl.length;
+  var myEncoder = new JPEGEncoder(50);
+  var jpegImage = myEncoder.encode(pixelArray);
+  var jpegLength=jpegImage.length;
+  dbuga("enc("+imageObject.id+")<br>png:"+ pngLength+"  jpeg:"+ jpegLength);
+  return jpegImage;
 
 }
 
@@ -1787,6 +1780,6 @@ function gestureStart(e){
     </div>
   </div><! end of rotorUi>
 </div><! end of portraitMain>
-<div id="debugDiv" style="top:0px;left:100px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
+<div id="debugDiv" style="top:0px;left:150px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
 </body>
 </html>
