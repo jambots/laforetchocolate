@@ -10,7 +10,7 @@
 <title>La Forêt</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script src="savefile.js"></script>
-<script src="jpeg_encoder_basic.js"></script>
+<script src="jpeg_encoder_basic.js?1"></script>
 <script>
 var web=false;
 </script>
@@ -375,11 +375,11 @@ function setupLocalStorage(){
     }
   
   if(localStorage.getItem("sets") === null) {
-    dbuga("set sets to local");
+    //dbuga("set sets to local");
     localStorage.setItem("sets", JSON.stringify(sets));
     }
   else{
-    dbuga("read sets from local");
+    //dbuga("read sets from local");
     sets=JSON.parse(localStorage.getItem("sets"));
     }
   if(localStorage.getItem("setKeys") === null) {
@@ -578,31 +578,31 @@ var screenAspect=1;
 var landscapeKnown=false;
 var portraitKnown=false;
 function debugGeometry(){
-  dbug("<br>grid="+ grid);
-  dbuga("agent="+ agent);
-  dbuga("web="+ web);
-  dbuga("rotorItemFit="+ rotorItemFit);
-  dbuga("portraitKnown="+ portraitKnown);
-  dbuga("landscapeKnown ="+ landscapeKnown);
-  dbuga("sourceHeight="+ sourceHeight);
-  dbuga("sourceWidth="+ sourceWidth);
-  dbuga("sourceAspect="+ sourceAspect);
-  dbuga("thumbWidth="+ thumbWidth);
-  dbuga("thumbHeight="+thumbHeight);
-  dbuga("rotorItemWidth="+rotorItemWidth);
-  dbuga("rotorItemHeight="+rotorItemHeight);
-  dbuga("flowItemWidth="+ flowItemWidth);
-  dbuga("flowItemHeight="+ flowItemHeight);
-  dbuga("absScreenWidth="+ absScreenWidth);
-  dbuga("absScreenHeight="+ absScreenHeight);
-  dbuga("viewportWidth="+ viewportWidth);
-  dbuga("viewportHeight="+ viewportHeight);
-  dbuga("portraitScreenWidth="+ portraitScreenWidth);
-  dbuga("portraitScreenHeight="+ portraitScreenHeight);
-  dbuga("landscapeScreenWidth="+ landscapeScreenWidth);
-  dbuga("landscapeScreenHeight="+ landscapeScreenHeight);
-  dbuga("blingHeight="+ blingHeight);
-  dbuga("selectedSetNum="+ selectedSetNum);
+dbug("<br>grid="+ grid);
+dbuga("agent="+ agent);
+dbuga("web="+ web);
+dbuga("rotorItemFit="+ rotorItemFit);
+dbuga("portraitKnown="+ portraitKnown);
+dbuga("landscapeKnown ="+ landscapeKnown);
+dbuga("sourceHeight="+ sourceHeight);
+dbuga("sourceWidth="+ sourceWidth);
+dbuga("sourceAspect="+ sourceAspect);
+dbuga("thumbWidth="+ thumbWidth);
+dbuga("thumbHeight="+thumbHeight);
+dbuga("rotorItemWidth="+rotorItemWidth);
+dbuga("rotorItemHeight="+rotorItemHeight);
+dbuga("flowItemWidth="+ flowItemWidth);
+dbuga("flowItemHeight="+ flowItemHeight);
+dbuga("absScreenWidth="+ absScreenWidth);
+dbuga("absScreenHeight="+ absScreenHeight);
+dbuga("viewportWidth="+ viewportWidth);
+dbuga("viewportHeight="+ viewportHeight);
+dbuga("portraitScreenWidth="+ portraitScreenWidth);
+dbuga("portraitScreenHeight="+ portraitScreenHeight);
+dbuga("landscapeScreenWidth="+ landscapeScreenWidth);
+dbuga("landscapeScreenHeight="+ landscapeScreenHeight);
+dbuga("blingHeight="+ blingHeight);
+dbuga("selectedSetNum="+ selectedSetNum);
   }
 
 function imageGeometry(){
@@ -644,7 +644,7 @@ function imageGeometry(){
   }
 
 function selectSet(setNum){
-  dbug("selectSet("+setNum+")");
+  //dbug("selectSet("+setNum+")");
   
   selectedSetNum=setNum;
   localStorage.setItem("selectedSetNum", setNum);
@@ -1143,7 +1143,7 @@ function updateRotor(){
 
       }
     else{//use cached dataUrl
-      dbuga(" use cached "+ rotorRef.id);
+      //dbuga(" use cached "+ rotorRef.id);
       rotorRef.src=localStorage.getItem(rotorRef.id);
       flowRef.style.backgroundImage="url('" + rotorRef.src + "')";
       }
@@ -1153,6 +1153,38 @@ function updateRotor(){
 function saveLocal(key, data){
   var purged=0;
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
+  //dbuga('saveLocal '+nameStack.length);
+  var currentName="not set";
+  if(setKeys.length>1){currentName=setKeys[1];}
+  var favorites=JSON.parse(localStorage.getItem("favorites"));
+  var favStack=[];
+  var thumbStack=[];
+  var normStack=[];
+  var currentStack=[];
+  for (var n=0; n<nameStack.length; n++){
+    var thisName=nameStack[n];
+    var isFav=false;
+    for (var f=0; f<favorites.length; f++){
+      var favName=favorites[f];
+      if(thisName.indexOf(favName)>-1){isFav=true;}
+      }
+    if(isFav){
+      favStack.push(thisName);
+      }
+    else{
+      if(thisName.indexOf(currentName)>-1){
+        currentStack.push(thisName);
+        }
+      else{
+        if(thisName.indexOf("thumbImage")>-1){thumbStack.push(thisName);}
+        else{normStack.push(thisName);}
+        }
+      }
+    }
+  var nameStack=normStack.concat(thumbStack, currentStack, favStack);
+
+    //dbuga(' - saveLocal '+ nameStack.length);
+  
   var saved=true;
   
   try{
@@ -1164,7 +1196,7 @@ function saveLocal(key, data){
   while((saved==false)&&(nameStack.length>0)){
     var delKey=nameStack.shift();
     localStorage.setItem(delKey, "");
-    //dbuga('purged '+delKey);
+    //dbuga(' -  purge '+delKey);
     purged++;
     saved=true;
     try{
@@ -1177,7 +1209,7 @@ function saveLocal(key, data){
 
   if(saved){
     nameStack.push(key);
-    dbuga(' saved: '+nameStack.length+' purged: '+purged+' '+key);
+    //dbuga(' saved: '+nameStack.length);
     purged=0;
     }
   else{
@@ -1354,7 +1386,7 @@ function thumbClick(i){
   }
 function thumbTap(i){
   thumbTappedNum=i;
-  dbug("thumbTap("+i+") ");
+  //dbug("thumbTap("+i+") ");
   var d = new Date();
   thumbTappedMs=d.getTime();
   }
@@ -1371,7 +1403,7 @@ function thumbRelease(i){
   thumbTappedMs=-1;
   }
 function setTap(i){
-  dbug("setTap("+i+") ");
+  //dbug("setTap("+i+") ");
 
   setTappedNum=i;
   var d = new Date();
@@ -1414,7 +1446,7 @@ function hideInfo(){
   document.getElementById('infoDim').style.top=(0-portraitScreenHeight)+"px";
   }
 function showInfo(){
-  dbug("showSetSelect()" +selectUp);
+  //dbug("showSetSelect()" +selectUp);
   infoUp=true;
   document.getElementById('infoDim').style.top=0+"px";
   }
@@ -1433,7 +1465,7 @@ function onBackKeyDown() {
   }
 
 function showSetSelect(){
-  dbug("showSetSelect()" +selectUp);
+  //dbug("showSetSelect()" +selectUp);
   selectUp=true;
   document.getElementById('setSelectDim').style.top=0+"px";
   }
@@ -1471,7 +1503,7 @@ function updateThumbButtons(){
       ref.src="http://laforetchocolate.com/app/"+set[i];
       }
     else{//use cached dataUrl
-      dbuga("use cached "+ ref.id);
+      //dbuga("use cached "+ ref.id);
       ref.src=localStorage.getItem(ref.id);
       }
     }
@@ -1491,19 +1523,19 @@ function returnResizedData(imageObject){
     
     // Draw Image content in canvas
   var dstContext = dstCanvas.getContext('2d');
-  dstContext.fillStyle="yellow";
+  //dstContext.fillStyle="yellow";
   dstContext.fillRect(0, 0, width, targetHeight);
   dstContext.drawImage(imageObject, 0, topPad, width, height);
-  dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
+  //dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
   //dbuga('resize');
   // Replace source of Image
   var dataUrl=dstCanvas.toDataURL();
   var pixelArray=dstContext.getImageData(0,0,width,targetHeight); 
   var pngLength=dataUrl.length;
-  var myEncoder = new JPEGEncoder(50);
+  var myEncoder = new JPEGEncoder(70);
   var jpegImage = myEncoder.encode(pixelArray);
   var jpegLength=jpegImage.length;
-  dbuga("enc("+imageObject.id+")<br>png:"+ pngLength+"  jpeg:"+ jpegLength);
+  //dbuga("enc("+imageObject.id+")<br>png:"+ pngLength+"  jpeg:"+ jpegLength);
   return jpegImage;
 
 }
@@ -1622,7 +1654,7 @@ function loadData(){
          updateSet();
          })
          .fail(function() {
-         dbuga("fail");
+         //dbuga("fail");
          purgeSets();
          populateSelect();
          updateSet();
@@ -1663,7 +1695,7 @@ function parseData(theData){
   if(setKeys.length>1){
     //selectedSetNum=1;
     }
-  dbuga('dataParsed ');
+  //dbuga('dataParsed ');
   localStorage.setItem("setKeys", JSON.stringify(setKeys));
   localStorage.setItem("sets", JSON.stringify(sets));
   window.clearTimeout(animTimeout);
