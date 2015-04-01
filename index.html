@@ -1495,7 +1495,20 @@ function returnResizedData(imageObject){
   dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
   
   // Replace source of Image
-  var dataUrl=dstCanvas.toDataURL("image/jpeg", .5);
+  //var dataUrl=dstCanvas.toDataURL("image/jpeg", .5);
+
+    var dataUrl="";
+    var offset = {
+        left: $dstCanvas.offset().left,
+        top: $dstCanvas.offset().top,
+        width: $dstCanvas.width(),
+        height: $dstCanvas.height()
+    };
+        window.canvasplugin(dstCanvas, offset, 'image/png', function(val) {
+            dataUrl = val.data;
+            dbuga("canvasplugin");
+        });
+
   //dbuga("returnResizedData("+imageObject.id+") width:"+width+" chars:"+Math.floor(dataUrl.length/1000));
   dbuga("returnResizedData() width:"+width+" height:"+height+" targetHeight:"+ targetHeight);
   return dataUrl;
