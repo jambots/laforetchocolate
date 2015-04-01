@@ -1471,7 +1471,7 @@ function showSetSelect(){
   }
 var cols;
 function updateThumbButtons(){
-  //dbuga("updateThumbButtons() ");
+  dbug("updateThumbButtons() ");
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
 
@@ -1508,7 +1508,7 @@ function updateThumbButtons(){
         }
       }
     else{//use cached dataUrl
-      //dbuga("use cached "+ ref.id);
+      dbuga("use cached "+ ref.id);
       ref.src=localStorage.getItem(ref.id);
       }
     }
