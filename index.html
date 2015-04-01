@@ -1479,8 +1479,8 @@ function returnResizedData(imageObject){
   var width= imageObject.width;
   var height=imageObject.height;
   var imageAspect=width/height;
-  var targetHeight=width/sourceAspect;
-  var topPad=targetHeight/2-height/2;
+  var targetHeight=Math.floor(width/sourceAspect);
+  var topPad=Math.floor(targetHeight/2-height/2);
   // New canvas
   var dstCanvas = document.createElement('canvas');
   dstCanvas.width = width;
