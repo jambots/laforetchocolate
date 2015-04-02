@@ -491,7 +491,7 @@ var selectWidth=28;
 var modalMargin=(cellsAcross-modalWidth)/2;
 
 function measure(){ //fires after window.innerWidth changed in orientation tick
-  dbuga("measure()");
+  //dbuga("measure()");
   var bothKnown=false;
   if((portraitKnown)&&(landscapeKnown)){bothKnown=true;}
   viewportWidth=window.innerWidth;
@@ -1626,9 +1626,9 @@ function returnResizedData(imageObject){
   var myEncoder = new JPEGEncoder(90);
   var jpegImage = myEncoder.encode(pixelArray);
   var jpegLength=jpegImage.length;
-  dbuga("enc("+imageObject.id+")<br>png:"+ pngLength+"  jpeg:"+ jpegLength);
-  dbuga("default "+dataUrlJpeg.length+"  "+dataUrlJpeg);
-  dbuga("jpeg "+dataUrlPng.length+"  "+dataUrlPng);
+  //dbuga("enc("+imageObject.id+")<br>png:"+ pngLength+"  jpeg:"+ jpegLength);
+  //dbuga("default "+dataUrlJpeg.length+"  "+dataUrlJpeg);
+  //dbuga("jpeg "+dataUrlPng.length+"  "+dataUrlPng);
   //return jpegImage;
 */
   return dataUrlJpeg;
