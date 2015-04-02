@@ -486,9 +486,12 @@ var grid=3;
 var cellsDown=10;
 var cellsAcross=33;
 var deviceWidth=330;
+var modalWidth=32;	
+var selectWidth=28;	
+var modalMargin=(cellsAcross-modalWidth)/2;
 
 function measure(){ //fires after window.innerWidth changed in orientation tick
-  //dbuga("measure()");
+  dbug("measure()");
   var bothKnown=false;
   if((portraitKnown)&&(landscapeKnown)){bothKnown=true;}
   viewportWidth=window.innerWidth;
@@ -551,8 +554,8 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     document.getElementById('landscapeMain').style.top=(0-viewportHeight-viewportWidth)+"px";
     }
   imageGeometry();
-  //debugGeometry();
-  //dbuga("measured");
+  debugGeometry();
+  dbuga("measured");
   }
 
 var sourceWidth=798;
@@ -580,7 +583,11 @@ var landscapeKnown=false;
 var portraitKnown=false;
 function debugGeometry(){
 dbug("<br>grid="+ grid);
-dbuga("agent="+ agent);
+
+dbuga("modalWidth="+ modalWidth);
+dbuga("modalMargin ="+ modalMargin);
+dbuga("selectWidth="+ selectWidth);
+
 dbuga("web="+ web);
 dbuga("rotorItemFit="+ rotorItemFit);
 dbuga("portraitKnown="+ portraitKnown);
@@ -778,9 +785,9 @@ function infoCancel(){
 
 function populateSelect(){
   //dbuga('populateSelect() cellsAcross='+ cellsAcross);
-  var modalWidth=32;	
-  var selectWidth=28;	
-  var modalMargin=(cellsAcross-modalWidth)/2;
+  modalWidth=32;	
+  selectWidth=28;	
+  modalMargin=(cellsAcross-modalWidth)/2;
   //dbuga(modalMargin);
   var htmlString="";
   htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';
