@@ -555,7 +555,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     }
   imageGeometry();
   //debugGeometry();
-  dbuga("measured");
+  //dbuga("measured");
   }
 
 var sourceWidth=798;
@@ -785,7 +785,7 @@ function infoCancel(){
   }
 
 function populateSelect(){
-  dbuga('populateSelect() cellsAcross='+ cellsAcross);
+  //dbuga('populateSelect() cellsAcross='+ cellsAcross);
   modalWidth=32;	
   selectWidth=28;	
   modalMargin=(cellsAcross-modalWidth)/2;
@@ -804,7 +804,7 @@ function populateSelect(){
   }
 var scrollsSet=false;
 function styleUi(){
-  dbuga('styleUi');
+  //dbuga('styleUi');
   document.getElementById("infoLabel").style.width=grid*modalWidth/2+"px";
   document.getElementById("infoLabel").style.left=grid*modalWidth/4+"px";
   document.getElementById("infoLabel").style.top=grid*1+"px";
@@ -1162,7 +1162,10 @@ function prepareRotor(){
 var loadTimeout;
 function loadTick(){
   window.clearTimeout(loadTimeout);
-  if(thumbsToLoad>0){return false;}
+  if(thumbsToLoad>0){
+    updateLoadingCanvas();
+    return false;
+    }
   if(loadQueue.length==0){return false;}
           
   var loadItem=loadQueue.shift();
@@ -1265,7 +1268,7 @@ function saveLocal(key, data){
 
   if(saved){
     nameStack.push(key);
-    //dbuga(' saved: '+nameStack.length);
+    //dbuga(' saved: '+nameStack.length+" "+key);
     purged=0;
     }
   else{
@@ -1589,8 +1592,10 @@ function updateThumbButtons(){
       }
     }
   document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
-  tScroll.refresh();
-  tScroll.scrollTo(0,0);
+  if(scrollsSet){
+    window.setTimeout("tScroll.refresh()",100);
+    window.setTimeout("tScroll.scrollTo(0,0)",200);
+    }
   }
 function returnResizedData(imageObject){
   imageObject.onload=null;//prevents double firing from fast events
@@ -1612,18 +1617,21 @@ function returnResizedData(imageObject){
   //dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
   //dbuga('resize');
   // Replace source of Image
-  var dataUrl1=dstCanvas.toDataURL();
-  var dataUrl2=dstCanvas.toDataURL("image/jpeg", 0.5);
+
+  //var dataUrlPng=dstCanvas.toDataURL();
+  var dataUrlJpeg=dstCanvas.toDataURL("image/jpeg", 0.5);
+/*
   var pixelArray=dstContext.getImageData(0,0,width,targetHeight); 
-  var pngLength=dataUrl.length;
+  var pngLength=dataUrlPng.length;
   var myEncoder = new JPEGEncoder(90);
   var jpegImage = myEncoder.encode(pixelArray);
   var jpegLength=jpegImage.length;
   dbuga("enc("+imageObject.id+")<br>png:"+ pngLength+"  jpeg:"+ jpegLength);
-  dbuga("default "+dataUrl1.length+"  "+dataUrl1);
-  dbuga("jpeg "+dataUrl2.length+"  "+dataUrl2);
+  dbuga("default "+dataUrlJpeg.length+"  "+dataUrlJpeg);
+  dbuga("jpeg "+dataUrlPng.length+"  "+dataUrlPng);
   //return jpegImage;
-  return dataUrl;
+*/
+  return dataUrlJpeg;
  
 }
 
