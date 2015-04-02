@@ -17,12 +17,14 @@ var web=false;
 <script src="phonegap.js?2"></script>
 <!--
 <script src="childbrowser.js"></script>
+<script src="iscroll.js"></script>
 -->
 <script type="text/javascript" src="iscroll-lite.js"></script>
 
 <link rel = "stylesheet" type = "text/css" href = "reset.css">
 <style>
 #infoHolder{
+  display:none;
   background-image:url('info.png');
   background-size:contain;
   background-align:center top;
@@ -57,7 +59,6 @@ font-family: 'Arial';
   position:absolute;
   width:100%;
   height:100%;
-  top:-3000px;
   }
 #flow{
   background-color:#000;
@@ -70,7 +71,6 @@ font-family: 'Arial';
 #portraitMain{
   background-color:#555;
   position:absolute;
-  top:-3000px;
   width:100%;
   height:100%;
   }
@@ -151,7 +151,7 @@ font-family: 'Arial';
 
 
 #infoDim{
-  top:-3000px;
+  display:none;
   left:0;
   position:absolute;
   background-color:rgba(0,0,0,.5);
@@ -201,11 +201,11 @@ font-family: 'Arial';
   color:#fff;
   }
 #rotorUi{
+  display:none;
   background-color:#fff;
   width:100%;
   height:100%;
   position:absolute;
-  top:-3000px;
   overflow:hidden;
   }
 #rotor{
@@ -491,7 +491,7 @@ var selectWidth=28;
 var modalMargin=(cellsAcross-modalWidth)/2;
 
 function measure(){ //fires after window.innerWidth changed in orientation tick
-  dbug("measure()");
+  dbuga("measure()");
   var bothKnown=false;
   if((portraitKnown)&&(landscapeKnown)){bothKnown=true;}
   viewportWidth=window.innerWidth;
@@ -545,16 +545,16 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     }
   if(orient=="landscape"){
     //main hide landscape
-    document.getElementById('portraitMain').style.top=(0-viewportHeight-viewportWidth)+"px";
-    document.getElementById('landscapeMain').style.top=0+"px";
+    document.getElementById('portraitMain').style.display="none";
+    document.getElementById('landscapeMain').style.display="block";
     }
   else{
     //main hide portrait
-    document.getElementById('portraitMain').style.top=0+"px";
-    document.getElementById('landscapeMain').style.top=(0-viewportHeight-viewportWidth)+"px";
+    document.getElementById('portraitMain').style.display="block";
+    document.getElementById('landscapeMain').style.display="none";
     }
   imageGeometry();
-  debugGeometry();
+  //debugGeometry();
   dbuga("measured");
   }
 
@@ -584,6 +584,7 @@ var portraitKnown=false;
 function debugGeometry(){
 dbug("<br>grid="+ grid);
 
+dbuga("loadQueue="+ loadQueue.length);
 dbuga("modalWidth="+ modalWidth);
 dbuga("modalMargin ="+ modalMargin);
 dbuga("selectWidth="+ selectWidth);
@@ -663,8 +664,8 @@ function selectSet(setNum){
 var selectUp=true;
 function hideRotor(){
   rotorUp=false;
-  document.getElementById('thumbsUi').style.top=0+"px";
-  document.getElementById('rotorUi').style.top=(0-portraitScreenHeight)+"px";
+  document.getElementById('thumbsUi').style.display="block";
+  document.getElementById('rotorUi').style.display="none";
   var selectedSetKey=setKeys[selectedSetNum];
   if(selectedSetKey=="9999_Favorites"){
     var temp=sets["9999_Favorites"];
@@ -784,7 +785,7 @@ function infoCancel(){
   }
 
 function populateSelect(){
-  //dbuga('populateSelect() cellsAcross='+ cellsAcross);
+  dbuga('populateSelect() cellsAcross='+ cellsAcross);
   modalWidth=32;	
   selectWidth=28;	
   modalMargin=(cellsAcross-modalWidth)/2;
@@ -799,8 +800,11 @@ function populateSelect(){
     sets[setKeys[s]].sort();
     }
   sdiv.innerHTML=htmlString;
-
-
+  window.setTimeout("styleUi()", 100);
+  }
+var scrollsSet=false;
+function styleUi(){
+  dbuga('styleUi');
   document.getElementById("infoLabel").style.width=grid*modalWidth/2+"px";
   document.getElementById("infoLabel").style.left=grid*modalWidth/4+"px";
   document.getElementById("infoLabel").style.top=grid*1+"px";
@@ -866,13 +870,14 @@ function populateSelect(){
 
   document.getElementById("setSelectNavTop").style.height=grid*4+"px";
 
-
-
-  //updateSet();
-  //if(agent=="droid"){
+  if(scrollsSet==false){
     tScroll=new iScroll("thumbsHolder");
     sScroll=new iScroll("setSelectHolder");
-  //  }
+    }
+  else{
+    sScroll.refresh();
+    }
+
   // buttons  
   var canv=document.getElementById("mailButton");
   canv.width=Math.floor(grid*3);
@@ -1152,12 +1157,7 @@ function prepareRotor(){
       }
     }
   updateLoadingCanvas();
-/*
-  window.clearTimeout(loadTimeout);
-  if(loadQueue.length>0){
-    loadTimeout=window.setTimeout("loadTick()", 6000);
-    }
-*/
+
   }
 var loadTimeout;
 function loadTick(){
@@ -1448,7 +1448,7 @@ function thumbTap(i){
   thumbTappedMs=d.getTime();
   window.clearTimeout(loadTimeout);
   if(loadQueue.length>0){
-    loadTimeout=window.setTimeout("loadTick()", 300);
+    loadTimeout=window.setTimeout("loadTick()", 100);
     }
 
   }
@@ -1488,8 +1488,8 @@ function selectThumb(num){
   rotorAtItem=num;
   rotorUp=true;
   //dbuga("selectThumb("+num+")");
-  document.getElementById('thumbsUi').style.top=(0-portraitScreenHeight)+"px";
-  document.getElementById('rotorUi').style.top=0+"px";
+  document.getElementById('thumbsUi').style.display="none";
+  document.getElementById('rotorUi').style.display="block";
   selectedThumbNum=num;
   var set=sets[setKeys[selectedSetNum]];
   document.getElementById("rotorLabel").innerHTML=(selectedThumbNum+1)+" of "+set.length;
@@ -1506,19 +1506,19 @@ function selectThumb(num){
 var infoUp=false;
 function hideInfo(){
   infoUpUp=false; 
-  document.getElementById('infoDim').style.top=(0-portraitScreenHeight)+"px";
+  document.getElementById('infoDim').style.display="none";
   }
 function showInfo(){
   //dbug("showSetSelect()" +selectUp);
   infoUp=true;
-  document.getElementById('infoDim').style.top=0+"px";
+  document.getElementById('infoDim').style.display="block";
   }
 
 function hideSetSelect(){
   updateLoadingCanvas();
   //dbuga("hideSetSelect() called" +selectUp);
   selectUp=false; 
-  document.getElementById('setSelectDim').style.top=(0-portraitScreenHeight)+"px";
+  document.getElementById('setSelectDim').style.display="none";
   }
 function onBackKeyDown() {
   // Handle the back button
@@ -1533,7 +1533,7 @@ function showSetSelect(){
   loadQueue=[];
   updateLoadingCanvas();
   selectUp=true;
-  document.getElementById('setSelectDim').style.top=0+"px";
+  document.getElementById('setSelectDim').style.display="block";
   }
 var cols;
 function updateThumbButtons(){
@@ -1589,7 +1589,8 @@ function updateThumbButtons(){
       }
     }
   document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
-  
+  tScroll.refresh();
+  tScroll.scrollTo(0,0);
   }
 function returnResizedData(imageObject){
   imageObject.onload=null;//prevents double firing from fast events
@@ -1614,7 +1615,7 @@ function returnResizedData(imageObject){
   var dataUrl=dstCanvas.toDataURL();
   var pixelArray=dstContext.getImageData(0,0,width,targetHeight); 
   var pngLength=dataUrl.length;
-  var myEncoder = new JPEGEncoder(70);
+  var myEncoder = new JPEGEncoder(90);
   var jpegImage = myEncoder.encode(pixelArray);
   var jpegLength=jpegImage.length;
   //dbuga("enc("+imageObject.id+")<br>png:"+ pngLength+"  jpeg:"+ jpegLength);
