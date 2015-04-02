@@ -1619,6 +1619,7 @@ function returnResizedData(imageObject){
   var jpegImage = myEncoder.encode(pixelArray);
   var jpegLength=jpegImage.length;
   //dbuga("enc("+imageObject.id+")<br>png:"+ pngLength+"  jpeg:"+ jpegLength);
+  dbuga(dataUrl);
   return jpegImage;
 
 }
