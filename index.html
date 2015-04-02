@@ -282,6 +282,7 @@ font-family: 'Arial';
 var ddiv;
 var sdiv
 var agent="unknown";
+
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
@@ -702,7 +703,7 @@ function prepareFlow(){
   var htmlString="";
   //dbuga(imgWidth);
   for (var i=0; i<set.length; i++){
-    htmlString+='<div class="flowPanel" id="flowImage~'+set[i]+'" style="background-color:blue; background-image:url(\'loadanim.gif\'); width:'+flowItemWidth+'px; height:'+flowItemHeight+'px; position:absolute; left:'+flowItemWidth*i+'px;" zsrc="http://laforetchocolate.com/app/'+set[i]+'"></div>';
+    htmlString+='<div class="flowPanel" id="flowImage~'+set[i]+'" style="background-color:#fff; background-image:url(\'loadanim.gif\'); width:'+flowItemWidth+'px; height:'+flowItemHeight+'px; position:absolute; left:'+flowItemWidth*i+'px;" zsrc="http://laforetchocolate.com/app/'+set[i]+'"></div>';
     }
   flowWidth=(flowItemWidth*set.length);
   flowMax=flowWidth-flowItemWidth;
@@ -792,6 +793,7 @@ function populateSelect(){
     }
   sdiv.innerHTML=htmlString;
 
+
   document.getElementById("infoLabel").style.width=grid*modalWidth/2+"px";
   document.getElementById("infoLabel").style.left=grid*modalWidth/4+"px";
   document.getElementById("infoLabel").style.top=grid*1+"px";
@@ -860,12 +862,11 @@ function populateSelect(){
 
 
   //updateSet();
-  tScroll=new iScroll("thumbsHolder");
-  sScroll=new iScroll("setSelectHolder");
-
+  //if(agent=="droid"){
+    tScroll=new iScroll("thumbsHolder");
+    sScroll=new iScroll("setSelectHolder");
+  //  }
   // buttons  
-
-
   var canv=document.getElementById("mailButton");
   canv.width=Math.floor(grid*3);
   canv.height=Math.floor(grid*3);
@@ -937,7 +938,7 @@ function populateSelect(){
   canv.width=Math.floor(grid*3);
   canv.height=Math.floor(grid*3);
   canv.style.top=grid*.5+"px";
-  canv.style.left=(portraitScreenWidth-grid*4.5)+"px";
+  canv.style.left=(grid*modalWidth-grid*4.5)+"px";
 
   var ctx=canv.getContext('2d');
   ctx.beginPath();
@@ -1143,6 +1144,7 @@ function prepareRotor(){
       flowRef.style.backgroundImage="url('" + rotorRef.src + "')";
       }
     }
+  updateLoadingCanvas();
 /*
   window.clearTimeout(loadTimeout);
   if(loadQueue.length>0){
@@ -1170,11 +1172,34 @@ function loadTick(){
     document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + cleaned + "')";
     window.clearTimeout(loadTimeout);
     if(loadQueue.length>0){
-      loadTimeout=window.setTimeout("loadTick()", 300);
+      loadTimeout=window.setTimeout("loadTick()", 100);
       }
+    updateLoadingCanvas();
     //dbuga(temp[1]);
     }
   loadItem.rotorRef.src="http://laforetchocolate.com/app/"+loadItem.seti;
+  }
+function updateLoadingCanvas(){
+  var canv=document.getElementById("loadingCanvas");
+  var pips=loadQueue.length;
+  //dbuga("updateLoadingCanvas() "+pips);
+  canv.width=Math.floor(grid*12);
+  if(pips==0){canv.width=0;}
+  canv.height=Math.floor(grid*4);
+  canv.style.top="0px";
+  canv.style.left=grid*(cellsAcross-12)+"px";
+  if(pips>0){
+    var ctx=canv.getContext("2d");
+    ctx.fillStyle="rgba(255,255,255,.5)";
+    ctx.textAlign="left";
+    ctx.textBaseline="middle";
+    ctx.font=Math.floor(grid*1)+"px Arial";
+    
+    ctx.fillText("Loading",grid*7,grid);
+    for (var p=0; p<pips; p++){
+      ctx.fillRect(grid*10.5-grid*p*1,grid*2,grid*.75,grid);
+      }
+    }
   }
 function saveLocal(key, data){
   var purged=0;
@@ -1483,6 +1508,7 @@ function showInfo(){
   }
 
 function hideSetSelect(){
+  updateLoadingCanvas();
   //dbuga("hideSetSelect() called" +selectUp);
   selectUp=false; 
   document.getElementById('setSelectDim').style.top=(0-portraitScreenHeight)+"px";
@@ -1498,6 +1524,7 @@ function onBackKeyDown() {
 function showSetSelect(){
   //dbug("showSetSelect()" +selectUp);
   loadQueue=[];
+  updateLoadingCanvas();
   selectUp=true;
   document.getElementById('setSelectDim').style.top=0+"px";
   }
@@ -1811,7 +1838,6 @@ function gestureStart(e){
     <div id="thumbsNavTop">
       <canvas id="setSelectButton" ></canvas>
       <div id="thumbsLabel">thumbsLabel</div>
-      <canvas id="infoButton" ></canvas>
     </div>
     <div id="thumbsNavBottom">
       <canvas id="mailButton" ></canvas>
@@ -1825,6 +1851,7 @@ function gestureStart(e){
       <div id="setSelectNavTop">
         <canvas id="setSelectCancel"></canvas>
         <div id="setSelectLabel">Select Season</div>
+        <canvas id="infoButton" ></canvas>
       </div>
         <div id="setSelectHolder">
           <div id="setSelectScroller"></div>
@@ -1859,6 +1886,8 @@ function gestureStart(e){
     </div>
   </div><! end of rotorUi>
 </div><! end of portraitMain>
+<canvas id="loadingCanvas" style="position:absolute; Zbackground-color:rgba(0,0,0,.25);"></canvas>
+
 <div id="debugDiv" style="top:0px;left:150px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
 </body>
 </html>
