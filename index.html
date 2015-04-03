@@ -1280,7 +1280,8 @@ function updateLoadingCanvas(){
   if(pips>0){
     canv.style.display="block";
     var ctx=canv.getContext("2d");
-    ctx.fillStyle="rgba(255,255,255,.5)";
+    //ctx.fillStyle="rgba(255,255,255,.5)";
+    ctx.fillStyle="#aaa";
     ctx.textAlign="left";
     ctx.textBaseline="middle";
     ctx.font=Math.floor(grid*1)+"px Arial";
