@@ -568,12 +568,12 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
 
   if(orient != prevOrient){
     if((portraitKnown)&&(landscapeKnown)&&(bothKnown==false)){
-      cellsDown=Math.floor((absScreenHeight-blingHeight)/grid);
       bothKnown=true;
       absScreenWidth=portraitScreenWidth;
       absScreenHeight=landscapeScreenWidth;
       blingHeight=portraitScreenWidth-landscapeScreenHeight;
-      //dbuga("blingHeight ="+ blingHeight +' so populateSelect');
+      cellsDown=Math.floor((absScreenHeight-blingHeight)/grid);
+      //dbuga("blingHeight ="+ blingHeight +' cellsDown:'+cellsDown);
       flowItemHeight=Math.floor(landscapeScreenHeight*.8);
       flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
 
