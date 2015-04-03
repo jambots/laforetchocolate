@@ -276,13 +276,17 @@ font-family: 'Arial';
   position:absolute;
   top:0;
   }
-
+#compressionButton{
+  position:absolute;
+  top:0;
+  }
 </style>
 <script>
 var ddiv;
 var sdiv
 var agent="unknown";
 
+var compression="jpeg";
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
@@ -316,6 +320,7 @@ function resumeInit(){
       }
     document.getElementById("infoCancel").onmousedown=function(e){infoCancel();}
     document.getElementById("jambotsButton").onmousedown=function(e){jambotsButton();}
+    document.getElementById("compressionButton").onmousedown=function(e){compressionButton();}
     document.getElementById("setSelectCancel").onmousedown=function(e){hideSetSelect();}
     document.getElementById("setSelectButton").onmousedown=function(e){showSetSelect();}
     document.getElementById("infoButton").onmousedown=function(e){showInfo();}
@@ -338,6 +343,7 @@ function resumeInit(){
       }
     document.getElementById("infoCancel").ontouchstart=function(e){infoCancel();}
     document.getElementById("jambotsButton").ontouchstart=function(e){jambotsButton();}
+    document.getElementById("compressionButton").ontouchstart=function(e){compressionButton();}
     document.getElementById("setSelectCancel").ontouchstart=function(e){hideSetSelect();}
     document.getElementById("setSelectButton").ontouchstart=function(e){showSetSelect();}
     document.getElementById("infoButton").ontouchstart=function(e){showInfo();}
@@ -367,6 +373,13 @@ function setupLocalStorage(){
 
 //var setKeys =["9999_Favorites"];
 //var sets={"9999_Favorites":[]};
+
+  if(localStorage.getItem("compression") === null) {
+    localStorage.setItem("compression", compression);
+    }
+  else{
+    compression=localStorage.getItem("compression");
+    }
 
   if(localStorage.getItem("selectedSetNum") === null) {
     localStorage.setItem("selectedSetNum", "0");
@@ -411,6 +424,27 @@ function jambotsButton(){
   //dbuga('jambotsButton');
   //window.plugins.childBrowser.openExternal("http://www.jambots.com");
   navigator.app.loadUrl("http://www.jambots.com", {openExternal: true});
+  }
+function compressionButton(){
+  //dbuga('compressionButton');
+  if(compression=="jpeg"){
+    compression="png";
+    }
+  else{
+    compression="jpeg";
+    }
+  localStorage.setItem("compression", compression);  
+  purgeCache();
+  updateCompression();
+  }
+function purgeCache(){
+  //dbuga('purgeCache()');
+  var nameStack=JSON.parse(localStorage.getItem('nameStack'));
+  for (var n=0; n<nameStack.length; n++){
+    localStorage.setItem(nameStack[n], "");
+    }
+  localStorage.setItem("nameStack", "[]");
+  updateSet();
   }
 function saveButton(){
   var saveName=faveKey;
@@ -615,7 +649,7 @@ dbuga("selectedSetNum="+ selectedSetNum);
   }
 
 function imageGeometry(){
-
+  //dbuga('imageGeometry()');
   flowItemHeight=Math.floor(landscapeScreenHeight*.8);
   flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
   if(orient=="landscape"){
@@ -899,6 +933,7 @@ function styleUi(){
   canv.style.top=grid*.5+"px";
   canv.style.left=(grid*modalWidth-grid*9.5)+"px";
   roundRect(canv, "#666", "#222", "jambots apps", "#fff", Math.floor(grid*1.25)+"px Arial", false);
+  updateCompression();
 
   var canv=document.getElementById("saveButton");
   canv.width=Math.floor(grid*3);
@@ -983,6 +1018,19 @@ function styleUi(){
   ctx.lineTo(grid*1.5,grid*2.5);
   ctx.stroke();
   }
+function updateCompression(){
+  var canv=document.getElementById("compressionButton");
+  canv.style.top=grid*.5+"px";
+  canv.style.left=(grid*.5)+"px";
+  canv.width=Math.floor(grid*16);
+  canv.height=Math.floor(grid*3);
+  var cached=JSON.parse(localStorage.getItem('nameStack')).length;
+  var label="storage: "+compression;
+  if(cached>0){label+=" ("+cached+")";}
+  roundRect(canv, "#666", "#222", label, "#fff", Math.floor(grid*1.25)+"px Arial", false);
+  }
+
+
 var setTappedNum=0;
 var setTappedMs=-1;
 var thumbTappedNum=0;
@@ -1126,10 +1174,10 @@ function prepareRotor(){
   var htmlString="";
   for (var i=0; i<set.length; i++){
     if((agent=="windows")||(agent=="mac")){
-      htmlString+='<img id="rotorImage_'+set[i]+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"  width='+rotorItemWidth+' src="loadanim.gif" />';
+      htmlString+='<img id="rotorImage_'+set[i]+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"   src="loadanim.gif" />';
       }
     if((agent=="droid")||(agent=="ios")){
-      htmlString+='<img id="rotorImage~'+set[i]+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" width='+rotorItemWidth+' src="loadanim.gif" />';
+      htmlString+='<img id="rotorImage~'+set[i]+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" src="loadanim.gif" />';
       }
     }
   rotorWidth=(rotorItemWidth*set.length);
@@ -1172,19 +1220,29 @@ function loadTick(){
   //dbuga('loadTick '+loadItem.seti);
   loadItem.rotorRef.onload = function(){// resize then cache on load
     var that=this;
-    //resizeImage(that, "rotorItem in updateRotor "+rotorItemWidth);
+    //dbuga('rotorItem onload '+this.width+" x "+this.height);
+    var rawAspect=this.width/this.height;
+    var useWidth=rotorItemWidth;
+    var useHeight=useWidth/rawAspect;
+    this.width=useWidth;
+    this.height=useHeight;
+    //dbuga('rotorItem resized '+this.width+" x "+this.height);
+     
     var dataUrl=returnResizedData(that);
-    //dbuga('step2');
+
     this.src=dataUrl; // put resized data into image source
+    this.width=rotorItemWidth;
+    this.height= rotorItemHeight;
     saveLocal(this.id, dataUrl);
     var temp=this.id.split("~");
-    var cleaned=dataUrl.replace(/(\r\n|\n|\r)/gm, "");
-    document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + cleaned + "')";
+    //var cleaned=dataUrl.replace(/(\r\n|\n|\r)/gm, "");
+    document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + dataUrl + "')";
     window.clearTimeout(loadTimeout);
     if(loadQueue.length>0){
       loadTimeout=window.setTimeout("loadTick()", 100);
       }
     updateLoadingCanvas();
+    if(infoUp){updateCompression();}
     //dbuga(temp[1]);
     }
   loadItem.rotorRef.src="http://laforetchocolate.com/app/"+loadItem.seti;
@@ -1514,6 +1572,7 @@ function hideInfo(){
 function showInfo(){
   //dbug("showSetSelect()" +selectUp);
   infoUp=true;
+  updateCompression();
   document.getElementById('infoDim').style.display="block";
   }
 
@@ -1608,59 +1667,28 @@ function returnResizedData(imageObject){
   var dstCanvas = document.createElement('canvas');
   dstCanvas.width = width;
   dstCanvas.height = targetHeight;
+
+  //dbuga('returnResizedData '+width+' x '+height+ " t:"+targetHeight); 
     
     // Draw Image content in canvas
   var dstContext = dstCanvas.getContext('2d');
-  //dstContext.fillStyle="yellow";
+  dstContext.fillStyle="white";
   dstContext.fillRect(0, 0, width, targetHeight);
   dstContext.drawImage(imageObject, 0, topPad, width, height);
   //dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
   //dbuga('resize');
   // Replace source of Image
 
-  //var dataUrlPng=dstCanvas.toDataURL();
-  var dataUrlJpeg=dstCanvas.toDataURL("image/jpeg", 0.5);
-/*
-  var pixelArray=dstContext.getImageData(0,0,width,targetHeight); 
-  var pngLength=dataUrlPng.length;
-  var myEncoder = new JPEGEncoder(90);
-  var jpegImage = myEncoder.encode(pixelArray);
-  var jpegLength=jpegImage.length;
-  //dbuga("enc("+imageObject.id+")<br>png:"+ pngLength+"  jpeg:"+ jpegLength);
-  //dbuga("default "+dataUrlJpeg.length+"  "+dataUrlJpeg);
-  //dbuga("jpeg "+dataUrlPng.length+"  "+dataUrlPng);
-  //return jpegImage;
-*/
-  return dataUrlJpeg;
- 
-}
+  var dataUrl;
+  if(compression=="jpeg"){
+    dataUrl=dstCanvas.toDataURL("image/jpeg", 0.5);
+    }
+  else{
+    dataUrl=dstCanvas.toDataURL();
+    }
+  return dataUrl;
+  }
 
-function resizeImage(imageObject, targetType){
-  imageObject.onload=null;//prevents double firing from fast events
-  var width= imageObject.width;
-  var height=Math.floor(width*4.2/3);
-
-
-    // Calculate a new scale
-    // The new scale will be the minimum of the two possible scales
-    var scale = Math.min((width / imageObject.width), (height/ imageObject.height));
-
-    // New canvas
-    var dstCanvas = document.createElement('canvas');
-    dstCanvas.width = imageObject.width * scale;
-    dstCanvas.height = imageObject.height * scale;
-
-    // Draw Image content in canvas
-    var dstContext = dstCanvas.getContext('2d');
-    dstContext.drawImage(imageObject, 0, 0, parseInt(imageObject.width * scale), parseInt(imageObject.height * scale));
-
-    // Replace source of Image
-    var dataUrl=dstCanvas.toDataURL("image/jpg", .5);
-    
-    imageObject.src = dataUrl;
-    //dbuga("resizeImage() w: "+imageObject.width+" chars: "+Math.floor(dataUrl.length/1000));
-
-}
 function updateSelectButtons(){
  for (var s=0; s<setKeys.length; s++){
     var canv=document.getElementById("canv_"+s);
@@ -1744,6 +1772,7 @@ function loadData(){
       $.getJSON('http://laforetchocolate.com/app/config.json', function(json) {
          //dbuga(JSON.stringify(json));
          parseData(json);
+         if(setKeys.length>1){selectedSetNum=1;}
          dataLoaded=true;
          populateSelect();
          updateSet();
@@ -1887,6 +1916,7 @@ function gestureStart(e){
         </div>
         <div id="infoNavBottom">
           <canvas id="jambotsButton"></canvas>
+          <canvas id="compressionButton"></canvas>
         </div>
       </div>
     </div>
