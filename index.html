@@ -24,7 +24,6 @@ var web=false;
 <link rel = "stylesheet" type = "text/css" href = "reset.css">
 <style>
 #infoHolder{
-  display:none;
   background-image:url('info.png');
   background-size:contain;
   background-align:center top;
@@ -104,6 +103,7 @@ font-family: 'Arial';
   width:100%;
   }
 #setSelectDim{
+  display:none;
   top:0;
   left:0;
   position:absolute;
@@ -344,10 +344,10 @@ function resumeInit(){
     document.getElementById("infoCancel").ontouchstart=function(e){infoCancel();}
     document.getElementById("jambotsButton").ontouchstart=function(e){jambotsButton();}
     document.getElementById("compressionButton").ontouchstart=function(e){compressionButton();}
-    document.getElementById("setSelectCancel").ontouchstart=function(e){hideSetSelect();}
+    document.getElementById("setSelectCancel").ontouchend=function(e){hideSetSelect();}
     document.getElementById("setSelectButton").ontouchstart=function(e){showSetSelect();}
     document.getElementById("infoButton").ontouchstart=function(e){showInfo();}
-    document.getElementById("thumbsButton").ontouchstart=function(e){hideRotor();}
+    document.getElementById("thumbsButton").ontouchstart=function(e){hideRotor(); initOrRefreshScrolls();}
     document.getElementById("mailButton").ontouchstart=function(e){mailButton();}
     document.getElementById("linkButton").ontouchstart=function(e){linkButton();}
     document.getElementById("saveButton").ontouchstart=function(e){saveButton();}
@@ -366,6 +366,7 @@ function resumeInit(){
   //dbuga('loadData() ran');
   setupLocalStorage();
   loadData();
+
   clearInterval(orientationInterval);
   orientationInterval=setInterval('orientationTick()', 100);
   }
@@ -426,16 +427,25 @@ function jambotsButton(){
   navigator.app.loadUrl("http://www.jambots.com", {openExternal: true});
   }
 function compressionButton(){
+  var confString="PNG files take up more local storage. Only proceed if you are seeing glitched images. Switch storage to to PNG?"
   //dbuga('compressionButton');
   if(compression=="jpeg"){
-    compression="png";
+    setTimeout(function() {
+      var conf=window.confirm(confString);
+      if(conf){
+        compression="png";
+        localStorage.setItem("compression", compression);  
+        purgeCache();
+        updateCompression();
+        }
+      }, 10);
     }
-  else{
+  else{ //switch to jpeg      
     compression="jpeg";
+    localStorage.setItem("compression", compression);  
+    purgeCache();
+    updateCompression();
     }
-  localStorage.setItem("compression", compression);  
-  purgeCache();
-  updateCompression();
   }
 function purgeCache(){
   //dbuga('purgeCache()');
@@ -525,7 +535,7 @@ var selectWidth=28;
 var modalMargin=(cellsAcross-modalWidth)/2;
 
 function measure(){ //fires after window.innerWidth changed in orientation tick
-  //dbuga("measure()");
+  //dbuga("<br />measure()");
   var bothKnown=false;
   if((portraitKnown)&&(landscapeKnown)){bothKnown=true;}
   viewportWidth=window.innerWidth;
@@ -558,15 +568,26 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
 
   if(orient != prevOrient){
     if((portraitKnown)&&(landscapeKnown)&&(bothKnown==false)){
+      cellsDown=Math.floor((absScreenHeight-blingHeight)/grid);
       bothKnown=true;
       absScreenWidth=portraitScreenWidth;
       absScreenHeight=landscapeScreenWidth;
       blingHeight=portraitScreenWidth-landscapeScreenHeight;
-      //alert("blingHeight ="+ blingHeight);
+      //dbuga("blingHeight ="+ blingHeight +' so populateSelect');
+      flowItemHeight=Math.floor(landscapeScreenHeight*.8);
+      flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
+
+      populateSelect(); //will style ui then refresh scrolls
       }
     }
   if(orient != prevOrient){
-    if(orient=="portrait"){rotorAtItem=flowAtItem;}
+    if(orient=="portrait"){
+      rotorAtItem=flowAtItem;
+      initOrRefreshScrolls();
+      //dbuga('changed to portrait so populateSelect()  or  updateSelectButtons()');
+      if(selectPopulated==false){populateSelect();}
+      else{updateSelectButtons();}
+      }
     else{flowAtItem=rotorAtItem;}
     }
   cellsAcross=32;
@@ -574,8 +595,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
   var newGrid=absScreenWidth/cellsAcross;
   if(grid != newGrid){// init or resize somehow, not on rotate
     grid=newGrid;
-    cellsDown=Math.floor(absScreenHeight/grid);
-    populateSelect();
+    cellsDown=Math.floor((absScreenHeight-blingHeight)/grid);
     }
   if(orient=="landscape"){
     //main hide landscape
@@ -817,8 +837,10 @@ function roundRect(canv, color, background, label, labelColor, font, pointy){
 function infoCancel(){
   hideInfo();
   }
+var selectPopulated=false;
 
 function populateSelect(){
+  selectPopulated=true;
   //dbuga('populateSelect() cellsAcross='+ cellsAcross);
   modalWidth=32;	
   selectWidth=28;	
@@ -836,9 +858,7 @@ function populateSelect(){
   sdiv.innerHTML=htmlString;
   window.setTimeout("styleUi()", 100);
   }
-var scrollsSet=false;
 function styleUi(){
-  //dbuga('styleUi');
   document.getElementById("infoLabel").style.width=grid*modalWidth/2+"px";
   document.getElementById("infoLabel").style.left=grid*modalWidth/4+"px";
   document.getElementById("infoLabel").style.top=grid*1+"px";
@@ -903,15 +923,6 @@ function styleUi(){
   document.getElementById("rotorNavBottom").style.width=portraitScreenWidth+"px";
 
   document.getElementById("setSelectNavTop").style.height=grid*4+"px";
-
-  if(scrollsSet==false){
-    tScroll=new iScroll("thumbsHolder");
-    sScroll=new iScroll("setSelectHolder");
-    }
-  else{
-    sScroll.refresh();
-    }
-
   // buttons  
   var canv=document.getElementById("mailButton");
   canv.width=Math.floor(grid*3);
@@ -979,7 +990,7 @@ function styleUi(){
   canv.height=Math.floor(grid*3);
   canv.style.top=grid*.5+"px";
   canv.style.left=grid*.5+"px";
-  roundRect(canv, "#666", "#222", "Cancel", "#fff", Math.floor(grid*1.25)+"px Arial", false);
+  roundRect(canv, "#666", "#222", "Done", "#fff", Math.floor(grid*1.25)+"px Arial", false);
 
   var canv=document.getElementById("infoButton");
   canv.width=Math.floor(grid*3);
@@ -1017,6 +1028,10 @@ function styleUi(){
   ctx.moveTo(grid*1.5,grid*.5);
   ctx.lineTo(grid*1.5,grid*2.5);
   ctx.stroke();
+
+  //dbuga('styleUi flowItemHeight='+flowItemHeight);
+  initOrRefreshScrolls();
+
   }
 function updateCompression(){
   var canv=document.getElementById("compressionButton");
@@ -1184,11 +1199,13 @@ function prepareRotor(){
   rotorMax=rotorWidth-rotorItemWidth;
   document.getElementById("rotor").innerHTML=htmlString;
   document.getElementById("rotor").style.width=rotorWidth+"px";
-
+// desktop stops here, no ref wtf?
   for (var i=0; i<set.length; i++){
     var rotorRef=document.getElementById("rotorImage~"+set[i]);
     var flowRef=document.getElementById("flowImage~"+set[i]);
     var seti=set[i];
+    //dbuga('rotorRef.id='+rotorRef.id)
+
     if(isCached(rotorRef.id)==false){
       if(dataLoaded==false){
         ref.src="unnabletoloadimages.jpg";
@@ -1214,7 +1231,9 @@ function loadTick(){
     updateLoadingCanvas();
     return false;
     }
-  if(loadQueue.length==0){return false;}
+  if(loadQueue.length==0){
+    return false;
+    }
           
   var loadItem=loadQueue.shift();
   //dbuga('loadTick '+loadItem.seti);
@@ -1242,6 +1261,8 @@ function loadTick(){
       loadTimeout=window.setTimeout("loadTick()", 100);
       }
     updateLoadingCanvas();
+    document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
+  
     if(infoUp){updateCompression();}
     //dbuga(temp[1]);
     }
@@ -1519,7 +1540,7 @@ function thumbRelease(i){
     }
   var d = new Date();
   var deltaT=d.getTime()-thumbTappedMs;
-  if(deltaT<300){
+  if(deltaT<200){
     //dbuga("thumbRelease("+i+") "+thumbTappedNum);
     selectThumb(thumbTappedNum);
     }
@@ -1591,13 +1612,15 @@ function onBackKeyDown() {
   }
 
 function showSetSelect(){
-  //dbug("showSetSelect()" +selectUp);
+  //dbuga("showSetSelect()" +selectUp);
   loadQueue=[];
   updateLoadingCanvas();
   selectUp=true;
   document.getElementById('setSelectDim').style.display="block";
+  initOrRefreshScrolls();
   }
 var cols;
+var rows;
 function updateThumbButtons(){
   //dbuga("updateThumbButtons() ");
   var selectedSetKey=setKeys[selectedSetNum];
@@ -1610,7 +1633,7 @@ function updateThumbButtons(){
   //selectedSetKey=selectedSetKey.replace("%20", " ");
   cols=Math.floor(cellsAcross/16);
   var htmlString="";
-  var rows=1+Math.floor((set.length-1)/cols);
+  rows=1+Math.floor((set.length-1)/cols);
   //dbuga("rows="+rows);
   for (var i=0; i<set.length; i++){
     htmlString+='<img id="thumbImage~'+set[i]+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="loadanim.gif" />';
@@ -1651,10 +1674,39 @@ function updateThumbButtons(){
       }
     }
   document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
+  //dbuga('updateThumbButtons scrollsSet='+scrollsSet );
+  initOrRefreshScrolls();
   if(scrollsSet){
-    window.setTimeout("tScroll.refresh()",100);
-    window.setTimeout("tScroll.scrollTo(0,0)",200);
+    tScroll.scrollTo(0,0);
     }
+  }
+var scrollsSet=false;
+function initOrRefreshScrolls(){
+  setTimeout(function() {
+    //dbuga('initOrRefreshScrolls scrollsSet='+ scrollsSet +' orient ='+orient);
+    if(scrollsSet==false){
+      tScroll=new iScroll("thumbsHolder");
+      sScroll=new iScroll("setSelectHolder");
+      scrollsSet=true;
+      }
+    else{// iscroll is fucked when div or parent gets display:none, must refresh when block.
+      if(orient=="portrait"){
+        if(rotorUp==false){
+          //dbuga(' -- rotorUp==false so tScroll.refresh()');
+          tScroll.refresh();
+          }
+        if(selectUp){
+          document.getElementById('setSelectDim').style.display="block"
+          sScroll.refresh();
+          //dbuga(' -- selectUp so sScroll.refresh()');
+          }
+        }
+      else{
+        //dbuga(' --- skip refreshes');
+        }
+      }
+
+    }, 100);
   }
 function returnResizedData(imageObject){
   imageObject.onload=null;//prevents double firing from fast events
@@ -1938,6 +1990,6 @@ function gestureStart(e){
 </div><! end of portraitMain>
 <canvas id="loadingCanvas" style="position:absolute; Zbackground-color:rgba(0,0,0,.25);"></canvas>
 
-<div id="debugDiv" style="top:0px;left:150px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
+<div id="debugDiv" style="top:0px;left:190px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
 </body>
 </html>
