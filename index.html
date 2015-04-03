@@ -1257,10 +1257,10 @@ function loadTick(){
     //var cleaned=dataUrl.replace(/(\r\n|\n|\r)/gm, "");
     document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + dataUrl + "')";
     window.clearTimeout(loadTimeout);
+    updateLoadingCanvas();
     if(loadQueue.length>0){
       loadTimeout=window.setTimeout("loadTick()", 100);
       }
-    updateLoadingCanvas();
     document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
   
     if(infoUp){updateCompression();}
@@ -1271,7 +1271,7 @@ function loadTick(){
 function updateLoadingCanvas(){
   var canv=document.getElementById("loadingCanvas");
   var pips=loadQueue.length;
-  //dbuga("updateLoadingCanvas() "+pips);
+  dbuga("updateLoadingCanvas() "+pips);
   canv.width=Math.floor(grid*12);
   if(pips==0){canv.width=0;}
   canv.height=Math.floor(grid*4);
