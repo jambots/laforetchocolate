@@ -1278,6 +1278,7 @@ function updateLoadingCanvas(){
   canv.style.top="0px";
   canv.style.left=grid*(cellsAcross-12)+"px";
   if(pips>0){
+    canv.style.display="block";
     var ctx=canv.getContext("2d");
     ctx.fillStyle="rgba(255,255,255,.5)";
     ctx.textAlign="left";
@@ -1988,7 +1989,7 @@ function gestureStart(e){
     </div>
   </div><! end of rotorUi>
 </div><! end of portraitMain>
-<canvas id="loadingCanvas" style="position:absolute; Zbackground-color:rgba(0,0,0,.25);"></canvas>
+<canvas id="loadingCanvas" style="position:absolute; background-color:rgba(0,0,0,.25);"></canvas>
 
 <div id="debugDiv" style="top:0px;left:190px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
 </body>
