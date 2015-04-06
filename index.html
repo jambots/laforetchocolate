@@ -475,7 +475,7 @@ function saveButton(){
     // Draw Image content in canvas
   var dstContext = dstCanvas.getContext('2d');
   dstContext.fillStyle="white";
-  dstContext.fillRect(0, 0, width, targetHeight);
+  dstContext.fillRect(0, 0, rotorItemWidth, rotorItemHeight);
   var imageObject=document.getElementById('rotorImage~'+faveKey);
   dstContext.drawImage(imageObject, 0, 0, rotorItemWidth, rotorItemHeight);
 
