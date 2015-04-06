@@ -466,7 +466,7 @@ function saveButton(){
   season=temp[1];
   saveName=season+"_"+fileName;
   
-  dbuga('saveButton() faveKey='+faveKey+' saveName='+saveName);
+  //dbuga('saveButton() faveKey='+faveKey+' saveName='+saveName);
 
   var dstCanvas = document.createElement('canvas');
   dstCanvas.width = rotorItemWidth;
@@ -483,10 +483,10 @@ function saveButton(){
 
     window.canvas2ImagePlugin.saveImageDataToLibrary(
         function(msg){
-            dbuga(msg);
+            alert('Saved to Device');
         },
         function(err){
-            dbuga(err);
+            alert('Error: '+err);
         },
         dstCanvas
     );
