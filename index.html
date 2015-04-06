@@ -9,8 +9,6 @@
 <meta name = "title" content = "La Forêt" /><meta name = "description" content = "La Forêt chocolate" />
 <title>La Forêt</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="savefile.js"></script>
-<script src="jpeg_encoder_basic.js?1"></script>
 <script>
 var web=false;
 </script>
@@ -468,8 +466,18 @@ function saveButton(){
   season=temp[1];
   saveName=season+"_"+fileName;
   
-  //dbuga(saveName);
-  savefile("http://www.laforetchocolate.com/app/"+faveKey, "laforet", saveName);
+  dbuga('saveButton() faveKey='+faveKey+' saveName='+saveName);
+/*
+    window.canvas2ImagePlugin.saveImageDataToLibrary(
+        function(msg){
+            dbuga(msg);
+        },
+        function(err){
+            dbuga(err);
+        },
+        document.getElementById('myCanvas')
+    );
+*/
   }
 var unfaveArray=[];
 function faveButton(){
