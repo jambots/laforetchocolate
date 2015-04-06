@@ -468,6 +468,19 @@ function saveButton(){
   
   dbuga('saveButton() faveKey='+faveKey+' saveName='+saveName);
 
+  var dstCanvas = document.createElement('canvas');
+  dstCanvas.width = rotorItemWidth;
+  dstCanvas.height = rotorItemHeight;
+    
+    // Draw Image content in canvas
+  var dstContext = dstCanvas.getContext('2d');
+  dstContext.fillStyle="white";
+  dstContext.fillRect(0, 0, width, targetHeight);
+  var imageObject=document.getElementById('rotorImage~'+faveKey);
+  dstContext.drawImage(imageObject, 0, 0, rotorItemWidth, rotorItemHeight);
+
+
+
     window.canvas2ImagePlugin.saveImageDataToLibrary(
         function(msg){
             dbuga(msg);
@@ -475,7 +488,7 @@ function saveButton(){
         function(err){
             dbuga(err);
         },
-        document.getElementById('rotorImage~'+faveKey)
+        dstCanvas
     );
 
   }
