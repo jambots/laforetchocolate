@@ -467,7 +467,7 @@ function saveButton(){
   saveName=season+"_"+fileName;
   
   dbuga('saveButton() faveKey='+faveKey+' saveName='+saveName);
-/*
+
     window.canvas2ImagePlugin.saveImageDataToLibrary(
         function(msg){
             dbuga(msg);
@@ -475,9 +475,9 @@ function saveButton(){
         function(err){
             dbuga(err);
         },
-        document.getElementById('myCanvas')
+        document.getElementById('rotorImage~'+faveKey)
     );
-*/
+
   }
 var unfaveArray=[];
 function faveButton(){
