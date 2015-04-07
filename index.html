@@ -429,7 +429,7 @@ function compressionButton(){
   //dbuga('compressionButton');
   if(compression=="jpeg"){
     //setTimeout(function() {
-    //  var conf=window.confirm(confString);
+    //  var conf=window.confirm(confString);//confirm breaks events on droid in build.
     //  if(conf){
         compression="png";
         localStorage.setItem("compression", compression);  
@@ -856,7 +856,7 @@ function roundRect(canv, color, background, label, labelColor, font, pointy){
   ctx.fillText(label,canv.width/2,canv.height/2);
   }
 function infoCancel(){
-  dbuga('infoCancel()');
+  //dbuga('infoCancel()');
   hideInfo();
   }
 var selectPopulated=false;
