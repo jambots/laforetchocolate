@@ -786,7 +786,7 @@ function prepareFlow(){
   var htmlString="";
   //dbuga(imgWidth);
   for (var i=0; i<set.length; i++){
-    htmlString+='<div class="flowPanel" id="flowImage~'+set[i]+'" style="background-color:#fff; background-image:url(\'loadanim.gif\'); width:'+flowItemWidth+'px; height:'+flowItemHeight+'px; position:absolute; left:'+flowItemWidth*i+'px;" zsrc="http://laforetchocolate.com/app/'+set[i]+'"></div>';
+    htmlString+='<div class="flowPanel" id="flowImage~'+set[i]+'" style="background-color:#fff; background-image:url(\'spiral.gif\'); width:'+flowItemWidth+'px; height:'+flowItemHeight+'px; position:absolute; left:'+flowItemWidth*i+'px;" zsrc="http://laforetchocolate.com/app/'+set[i]+'"></div>';
     }
   flowWidth=(flowItemWidth*set.length);
   flowMax=flowWidth-flowItemWidth;
@@ -1211,10 +1211,10 @@ function prepareRotor(){
   var htmlString="";
   for (var i=0; i<set.length; i++){
     if((agent=="windows")||(agent=="mac")){
-      htmlString+='<img id="rotorImage_'+set[i]+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"   src="loadanim.gif" />';
+      htmlString+='<img id="rotorImage_'+set[i]+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"   src="spiral.gif" />';
       }
     if((agent=="droid")||(agent=="ios")){
-      htmlString+='<img id="rotorImage~'+set[i]+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" src="loadanim.gif" />';
+      htmlString+='<img id="rotorImage~'+set[i]+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" src="spiral.gif" />';
       }
     }
   rotorWidth=(rotorItemWidth*set.length);
@@ -1662,7 +1662,7 @@ function updateThumbButtons(){
   rows=1+Math.floor((set.length-1)/cols);
   //dbuga("rows="+rows);
   for (var i=0; i<set.length; i++){
-    htmlString+='<img id="thumbImage~'+set[i]+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="loadanim.gif" />';
+    htmlString+='<img id="thumbImage~'+set[i]+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="spiral.gif" />';
     }
   thumbsToLoad=set.length;
   
