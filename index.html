@@ -428,15 +428,15 @@ function compressionButton(){
   var confString="PNG files take up more local storage. Only proceed if you are seeing glitched images. Switch storage to to PNG?"
   //dbuga('compressionButton');
   if(compression=="jpeg"){
-    setTimeout(function() {
-      var conf=window.confirm(confString);
-      if(conf){
+    //setTimeout(function() {
+    //  var conf=window.confirm(confString);
+    //  if(conf){
         compression="png";
         localStorage.setItem("compression", compression);  
         purgeCache();
         updateCompression();
-        }
-      }, 10);
+    //    }
+    //  }, 10);
     }
   else{ //switch to jpeg      
     compression="jpeg";
