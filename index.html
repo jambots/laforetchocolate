@@ -856,6 +856,7 @@ function roundRect(canv, color, background, label, labelColor, font, pointy){
   ctx.fillText(label,canv.width/2,canv.height/2);
   }
 function infoCancel(){
+  dbuga('infoCancel()');
   hideInfo();
   }
 var selectPopulated=false;
@@ -1845,6 +1846,8 @@ var pi=Math.PI;
 var dataLoaded=false;
 
 function loadData(){
+  // wp feed will be at
+  //http://www.laforetchocolate.com/wordpress/category/allocation-chocolates/json
   $(document).ready(function(){
       $.getJSON('http://laforetchocolate.com/app/config.json', function(json) {
          //dbuga(JSON.stringify(json));
