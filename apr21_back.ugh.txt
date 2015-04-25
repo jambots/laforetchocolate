@@ -1,0 +1,2232 @@
+<html>
+<head>
+<meta http-equiv = "content-type" content = "application/xhtml+xml; charset = UTF-8" />
+<meta content = 'width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0' name = 'viewport' /><meta name = "viewport" content = "width = device-width, maximum-scale = 1.0, initial-scale = 1.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+<meta name = "apple-mobile-web-app-capable" content = "yes">
+<meta name = "title" content = "La Forêt" /><meta name = "description" content = "La Forêt chocolate" />
+<title>La Forêt</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script>
+var web=false;
+</script>
+<script src="phonegap.js?2"></script>
+<!--
+<script src="childbrowser.js"></script>
+<script src="iscroll.js"></script>
+-->
+<script type="text/javascript" src="iscroll-lite.js"></script>
+
+<link rel = "stylesheet" type = "text/css" href = "reset.css">
+<style>
+#infoHolder{
+  background-image:url('info.png');
+  background-size:contain;
+  background-align:center top;
+  background-repeat:no-repeat;
+  }
+.flowPanel{
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:50% 50%;
+  }
+@font-face {
+    font-family: 'signify';
+    src: url('signify.ttf') format('truetype');
+    font-weight:normal;
+    font-style:normal;
+}
+@font-face {
+    font-family: 'sack';
+    src: url('sackh.ttf') format('truetype');
+    font-weight:normal;
+    font-style:normal;
+}
+*{
+font-family: 'Arial';
+-webkit-user-select:none;
+-webkit-backface-visibility:hidden;
+}
+#debugDiv{
+  }
+#landscapeMain{
+  background-color:#000;
+  position:absolute;
+  width:100%;
+  height:100%;
+  }
+#flow{
+  background-color:#000;
+  position:absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  }
+#portraitMain{
+  background-color:#555;
+  position:absolute;
+  width:100%;
+  height:100%;
+  }
+#thumbsUi{
+  background-color:#555;
+  position:absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  }
+#thumbsNavTop{
+  position:absolute; 
+  background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
+  }
+#thumbsNavBottom{
+  position:absolute;
+  background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
+  }
+#thumbsHolder{
+  background-color:#fff;
+  width:100%;
+  position:absolute;
+  top:0;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+  }
+#thumbsScroller{
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+  background-color:#fff;
+  width:100%;
+  }
+#setSelectDim{
+  display:none;
+  top:0;
+  left:0;
+  position:absolute;
+  background-color:rgba(0,0,0,.5);
+  width:100%;
+  height:100%;
+  }
+#setSelectModal{
+  position:absolute;
+  background-color:#f00;
+  width:200px;
+  height:300px;
+  top:10px;
+  left:10px;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+
+  }
+#setSelectNavTop{
+  width:100%;
+  background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
+  }
+#setSelectLabel{
+  position:absolute;
+  text-align:center;
+  color:#fff;
+  }
+#setSelectHolder{
+  position:absolute;
+  background-color:#eee;
+  width:200px;
+  height:250px;
+  top:50px;
+  left:0px;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+  }
+#setSelectScroller{
+  background-color:#ccc;
+  width:180px;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+  }
+
+
+
+#infoDim{
+  display:none;
+  left:0;
+  position:absolute;
+  background-color:rgba(0,0,0,.5);
+  width:100%;
+  height:100%;
+  }
+#infoModal{
+  position:absolute;
+  background-color:#f00;
+  width:200px;
+  height:300px;
+  top:10px;
+  left:10px;
+  }
+#infoNavTop{
+  width:100%;
+  background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
+  position:absolute;
+  }
+#infoNavBottom{
+  width:100%;
+  background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
+  position:absolute;
+  }
+#infoLabel{
+  position:absolute;
+  text-align:center;
+  color:#fff;
+  }
+#infoHolder{
+  position:absolute;
+  background-color:#fff;
+  width:200px;
+  height:250px;
+  top:50px;
+  left:0px;
+  }
+
+#thumbsLabel{
+  position:absolute;
+  text-align:center;
+  color:#fff;
+  }
+#rotorLabel{
+  position:absolute;
+  text-align:center;
+  color:#fff;
+  }
+#rotorUi{
+  display:none;
+  background-color:#fff;
+  width:100%;
+  height:100%;
+  position:absolute;
+  overflow:hidden;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+  }
+#rotor{
+  position:absolute;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, -10px);
+  }
+#rotorNavTop{
+  background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
+  width:100%;
+  position:absolute;
+  }
+#rotorNavBottom{
+  background: -webkit-linear-gradient(top, #4a4a4a 0%, #b2b2b2 2%, #898989 4%, #525252 50%, #1d1d1d 98%, #161616 100%); 
+  width:100%;
+  position:absolute;
+  }
+
+
+/* butts */
+#mailButton{
+  position:absolute;
+  top:0;
+  } 
+#linkButton {
+  position:absolute;
+  top:0;
+  }
+#saveButton{
+  position:absolute;
+  top:0;
+  }
+#prevButton{
+  position:absolute;
+  top:0;
+  }
+#nextButton{
+  position:absolute;
+  top:0;
+  }
+#faveButton{
+  position:absolute;
+  top:0;
+  }
+
+#infoButton{
+  position:absolute;
+  top:0;
+  }
+
+#thumbsButton{
+  position:absolute;
+  top:0;
+  }
+#setSelectButton{
+  position:absolute;
+  top:0;
+  }
+#setSelectCancel{
+  position:absolute;
+  top:0;
+  }
+#infoCancel{
+  position:absolute;
+  top:0;
+  }
+#jambotsButton{
+  position:absolute;
+  top:0;
+  }
+#compressionButton{
+  position:absolute;
+  top:0;
+  }
+</style>
+<script>
+var ddiv;
+var sdiv
+var agent="unknown";
+
+var compression="jpeg";
+function init(){
+  localStorage.clear();
+  ddiv=document.getElementById('debugDiv');
+  sdiv=document.getElementById('setSelectScroller'); 
+  if(navigator.userAgent.indexOf('Windows')>-1){agent="windows";}
+  if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
+  if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
+  if(navigator.userAgent.indexOf('iPad')>-1){agent="ios";}
+  //dbuga("agent="+agent);
+  //dbuga("web="+web);
+  
+  if(web){resumeInit();}
+  else{
+    document.addEventListener("deviceready", resumeInit, false);
+    //dbuga("uh... web="+web);
+    }
+  }
+function resumeInit(){
+  //dbuga('resumeInit()');
+  //imageGeometry();
+  //debugGeometry();
+
+  //populateSelect();
+  //dbuga(agent);
+  if((agent=="windows")||(agent=="mac")){
+    document.onmousemove=function(e){
+      //dbug(e.pageX);
+      if((touchingRotor)||(touchingFlow)){
+        e.preventDefault();
+        mouseSwipe(e);
+        }
+      }
+    document.getElementById("infoCancel").onmousedown=function(e){infoCancel();}
+    document.getElementById("jambotsButton").onmousedown=function(e){jambotsButton();}
+    document.getElementById("compressionButton").onmousedown=function(e){compressionButton();}
+    document.getElementById("setSelectCancel").onmousedown=function(e){hideSetSelect();}
+    document.getElementById("setSelectButton").onmousedown=function(e){showSetSelect();}
+    document.getElementById("infoButton").onmousedown=function(e){showInfo();}
+    document.getElementById("thumbsButton").onmousedown=function(e){hideRotor();}
+    document.getElementById("mailButton").onmousedown=function(e){mailButton();}
+    document.getElementById("linkButton").onmousedown=function(e){linkButton();}
+    document.getElementById("saveButton").onmousedown=function(e){saveButton();}
+    document.getElementById("prevButton").onmousedown=function(e){prevButton();}
+    document.getElementById("nextButton").onmousedown=function(e){nextButton();}
+    document.getElementById("faveButton").onmousedown=function(e){faveButton();}
+    document.getElementById("landscapeMain").onmousedown=function(e){flowClick(event);}
+    document.getElementById("landscapeMain").onmouseup=function(e){flowMouseup(event);}
+    }
+  if((agent=="droid")||(agent=="ios")){
+    document.ontouchmove=function(e){
+      if((touchingRotor)||(touchingFlow)){
+        e.preventDefault();
+        touchSwipe(e);
+        }
+      }
+    document.getElementById("infoCancel").ontouchstart=function(e){infoCancel();}
+    document.getElementById("jambotsButton").ontouchstart=function(e){jambotsButton();}
+    document.getElementById("compressionButton").ontouchstart=function(e){compressionButton();}
+    document.getElementById("setSelectCancel").ontouchend=function(e){hideSetSelect();}
+    document.getElementById("setSelectButton").ontouchstart=function(e){showSetSelect();}
+    document.getElementById("infoButton").ontouchstart=function(e){showInfo();}
+    document.getElementById("thumbsButton").ontouchstart=function(e){hideRotor(); initOrRefreshScrolls();}
+    document.getElementById("mailButton").ontouchstart=function(e){mailButton();}
+    document.getElementById("linkButton").ontouchstart=function(e){linkButton();}
+    document.getElementById("saveButton").ontouchstart=function(e){saveButton();}
+    document.getElementById("prevButton").ontouchstart=function(e){prevButton();}
+    document.getElementById("nextButton").ontouchstart=function(e){nextButton();}
+    document.getElementById("faveButton").ontouchstart=function(e){faveButton();}
+    document.getElementById("landscapeMain").ontouchstart=function(e){flowTap(event);}
+    document.getElementById("landscapeMain").ontouchend=function(e){flowRelease(event);}
+    document.addEventListener("backbutton", onBackKeyDown, false);
+    }
+
+  
+  orientationTick();
+  //debugGeometry();
+  //dbuga('end of resumeInit orientationTick() ran');
+  //dbuga('loadData() ran');
+  setupLocalStorage();
+  //loadData();
+  loadDataWp();
+
+  clearInterval(orientationInterval);
+  orientationInterval=setInterval('orientationTick()', 100);
+  }
+function setupLocalStorage(){
+
+//var setKeys =["9999_Favorites"];
+//var sets={"9999_Favorites":[]};
+
+  if(localStorage.getItem("compression") === null) {
+    localStorage.setItem("compression", compression);
+    }
+  else{
+    compression=localStorage.getItem("compression");
+    }
+
+  if(localStorage.getItem("selectedSetNum") === null) {
+    localStorage.setItem("selectedSetNum", "0");
+    }
+  else{
+    selectedSetNum=Number(localStorage.getItem("selectedSetNum"));
+    }
+  
+  if(localStorage.getItem("sets") === null) {
+    //dbuga("set sets to local");
+    localStorage.setItem("sets", JSON.stringify(sets));
+    }
+  else{
+    //dbuga("read sets from local");
+    sets=JSON.parse(localStorage.getItem("sets"));
+    }
+  if(localStorage.getItem("setKeys") === null) {
+    localStorage.setItem("setKeys", JSON.stringify(setKeys));
+    }
+  else{
+    setKeys=JSON.parse(localStorage.getItem("setKeys"));
+    }
+  if(localStorage.getItem("favorites") === null) {
+    localStorage.setItem("favorites", "[]");
+    }
+  else{
+    var favoritesString=localStorage.getItem("favorites");
+    sets["9999_Favorites"]=JSON.parse(favoritesString);
+    }
+  if(localStorage.getItem("nameStack") === null) {
+    localStorage.setItem("nameStack", "[]");
+    }
+  }
+function mailButton(){
+  window.location='mailto:info@laforetchocolate.com';
+  }
+function linkButton(){
+  //window.plugins.childBrowser.openExternal("http://www.laforetchocolate.com");
+  navigator.app.loadUrl("http://www.laforetchocolate.com", {openExternal: true});
+  }
+function jambotsButton(){
+  //dbuga('jambotsButton');
+  //window.plugins.childBrowser.openExternal("http://www.jambots.com");
+  navigator.app.loadUrl("http://www.jambots.com", {openExternal: true});
+  }
+function compressionButton(){
+  var confString="PNG files take up more local storage. Only proceed if you are seeing glitched images. Switch storage to to PNG?"
+  //dbuga('compressionButton');
+  if(compression=="jpeg"){
+    //setTimeout(function() {
+    //  var conf=window.confirm(confString);//confirm breaks events on droid in build.
+    //  if(conf){
+        compression="png";
+        localStorage.setItem("compression", compression);  
+        purgeCache();
+        updateCompression();
+    //    }
+    //  }, 10);
+    }
+  else{ //switch to jpeg      
+    compression="jpeg";
+    localStorage.setItem("compression", compression);  
+    purgeCache();
+    updateCompression();
+    }
+  }
+function purgeCache(){
+  //dbuga('purgeCache()');
+  var nameStack=JSON.parse(localStorage.getItem('nameStack'));
+  for (var n=0; n<nameStack.length; n++){
+    localStorage.setItem(nameStack[n], "");
+    }
+  localStorage.setItem("nameStack", "[]");
+  updateSet();
+  }
+function saveButton(){
+  var saveName=faveKey;
+  var temp=saveName.split("/");
+  var cat=temp[0];
+  var season=temp[1];
+  var fileName=temp[2];
+  fileName = fileName.replace(".jpg", "");
+
+  var temp=season.split("_");
+  season=temp[1];
+  saveName=season+"_"+fileName;
+  
+  //dbuga('saveButton() faveKey='+faveKey+' saveName='+saveName);
+  
+  var dstCanvas = document.createElement('canvas');
+  dstCanvas.width = rotorItemWidth;
+  dstCanvas.height = rotorItemHeight;
+    
+    // Draw Image content in canvas
+  var dstContext = dstCanvas.getContext('2d');
+  dstContext.fillStyle="white";
+  dstContext.fillRect(0, 0, rotorItemWidth, rotorItemHeight);
+  var imageObject=document.getElementById('rotorImage~'+faveKey);
+  dstContext.drawImage(imageObject, 0, 0, rotorItemWidth, rotorItemHeight);
+
+
+
+    window.canvas2ImagePlugin.saveImageDataToLibrary(
+        function(msg){
+            alert('Saved to Device');
+        },
+        function(err){
+            alert('Error: '+err);
+        },
+        dstCanvas
+    );
+
+  }
+var unfaveArray=[];
+function faveButton(){
+  var canv=document.getElementById('faveButton'); 
+  var selectedSetKey=setKeys[selectedSetNum];
+  var set=sets[selectedSetKey];
+  if(selectedSetKey=="9999_Favorites"){//toggle unfave
+    if(unfaveArray.indexOf(faveKey) == -1){
+      unfaveArray.push(faveKey);
+      }
+    else{
+      var temp=unfaveArray;
+      unfaveArray=[];
+      for (var i=0; i<temp.length; i++){
+        if(temp[i]!=faveKey){
+          unfaveArray.push(temp[i]);
+          }
+        }
+      }
+    }
+  else{// in normal set so toggle immediately
+    if(sets["9999_Favorites"].indexOf(faveKey) > -1){// copy remove loop
+      var temp=sets["9999_Favorites"];
+      sets["9999_Favorites"]=[];
+      for (var i=0; i<temp.length; i++){
+        if(temp[i]!=faveKey){
+          sets["9999_Favorites"].push(faveKey);
+          }
+        }
+      }
+    else{
+      sets["9999_Favorites"].push(faveKey);
+      }
+    localStorage.setItem("favorites", JSON.stringify(sets["9999_Favorites"]));
+    }
+
+  // update button display
+  if((sets["9999_Favorites"].indexOf(faveKey) > -1)&&(unfaveArray.indexOf(faveKey) == -1)){
+    roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+    }
+  else{
+    roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+    }
+  }
+var fileSystem;
+
+var orientationInterval;
+var orient="unset";
+function orientationTick(){
+  if(viewportWidth != window.innerWidth){
+    measure();
+    //imageGeometry();
+    //debugGeometry();
+    }
+  }
+
+var grid=3;
+var cellsDown=10;
+var cellsAcross=33;
+var deviceWidth=330;
+var modalWidth=32;	
+var selectWidth=28;	
+var modalMargin=(cellsAcross-modalWidth)/2;
+
+function measure(){ //fires after window.innerWidth changed in orientation tick
+  //dbuga("<br />measure()");
+  var bothKnown=false;
+  if((portraitKnown)&&(landscapeKnown)){bothKnown=true;}
+  viewportWidth=window.innerWidth;
+  viewportHeight=window.innerHeight;
+  var prevOrient=orient;
+  if(viewportWidth>viewportHeight){
+    orient="landscape";
+    landscapeKnown=true;
+    landscapeScreenWidth=viewportWidth;
+    landscapeScreenHeight=viewportHeight;
+    absScreenHeight=landscapeScreenWidth;
+    if(portraitKnown==false){// let's play guess the portrait dimension! 
+      portraitScreenWidth=viewportHeight;
+      portraitScreenHeight=viewportWidth;
+      absScreenWidth=portraitScreenWidth;
+      }
+    }
+  else{
+    orient="portrait";
+    portraitKnown=true;
+    portraitScreenWidth=viewportWidth;
+    portraitScreenHeight=viewportHeight;
+    absScreenWidth= portraitScreenWidth;
+      if(landscapeKnown==false){// let's play guess the landscape dimension! 
+      landscapeScreenWidth=viewportHeight;
+      landscapeScreenHeight=viewportWidth;
+      absScreenHeight=viewportWidth;
+      }
+    }
+
+  if(orient != prevOrient){
+    if((portraitKnown)&&(landscapeKnown)&&(bothKnown==false)){
+      bothKnown=true;
+      absScreenWidth=portraitScreenWidth;
+      absScreenHeight=landscapeScreenWidth;
+      blingHeight=portraitScreenWidth-landscapeScreenHeight;
+      cellsDown=Math.floor((absScreenHeight-blingHeight)/grid);
+      //dbuga("blingHeight ="+ blingHeight +' cellsDown:'+cellsDown);
+      flowItemHeight=Math.floor(landscapeScreenHeight*.8);
+      flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
+
+      populateSelect(); //will style ui then refresh scrolls
+      }
+    }
+  if(orient != prevOrient){
+    if(orient=="portrait"){
+      rotorAtItem=flowAtItem;
+      initOrRefreshScrolls();
+      //dbuga('changed to portrait so populateSelect()  or  updateSelectButtons()');
+      if(selectPopulated==false){populateSelect();}
+      else{updateSelectButtons();}
+      }
+    else{flowAtItem=rotorAtItem;}
+    }
+  cellsAcross=32;
+  if(absScreenWidth>540){cellsAcross=48;}
+  var newGrid=absScreenWidth/cellsAcross;
+  if(grid != newGrid){// init or resize somehow, not on rotate
+    grid=newGrid;
+    cellsDown=Math.floor((absScreenHeight-blingHeight)/grid);
+    }
+  if(orient=="landscape"){
+    //main hide landscape
+    document.getElementById('portraitMain').style.display="none";
+    document.getElementById('landscapeMain').style.display="block";
+    }
+  else{
+    //main hide portrait
+    document.getElementById('portraitMain').style.display="block";
+    document.getElementById('landscapeMain').style.display="none";
+    }
+  imageGeometry();
+  //debugGeometry();
+  //dbuga("measured");
+  }
+
+var sourceWidth=798;
+var sourceHeight=1092;
+var sourceAspect=sourceWidth/sourceHeight;
+var thumbWidth;
+var thumbHeight;
+var rotorItemWidth=100;
+var rotorItemHeight=100;
+var rotorItemFit="unset";
+var flowItemWidth=100;
+var flowItemHeight=100;
+var absScreenWidth=100;
+var absScreenHeight=100;
+var viewportWidth=100;
+var viewportHeight=100;
+var viewportAspect=1;
+var portraitScreenHeight=100;
+var landscapeScreenHeight=100;
+var portraitScreenWidth=100;
+var landscapeScreenWidth=100;
+var blingHeight=0;
+var screenAspect=1;
+var landscapeKnown=false;
+var portraitKnown=false;
+function debugGeometry(){
+dbug("<br>grid="+ grid);
+
+dbuga("loadQueue="+ loadQueue.length);
+dbuga("modalWidth="+ modalWidth);
+dbuga("modalMargin ="+ modalMargin);
+dbuga("selectWidth="+ selectWidth);
+
+dbuga("web="+ web);
+dbuga("rotorItemFit="+ rotorItemFit);
+dbuga("portraitKnown="+ portraitKnown);
+dbuga("landscapeKnown ="+ landscapeKnown);
+dbuga("sourceHeight="+ sourceHeight);
+dbuga("sourceWidth="+ sourceWidth);
+dbuga("sourceAspect="+ sourceAspect);
+dbuga("thumbWidth="+ thumbWidth);
+dbuga("thumbHeight="+thumbHeight);
+dbuga("rotorItemWidth="+rotorItemWidth);
+dbuga("rotorItemHeight="+rotorItemHeight);
+dbuga("flowItemWidth="+ flowItemWidth);
+dbuga("flowItemHeight="+ flowItemHeight);
+dbuga("absScreenWidth="+ absScreenWidth);
+dbuga("absScreenHeight="+ absScreenHeight);
+dbuga("viewportWidth="+ viewportWidth);
+dbuga("viewportHeight="+ viewportHeight);
+dbuga("portraitScreenWidth="+ portraitScreenWidth);
+dbuga("portraitScreenHeight="+ portraitScreenHeight);
+dbuga("landscapeScreenWidth="+ landscapeScreenWidth);
+dbuga("landscapeScreenHeight="+ landscapeScreenHeight);
+dbuga("blingHeight="+ blingHeight);
+dbuga("selectedSetNum="+ selectedSetNum);
+  }
+
+function imageGeometry(){
+  //dbuga('imageGeometry()');
+  flowItemHeight=Math.floor(landscapeScreenHeight*.8);
+  flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
+  if(orient=="landscape"){
+    var prevWidth=landscapeScreenWidth; 
+    if(prevWidth==100){
+      //dbuga("image geometry prevWidth==100 so prepareRotor");
+      prepareRotor();
+      }
+    }
+  else{// portrait
+    var prevWidth=portraitScreenWidth;
+
+    
+    thumbWidth=Math.floor(portraitScreenWidth/3);
+    thumbHeight=Math.floor(thumbWidth/sourceAspect);
+    var portraitContentHeight=portraitScreenHeight-grid*4;
+    var portraitContentAspect=portraitScreenWidth/portraitContentHeight;
+    if(portraitContentAspect<sourceAspect){// squatter so pad top
+      rotorItemWidth=portraitScreenWidth;
+      rotorItemHeight=Math.floor(rotorItemWidth/sourceAspect);
+      rotorItemFit="squatter";
+      }
+    else{// taller
+      rotorItemHeight=Math.floor(portraitContentHeight);
+      rotorItemWidth=rotorItemHeight*sourceAspect;
+      rotorItemFit="taller";
+      }
+    if(prevWidth==100){
+      //dbuga('prevWidth==100 so updateThumbButtons('+thumbWidth+') and prepareFlow('+flowItemWidth+') ');
+      prepareFlow();
+      prepareRotor();
+      updateThumbButtons();
+      }
+
+    }
+  }
+
+function selectSet(setNum){
+  //dbug("selectSet("+setNum+")");
+  
+  selectedSetNum=setNum;
+  localStorage.setItem("selectedSetNum", setNum);
+  updateSet();
+  hideSetSelect();
+  }
+var selectUp=true;
+function hideRotor(){
+  rotorUp=false;
+  document.getElementById('thumbsUi').style.display="block";
+  document.getElementById('rotorUi').style.display="none";
+  var selectedSetKey=setKeys[selectedSetNum];
+  if(selectedSetKey=="9999_Favorites"){
+    var temp=sets["9999_Favorites"];
+    sets["9999_Favorites"]=[];
+    for (var i=0; i<temp.length; i++){
+      if(unfaveArray.indexOf(temp[i])==-1){
+        sets["9999_Favorites"].push(temp[i]);
+        }
+      }
+    localStorage.setItem("favorites", JSON.stringify(sets["9999_Favorites"]));
+    unfaveArray=[];
+    updateSet();
+    }
+  }
+var setReady=false;
+function updateSet(){
+  //alert("updateSet()");
+  updateSelectButtons();
+  //dbuga('updateSet() so updateThumbButtons('+thumbWidth+')');
+  prepareFlow();
+  prepareRotor();
+  updateThumbButtons();
+  //dbuga("updateSet so prepareRotor("+rotorItemWidth+")");
+
+  setReady=true;
+  }
+var loadQueue=[];
+var flowWidth=0;
+var flowAtItem=0;
+var flowProg=1;
+var flowMax=0;
+var flowDockStartAt=0;
+var flowDockStartX=0;
+var flowDragStartAt=0;
+var flowDragStartX=0;
+
+function prepareFlow(){
+  var selectedSetKey=setKeys[selectedSetNum];
+  var set=sets[selectedSetKey];
+  
+
+  var htmlString="";
+
+  for (var i=0; i<set.length; i++){
+
+    htmlString+='<div class="flowPanel" id="flowBack~'+set[i]+'" style="background-color:#0ff; background-image:url(\'spiral.gif\'); width:'+flowItemWidth+'px; height:'+flowItemHeight+'px; position:absolute; left:'+flowItemWidth*i+'px;"></div>';
+
+    htmlString+='<div class="flowPanel" id="flowImage~'+set[i]+'" style="background-color:#fff; width:'+flowItemWidth+'px; height:'+flowItemHeight+'px; position:absolute; left:'+flowItemWidth*i+'px;"></div>';
+
+    }
+
+  flowWidth=(flowItemWidth*set.length);
+  flowMax=flowWidth-flowItemWidth;
+  document.getElementById("flow").innerHTML=htmlString;
+  //document.getElementById("flow").style.width=flowWidth+"px";
+  // resize?
+  }
+
+function flowClick(e){
+  //dbuga('flowClick');
+  if(agent=="droid"){return false;}
+  e.preventDefault();
+  mouseX=e.pageX;
+  touchingFlow=true;
+  flowDragStartX=mouseX;
+  flowDragStartAt=flowAtItem;
+  //rotorTappedNum=i;
+  var d = new Date();
+  flowTappedMs=d.getTime();
+  }
+function flowMouseup(e){
+  //dbuga('flowMouseup');
+  if(agent=="droid"){return false;}
+  if(flowTappedMs==-1){
+    return false;
+    }
+  var d = new Date();
+  var deltaT=d.getTime()-flowTappedMs;
+  if(deltaT<400){
+    //selectFlow(flowTappedNum);
+    }
+  else{
+    }
+  flowProg=1;
+  flowDockStartAt=flowAtItem;
+  flowDockStartX=mouseX;
+  touchingFlow=false;
+  flowTappedMs=-1;
+  }
+
+function roundRect(canv, color, background, label, labelColor, font, pointy){
+  var ctx=canv.getContext('2d');
+  var rad=grid/2;
+  var pad=grid/8;
+  ctx.lineWidth=grid/8; 
+  ctx.strokeStyle=color;
+  ctx.beginPath();
+  ctx.arc(canv.width-rad-pad,rad+pad, rad, pi*1.5, pi*2, false);
+  ctx.arc(canv.width-rad-pad,canv.height-rad-pad, rad, pi*0, pi*.5, false);
+  if(pointy){
+    ctx.lineTo(pad+canv.height/2,canv.height-pad);
+    ctx.lineTo(0,canv.height/2);
+    ctx.lineTo(pad+canv.height/2,pad);
+    }
+  else{
+    ctx.arc(rad+pad,canv.height-rad-pad, rad, pi*.5, pi*1, false);
+    ctx.arc(rad+pad,rad+pad, rad, pi*1, pi*1.5, false);
+    }
+  ctx.closePath();
+  ctx.stroke();
+  ctx.fillStyle=background;
+  ctx.fill();
+  ctx.fillStyle=labelColor;
+  ctx.textBaseline= "middle";  
+  ctx.textAlign= "center";  
+  ctx.font=font;  
+  ctx.fillText(label,canv.width/2,canv.height/2);
+  }
+function infoCancel(){
+  //dbuga('infoCancel()');
+  hideInfo();
+  }
+var selectPopulated=false;
+
+function populateSelect(){
+  selectPopulated=true;
+  //dbuga('populateSelect() cellsAcross='+ cellsAcross);
+  modalWidth=32;	
+  selectWidth=28;	
+  modalMargin=(cellsAcross-modalWidth)/2;
+  //dbuga(modalMargin);
+  var htmlString="";
+  htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';
+  for (var s=0; s<setKeys.length; s++){
+    htmlString+='<div style="height:'+grid*4+'px; width:'+grid*selectWidth+'px; padding-left:'+grid*2+'px; float:left;">';
+    htmlString+='<canvas onmousedown="setTap('+s+')" onmouseup="setRelease('+s+')" ontouchstart="setTap('+s+')" ontouchend="setRelease('+s+')" height='+Math.floor(grid*4)+' width='+Math.floor(grid*selectWidth)+' id="canv_'+s+'" style="position:absolute;"></canvas>';
+    htmlString+='</div>';
+    if(s==0){htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';}
+    sets[setKeys[s]].sort();
+    }
+  sdiv.innerHTML=htmlString;
+  window.setTimeout("styleUi()", 100);
+  }
+function styleUi(){
+  document.getElementById("infoLabel").style.width=grid*modalWidth/2+"px";
+  document.getElementById("infoLabel").style.left=grid*modalWidth/4+"px";
+  document.getElementById("infoLabel").style.top=grid*1+"px";
+  document.getElementById("infoLabel").style.fontSize=grid*2+"px";
+
+  document.getElementById("setSelectLabel").style.width=grid*modalWidth/2+"px";
+  document.getElementById("setSelectLabel").style.left=grid*modalWidth/4+"px";
+  document.getElementById("setSelectLabel").style.top=grid*1+"px";
+  document.getElementById("setSelectLabel").style.fontSize=grid*2+"px";
+
+  document.getElementById("thumbsLabel").style.width=portraitScreenWidth/2+"px";
+  document.getElementById("thumbsLabel").style.left=portraitScreenWidth/4+"px";
+  document.getElementById("thumbsLabel").style.top=grid*1+"px";
+  document.getElementById("thumbsLabel").style.fontSize=grid*2+"px";
+   
+  document.getElementById("rotorLabel").style.width=portraitScreenWidth/2+"px";
+  document.getElementById("rotorLabel").style.left=portraitScreenWidth/4+"px";
+  document.getElementById("rotorLabel").style.top=grid*1+"px";
+  document.getElementById("rotorLabel").style.fontSize=grid*2+"px";
+   
+  document.getElementById("setSelectModal").style.width=grid*modalWidth+"px";
+  document.getElementById("setSelectModal").style.height=(grid*(cellsDown-2*modalMargin))+"px";
+  document.getElementById("setSelectModal").style.top=grid*modalMargin+"px";
+  document.getElementById("setSelectModal").style.left=grid*modalMargin+"px";
+
+  document.getElementById("setSelectHolder").style.width=grid*modalWidth+"px";
+  document.getElementById("setSelectHolder").style.height=(portraitScreenHeight-grid*4-grid*modalMargin*2)+"px";
+  document.getElementById("setSelectHolder").style.top=grid*4+"px";
+  document.getElementById("setSelectScroller").style.width=grid*modalWidth+"px";
+
+  document.getElementById("infoModal").style.width=grid*modalWidth+"px";
+  document.getElementById("infoModal").style.height=(grid*(cellsDown-2*modalMargin))+"px";
+  document.getElementById("infoModal").style.top=grid*modalMargin+"px";
+  document.getElementById("infoModal").style.left=grid*modalMargin+"px";
+
+  document.getElementById("infoHolder").style.width=grid*modalWidth+"px";
+  document.getElementById("infoHolder").style.height=(portraitScreenHeight-grid*8-grid*modalMargin*2)+"px";
+  document.getElementById("infoHolder").style.top=grid*4+"px";
+
+  document.getElementById("infoNavTop").style.height=grid*4+"px";
+  document.getElementById("infoNavTop").style.width=grid*modalWidth+"px";
+  document.getElementById("infoNavBottom").style.top=(portraitScreenHeight-grid*4-grid*modalMargin*2)+"px";
+  document.getElementById("infoNavBottom").style.height=grid*4+"px";
+  document.getElementById("infoNavBottom").style.width=grid*modalWidth+"px";
+
+
+  sdiv.style.height=(setKeys.length+1.5)*grid*4+"px";
+
+  document.getElementById("thumbsHolder").style.height=(portraitScreenHeight-grid*8)+"px";
+  document.getElementById("thumbsHolder").style.top=grid*4+"px";
+  document.getElementById("thumbsNavTop").style.height=grid*4+"px";
+  document.getElementById("thumbsNavTop").style.width=portraitScreenWidth+"px";
+  document.getElementById("thumbsNavBottom").style.top=(portraitScreenHeight-grid*4)+"px";
+  document.getElementById("thumbsNavBottom").style.height=grid*4+"px";
+  document.getElementById("thumbsNavBottom").style.width=portraitScreenWidth+"px";
+
+  document.getElementById("rotor").style.top=(grid*4)+"px";
+  document.getElementById("rotorNavTop").style.height=grid*4+"px";
+  document.getElementById("rotorNavTop").style.width=portraitScreenWidth+"px";
+  document.getElementById("rotorNavBottom").style.top=(portraitScreenHeight-grid*4)+"px";
+  document.getElementById("rotorNavBottom").style.height=grid*4+"px";
+  document.getElementById("rotorNavBottom").style.width=portraitScreenWidth+"px";
+
+  document.getElementById("setSelectNavTop").style.height=grid*4+"px";
+  // buttons  
+  var canv=document.getElementById("mailButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "E", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("linkButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=portraitScreenWidth-grid*3.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "A", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("jambotsButton");
+  canv.width=Math.floor(grid*9);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=(grid*modalWidth-grid*9.5)+"px";
+  roundRect(canv, "#666", "#222", "jambots apps", "#fff", Math.floor(grid*1.25)+"px Arial", false);
+  updateCompression();
+
+  var canv=document.getElementById("saveButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "G", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("prevButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=portraitScreenWidth*.333-grid*1.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "4", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("nextButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=portraitScreenWidth*.666-grid*1.5+"px";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "2", "#fff", Math.floor(grid*2)+"px signify", false);
+
+  var canv=document.getElementById("faveButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=portraitScreenWidth-grid*3.5+"px";
+  roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+
+
+
+
+
+  var canv=document.getElementById("setSelectCancel");
+  canv.width=Math.floor(grid*6);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  roundRect(canv, "#666", "#222", "Cancel", "#fff", Math.floor(grid*1.25)+"px Arial", false);
+
+  var canv=document.getElementById("infoCancel");
+  canv.width=Math.floor(grid*6);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  roundRect(canv, "#666", "#222", "Done", "#fff", Math.floor(grid*1.25)+"px Arial", false);
+
+  var canv=document.getElementById("infoButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=(grid*modalWidth-grid*4.5)+"px";
+
+  var ctx=canv.getContext('2d');
+  ctx.beginPath();
+  ctx.arc(grid*1.5, grid*1.5,grid*1,0,pi*2,true);
+  ctx.fillStyle="#fff";
+  ctx.fill();
+  ctx.font = "italic";
+  roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "i", "#444", "bold italic "+Math.floor(grid*1.5)+"px Georgia", false);
+
+  var canv=document.getElementById("setSelectButton");
+  canv.width=Math.floor(grid*4);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  roundRect(canv, "#666", "#222", "", "", "", false);
+  var ctx=canv.getContext('2d');
+  ctx.lineWidth=grid/4; 
+  ctx.strokeStyle="#fff";
+  ctx.beginPath();
+  ctx.moveTo(grid,grid*1);
+  ctx.lineTo(grid*3,grid*1);
+  ctx.moveTo(grid,grid*1.5);
+  ctx.lineTo(grid*3,grid*1.5);
+  ctx.moveTo(grid,grid*2.0);
+  ctx.lineTo(grid*3,grid*2.0);
+  ctx.stroke();
+  ctx.strokeStyle="black";
+  ctx.beginPath();
+  ctx.moveTo(grid*1.5,grid*.5);
+  ctx.lineTo(grid*1.5,grid*2.5);
+  ctx.stroke();
+
+  //dbuga('styleUi flowItemHeight='+flowItemHeight);
+  initOrRefreshScrolls();
+
+  }
+function updateCompression(){
+  var canv=document.getElementById("compressionButton");
+  canv.style.top=grid*.5+"px";
+  canv.style.left=(grid*.5)+"px";
+  canv.width=Math.floor(grid*16);
+  canv.height=Math.floor(grid*3);
+  var cached=JSON.parse(localStorage.getItem('nameStack')).length;
+  var label="storage: "+compression;
+  if(cached>0){label+=" ("+cached+")";}
+  roundRect(canv, "#666", "#222", label, "#fff", Math.floor(grid*1.25)+"px Arial", false);
+  }
+
+
+var setTappedNum=0;
+var setTappedMs=-1;
+var thumbTappedNum=0;
+var thumbTappedMs=-1;
+
+var rotorTappedNum=0;
+var rotorTappedMs=-1;
+var touchingRotor=false;
+var flowTappedNum=0;
+var flowTappedMs=-1;
+var touchingFlow=false;
+
+function rotorTap(i, e){
+  //dbug('rotorTap '+rotorTappedMs);
+  e.preventDefault();
+  mouseX=e.touches[0].pageX;
+  touchingRotor=true;
+  rotorDragStartX=mouseX;
+  rotorDragStartAt=rotorAtItem;
+  rotorTappedNum=i;
+  var d = new Date();
+  rotorTappedMs=d.getTime();
+  }
+function rotorClick(i, e){
+  if(agent=="droid"){return false;}
+  e.preventDefault();
+  mouseX=e.pageX;
+  //dbuga('rotorClick '+rotorTappedMs);
+  touchingRotor=true;
+  rotorDragStartX=mouseX;
+  rotorDragStartAt=rotorAtItem;
+  rotorTappedNum=i;
+  var d = new Date();
+  rotorTappedMs=d.getTime();
+  }
+
+function prevButton(){// fake a gesture
+  rotorProg=1;
+  rotorDockStartAt=rotorAtItem-.01;
+  rotorDockStartX=1;
+  rotorDragStartX=0;
+  }
+function nextButton(){//fake a gesture
+  rotorProg=1;
+  rotorDockStartAt=rotorAtItem+.01;
+  rotorDockStartX=0;
+  rotorDragStartX=1;
+  }
+
+function thumbClick(i){
+  if(agent=="droid"){return false;}
+  thumbTappedNum=i;
+  //dbuga("thumbTap("+i+") ");
+  var d = new Date();
+  thumbTappedMs=d.getTime();
+  }
+
+function thumbTap(i){
+  thumbTappedNum=i;
+  //dbug("thumbTap("+i+") ");
+  var d = new Date();
+  thumbTappedMs=d.getTime();
+  window.clearTimeout(loadTimeout);
+  if(loadQueue.length>0){
+    loadTimeout=window.setTimeout("loadTick()", 100);
+    }
+  }
+function thumbRelease(i){
+  if(thumbTappedMs==-1){
+    return false;
+    }
+  var d = new Date();
+  var deltaT=d.getTime()-thumbTappedMs;
+  if(deltaT<200){
+    //dbuga("thumbRelease("+i+") "+thumbTappedNum);
+    selectThumb(thumbTappedNum);
+    }
+  thumbTappedMs=-1;
+  }
+
+function flowTap(e){
+  //dbug('flowTap');
+  e.preventDefault();
+  mouseX=e.touches[0].pageX;
+  touchingFlow=true;
+  flowDragStartX=mouseX;
+  flowDragStartAt=flowAtItem;
+  var d = new Date();
+  flowTappedMs=d.getTime();
+  }
+
+function flowRelease(){
+  //dbuga('flowRelease '+ flowDockStartAt+' to '+flowAtItem);
+  if(flowTappedMs==-1){
+    return false;
+    }
+  flowProg=1;
+  //dbuga('flowDockStartAt='+ flowDockStartAt);
+  //dbuga('flowAtItem ='+flowAtItem);
+  if(Math.abs(flowDockStartAt-flowAtItem)<.1){// barely dragged
+    //dbuga("barely dragged flip="+flip);
+    flowAtItem=flowDockStartAt;
+    flowProg=0;
+    if(flip){
+      flip=false;
+      }
+    else{
+      flip=true;
+      flipTarget=flowDockStartAt;
+      }
+    //dbuga( " - flip="+flip);
+    }
+  else{
+    if(flip){
+      if(flowDockStartAt!=flowAtItem){
+        flip=false;
+        //dbuga("flowRelease un-flip");
+
+        }
+      }
+    }
+  //dbuga("so - flip="+flip);
+  flowDockStartAt=flowAtItem;
+  flowDockStartX=mouseX;
+  touchingFlow=false;
+  flowTappedMs=-1;
+  }
+
+function rotorRelease(i){
+  if(rotorTappedMs==-1){
+    return false;
+    }
+
+  rotorProg=1;
+  //dbuga('rotorDockStartAt='+ rotorDockStartAt);
+  //dbuga('rotorAtItem ='+rotorAtItem);
+  if(Math.abs(rotorDockStartAt-rotorAtItem)<.1){// barely dragged
+    //dbuga("barely dragged flip="+flip);
+    rotorAtItem=rotorDockStartAt;
+    rotorProg=0;
+    if(flip){
+      flip=false;
+      }
+    else{
+      flip=true;
+      flipTarget=rotorDockStartAt;
+      }
+    //dbuga( " - flip="+flip);
+    }
+  else{
+    if(flip){
+      if(rotorDockStartAt!=rotorAtItem){
+        flip=false;
+        //dbuga("rotorRelease un-flip");
+
+        }
+      }
+    }
+  //dbuga("rotorAtItem = "+rotorAtItem + " so - flip="+flip);
+  //dbuga("rotorProg="+rotorProg );
+  rotorDockStartAt=rotorAtItem;
+
+  rotorDockStartX=mouseX;
+  touchingRotor=false;
+  rotorTappedMs=-1;
+  }
+var rotorUp=false;
+var rotorWidth=0;
+var rotorAtItem=0;
+var rotorProg=1;
+var rotorMax=0;
+var rotorDockStartAt=0;
+var rotorDockStartX=0;
+var rotorDragStartAt=0;
+var rotorDragStartX=0;
+var mouseX=0;
+function inArray(needle, haystack) {
+    var length = haystack.length;
+    for(var i = 0; i < length; i++) {
+        if(haystack[i] == needle) return true;
+    }
+    return false;
+}
+function isCached(imageKey){
+  return inArray(imageKey, JSON.parse(localStorage.getItem("nameStack"))); 
+  }
+
+function prepareRotor(){
+
+  var selectedSetKey=setKeys[selectedSetNum];
+  var set=sets[selectedSetKey];
+  
+  dbuga("prepareRotor "+selectedSetKey+" "+set.length);
+  var htmlString="";
+  for (var i=0; i<set.length; i++){
+    if((agent=="windows")||(agent=="mac")){
+      htmlString+='<img id="rotorImage_'+set[i]+'" onmousedown="rotorClick('+i+', event); return false;" onmouseup="rotorMouseup('+i+')"   src="spiral.gif" />';
+      }
+    if((agent=="droid")||(agent=="ios")){
+      htmlString+='<div id="rotorBack~'+set[i]+'"  style="width:'+rotorItemHeight+'px; height:'+rotorItemHeight+'px; background-color:#f0f; position:absolute; left:'+i*rotorItemWidth+'px;"  ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')">'+rotorItemWidth+' '+rotorItemHeight+'</div>';
+      htmlString+='<img style="position:absolute; left:'+i*rotorItemWidth+'px;" id="rotorImage~'+set[i]+'" ontouchstart="rotorTap('+i+', event); return false;" ontouchend="rotorRelease('+i+')" src="spiral.gif" />';
+      }
+    }
+  rotorWidth=(rotorItemWidth*set.length);
+  rotorMax=rotorWidth-rotorItemWidth;
+  document.getElementById("rotor").innerHTML=htmlString;
+  document.getElementById("rotor").style.width=rotorWidth+"px";
+// desktop stops here, no ref wtf?
+  for (var i=0; i<set.length; i++){
+    var rotorRef=document.getElementById("rotorImage~"+set[i]);
+    var flowRef=document.getElementById("flowImage~"+set[i]);
+    var seti=set[i];
+    //dbuga('rotorRef.id='+rotorRef.id)
+
+    if(isCached(rotorRef.id)==false){
+      if(dataLoaded==false){
+        ref.src="unnabletoloadimages.jpg";
+        }
+      else{
+        //loadQueue.push({"refs":[rotorRef, flowRef], "seti":seti});
+
+        }
+      }
+    else{//use cached dataUrl
+      //dbuga(" use cached "+ rotorRef.id);
+      rotorRef.src=localStorage.getItem(rotorRef.id);
+      flowRef.style.backgroundImage="url('" + rotorRef.src + "')";
+      }
+    }
+  updateLoadingCanvas();
+
+  }
+var loadTimeout;
+function loadTick(){
+  window.clearTimeout(loadTimeout);
+  if(loadQueue.length==0){
+    return false;
+    }
+
+  var loadItem=loadQueue.shift();
+  dbuga('loadTick '+JSON.stringify(loadItem));
+  var tempObj = new urlToRefs(loadItem.url,loadItem.refs);
+  tempObj.LoadUrl();
+
+/*
+  loadItem.rotorRef.onload = function(){// resize then cache on load
+    var that=this;
+    //dbuga('rotorItem onload '+this.width+" x "+this.height);
+    var rawAspect=this.width/this.height;
+    var useWidth=rotorItemWidth;
+    var useHeight=useWidth/rawAspect;
+    this.width=useWidth;
+    this.height=useHeight;
+    //dbuga('rotorItem resized '+this.width+" x "+this.height);
+     
+    var dataUrl=returnResizedData(that);
+
+    this.src=dataUrl; // put resized data into image source
+    this.width=rotorItemWidth;
+    this.height= rotorItemHeight;
+    //saveLocal(this.id, dataUrl);
+    var temp=this.id.split("~");
+    //var cleaned=dataUrl.replace(/(\r\n|\n|\r)/gm, "");
+    document.getElementById("flowImage~"+temp[1]).style.backgroundImage="url('" + dataUrl + "')";
+    window.clearTimeout(loadTimeout);
+    updateLoadingCanvas();
+    if(loadQueue.length>0){
+      loadTimeout=window.setTimeout("loadTick()", 100);
+      }
+    document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
+  
+    if(infoUp){updateCompression();}
+    //dbuga(temp[1]);
+    }
+  //loadItem.rotorRef.src="http://laforetchocolate.com/app/"+loadItem.seti;
+  loadItem.rotorRef.src=loadItem.seti;
+*/
+  }
+function updateLoadingCanvas(){
+  var canv=document.getElementById("loadingCanvas");
+  var pips=loadQueue.length;
+  //dbuga("updateLoadingCanvas() "+pips);
+  canv.width=Math.floor(grid*12);
+  //if(pips==0){canv.width=0;}
+  canv.height=Math.floor(grid*4);
+  canv.style.top="0px";
+  canv.style.left=grid*(cellsAcross-12)+"px";
+  if(pips>0){
+    canv.style.display="block";
+    var ctx=canv.getContext("2d");
+    ctx.fillStyle="rgba(255,255,255,.5)";
+    //ctx.fillStyle="#f00";
+    //ctx.fillRect(0,0,1000,1000);
+    //ctx.fillStyle="#aaa";
+    ctx.textAlign="left";
+    ctx.textBaseline="middle";
+    ctx.font=Math.floor(grid*1)+"px Arial";
+    
+    ctx.fillText("Loading",grid*7,grid);
+    for (var p=0; p<pips; p++){
+      ctx.fillRect(grid*10.5-grid*p*1,grid*2,grid*.75,grid);
+      }
+    }
+  }
+
+function saveLocal(key, data){
+  dbuga('saveLocal key='+key);
+  var purged=0;
+  var nameStack=JSON.parse(localStorage.getItem("nameStack"));
+  dbuga('saveLocal '+nameStack.length);
+  var currentName="not set";
+  if(setKeys.length>1){currentName=setKeys[1];}
+  var favorites=JSON.parse(localStorage.getItem("favorites"));
+  var favStack=[];
+  var normStack=[];
+  var currentStack=[];
+  for (var n=0; n<nameStack.length; n++){
+    var thisName=nameStack[n];
+    var isFav=false;
+    for (var f=0; f<favorites.length; f++){
+      var favName=favorites[f];
+      if(thisName.indexOf(favName)>-1){isFav=true;}
+      }
+    if(isFav){
+      favStack.push(thisName);
+      }
+    else{
+      if(thisName.indexOf(currentName)>-1){
+        currentStack.push(thisName);
+        }
+      else{
+        normStack.push(thisName);
+        }
+      }
+    }
+  var nameStack=normStack.concat(currentStack, favStack);
+
+    dbuga(' - saveLocal '+ nameStack.length);
+  
+  var saved=true;
+  
+  try{
+    localStorage.setItem(key, data);
+    } catch(e) {
+    //dbuga(e);
+    saved=false;
+    }
+  while((saved==false)&&(nameStack.length>0)){
+    var delKey=nameStack.shift();
+    localStorage.setItem(delKey, "");
+    //dbuga(' -  purge '+delKey);
+    purged++;
+    saved=true;
+    try{
+      localStorage.setItem(key, data);
+      } catch(e) {
+      //dbuga(e);
+      saved=false;
+      }
+    }
+
+  if(saved){
+    nameStack.push(key);
+    dbuga(' saved: len:'+nameStack.length+" key="+key);
+    purged=0;
+    }
+  else{
+    dbuga('failed key='+key);
+    }
+  localStorage.setItem("nameStack", JSON.stringify(nameStack));
+  }
+function clip(num){
+  return Math.floor(num*100)/100;
+  }
+var animTimeout;
+var faveKey="";
+
+function animTick(){
+  window.clearTimeout(animTimeout);
+  if(setReady){
+    if(orient=="portrait"){portraitAnim();}
+    else{landscapeAnim();}
+    }
+  animTimeout=window.setTimeout("animTick()", 25);
+  }
+var thumbsToLoad=0;
+var flipDeg=0;
+var flip=false;
+var flipTarget=-1;
+function landscapeAnim(){
+  if((flip==false)&&(flipDeg>0)){
+    flipDeg-=36;
+    }
+  if((flip==true)&&(flipDeg<180)){
+    flipDeg+=18;
+    }
+  
+  if(landscapeKnown==false){return false;}
+  var imgHeight= flowItemHeight;
+  var imgWidth=imgHeight*sourceAspect;
+  var setKey=setKeys[selectedSetNum];
+  var set=sets[setKeys[selectedSetNum]];
+
+  if(touchingFlow==true){
+    var deltaX=mouseX-flowDragStartX;
+    var deltaItem=deltaX/imgWidth;
+    flowAtItem=flowDragStartAt-deltaItem;
+    if(flowAtItem<-.1){flowAtItem=-.1;}
+    if(flowAtItem>set.length-.9){flowAtItem=set.length-.9;}
+    var d = new Date();
+    var deltaT=d.getTime()-flowTappedMs;
+    if(deltaT>1000){
+      if(flip){
+        //dbuga('held unflip');
+        flip=false;
+        }
+      }
+    }
+  else{
+    if(flowProg>0){
+      flowProg-=.1;
+      if(flowProg<0){flowProg=0;}
+      var target=Math.floor(flowDockStartAt);
+      if(flowDockStartX>flowDragStartX){target=Math.floor(flowDockStartAt);}
+      if(flowDockStartX<flowDragStartX){target=Math.floor(flowDockStartAt+1);}
+      if(target<0){target=0;}
+      if(target>set.length-1){target=set.length-1;}
+      //dbug("target "+target);
+      if(target>flowDragStartAt+1){
+        target--;
+        //dbuga("target--");
+        }
+      if(target<flowDragStartAt-1){
+        target++;
+        //dbuga("target++");
+        }
+      var atDelta=target-flowDockStartAt;
+      var atDeltaProg=atDelta*(1-flowProg*flowProg);
+      flowAtItem=flowDockStartAt+atDeltaProg;
+
+      if(flowProg<=0){
+        rotorAtItem=flowAtItem; 
+        flowDockStartAt=flowAtItem;      
+        document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
+        faveKey=set[target];
+        var canv=document.getElementById("faveButton");
+        if((sets["9999_Favorites"].indexOf(faveKey) > -1)&&(unfaveArray.indexOf(faveKey) == -1)){
+          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        else{
+          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        }
+
+      }
+    }
+  var middle=landscapeScreenWidth/2-imgWidth/2;
+  document.getElementById('flow').style.webkitPerspective= landscapeScreenWidth +"px";
+  document.getElementById('flow').style.webkitTransform="translate3d(0,0,0)";
+  //dbug('');
+
+  //dbug(" "+Math.floor(flowAtItem*100)/100);
+
+  for(var i=0; i<set.length; i++){
+    var deltaAt=(i-flowAtItem);
+    var itemsFromAt=Math.abs(deltaAt);
+    var filedAmount=deltaAt;
+    if(filedAmount>1){filedAmount=1;}
+    if(filedAmount<-1){filedAmount=-1;}
+    var filedFraction=Math.abs(filedAmount);
+    //if(i==3){dbuga(Math.floor(filedFraction*100)/100);}
+    var x=Math.floor(imgWidth*(i-flowAtItem+filedAmount)/2);
+    var y=0;
+    var z=-Math.floor(imgWidth*(filedFraction/3+itemsFromAt/3));
+    var r=-90*filedAmount;
+    if(i==flipTarget){r+=flipDeg;}
+
+    var thisBack=document.getElementById("flowBack~"+set[i]);
+    thisBack.style.left=middle+"px";
+    thisBack.style.top= portraitScreenHeight*.05+"px";
+    thisBack.style.webkitTransformOrigin="center center";
+    thisBack.style.webkitTransform="translateZ("+(z)+"px) translateX("+x+"px) rotateX(180deg) rotateY("+(-r)+"deg)";
+
+    var thisFlow=document.getElementById("flowImage~"+set[i]);
+    thisFlow.style.left=middle+"px";
+    thisFlow.style.top= portraitScreenHeight*.05+"px";
+    thisFlow.style.webkitTransformOrigin="center center";
+    thisFlow.style.webkitTransform="translateZ("+z+"px) translateX("+x+"px) rotateY("+r+"deg)";
+
+    }
+
+/*
+  //dbug("touchingFlow "+touchingFlow);
+dbuga("x  "+x);
+dbuga("flowAtItem "+clip(flowAtItem));
+dbuga("flowDragStartX "+clip(flowDragStartX));
+dbuga("flowDragStartAt "+clip(flowDragStartAt));
+dbuga("flowDockStartX "+clip(flowDockStartX));
+dbuga("flowDockStartAt "+clip(flowDockStartAt));
+dbuga("mouseX "+mouseX);
+*/
+  }
+
+function portraitAnim(){
+  if((flip==false)&&(flipDeg>0)){
+    flipDeg-=36;
+    }
+  if((flip==true)&&(flipDeg<180)){
+    flipDeg+=18;
+    }
+  
+  var setKey=setKeys[selectedSetNum];
+  var set=sets[setKeys[selectedSetNum]];
+
+  if(touchingRotor==true){
+    var deltaX=mouseX-rotorDragStartX;
+    var deltaItem=deltaX/portraitScreenWidth;
+    rotorAtItem=rotorDragStartAt-deltaItem;
+    //dbug(rotorAtItem);
+    if(rotorAtItem<-.1){rotorAtItem=-.1;}
+    if(rotorAtItem>set.length-.9){rotorAtItem=set.length-.9;}
+    var d = new Date();
+    var deltaT=d.getTime()-rotorTappedMs;
+    if(deltaT>2000){
+      if(flip){
+        //dbuga('portrait held unflip');
+        flip=false;
+        }
+      }
+
+    }
+  else{
+    if(rotorProg>0){
+      rotorProg-=.1;
+      if(rotorProg<0){rotorProg=0;}
+      //dbug("rotorDockStartAt "+ rotorDockStartAt);
+      var target=Math.floor(rotorDockStartAt);
+      if(rotorDockStartX>rotorDragStartX){target=Math.floor(rotorDockStartAt);}
+      if(rotorDockStartX<rotorDragStartX){target=Math.floor(rotorDockStartAt+1);}
+      if(target<0){target=0;}
+      if(target>set.length-1){target=set.length-1;}
+      //dbuga("rotorProg "+ rotorProg);
+      //dbuga("target "+target);
+      var atDelta=target-rotorDockStartAt;
+      var atDeltaProg=atDelta*(1-rotorProg*rotorProg);
+      rotorAtItem=rotorDockStartAt+atDeltaProg;
+      if(rotorProg<=0){
+        flowAtItem=rotorAtItem;
+        rotorDockStartAt=rotorAtItem;      
+        document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
+        faveKey=set[target];
+        var canv=document.getElementById("faveButton");
+        //if(sets["9999_Favorites"].indexOf(faveKey) > -1){
+        if((sets["9999_Favorites"].indexOf(faveKey) > -1)&&(unfaveArray.indexOf(faveKey) == -1)){
+          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        else{
+          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        }
+      }
+    }
+  if(rotorUp){
+    var rotorOffset=0;
+    if(rotorItemWidth<portraitScreenWidth){rotorOffset=(portraitScreenWidth-rotorItemWidth)/2;}
+    document.getElementById("rotor").style.left=(0-rotorAtItem*rotorItemWidth+rotorOffset)+"px";
+
+    for(var i=0; i<set.length; i++){
+      var r=0;
+      if(i==flipTarget){r+=flipDeg;}
+      var flipFrac=r/180;
+      var thisBack=document.getElementById("rotorBack~"+set[i]);
+      thisBack.style.opacity=flipFrac;
+      var thisRotor=document.getElementById("rotorImage~"+set[i]);
+      thisRotor.style.opacity=1-flipFrac;
+      }
+    }
+  }
+
+
+function setTap(i){
+  //dbug("setTap("+i+") ");
+
+  setTappedNum=i;
+  var d = new Date();
+  setTappedMs=d.getTime();
+  }
+function setRelease(i){
+  if(setTappedMs==-1){
+    return false;
+    }
+  var d = new Date();
+  var deltaT=d.getTime()-setTappedMs;
+  if(deltaT<300){
+    //dbuga("setRelease("+i+") "+deltaT);
+    selectSet(setTappedNum);
+    }
+  setTappedMs=-1;
+  }
+function selectThumb(num){
+
+  rotorAtItem=num;
+  rotorDockStartAt=rotorAtItem;      
+
+  rotorUp=true;
+  //dbuga("selectThumb("+num+")");
+  document.getElementById('thumbsUi').style.display="none";
+  document.getElementById('rotorUi').style.display="block";
+  selectedThumbNum=num;
+  var set=sets[setKeys[selectedSetNum]];
+  document.getElementById("rotorLabel").innerHTML=(selectedThumbNum+1)+" of "+set.length;
+  faveKey=set[selectedThumbNum];
+  //dbuga("faveKey "+faveKey);
+        var canv=document.getElementById("faveButton");
+        if(sets["9999_Favorites"].indexOf(faveKey) > -1){
+          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        else{
+          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+  }
+var infoUp=false;
+function hideInfo(){
+  infoUpUp=false; 
+  document.getElementById('infoDim').style.display="none";
+  }
+function showInfo(){
+  //dbug("showSetSelect()" +selectUp);
+  infoUp=true;
+  updateCompression();
+  document.getElementById('infoDim').style.display="block";
+  }
+
+function hideSetSelect(){
+  updateLoadingCanvas();
+  //dbuga("hideSetSelect() called" +selectUp);
+  selectUp=false; 
+  document.getElementById('setSelectDim').style.display="none";
+  }
+function onBackKeyDown() {
+  // Handle the back button
+  if(orient=="portrait"){
+    showSetSelect();
+    hideInfo();
+    }
+  }
+
+function showSetSelect(){
+  //dbuga("showSetSelect()" +selectUp);
+  loadQueue=[];
+  updateLoadingCanvas();
+  selectUp=true;
+  document.getElementById('setSelectDim').style.display="block";
+  initOrRefreshScrolls();
+  }
+var cols;
+var rows;
+//cur|gif|ico|jpe?g|png|svgz?|webp
+var holdThumbRef;
+function updateThumbButtons(){
+  //dbuga("updateThumbButtons() ");
+  var selectedSetKey=setKeys[selectedSetNum];
+  var set=sets[selectedSetKey];
+  var thumbUrlSet=thumbUrlSets[selectedSetKey];
+
+  var temp=selectedSetKey.split("_");
+  var title=temp[1];
+  document.getElementById("thumbsLabel").innerHTML=title;
+  // create innerHTML for thumbsScroller
+  cols=Math.floor(cellsAcross/16);
+  var htmlString="";
+  rows=1+Math.floor((set.length-1)/cols);
+  for (var i=0; i<set.length; i++){
+    htmlString+='<img id="thumbImage~'+set[i]+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="spiral.gif" />';
+    }
+  document.getElementById("thumbsScroller").innerHTML=htmlString;
+  for (var i=0; i<set.length; i++){
+    var thumbRef=document.getElementById("thumbImage~"+set[i]);
+    if(isCached(thumbUrlSet[i])==false){
+      if(dataLoaded){ // equivalent to has connection
+        //dbuga('thumbUrlSet['+i+']='+ thumbUrlSet[i]);
+        loadQueue.push({"refs":[thumbRef], "url":thumbUrlSet[i]});
+        }
+      else{// dataLoaded=false;
+        thumbRef.src="unnabletoloadimages.jpg";
+        }
+      }
+    else{//use cached dataUrl
+      dbuga("use cached "+ thumbUrlSet[i]);
+      thumbRef.src=localStorage.getItem(thumbUrlSet[i]);
+      }
+    }
+  document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
+  //dbuga('updateThumbButtons scrollsSet='+scrollsSet );
+  initOrRefreshScrolls();
+  if(scrollsSet){
+    tScroll.scrollTo(0,0);
+    }
+  if(loadQueue.length>0){loadTick();}
+  }
+function arrayBufferToBase64( buffer ) {
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+}
+urlToRefs = function(imageUrl,refs) {
+  dbuga(" urlToRefs  imageUrl="+imageUrl+"<br>refs="+refs.length);
+  this.status = 0;
+  this.imageUrl = imageUrl;
+  this.refs = refs;
+  var req = this;
+  function onLoad (e){
+      var blob = new Blob([e.target.response], {type: "image/jpeg"});
+      var reader = new FileReader();
+      reader.targetRefs=req.refs;
+      reader.imageUrl=req.imageUrl;
+      reader.onloadend = function(evt) {
+        var result=evt.target.result;
+        dbuga("result="+result);
+        for (var r=0; r<evt.target.targetRefs.length; r++){
+          dbuga("evt.target.targetRefs["+r+"]=<br>"+evt.target.targetRefs[r].id);
+          evt.target.targetRefs[r].src=result;
+          }
+        window.clearTimeout(loadTimeout);
+        //saveLocal(evt.target.imageUrl, result);
+      
+        updateLoadingCanvas();
+        if(loadQueue.length>0){
+          loadTimeout=window.setTimeout("loadTick()", 100);
+          }
+        // unfucks scroller? 
+        // document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
+        }
+      reader.readAsDataURL(blob);
+
+ 
+  }
+  this.LoadUrl = function() {
+    var r = new XMLHttpRequest();
+    r.onloadend = onLoad;
+    r.open ("GET", this.theURL, true);
+    r.responseType = 'blob';
+    r.send (null);
+  }
+}
+
+var scrollsSet=false;
+function initOrRefreshScrolls(){
+  setTimeout(function() {
+    //dbuga('initOrRefreshScrolls scrollsSet='+ scrollsSet +' orient ='+orient);
+    if(scrollsSet==false){
+      tScroll=new iScroll("thumbsHolder");
+      sScroll=new iScroll("setSelectHolder");
+      scrollsSet=true;
+      }
+    else{// iscroll is fucked when div or parent gets display:none, must refresh when block.
+      if(orient=="portrait"){
+        if(rotorUp==false){
+          //dbuga(' -- rotorUp==false so tScroll.refresh()');
+          tScroll.refresh();
+          }
+        if(selectUp){
+          document.getElementById('setSelectDim').style.display="block"
+          sScroll.refresh();
+          //dbuga(' -- selectUp so sScroll.refresh()');
+          }
+        }
+      else{
+        //dbuga(' --- skip refreshes');
+        }
+      }
+
+    }, 100);
+  }
+function returnResizedData(imageObject){
+  imageObject.onload=null;//prevents double firing from fast events
+  var width= imageObject.width;
+  var height=imageObject.height;
+  var imageAspect=width/height;
+  var targetHeight=Math.floor(width/sourceAspect);
+  var topPad=Math.floor(targetHeight/2-height/2);
+  // New canvas
+  var dstCanvas = document.createElement('canvas');
+  dstCanvas.width = width;
+  dstCanvas.height = targetHeight;
+
+  //dbuga('returnResizedData '+width+' x '+height+ " t:"+targetHeight); 
+    
+    // Draw Image content in canvas
+  var dstContext = dstCanvas.getContext('2d');
+  dstContext.fillStyle="white";
+  dstContext.fillRect(0, 0, width, targetHeight);
+  dstContext.drawImage(imageObject, 0, topPad, width, height);
+  //dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
+  //dbuga('resize');
+  // Replace source of Image
+
+  var dataUrl;
+  if(compression=="jpeg"){
+    dataUrl=dstCanvas.toDataURL("image/jpeg", 0.5);
+    }
+  else{
+    dataUrl=dstCanvas.toDataURL();
+    }
+  return dataUrl;
+  }
+
+function updateSelectButtons(){
+ for (var s=0; s<setKeys.length; s++){
+    var canv=document.getElementById("canv_"+s);
+    canv.width=canv.width;
+    var ctx=canv.getContext('2d');
+    var rad=grid/2;
+    var pad=grid/8;
+    ctx.lineWidth=grid/8; 
+    ctx.strokeStyle="#444";
+    ctx.beginPath();
+
+    if(s==0){
+      ctx.moveTo(pad+rad,pad);
+      ctx.lineTo(canv.width-rad-pad,pad);
+      ctx.arc(canv.width-rad-pad,rad+pad, rad, pi*1.5, pi*2, false);
+      ctx.arc(canv.width-rad-pad,canv.height-rad-pad, rad, pi*0, pi*.5, false);
+      ctx.arc(rad+pad,canv.height-rad-pad, rad, pi*.5, pi*1, false);
+      ctx.arc(rad+pad,rad+pad, rad, pi*1, pi*1.5, false);
+      }
+    else if(s==1){
+      ctx.arc(rad+pad,rad+pad, rad, pi*1, pi*1.5, false);
+      ctx.arc(canv.width-rad-pad,rad+pad, rad, pi*1.5, pi*2, false);
+      ctx.lineTo(canv.width-pad,canv.height-pad);
+      ctx.lineTo(pad,canv.height-pad);
+      ctx.lineTo(pad,pad+rad);
+      }
+    else if(s==setKeys.length-1){
+      ctx.moveTo(pad,pad);
+      ctx.lineTo(canv.width-pad,pad);
+      ctx.arc(canv.width-rad-pad,canv.height-rad-pad, rad, pi*0, pi*.5, false);
+      ctx.arc(rad+pad,canv.height-rad-pad, rad, pi*.5, pi*1, false);
+      ctx.lineTo(pad,pad);
+      }
+    else{
+      ctx.moveTo(pad,pad);
+      ctx.lineTo(canv.width-pad,pad);
+      ctx.lineTo(canv.width-pad,canv.height-pad);
+      ctx.lineTo(pad,canv.height-pad);
+      ctx.lineTo(pad,pad);
+      }
+    ctx.stroke();
+    ctx.fillStyle="#fff";
+    ctx.fill();
+
+    var temp=setKeys[s].split("_");
+    var title=temp[1];
+    ctx.fillStyle="#333";
+    ctx.font=Math.floor(grid*2)+"px Arial";
+    ctx.textBaseline= "middle";  
+    ctx.textAlign= "left";    
+    ctx.fillText(title,grid*1,canv.height/2);
+
+    
+
+    if(selectedSetNum==s){
+      ctx.lineWidth=grid/3;
+      ctx.strokeStyle="#555";
+      ctx.beginPath();
+      ctx.moveTo(canv.width-grid*2, grid*2);
+      ctx.lineTo(canv.width-grid*1.5, grid*2.75);
+      ctx.lineTo(canv.width-grid*1, grid*1.25);
+      ctx.stroke();
+
+
+      var canv=document.getElementById("thumbsButton");
+      canv.width=Math.floor(grid*10);
+      canv.height=Math.floor(grid*3);
+      canv.style.top=grid*.5+"px";
+      canv.style.left=grid*.5+"px";
+      roundRect(canv, "#666", "#222", title, "#fff", Math.floor(grid*1.25)+"px Arial", true);
+
+
+      }
+    }
+  }
+var pi=Math.PI;
+var dataLoaded=false;
+//move to config.js 
+var feedURL="http://www.laforetchocolate.com/wordpress/category/allocation-chocolates/json"
+// remember wordpress may need allow cors plugin then settings > cors to allow *. May not for app shell.
+
+function loadDataWp(){
+  dbuga("loadDataWp()");     
+  $(document).ready(function(){
+    dbuga("doc ready so getJSON "+feedURL);     
+    //$.getJSON(feedURL, function(json) {
+    $.getJSON(feedURL, function(json) {
+      parseDataWp(json);
+      if(setKeys.length>1){selectedSetNum=1;}
+        dataLoaded=true;
+        populateSelect();
+        updateSet();
+      }).fail( function(d, textStatus, error) {
+        alert("getJSON failed, status: " + textStatus + ", error: "+error)
+        populateSelect();
+        updateSet();
+        window.clearTimeout(animTimeout);
+        animTimeout=window.setTimeout("animTick()", 25);
+        dataLoaded=false;
+      });
+    });
+  }
+function parseDataWp(entries){
+  //dbuga('parseDataWp  entries.length='+entries.length);
+  setKeys=["9999_Favorites"];
+  sets={"9999_Favorites":JSON.parse(localStorage.getItem("favorites"))}
+  largeUrlSets={"9999_Favorites":JSON.parse(localStorage.getItem("favorites"))}
+  thumbUrlSets={"9999_Favorites":JSON.parse(localStorage.getItem("favorites"))}
+  titleSets={"9999_Favorites":JSON.parse(localStorage.getItem("favorites"))}
+  descSets={"9999_Favorites":JSON.parse(localStorage.getItem("favorites"))}
+  
+  for (var e=0; e<entries.length; e++){
+    
+    var entry=entries[e];
+    //dbuga("<br >title="+entry.title);
+    var setKey=(e+1000)+"_"+entry.title;
+    var set=[];
+    var largeUrlSet=[];
+    var thumbUrlSet=[];
+    var titleSet=[];
+    var descSet=[];
+    var content=entry.content;
+    if(content.indexOf("[/caption]")>-1){
+      var items=content.split("[/caption]");
+      for (var i=0; i<items.length; i++){
+        var item=items[i];
+        if(item.indexOf("[caption")>-1){// parse captioned
+          var parts=item.split("</a>");
+          var captionLinkThumb=parts[0];
+          var temp=captionLinkThumb.split("]");
+          var linkThumb=temp[1];
+          var quoteParts=linkThumb.split('\"');
+          var largeUrl=quoteParts[1];
+          var thumbUrl=quoteParts[5];
+          var title=parts[1];
+          var desc=parts[1];
+          if(desc.indexOf(" – ")>-1){
+            var mSplit=desc.split(" – ");
+            title=mSplit[0];
+            desc=mSplit[1];
+            }
+          set.push(largeUrl);
+          largeUrlSet.push(largeUrl);
+          thumbUrlSet.push(thumbUrl);
+          titleSet.push(title);
+          descSet.push(desc);
+    
+          //dbuga("<br>  title="+title);
+          //dbuga("  desc="+desc);
+          //dbuga("  largeUrl ="+ largeUrl);
+          //dbuga("  thumbUrl="+thumbUrl);
+          }
+        }
+      setKeys.push(setKey);
+      sets[setKey]=set;
+      largeUrlSets[setKey]=largeUrlSet;
+      thumbUrlSets[setKey]=thumbUrlSet;
+      titleSets[setKey]=titleSet;
+      descSets[setKey]=descSet;
+      }
+    }
+  //dbuga('dataParsed ');
+  localStorage.setItem("setKeys", JSON.stringify(setKeys));
+  localStorage.setItem("sets", JSON.stringify(sets));
+  window.clearTimeout(animTimeout);
+  animTimeout=window.setTimeout("animTick()", 25);
+
+  }
+
+function loadData(){
+  $(document).ready(function(){
+      $.getJSON('http://laforetchocolate.com/app/config.json', function(json) {
+         //dbuga(JSON.stringify(json));
+         parseData(json);
+         if(setKeys.length>1){selectedSetNum=1;}
+         dataLoaded=true;
+         populateSelect();
+         updateSet();
+         })
+         .fail(function() {
+         //dbuga("fail");
+         populateSelect();
+         updateSet();
+         window.clearTimeout(animTimeout);
+         animTimeout=window.setTimeout("animTick()", 25);
+         dataLoaded=false;
+         });
+       });
+    }
+
+var setKeys=["9999_Favorites"];
+var sets={"9999_Favorites":[]};
+var selectedSetNum=0;
+var selectedThumbNum=0;
+function parseData(theData){
+  setKeys=["9999_Favorites"];
+  sets={"9999_Favorites":JSON.parse(localStorage.getItem("favorites"))}
+  var itemData=theData.config.assets;
+  var allKeys=Object.keys(itemData);
+  for (var k=0; k<allKeys.length; k++){
+    var thisKey=allKeys[k];
+    var tempArray=thisKey.split('/');
+    var thisSet=tempArray[1];
+    var thisItem=tempArray[2];
+    if(inArray(thisSet,setKeys)==false){
+      setKeys.push(thisSet);
+      //dbuga('<b>'+thisSet+'</b>');
+      sets[thisSet]=[];
+      }
+    sets[thisSet].push(thisKey);
+    }
+  setKeys.sort();
+  setKeys.reverse();
+  
+  for (var s=0; s<setKeys.length; s++){
+    sets[setKeys[s]].sort();
+    }
+  if(setKeys.length>1){
+    //selectedSetNum=1;
+    }
+  //dbuga('dataParsed ');
+  localStorage.setItem("setKeys", JSON.stringify(setKeys));
+  localStorage.setItem("sets", JSON.stringify(sets));
+  window.clearTimeout(animTimeout);
+  animTimeout=window.setTimeout("animTick()", 25);
+  }
+
+function debugData(){
+  for (var s=0; s<setKeys.length; s++){
+    var setKey=setKeys[s];
+    //dbuga('<b>'+setKey+'</b>');
+    var set=sets[setKey];
+    for (var i=0; i<set.length; i++){
+      //dbuga(' '+set[i]);
+      }
+    }
+  }
+function inArray(needle, haystack) {
+  var length = haystack.length;
+  for(var i = 0; i < length; i++) {
+    if(haystack[i] == needle) return true;
+    }
+  return false;
+  }
+function dbug(str) {
+  if(str==''){
+    ddiv.style.display = "none";
+    }
+  else{ddiv.style.display = "block";}
+  ddiv.innerHTML = str;
+  }
+function dbuga(str) {
+  ddiv.style.display = "block";
+  ddiv.innerHTML += "<br />"+str;
+  }
+function rnd(range) {
+  return Math.floor(Math.random()*range);
+  }
+function mouseSwipe(e){
+  //dbug(e.pageX);
+  mouseX=e.pageX;
+  }
+function touchSwipe(e){
+  if(touchingRotor){
+    e.preventDefault();
+    mouseX=event.touches[0].pageX;
+    }
+  if(touchingFlow){
+    e.preventDefault();
+    mouseX=event.touches[0].pageX;
+    }
+  }
+function gestureStart(e){
+  e.preventDefault();
+  }
+
+</script>
+</head>
+<body onload="init()" ongesturestart="gestureStart(event)";>
+<div style="font-family:sack; position:absolute; top:-3000px;">sack</div>
+<div style="font-family:signify; position:absolute; top:-3000;">signify</div>
+<div id="landscapeMain">
+  <div id="flow"></div>
+</div>
+<div id="portraitMain">
+  <div id="thumbsUi">
+    <div id="thumbsNavTop">
+      <canvas id="setSelectButton" ></canvas>
+      <div id="thumbsLabel">thumbsLabel</div>
+    </div>
+    <div id="thumbsNavBottom">
+      <canvas id="mailButton" ></canvas>
+      <canvas id="linkButton" ></canvas>
+    </div>
+    <div id="thumbsHolder">
+      <div id="thumbsScroller"></div>
+    </div>
+    <div id="setSelectDim">
+      <div id="setSelectModal">
+      <div id="setSelectNavTop">
+        <canvas id="setSelectCancel"></canvas>
+        <div id="setSelectLabel">Select Season</div>
+        <canvas id="infoButton" ></canvas>
+      </div>
+        <div id="setSelectHolder">
+          <div id="setSelectScroller"></div>
+        </div>
+      </div>
+    </div>
+    <div id="infoDim">
+      <div id="infoModal">
+        <div id="infoHolder"></div>
+        <div id="infoNavTop">
+          <canvas id="infoCancel"></canvas>
+          <div id="infoLabel">About</div>
+        </div>
+        <div id="infoNavBottom">
+          <canvas id="jambotsButton"></canvas>
+          <canvas id="compressionButton"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <! end of thumbsUi>
+  <div id="rotorUi">
+    <div id="rotor"></div>
+    <div id="rotorNavTop" style="background-color:#0f0;">
+      <canvas id="thumbsButton" ></canvas>
+      <div id="rotorLabel">rotorLabel</div>
+    </div>
+    <div id="rotorNavBottom">
+      <canvas id="saveButton" ></canvas>
+      <canvas id="prevButton" ></canvas>
+      <canvas id="nextButton" ></canvas>
+      <canvas id="faveButton" ></canvas>
+    </div>
+  </div><! end of rotorUi>
+</div><! end of portraitMain>
+<canvas id="loadingCanvas" style="position:absolute; Zbackground-color:rgba(0,0,0,.25);"></canvas>
+
+<div id="debugDiv" style="top:0px;left:190px; position:absolute; background-color:rgba(255,255,255,.75);"></div>
+</body>
+</html>
