@@ -281,7 +281,7 @@ font-family: 'Arial';
   position:absolute;
   top:0;
   }
-#compressionButton{
+#cacheButton{
   position:absolute;
   top:0;
   }
@@ -291,7 +291,6 @@ var ddiv;
 var sdiv
 var agent="unknown";
 
-var compression="jpeg";
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
@@ -299,22 +298,70 @@ function init(){
   if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
   if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
   if(navigator.userAgent.indexOf('iPad')>-1){agent="ios";}
-  //dbuga("agent="+agent);
-  //dbuga("web="+web);
+  dbuga("agent="+agent);
+  dbuga("web="+web);
   
   if(web){resumeInit();}
   else{
     document.addEventListener("deviceready", resumeInit, false);
-    //dbuga("uh... web="+web);
+    dbuga("uh... web="+web);
     }
   }
+var db;
 function resumeInit(){
-  dbug('');
-  //imageGeometry();
+  dbuga('resumeInit()');
+  db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
+  setupEvents();
+  
+  orientationTick();
   //debugGeometry();
+  //dbuga('end of resumeInit orientationTick() ran');
+  setKeys=["9999_Favorites"];
+  sets={"9999_Favorites":[]};
+  setupLocalStorage();
+  includedImageUrls=[];
+  parseDataWp(includedFeed, true);
+  dbuga("includedImageUrls ="+includedImageUrls.length);
+  loadDataWp();
+  clearInterval(orientationInterval);
+  orientationInterval=setInterval('orientationTick()', 100);
+  }
+function saveSetsToLocalStorage(){
+  dbuga("saveSetsToLocalStorage() "+setKeys.length);
+  localStorage.setItem("selectedSetNum", "0");
+  localStorage.setItem("sets", JSON.stringify(sets));
+  localStorage.setItem("setKeys", JSON.stringify(setKeys));
+  }
+function setupLocalStorage(){
 
-  //populateSelect();
-  //dbuga(agent);
+  if(localStorage.getItem("selectedSetNum") === null) {
+    localStorage.setItem("selectedSetNum", "0");
+    }
+  else{
+    selectedSetNum=Number(localStorage.getItem("selectedSetNum"));
+    }
+  
+  if(localStorage.getItem("sets") === null) {
+    localStorage.setItem("sets", JSON.stringify(sets));
+    }
+  else{
+    sets =JSON.parse(localStorage.getItem("sets"));
+    }
+
+  if(localStorage.getItem("setKeys") === null) {
+    localStorage.setItem("setKeys", JSON.stringify(setKeys));
+    dbuga('localStorage set setKeys:'+setKeys.length);
+    }
+  else{
+    setKeys=JSON.parse(localStorage.getItem("setKeys"));
+    dbuga('localStorage get setKeys:'+setKeys.length);
+    }
+
+  if(localStorage.getItem("nameStack") === null) {
+    localStorage.setItem("nameStack", "[]");
+    }
+  }
+function setupEvents(){
   if((agent=="windows")||(agent=="mac")){
     document.onmousemove=function(e){
       //dbug(e.pageX);
@@ -325,7 +372,6 @@ function resumeInit(){
       }
     document.getElementById("infoCancel").onmousedown=function(e){infoCancel();}
     document.getElementById("jambotsButton").onmousedown=function(e){jambotsButton();}
-    document.getElementById("compressionButton").onmousedown=function(e){compressionButton();}
     document.getElementById("setSelectCancel").onmousedown=function(e){hideSetSelect();}
     document.getElementById("setSelectButton").onmousedown=function(e){showSetSelect();}
     document.getElementById("infoButton").onmousedown=function(e){showInfo();}
@@ -348,7 +394,6 @@ function resumeInit(){
       }
     document.getElementById("infoCancel").ontouchstart=function(e){infoCancel();}
     document.getElementById("jambotsButton").ontouchstart=function(e){jambotsButton();}
-    //document.getElementById("compressionButton").ontouchstart=function(e){compressionButton();}
     document.getElementById("setSelectCancel").ontouchend=function(e){hideSetSelect();}
     document.getElementById("setSelectButton").ontouchstart=function(e){showSetSelect();}
     document.getElementById("infoButton").ontouchstart=function(e){showInfo();}
@@ -363,59 +408,6 @@ function resumeInit(){
     document.getElementById("landscapeMain").ontouchend=function(e){flowRelease(event);}
     document.addEventListener("backbutton", onBackKeyDown, false);
     }
-
-  
-  orientationTick();
-  //debugGeometry();
-  //dbuga('end of resumeInit orientationTick() ran');
-  setupLocalStorage();
-  includedImageUrls=[];
-  parseDataWp(includedFeed, true);
-  loadDataWp();
-  clearInterval(orientationInterval);
-  orientationInterval=setInterval('orientationTick()', 100);
-  }
-function setupLocalStorage(){
-  if(localStorage.getItem("compression") === null) {
-    localStorage.setItem("compression", compression);
-    }
-  else{
-    compression=localStorage.getItem("compression");
-    }
-
-  if(localStorage.getItem("selectedSetNum") === null) {
-    localStorage.setItem("selectedSetNum", "0");
-    }
-  else{
-    selectedSetNum=Number(localStorage.getItem("selectedSetNum"));
-    }
-  
-  if(localStorage.getItem("sets") === null) {
-    localStorage.setItem("sets", JSON.stringify(sets));
-    }
-  else{
-    sets =JSON.parse(localStorage.getItem("sets"));
-    }
-
-  if(localStorage.getItem("setKeys") === null) {
-    localStorage.setItem("setKeys", JSON.stringify(setKeys));
-    }
-  else{
-    //setKeys=JSON.parse(localStorage.getItem("setKeys"));
-    }
-
-  if(localStorage.getItem("favorites") === null) {
-    localStorage.setItem("favorites", "[]");
-    }
-  else{
-    var favoritesString=localStorage.getItem("favorites");
-    sets["9999_Favorites"]=JSON.parse(favoritesString);
-    }
-
-  if(localStorage.getItem("nameStack") === null) {
-    localStorage.setItem("nameStack", "[]");
-    }
-
   }
 function mailButton(){
   window.location='mailto:info@laforetchocolate.com';
@@ -429,27 +421,6 @@ function jambotsButton(){
   //window.plugins.childBrowser.openExternal("http://www.jambots.com");
   navigator.app.loadUrl("http://www.jambots.com", {openExternal: true});
   }
-function compressionButton(){
-  var confString="PNG files take up more local storage. Only proceed if you are seeing glitched images. Switch storage to to PNG?"
-  //dbuga('compressionButton');
-  if(compression=="jpeg"){
-    //setTimeout(function() {
-    //  var conf=window.confirm(confString);//confirm breaks events on droid in build.
-    //  if(conf){
-        compression="png";
-        localStorage.setItem("compression", compression);  
-        purgeCache();
-        updateCompression();
-    //    }
-    //  }, 10);
-    }
-  else{ //switch to jpeg      
-    compression="jpeg";
-    localStorage.setItem("compression", compression);  
-    purgeCache();
-    updateCompression();
-    }
-  }
 function purgeCache(){
   //dbuga('purgeCache()');
   var nameStack=JSON.parse(localStorage.getItem('nameStack'));
@@ -460,14 +431,14 @@ function purgeCache(){
   updateSet();
   }
 function saveButton(){
-  var saveName=faveKeyLarge;
+  var saveName=faveItem.largeUrl;
   var temp=saveName.split("/");
   var cat=temp[0];
   var season=temp[1];
   var fileName=temp[2];
   fileName = fileName.replace(".jpg", "");
 
-  //dbuga('saveButton() faveKeyLarge='+faveKeyLarge); 
+  dbuga('saveButton() fileName='+fileName); 
   var temp=season.split("_");
   season=temp[1];
   saveName=season+"_"+fileName;
@@ -482,7 +453,7 @@ function saveButton(){
   var dstContext = dstCanvas.getContext('2d');
   dstContext.fillStyle="white";
   dstContext.fillRect(0, 0, rotorItemWidth, rotorItemHeight);
-  var imageObject=document.getElementById('rotorImage~'+faveKeyLarge);
+  var imageObject=document.getElementById('rotorImage~'+faveItem.largeUrl);
   dstContext.drawImage(imageObject, 0, 0, rotorItemWidth, rotorItemHeight);
 
 
@@ -499,51 +470,75 @@ function saveButton(){
 
   }
 var unfaveArray=[];
+function isFavorite(largeUrl){
+  var isFav=false;
+  var faveSet=sets["9999_Favorites"];
+  for (var f=0; f<faveSet.length; f++){
+    if(faveSet[f].largeUrl==largeUrl){isFav=true;}
+    }
+  return isFav;
+  }
+function listFavorites(largeUrl){
+  dbuga("faveItem=" +faveItem.title);
+  var faveSet=sets["9999_Favorites"];
+  for (var f=0; f<faveSet.length; f++){
+    dbuga(faveSet[f].title);
+    }
+  }
+
+function removeFavorite(largeUrl){
+  var faveSet=sets["9999_Favorites"];
+  var keepSet=[];
+  for (var f=0; f<faveSet.length; f++){
+    if(faveSet[f].largeUrl != largeUrl){keepSet.push(faveSet[f]);}
+    }
+  sets["9999_Favorites"]=keepSet;
+  saveSetsToLocalStorage();
+  listFavorites();
+  }
+
+function addFavorite(item){
+  if(isFavorite(item.largeUrl)==false){
+    var clone=JSON.parse(JSON.stringify(item));
+    sets["9999_Favorites"].push(clone);
+    saveSetsToLocalStorage();
+    }
+  listFavorites();
+  }
 function faveButton(){
-  //dbuga("faveButton faveKeyLarge="+faveKeyLarge);
-  var canv=document.getElementById('faveButton'); 
+  dbuga("faveButton faveItem.largeUrl="+faveItem.largeUrl);
+  var faveCanv=document.getElementById('faveButton'); 
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
   if(selectedSetKey=="9999_Favorites"){//toggle unfave
-    if(unfaveArray.indexOf(faveKeyLarge) == -1){
-      unfaveArray.push(faveKeyLarge);
+    if(unfaveArray.indexOf(faveItem.largeUrl) == -1){
+      unfaveArray.push(faveItem.largeUrl);
       }
     else{
       var temp=unfaveArray;
       unfaveArray=[];
       for (var i=0; i<temp.length; i++){
-        if(temp[i]!=faveKeyLarge){
+        if(temp[i]!=faveItem.largeUrl){
           unfaveArray.push(temp[i]);
           }
         }
       }
     }
   else{// in normal set so toggle immediately
-    if(largeUrlSets["9999_Favorites"].indexOf(faveKeyLarge) > -1){// copy remove loop
-      var tempLarge=largeUrlSets["9999_Favorites"];
-      var tempThumb=thumbUrlSets["9999_Favorites"];
-      largeUrlSets["9999_Favorites"]=[];
-      thumbUrlSets["9999_Favorites"]=[];
-      for (var i=0; i<tempLarge.length; i++){
-        if(tempLarge[i]!=faveKeyLarge){
-          largeUrlSets["9999_Favorites"].push(faveKeyLarge);
-          thumbUrlSets["9999_Favorites"].push(faveKeyThumb);
-          }
-        }
+    if(isFavorite(faveItem.largeUrl)==true){// copy remove loop
+      removeFavorite(faveItem.largeUrl);
       }
     else{
-      largeUrlSets["9999_Favorites"].push(faveKeyLarge);
-      thumbUrlSets["9999_Favorites"].push(faveKeyThumb);
+      addFavorite(faveItem);
       }
-    localStorage.setItem("favorites", JSON.stringify(largeUrlSets["9999_Favorites"]));
     }
 
   // update button display
-  if((largeUrlSets["9999_Favorites"].indexOf(faveKeyLarge) > -1)&&(unfaveArray.indexOf(faveKeyLarge) == -1)){
-    roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+  if((isFavorite(faveItem.largeUrl)==true)&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
+    roundRect(faveCanv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
     }
   else{
-    roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+    roundRect(faveCanv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
     }
   }
 var fileSystem;
@@ -749,10 +744,11 @@ function imageGeometry(){
 
 function selectSet(setNum){
   //dbug("selectSet("+setNum+")");
-  
-  selectedSetNum=setNum;
-  localStorage.setItem("selectedSetNum", setNum);
-  updateSet();
+  if(selectedSetNum != setNum){
+    selectedSetNum=setNum;
+    localStorage.setItem("selectedSetNum", setNum);
+    updateSet();
+    }
   hideSetSelect();
   }
 var selectUp=true;
@@ -761,21 +757,15 @@ function hideRotor(){
   document.getElementById('thumbsUi').style.display="block";
   document.getElementById('rotorUi').style.display="none";
   var selectedSetKey=setKeys[selectedSetNum];
-/*
-  //purge unfaves
+
   if(selectedSetKey=="9999_Favorites"){
-    var temp=largeUrlSets["9999_Favorites"];
-    largeUrlSets["9999_Favorites"]=[];
-    for (var i=0; i<temp.length; i++){
-      if(unfaveArray.indexOf(temp[i])==-1){
-        largeUrlSets["9999_Favorites"].push(temp[i]);
-        }
+    //purge unfaves
+    for (var u=0; u<unfaveArray.length; u++){
+      removeFavorite(unfaveArray[u]);
       }
-    localStorage.setItem("favorites", JSON.stringify(largeUrlSets["9999_Favorites"]));
     unfaveArray=[];
     updateSet();
     }
-*/
   }
 var setReady=false;
 function updateSet(){
@@ -904,6 +894,8 @@ function infoCancel(){
 var selectPopulated=false;
 
 function populateSelect(){
+  setKeys=setKeys.sort();
+  setKeys=setKeys.reverse();
   selectPopulated=true;
   //dbuga('populateSelect() cellsAcross='+ cellsAcross);
   modalWidth=32;	
@@ -1008,7 +1000,6 @@ function styleUi(){
   canv.style.top=grid*.5+"px";
   canv.style.left=(grid*modalWidth-grid*9.5)+"px";
   roundRect(canv, "#666", "#222", "jambots apps", "#fff", Math.floor(grid*1.25)+"px Arial", false);
-  updateCompression();
 
   var canv=document.getElementById("saveButton");
   canv.width=Math.floor(grid*3);
@@ -1097,14 +1088,14 @@ function styleUi(){
   initOrRefreshScrolls();
 
   }
-function updateCompression(){
-  var canv=document.getElementById("compressionButton");
+function updateCacheButton(){
+  var canv=document.getElementById("cacheButton");
   canv.style.top=grid*.5+"px";
   canv.style.left=(grid*.5)+"px";
   canv.width=Math.floor(grid*16);
   canv.height=Math.floor(grid*3);
   var cached=JSON.parse(localStorage.getItem('nameStack')).length;
-  var label="storage: "+compression;
+  var label="JPEG ";
   if(cached>0){label+=" ("+cached+")";}
   roundRect(canv, "#666", "#222", label, "#fff", Math.floor(grid*1.25)+"px Arial", false);
   }
@@ -1314,7 +1305,7 @@ function wrapText(context, text, x, y, maxWidth, lineHeight, stroke) {
   
   var words = text.split(' ');
         var line = '';
-
+        var lineCount=0;
         for(var n = 0; n < words.length; n++) {
           var testLine = line + words[n] + ' ';
           var metrics = context.measureText(testLine);
@@ -1324,13 +1315,16 @@ function wrapText(context, text, x, y, maxWidth, lineHeight, stroke) {
             if(stroke){context.strokeText(line, x, y);}
             line = words[n] + ' ';
             y += lineHeight;
+            lineCount++;
           }
           else {
             line = testLine;
           }
         }
-        context.fillText(line, x, y);
-        if(stroke){context.strokeText(line, x, y);}
+      context.fillText(line, x, y);
+      if(stroke){context.strokeText(line, x, y);}
+      lineCount++;
+      return lineCount;
       }
 
 
@@ -1407,9 +1401,10 @@ function prepareRotor(){
       context.lineWidth = lineHeight/40;
       context.textAlign="center";
       context.textBaseline="middle";
-      wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
+      var titleLines=wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
       context.font = rotorItemWidth/14+'pt filoital';
-      wrapText(context, set[i].desc, x, lineHeight*4.5, maxWidth, lineHeight,false);
+      y=lineHeight*(2.5+titleLines);
+      var descLines=wrapText(context, set[i].desc, x, y, maxWidth, lineHeight,false);
 
     
     if(isCached(set[i].largeUrl)==false){
@@ -1470,14 +1465,14 @@ function updateLoadingCanvas(){
       }
     }
   }
-function saveLocalStorage(key, data){
-  //dbuga("saveLocalStorage<br>"+key);
+function saveImageDataLocalStorage(key, data){
+  //dbuga("saveImageDataLocalStorage <br>"+key);
   
   var purged=0;
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
   var currentName="not set";
   if(setKeys.length>1){currentName=setKeys[1];}
-  var favorites=JSON.parse(localStorage.getItem("favorites"));
+  var favorites=sets["9999_Favorites"];
   var favStack=[];
   var normStack=[];
   var currentStack=[];
@@ -1485,7 +1480,7 @@ function saveLocalStorage(key, data){
     var thisName=nameStack[n];
     var isFav=false;
     for (var f=0; f<favorites.length; f++){
-      var favName=favorites[f];
+      var favName=favorites[f].largeUrl;
       if(thisName.indexOf(favName)>-1){isFav=true;}
       }
     if(isFav){
@@ -1500,7 +1495,7 @@ function saveLocalStorage(key, data){
         }
       }
     }
-  var nameStack=normStack.concat(currentStack, favStack);
+  nameStack=normStack.concat(currentStack, favStack);
 
   
   var saved=true;
@@ -1535,12 +1530,12 @@ function saveLocalStorage(key, data){
     }
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
   }
+
 function clip(num){
   return Math.floor(num*100)/100;
   }
 var animTimeout;
-var faveKeyLarge="";
-var faveKeyThumb="";
+var faveItem;
 
 function animTick(){
   window.clearTimeout(animTimeout);
@@ -1609,17 +1604,17 @@ function landscapeAnim(){
         rotorAtItem=flowAtItem; 
         flowDockStartAt=flowAtItem;      
         document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
-        faveKeyLarge=set[target].largeUrl;
+        faveItem=set[target];
+        dbuga("flow dock "+faveItem.title);
         var canv=document.getElementById("faveButton");
-/*
-//draw heart
-        if((largeUrlSets["9999_Favorites"].indexOf(faveKeyLarge) > -1)&&(unfaveArray.indexOf(faveKeyLarge) == -1)){
+
+        //draw heart
+        if((isFavorite(faveItem.largeUrl))&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
           roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
           }
         else{
           roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
           }
-*/
         }
       }
     }
@@ -1724,16 +1719,16 @@ function portraitAnim(){
         flowAtItem=rotorAtItem;
         rotorDockStartAt=rotorAtItem;      
         document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
-        faveKeyLarge=set[target].largeUrl;
+        faveItem=set[target];
+        dbuga("rotor dock "+faveItem.title);
         var canv=document.getElementById("faveButton");
-/*draw hearts
-        if((largeUrlSets["9999_Favorites"].indexOf(faveKeyLarge) > -1)&&(unfaveArray.indexOf(faveKeyLarge) == -1)){
+        //draw hearts 
+        if((isFavorite(faveItem.largeUrl))&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
           roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
           }
         else{
           roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
           }
-*/
         }
       }
     }
@@ -1794,18 +1789,18 @@ function selectThumb(num){
   selectedThumbNum=num;
   var set=sets[setKeys[selectedSetNum]];
   document.getElementById("rotorLabel").innerHTML=(selectedThumbNum+1)+" of "+set.length;
-  faveKeyLarge=set[selectedThumbNum].largeUrl;
-  //dbuga("faveKeyLarge "+faveKeyLarge);
-/*
-hearts
+  
+  faveItem=set[selectedThumbNum];
+  dbuga("selectThumb "+faveItem.title);
+
+      //hearts
         var canv=document.getElementById("faveButton");
-        if(largeUrlSets["9999_Favorites"].indexOf(faveKeyLarge) > -1){
+        if(isFavorite(faveItem.largeUrl)){
           roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
           }
         else{
           roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
           }
-*/
   }
 var infoUp=false;
 function hideInfo(){
@@ -1815,7 +1810,7 @@ function hideInfo(){
 function showInfo(){
   //dbug("showSetSelect()" +selectUp);
   infoUp=true;
-  updateCompression();
+  updateCacheButton();
   document.getElementById('infoDim').style.display="block";
   }
 
@@ -1915,15 +1910,18 @@ function base64toCanv(data, canv){
   }
 urlToSrcs = function(imageUrl,imageIds) {
   //dbuga("urlToSrcs "+imageUrl);
+  var included=false;
   var loadUrl=imageUrl;
   if(inArray(loadUrl,includedImageUrls)){
     var parts=loadUrl.split("uploads");
     loadUrl="uploads"+parts[1];
+    included=true;
     }
 
   this.status = 0;
   this.webUrl = imageUrl;
   this.loadUrl = loadUrl;
+  this.included = included;
   this.myIds = imageIds;
   var req = this;
   function onLoad (e){
@@ -1932,22 +1930,27 @@ urlToSrcs = function(imageUrl,imageIds) {
       reader.targetImageIds=req.myIds;
       reader.webUrl=req.webUrl;
       reader.loadUrl=req.loadUrl;
+      reader.included=req.included;
       reader.onloadend = function(evt) {
         result=evt.target.result;
         for(var t=0; t<evt.target.targetImageIds.length; t++){
           var el=document.getElementById(evt.target.targetImageIds[t]);
-          
-          if(el.tagName=="CANVAS"){base64toCanv(result, el);}
-          if(el.tagName=="IMG"){
+          dbuga('el.tagName='+el.tagName+" "+evt.target.targetImageIds[t]);
+          if(el.tagName=="CANVAS"){//rotor
+            base64toCanv(result, el);
+            }
+          if(el.tagName=="IMG"){//thumb
             el.src=result;
             }
-          if(el.tagName=="DIV"){
+          if(el.tagName=="DIV"){//flow
             el.style.backgroundImage="url('" + result + "')";
             }
           }
         //dbuga("reader loadEnd save "+evt.target.webUrl);
 
-        //saveLocalStorage(evt.target.webUrl, result);
+        if(included==false){
+          saveImageData(evt.target.webUrl, result);
+          }
         }
     
       reader.readAsDataURL(blob);
@@ -1967,6 +1970,17 @@ urlToSrcs = function(imageUrl,imageIds) {
     r.send (null);
   }
 }
+function saveImageData(key, data({
+  if(web){
+    saveImageDataLocalStorage(key, data);
+    }
+  else{
+    saveImageDataPhonegap(key, data);
+    }
+  }
+function saveImageDataPhonegap(key, data){
+  dbuga("saveImageDataPhonegap "+key);
+  }
 
 var scrollsSet=false;
 function initOrRefreshScrolls(){
@@ -1995,38 +2009,6 @@ function initOrRefreshScrolls(){
       }
 
     }, 100);
-  }
-function returnResizedData(imageObject){
-  imageObject.onload=null;//prevents double firing from fast events
-  var width= imageObject.width;
-  var height=imageObject.height;
-  var imageAspect=width/height;
-  var targetHeight=Math.floor(width/sourceAspect);
-  var topPad=Math.floor(targetHeight/2-height/2);
-  // New canvas
-  var dstCanvas = document.createElement('canvas');
-  dstCanvas.width = width;
-  dstCanvas.height = targetHeight;
-
-  //dbuga('returnResizedData '+width+' x '+height+ " t:"+targetHeight); 
-    
-    // Draw Image content in canvas
-  var dstContext = dstCanvas.getContext('2d');
-  dstContext.fillStyle="white";
-  dstContext.fillRect(0, 0, width, targetHeight);
-  dstContext.drawImage(imageObject, 0, topPad, width, height);
-  //dstContext.fillRect(width/4, targetHeight/4, width/2, targetHeight/2 );
-  //dbuga('resize');
-  // Replace source of Image
-
-  var dataUrl;
-  if(compression=="jpeg"){
-    dataUrl=dstCanvas.toDataURL("image/jpeg", 0.5);
-    }
-  else{
-    dataUrl=dstCanvas.toDataURL();
-    }
-  return dataUrl;
   }
 
 function updateSelectButtons(){
@@ -2107,7 +2089,7 @@ function updateSelectButtons(){
 var pi=Math.PI;
 var dataLoaded=false;
 //move to config.js 
-var feedURL="http://www.laforetchocolate.com/wordpress/category/allocation-chocolates/json"
+var feedURL="http://www.laforetchocolate.com/wordpress/category/allocation-chocolates/json";
 // remember wordpress may need allow cors plugin then settings > cors to allow *. May not for app shell.
 
 function loadDataWp(){
@@ -2133,64 +2115,80 @@ function loadDataWp(){
   }
 function parseDataWp(entries, included){
   //dbuga('parseDataWp  entries.length='+entries.length);
-  
+  var added=false;
   for (var e=0; e<entries.length; e++){
-    
     var entry=entries[e];
-    //dbuga("<br >title="+entry.title);
-    var setKey=entry.id+"_"+entry.title;
+    //dbuga("<br > entry.title ="+entry.title);
+    var entryDate=entry.date.split(" ")[0];
+    var setKey=entryDate+"_"+entry.title;
+    dbuga("<br >setKey="+setKey +" included="+included);
+    var set=[];
+    var content=entry.content;
+    var items=returnItemsInContent(content);
+    dbuga("items.length="+ items.length);
+    for (var i=0; i<items.length; i++){
+      var item=items[i];
+      var title= attributeInItem("alt",item);
+      title=title.replace("&amp;", "&");
+      var desc= textInItem(item);
+      desc=desc.replace("&amp;", "&");
+      var largeUrl= attributeInItem("href",item);
+      var thumbUrl= attributeInItem("src",item);
+      set.push({"largeUrl":largeUrl, "thumbUrl":thumbUrl, "title":title, "desc":desc});
+      if(included){
+        includedImageUrls.push(largeUrl);
+        includedImageUrls.push(thumbUrl);
+        }
+      }
     if(inArray(setKey, setKeys)){
-      //dbuga("duplicate "+entry.title);
+      dbuga("duplicate "+entry.title);
       }
     else{
-      //dbuga("<br >setKey="+setKey +" included="+included);
-      var set=[];
-      var content=entry.content;
-      if(content.indexOf("[/caption]")>-1){
-        var items=content.split("[/caption]");
-        for (var i=0; i<items.length; i++){
-          var item=items[i];
-          if(item.indexOf("[caption")>-1){// parse captioned
-            var parts=item.split("</a>");
-            var captionLinkThumb=parts[0];
-            var temp=captionLinkThumb.split("]");
-            var linkThumb=temp[1];
-            var quoteParts=linkThumb.split('\"');
-            var largeUrl=quoteParts[1];
-            var thumbUrl=quoteParts[5];
-            var title=parts[1];
-            var desc=parts[1];
-            if(desc.indexOf("–")>-1){
-              var mSplit=desc.split("–");
-              title=mSplit[0];
-              desc=mSplit[1];
-              }
-            if(desc.indexOf("–")>-1){
-              var mSplit=desc.split("–");
-              title=mSplit[0];
-              desc=mSplit[1];
-              }
-            title=title.replace("&amp;", "&");
-            desc=desc.replace("&amp;", "&");
-            set.push({"largeUrl":largeUrl, "thumbUrl":thumbUrl, "title":title, "desc":desc});
-            if(included){
-              includedImageUrls.push(largeUrl);
-              includedImageUrls.push(thumbUrl);
-              }
-            }
-          }
+      if(set.length>0){
         setKeys.push(setKey);
         sets[setKey]=set;
+        added=true;
         }
       }
     //dbuga(" setKeys.length="+setKeys.length);
     }
-  //localStorage.setItem("thumbUrlSets", JSON.stringify(thumbUrlSets));
+  if(added){saveSetsToLocalStorage();}
   window.clearTimeout(animTimeout);
   animTimeout=window.setTimeout("animTick()", 25);
 
   }
-
+function textInItem(item){
+  var val="";
+  if(item.indexOf("</a>")>-1){
+    var parts=item.split("</a>");
+    val=parts[1];
+    }
+  return val;
+  }
+function attributeInItem(attribute,item){
+  var val="";
+  if(item.indexOf(' '+attribute+'=')>-1){
+    var parts=item.split(' '+attribute+'=');
+    var suffix=parts[1];
+    var quoteParts=suffix.split('\"');
+    val=quoteParts[1];
+    }
+  return val;
+  }
+function returnItemsInContent(content){
+  var items=[];
+  if(content.indexOf("[/caption]")>-1){
+    var endSplit=content.split("[/caption]");
+    var junk=endSplit.pop();
+    for (var i=0; i<endSplit.length; i++){
+      var part=endSplit[i];
+      var beginSplit=part.split("]");
+      var item=beginSplit[1];
+      items.push(item);
+      }
+    }
+  return items;
+  }
 
 var setKeys=["9999_Favorites"];
 var sets={"9999_Favorites":[]};
@@ -2279,7 +2277,7 @@ function gestureStart(e){
         </div>
         <div id="infoNavBottom">
           <canvas id="jambotsButton"></canvas>
-          <canvas id="compressionButton"></canvas>
+          <canvas id="cacheButton"></canvas>
         </div>
       </div>
     </div>
