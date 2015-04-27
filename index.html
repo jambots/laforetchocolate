@@ -310,7 +310,9 @@ function init(){
 var db;
 function resumeInit(){
   dbuga('resumeInit()');
-  db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
+  if(web==false){
+    db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
+    }
   setupEvents();
   
   orientationTick();
@@ -1970,7 +1972,7 @@ urlToSrcs = function(imageUrl,imageIds) {
     r.send (null);
   }
 }
-function saveImageData(key, data({
+function saveImageData(key, data){
   if(web){
     saveImageDataLocalStorage(key, data);
     }
