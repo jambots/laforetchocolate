@@ -24,7 +24,7 @@
 <gap:plugin name="org.apache.cordova.file" version="1.0.1" />
 <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
 <gap:plugin name="org.devgeeks.canvas2imageplugin" version="0.6.0" />
-<access origin="*" />
+<gap:plugin name="io.litehelpers.cordova.sqlitestorage" version="0.7.5" /><access origin="*" />
 
 <icon src="icon512.png" />
 <gap:plugin name="com.phonegap.plugins.childbrowser" />
