@@ -317,7 +317,7 @@ function debugSelect(selectString){
               for (var i=0; i < results.rows.length; i++){
                 row = results.rows.item(i);
                 var rowString=JSON.stringify(row);
-                var temp=row.split("/");
+                var temp=rowString.split("/");
                 rowString=temp.pop();
                 dbuga("row is " + rowString);
                 }
