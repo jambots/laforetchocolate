@@ -308,8 +308,23 @@ function init(){
     }
   }
 var db;
-function resumeInit(){
-  dbuga('resumeInit()');
+
+
+//debugSelect('SELECT * FROM test_table')
+function debugSelect(selectString){
+   db.transaction(function(tx) {
+            tx.executeSql(selectString, [], function(tx, results) {
+              for (var i=0; i < results.rows.length; i++){
+                row = results.rows.item(i);
+                dbuga("row is " + JSON.stringify(row));
+                }
+            });
+   });
+
+
+}
+
+function setupDb(){
   if(web==false){
     db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
 
@@ -317,21 +332,24 @@ function resumeInit(){
     tx.executeSql('DROP TABLE IF EXISTS test_table');
     tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
 
-    tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-      dbuga("insertId: " + res.insertId + " -- probably 1");
-      dbuga("rowsAffected: " + res.rowsAffected + " -- should be 1");
+    tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res){
+        dbuga("insertId: " + res.insertId + " -- probably 1");
+        dbuga("rowsAffected: " + res.rowsAffected + " -- should be 1");
 
-      tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
-        dbuga("res.rows.length: " + res.rows.length + " -- should be 1");
-        dbuga("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
+        tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
+          dbuga("res.rows.length: " + res.rows.length + " -- should be 1");
+          dbuga("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
+        });
+
+      }, function(e) {
+        dbuga("ERROR: " + e.message);
       });
-
-    }, function(e) {
-      dbuga("ERROR: " + e.message);
     });
-  });
-
     }
+  }
+function resumeInit(){
+  dbuga('resumeInit()');
+  setupDb();
   setupEvents();
   
   orientationTick();
