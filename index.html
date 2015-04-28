@@ -1921,20 +1921,27 @@ function updateThumbButtons(){
         }
       else{
         //implement db
-        dbuga("pg cached set[i].thumbUrl="+set[i].thumbUrl);
+        dbuga("pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
+        var booga="BOOGA";
         db.transaction(function(tx) {
-
+          dbuga("1 booga="+booga);
 //'SELECT image_data FROM test_table WHERE image_url="http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/030.jpg";'
           dbuga('set.length '+set.length +' i='+i);
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+set[i].thumbUrl+'"';
           dbuga("sqlString="+sqlString);
+
+
+
           tx.executeSql(sqlString, [], 
-          (function(ref){
+          (function(ref,booga){
             return function(tx,results){
-            ref.src=results[0].image_data;
-            };
-          })(ref), errorCB );
+              //
+              dbuga("2 booga="+booga);
+              ref.src=results[0].image_data;
+              };
+            })(ref,booga), errorCB );
           });
+
         }
       }
     }
