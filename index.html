@@ -1937,10 +1937,10 @@ function updateThumbButtons(){
             return function(tx,results){
               
               dbuga("2 url ="+ url);
-              dbuga("2 results.rows.length ="+ results.rows.length);
+              dbuga("2 ref.id ="+ ref.id);
               //dbuga("2 results.rows[0] ="+ JSON.stringify(results.rows[0]));
 
-              ref.src=results[0].image_data;
+              ref.src=results.rows[0].image_data;
               };
             })(thumbRef,thumbUrl), errorCB );
           });
