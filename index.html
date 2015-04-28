@@ -1437,7 +1437,7 @@ function loadTick(){
     }
 
   var loadItem=loadQueue.shift();
-  //dbuga('loadTick '+JSON.stringify(loadItem));
+  dbuga('loadTick '+JSON.stringify(loadItem));
   var tempObj = new urlToSrcs(loadItem.targetUrl, loadItem.targetIds);
   tempObj.LoadPage();
   }
@@ -1925,17 +1925,21 @@ urlToSrcs = function(imageUrl,imageIds) {
   this.loadUrl = loadUrl;
   this.included = included;
   this.myIds = imageIds;
+  dbuga("imageIds ="+ imageIds.length);
   var req = this;
   function onLoad (e){
       var blob = new Blob([e.target.response], {type: "image/jpeg"});
       var reader = new FileReader();
       reader.targetImageIds=req.myIds;
+      dbuga("req.myIds="+req.myIds.length);
       reader.webUrl=req.webUrl;
       reader.loadUrl=req.loadUrl;
       reader.included=req.included;
       reader.onloadend = function(evt) {
         result=evt.target.result;
+
         for(var t=0; t<evt.target.targetImageIds.length; t++){
+
           var el=document.getElementById(evt.target.targetImageIds[t]);
           dbuga('el.tagName='+el.tagName+" "+evt.target.targetImageIds[t]);
           if(el.tagName=="CANVAS"){//rotor
