@@ -1607,7 +1607,7 @@ function landscapeAnim(){
         flowDockStartAt=flowAtItem;      
         document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
         faveItem=set[target];
-        dbuga("flow dock "+faveItem.title);
+        //dbuga("flow dock "+faveItem.title);
         var canv=document.getElementById("faveButton");
 
         //draw heart
@@ -1722,7 +1722,7 @@ function portraitAnim(){
         rotorDockStartAt=rotorAtItem;      
         document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
         faveItem=set[target];
-        dbuga("rotor dock "+faveItem.title);
+        //dbuga("rotor dock "+faveItem.title);
         var canv=document.getElementById("faveButton");
         //draw hearts 
         if((isFavorite(faveItem.largeUrl))&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
@@ -1793,7 +1793,7 @@ function selectThumb(num){
   document.getElementById("rotorLabel").innerHTML=(selectedThumbNum+1)+" of "+set.length;
   
   faveItem=set[selectedThumbNum];
-  dbuga("selectThumb "+faveItem.title);
+  //dbuga("selectThumb "+faveItem.title);
 
       //hearts
         var canv=document.getElementById("faveButton");
@@ -2123,11 +2123,11 @@ function parseDataWp(entries, included){
     //dbuga("<br > entry.title ="+entry.title);
     var entryDate=entry.date.split(" ")[0];
     var setKey=entryDate+"_"+entry.title;
-    dbuga("<br >setKey="+setKey +" included="+included);
+    //dbuga("<br >setKey="+setKey +" included="+included);
     var set=[];
     var content=entry.content;
     var items=returnItemsInContent(content);
-    dbuga("items.length="+ items.length);
+    //dbuga("items.length="+ items.length);
     for (var i=0; i<items.length; i++){
       var item=items[i];
       var title= attributeInItem("alt",item);
@@ -2143,7 +2143,7 @@ function parseDataWp(entries, included){
         }
       }
     if(inArray(setKey, setKeys)){
-      dbuga("duplicate "+entry.title);
+      //dbuga("duplicate "+entry.title);
       }
     else{
       if(set.length>0){
