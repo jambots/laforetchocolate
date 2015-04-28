@@ -2038,12 +2038,13 @@ function saveImageDataPhonegap(key, data){
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
   nameStack.push(key);
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
- 
-  tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
+  db.transaction(function(tx) {
+    tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
       dbuga("inserted");
       }, function(e) {
         dbuga("ERROR: " + e.message);
       });
+    });
 
   }
 
