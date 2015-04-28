@@ -1935,7 +1935,7 @@ urlToSrcs = function(imageUrl,imageIds) {
       reader.webUrl=req.webUrl;
       reader.loadUrl=req.loadUrl;
       reader.included=req.included;
-      reader.onloadend = (function(evt) {
+      reader.onloadend = function(evt) {
         var result=evt.target.result;
         dbuga("webUrl="+webUrl);
         dbuga("included="+included);
@@ -1958,7 +1958,7 @@ urlToSrcs = function(imageUrl,imageIds) {
         if(included==false){
           saveImageData(evt.target.webUrl, result);
           }
-        })(
+        }
     
       reader.readAsDataURL(blob);
       window.clearTimeout(loadTimeout);
