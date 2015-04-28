@@ -1937,6 +1937,8 @@ function updateThumbButtons(){
             return function(tx,results){
               //
               dbuga("2 url ="+ url);
+              dbuga("2 result ="+ JSON.stringify(results[0]));
+
               ref.src=results[0].image_data;
               };
             })(thumbRef,thumbUrl), errorCB );
