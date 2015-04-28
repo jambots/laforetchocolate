@@ -1894,8 +1894,9 @@ function updateThumbButtons(){
   var htmlString="";
   rows=1+Math.floor((set.length-1)/cols);
   for (var i=0; i<set.length; i++){
-    htmlString+='<img id="thumbImage~'+set[i].largeUrl+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="spiral.gif" />';
+    htmlString+='<img id="thumbImage~'+set[i].largeUrl+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="icon512.png" />';
     }
+  //spiral.gif
   document.getElementById("thumbsScroller").innerHTML=htmlString;
   for (var i=0; i<set.length; i++){
     var ref=document.getElementById("thumbImage~"+set[i].largeUrl);
@@ -1938,10 +1939,10 @@ function updateThumbButtons(){
               
               dbuga("2 url ="+ url);
               dbuga("2 ref.id ="+ ref.id);
-              dbuga("2 results.rows.length ="+ results.rows.length);
-              dbuga("2 results.rows ="+ JSON.stringify(results.rows));
+              //dbuga("2 results.rows.length ="+ results.rows.length);
+              //dbuga("2 results.rows ="+ JSON.stringify(results.rows));
 
-              ref.src=results.rows[0].image_data;
+              ref.src=results.rows.item(0).image_data;
               };
             })(thumbRef,thumbUrl), errorCB );
           });
