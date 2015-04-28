@@ -331,7 +331,8 @@ function setupDb(){
     db.transaction(function(tx) {
     tx.executeSql('DROP TABLE IF EXISTS test_table');
     tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, image_url text, image_data text)');
-
+    localStorage.setItem("nameStack", JSON.stringify([]));
+ 
     });
     }
   }
