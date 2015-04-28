@@ -1934,15 +1934,15 @@ function updateThumbButtons(){
 
 
           tx.executeSql(sqlString, [], 
-          (function(ref,url){
+          (function(thumbRef, thumbUrl){
             return function(tx,results){
               
-              dbuga("2 url ="+ url);
-              dbuga("2 ref.id ="+ ref.id);
+              dbuga("2 thumbUrl ="+ thumbUrl);
+              dbuga("2 thumbRef.id ="+ thumbRef.id);
               //dbuga("2 results.rows.length ="+ results.rows.length);
               //dbuga("2 results.rows ="+ JSON.stringify(results.rows));
 
-              ref.src=results.rows.item(0).image_data;
+              thumbRef.src=results.rows.item(0).image_data;
               };
             })(thumbRef,thumbUrl), errorCB );
           });
