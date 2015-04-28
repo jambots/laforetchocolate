@@ -1935,14 +1935,14 @@ urlToSrcs = function(imageUrl,imageIds) {
       reader.webUrl=req.webUrl;
       reader.loadUrl=req.loadUrl;
       reader.included=req.included;
-      reader.onloadend = function(evt) {
+      reader.onloadend = (function(evt) {
         var result=evt.target.result;
-        dbuga("evt.target.webUrl="+evt.target.webUrl);
-        dbuga("evt.target.included="+evt.target.included);
-        for(var t=0; t<evt.target.targetImageIds.length; t++){
+        dbuga("webUrl="+webUrl);
+        dbuga("included="+included);
+        for(var t=0; t<targetImageIds.length; t++){
 
-          var el=document.getElementById(evt.target.targetImageIds[t]);
-          dbuga('el.tagName='+el.tagName+" "+evt.target.targetImageIds[t]);
+          var el=document.getElementById(targetImageIds[t]);
+          dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
           if(el.tagName=="CANVAS"){//rotor
             base64toCanv(result, el);
             }
@@ -1958,7 +1958,7 @@ urlToSrcs = function(imageUrl,imageIds) {
         if(included==false){
           saveImageData(evt.target.webUrl, result);
           }
-        }
+        })(
     
       reader.readAsDataURL(blob);
       window.clearTimeout(loadTimeout);
