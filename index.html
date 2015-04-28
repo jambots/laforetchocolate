@@ -1952,12 +1952,10 @@ urlToSrcs = function(imageUrl,imageIds) {
             if(el.tagName=="DIV"){//flow
               el.style.backgroundImage="url('" + result + "')";
               }
-
-            if(included==false){
-              saveImageData(webUrl, result);
-              }
             }
-
+          if(included==false){
+            saveImageData(webUrl, result);
+            }
           }
         })(blob,req.myIds,req.webUrl,req.included);
     
