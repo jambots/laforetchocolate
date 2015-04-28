@@ -1926,7 +1926,8 @@ function updateThumbButtons(){
         var thumbUrl=set[i].thumbUrl;
         dbuga("0 thumbUrl ="+ thumbUrl);
         var thumbRef=ref;
-        db.transaction(function(tx) {
+        (function(thumbRef,thumbUrl){
+          db.transaction(function(tx) {
           dbuga("1 thumbUrl ="+ thumbUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
@@ -1942,6 +1943,7 @@ function updateThumbButtons(){
               thumbRef.src=results.rows.item(0).image_data;
               };
             })(thumbRef,thumbUrl), errorCB );
+           });
           })(thumbRef,thumbUrl);
 
         }
