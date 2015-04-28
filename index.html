@@ -1936,8 +1936,9 @@ urlToSrcs = function(imageUrl,imageIds) {
       reader.loadUrl=req.loadUrl;
       reader.included=req.included;
       reader.onloadend = function(evt) {
-        result=evt.target.result;
-
+        var result=evt.target.result;
+        dbuga("evt.target.webUrl="+evt.target.webUrl);
+        dbuga("evt.target.included="+evt.target.included);
         for(var t=0; t<evt.target.targetImageIds.length; t++){
 
           var el=document.getElementById(evt.target.targetImageIds[t]);
