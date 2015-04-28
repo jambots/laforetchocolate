@@ -1923,7 +1923,10 @@ function updateThumbButtons(){
         //implement db
         dbuga("pg cached set[i].thumbUrl="+set[i].thumbUrl);
         db.transaction(function(tx) {
-          var sqlString='SELECT * FROM test_table WHERE image_url="'+set[i].thumbUrl+'"';
+
+//'SELECT image_data FROM test_table WHERE image_url="http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/030.jpg";'
+          dbuga('set.length '+set.length);
+          var sqlString='SELECT image_data FROM test_table WHERE image_url="'+set[i].thumbUrl+'"';
           dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(ref){
