@@ -1919,7 +1919,7 @@ function updateThumbButtons(){
       else{
         //implement db
         db.transaction(function(tx) {
-          tx.executeSql('SELECT * FROM Items Where test_table.image_url="'+set[i].thumbUrl+'"', [], 
+          tx.executeSql('SELECT * FROM test_table WHERE image_url="'+set[i].thumbUrl+'"', [], 
           (function(ref){
             return function(tx,results){
             ref.src=results[0].imageData;
