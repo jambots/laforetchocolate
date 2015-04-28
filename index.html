@@ -1922,24 +1922,24 @@ function updateThumbButtons(){
       else{
         //implement db
         dbuga("pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
-        var booga="BOOGA";
+        var thumbUrl=set[i].thumbUrl;
+        var thumbRef=ref;
         db.transaction(function(tx) {
-          dbuga("1 booga="+booga);
-//'SELECT image_data FROM test_table WHERE image_url="http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/030.jpg";'
-          dbuga('set.length '+set.length +' i='+i);
-          var sqlString='SELECT image_data FROM test_table WHERE image_url="'+set[i].thumbUrl+'"';
+          dbuga("1 thumbUrl ="+ thumbUrl);
+
+          var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
           dbuga("sqlString="+sqlString);
 
 
 
           tx.executeSql(sqlString, [], 
-          (function(ref,booga){
+          (function(ref,url){
             return function(tx,results){
               //
-              dbuga("2 booga="+booga);
+              dbuga("2 url ="+ url);
               ref.src=results[0].image_data;
               };
-            })(ref,booga), errorCB );
+            })(thumbRef,thumbUrl), errorCB );
           });
 
         }
