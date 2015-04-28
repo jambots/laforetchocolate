@@ -330,20 +330,8 @@ function setupDb(){
 
     db.transaction(function(tx) {
     tx.executeSql('DROP TABLE IF EXISTS test_table');
-    tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, image_url text, image_data text)');
 
-    tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res){
-        dbuga("insertId: " + res.insertId + " -- probably 1");
-        dbuga("rowsAffected: " + res.rowsAffected + " -- should be 1");
-
-        tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
-          dbuga("res.rows.length: " + res.rows.length + " -- should be 1");
-          dbuga("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-        });
-
-      }, function(e) {
-        dbuga("ERROR: " + e.message);
-      });
     });
     }
   }
@@ -1458,8 +1446,13 @@ function prepareRotor(){
         }
       }
     else{//use cached dataUrl
-      base64toCanv(localStorage.getItem(set[i].largeUrl), rotorRef);
-      flowRef.style.backgroundImage="url('" + localStorage.getItem(set[i].largeUrl) + "')";
+      if(web){
+        base64toCanv(localStorage.getItem(set[i].largeUrl), rotorRef);
+        flowRef.style.backgroundImage="url('" + localStorage.getItem(set[i].largeUrl) + "')";
+        }
+      else{
+        //implement db to targets
+        }
       }
     }
   if(loadQueue.length>0){loadTick();}
@@ -1504,6 +1497,8 @@ function updateLoadingCanvas(){
       }
     }
   }
+
+ 
 function saveImageDataLocalStorage(key, data){
   //dbuga("saveImageDataLocalStorage <br>"+key);
   
@@ -1877,6 +1872,9 @@ function showSetSelect(){
   }
 var cols;
 var rows;
+function errorCB(e){
+  dbuga("errorrr");
+  }
 //cur|gif|ico|jpe?g|png|svgz?|webp
 var holdThumbRef;
 function updateThumbButtons(){
@@ -1913,8 +1911,21 @@ function updateThumbButtons(){
         }
       }
     else{//use cached dataUrl
-      //dbuga("use cached "+ thumbUrlSet[i]);
-      ref.src=localStorage.getItem(set[i].thumbUrl);
+      if(web){
+        //dbuga("use cached "+ thumbUrlSet[i]);
+        ref.src=localStorage.getItem(set[i].thumbUrl);
+        }
+      else{
+        //implement db
+        db.transaction(function(tx) {
+          tx.executeSql('SELECT * FROM Items Where test_table.image_url="'+set[i].thumbUrl+'"', [], 
+          (function(ref){
+            return function(tx,results){
+            ref.src=results[0].imageData;
+            };
+          })(ref), errorCB );
+          });
+        }
       }
     }
   document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
@@ -2023,6 +2034,16 @@ function saveImageData(key, data){
   }
 function saveImageDataPhonegap(key, data){
   dbuga("saveImageDataPhonegap "+key);
+  var nameStack=JSON.parse(localStorage.getItem("nameStack"));
+  nameStack.push(key);
+  localStorage.setItem("nameStack", JSON.stringify(nameStack));
+ 
+  tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
+      dbuga("inserted");
+      }, function(e) {
+        dbuga("ERROR: " + e.message);
+      });
+
   }
 
 var scrollsSet=false;
