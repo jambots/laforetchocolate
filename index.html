@@ -316,7 +316,10 @@ function debugSelect(selectString){
             tx.executeSql(selectString, [], function(tx, results) {
               for (var i=0; i < results.rows.length; i++){
                 row = results.rows.item(i);
-                dbuga("row is " + JSON.stringify(row));
+                var rowString=JSON.stringify(row);
+                var temp=row.split("/");
+                rowString=temp.pop();
+                dbuga("row is " + rowString);
                 }
             });
    });
@@ -1918,8 +1921,9 @@ function updateThumbButtons(){
         }
       else{
         //implement db
+        dbuga("pg cached set[i].thumbUrl="+set[i].thumbUrl);
         db.transaction(function(tx) {
-          var sqlString='SELECT * FROM test_table WHERE "image_url"="'+set[i].thumbUrl+'"';
+          var sqlString='SELECT * FROM test_table WHERE image_url="'+set[i].thumbUrl+'"';
           dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(ref){
