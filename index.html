@@ -1925,7 +1925,7 @@ function updateThumbButtons(){
         db.transaction(function(tx) {
 
 //'SELECT image_data FROM test_table WHERE image_url="http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/030.jpg";'
-          dbuga('set.length '+set.length);
+          dbuga('set.length '+set.length +' i='+i);
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+set[i].thumbUrl+'"';
           dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
