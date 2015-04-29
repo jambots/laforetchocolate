@@ -802,11 +802,13 @@ var setReady=false;
 function updateSet(){
   //alert("updateSet()");
   updateSelectButtons();
-  //dbuga('updateSet() so updateThumbButtons('+thumbWidth+')');
+  dbuga('updateSet()');
   prepareFlow();
+  dbuga('prepareFlow() ran');
   prepareRotor();
+  dbuga('prepareRotor() ran');
   updateThumbButtons();
-  //dbuga("updateSet so prepareRotor("+rotorItemWidth+")");
+  dbuga("updateThumbButtons() ran");
 
   setReady=true;
   }
@@ -1461,7 +1463,7 @@ function prepareRotor(){
 
         //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var largeUrl=set[i].largeUrl;
-        dbuga("5 thumbUrl ="+ thumbUrl);
+        dbuga("5 largeUrl ="+ largeUrl);
         (function(refs,largeUrl){
           db.transaction(function(tx) {
           dbuga("6 largeUrl ="+ largeUrl);
