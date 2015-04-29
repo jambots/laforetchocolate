@@ -1462,13 +1462,13 @@ function prepareRotor(){
     
     var largeUrl=set[i].largeUrl;
     if(isCached(largeUrl)==false){
-      if((navigator.connection=="none")&&(inArray(largeUrl,includedImageUrls)==false)){
+      if((navigator.connection.type=="none")&&(inArray(largeUrl,includedImageUrls)==false)){
         dbuga("no connection, not included so defaultBase64 to rotor and flow");
         base64toElement(defaultBase64, rotorRef);
         base64toElement(defaultBase64, flowRef);
         }
       else{
-        dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" navigator.connection:"+navigator.connection+"  not cached, so loadQueue rotor and flow");
+        dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached, so loadQueue rotor and flow");
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
         var targetUrl=set[i].largeUrl;
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
@@ -1958,14 +1958,14 @@ function updateThumbButtons(){
     //dbuga("thumb "+i+" isCached="+isCached(set[i].thumbUrl));
     var thumbUrl=set[i].thumbUrl;
     if(isCached(thumbUrl)==false){
-      if((navigator.connection=="none")&&(inArray(thumbUrl,includedImageUrls)==false)){
+      if((navigator.connection.type=="none")&&(inArray(thumbUrl,includedImageUrls)==false)){
         ref.src=defaultBase64;
         dbuga('thumb no connection, not cached, not included, use default');
         }
       else{// 
         var targetIds=["thumbImage~"+set[i].largeUrl];
         var targetUrl=thumbUrl;
-        dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" navigator.connection:"+navigator.connection+"  not cached so thumb to loadQueue");
+        dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so thumb to loadQueue");
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
         loadQueue.push(loadObj);
         }
@@ -2273,7 +2273,7 @@ function loadDataWp(){
         populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
-        dbuga("Unable to load data navigator.connection:"+navigator.connection);
+        dbuga("Unable to load data connection:"+navigator.connection.type);
         populateSelect();
         updateSet();
         window.clearTimeout(animTimeout);
