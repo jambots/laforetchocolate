@@ -298,13 +298,13 @@ function init(){
   if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
   if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
   if(navigator.userAgent.indexOf('iPad')>-1){agent="ios";}
-  dbuga("agent="+agent);
-  dbuga("web="+web);
+  //dbuga("agent="+agent);
+  //dbuga("web="+web);
   
   if(web){resumeInit();}
   else{
     document.addEventListener("deviceready", resumeInit, false);
-    dbuga("uh... web="+web);
+    //dbuga("uh... web="+web);
     }
   }
 var db;
@@ -330,22 +330,22 @@ function debugSelect(selectString){
 function setupDb(){
   if(web==false){
     db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
-    dbuga('setupDb() ');
+    //dbuga('setupDb() ');
     
     if(localStorage.getItem("tableCreated") == "false"){
-      dbuga('tableCreated=false ');
+      //dbuga('tableCreated=false ');
       db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS test_table');
         tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, image_url text, image_data text)');
         localStorage.setItem("tableCreated", "true");
-        dbuga('tableCreated=true ');
+        //dbuga('tableCreated=true ');
         });
       localStorage.setItem("nameStack", JSON.stringify([]));
       }
     }
   }
 function resumeInit(){
-  dbuga('resumeInit()');
+  //dbuga('resumeInit()');
 
   //retrieves and sets defaultBase64 
   var stashObj = new stashDefault("uploads/default.png");
@@ -363,13 +363,13 @@ function resumeInit(){
   setupEvents();
   includedImageUrls=[];
   parseDataWp(includedFeed, true);
-  dbuga("includedImageUrls ="+includedImageUrls.length);
+  //dbuga("includedImageUrls ="+includedImageUrls.length);
   loadDataWp();
   clearInterval(orientationInterval);
   orientationInterval=setInterval('orientationTick()', 100);
   }
 function saveSetsToLocalStorage(){
-  dbuga("saveSetsToLocalStorage() "+setKeys.length);
+  //dbuga("saveSetsToLocalStorage() "+setKeys.length);
   localStorage.setItem("selectedSetNum", "0");
   localStorage.setItem("sets", JSON.stringify(sets));
   localStorage.setItem("setKeys", JSON.stringify(setKeys));
@@ -398,18 +398,18 @@ function setupLocalStorage(){
 
   if(localStorage.getItem("setKeys") === null) {
     localStorage.setItem("setKeys", JSON.stringify(setKeys));
-    dbuga('localStorage set setKeys:'+setKeys.length);
+    //dbuga('localStorage set setKeys:'+setKeys.length);
     }
   else{
     setKeys=JSON.parse(localStorage.getItem("setKeys"));
-    dbuga('localStorage get setKeys:'+setKeys.length);
+    //dbuga('localStorage get setKeys:'+setKeys.length);
     }
 
   if(localStorage.getItem("nameStack") === null) {
     localStorage.setItem("nameStack", "[]");
     }
   else{
-    dbuga("nameStack "+JSON.parse(localStorage.getItem("nameStack")).length);
+    //dbuga("nameStack "+JSON.parse(localStorage.getItem("nameStack")).length);
     }
   }
 function setupEvents(){
@@ -489,7 +489,7 @@ function saveButton(){
   var fileName=temp[2];
   fileName = fileName.replace(".jpg", "");
 
-  dbuga('saveButton() fileName='+fileName); 
+  //dbuga('saveButton() fileName='+fileName); 
   var temp=season.split("_");
   season=temp[1];
   saveName=season+"_"+fileName;
@@ -530,10 +530,10 @@ function isFavorite(largeUrl){
   return isFav;
   }
 function listFavorites(largeUrl){
-  dbuga("faveItem=" +faveItem.title);
+  //dbuga("faveItem=" +faveItem.title);
   var faveSet=sets["9999_Favorites"];
   for (var f=0; f<faveSet.length; f++){
-    dbuga(faveSet[f].title);
+    //dbuga(faveSet[f].title);
     }
   }
 
@@ -557,7 +557,7 @@ function addFavorite(item){
   listFavorites();
   }
 function faveButton(){
-  dbuga("faveButton faveItem.largeUrl="+faveItem.largeUrl);
+  //dbuga("faveButton faveItem.largeUrl="+faveItem.largeUrl);
   var faveCanv=document.getElementById('faveButton'); 
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
@@ -821,15 +821,15 @@ function hideRotor(){
 var setReady=false;
 function updateSet(){
   //alert("updateSet()");
-  dbuga('updateSet()');
+  //dbuga('updateSet()');
   updateThumbButtons();
-  dbuga("updateThumbButtons() ran");
+  //dbuga("updateThumbButtons() ran");
   updateSelectButtons();
-  dbuga("updateSelectButtons() ran");
+  //dbuga("updateSelectButtons() ran");
   prepareFlow();
-  dbuga('prepareFlow() ran');
+  //dbuga('prepareFlow() ran');
   prepareRotor();
-  dbuga('prepareRotor() ran');
+  //dbuga('prepareRotor() ran');
 
   setReady=true;
   }
@@ -1463,12 +1463,12 @@ function prepareRotor(){
     var largeUrl=set[i].largeUrl;
     if(isCached(largeUrl)==false){
       if((navigator.connection.type=="none")&&(inArray(largeUrl,includedImageUrls)==false)){
-        dbuga("no connection, not included so defaultBase64 to rotor and flow");
+        //dbuga("no connection, not included so defaultBase64 to rotor and flow");
         base64toElement(defaultBase64, rotorRef);
         base64toElement(defaultBase64, flowRef);
         }
       else{
-        dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached, so loadQueue rotor and flow");
+        //dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached, so loadQueue rotor and flow");
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
         var targetUrl=set[i].largeUrl;
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
@@ -1972,7 +1972,7 @@ function updateThumbButtons(){
       }
     else{//use cached dataUrl
       if(web){
-        dbuga("use cached thumb "+ i);
+        //dbuga("use cached thumb "+ i);
         ref.src=localStorage.getItem(set[i].thumbUrl);
         }
       else{
@@ -1983,7 +1983,7 @@ function updateThumbButtons(){
         //dbuga("0 thumbUrl ="+ thumbUrl);
         var thumbRef=ref;
         (function(thumbRef,thumbUrl){
-          db.transaction(function(tx) {
+          //db.transaction(function(tx) {
           //dbuga("1 thumbUrl ="+ thumbUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
@@ -1991,7 +1991,7 @@ function updateThumbButtons(){
           tx.executeSql(sqlString, [], 
           (function(thumbRef, thumbUrl){
             return function(tx,results){
-              dbuga("2 thumb from db");
+              //dbuga("2 thumb from db");
               base64toElement(results.rows.item(0).image_data,thumbRef);
               };
             })(thumbRef,thumbUrl), errorCB );
@@ -2077,7 +2077,7 @@ urlToSrcs = function(imageUrl,imageIds) {
             saveImageData(webUrl, result);
             }
           else{
-            dbuga("included "+loadUrl);
+            //dbuga("included "+loadUrl);
             }
           }
         })(blob,req.myIds,req.loadUrl,req.webUrl,req.included);
@@ -2101,7 +2101,7 @@ urlToSrcs = function(imageUrl,imageIds) {
 }
 var defaultBase64="";
 stashDefault = function(loadUrl) {
-  dbuga("stashDefault "+ loadUrl);
+  //dbuga("stashDefault "+ loadUrl);
   this.status = 0;
   this.loadUrl = loadUrl;
   var req = this;
@@ -2111,7 +2111,7 @@ stashDefault = function(loadUrl) {
     reader.onloadend = (function(theBlob) {
       return function(e) {
       defaultBase64=e.target.result;
-      dbuga('stashed <img width=40 src="'+defaultBase64+'" />');
+      //dbuga('stashed <img width=40 src="'+defaultBase64+'" />');
       }
     })(blob);    
     reader.readAsDataURL(blob);
@@ -2139,13 +2139,13 @@ function saveImageDataPhonegap(key, data){
   nameStack.push(key);
   var temp=key.split("/");
   var fname=temp.pop();
-  dbuga(fname +" save to db" );
+  //dbuga(fname +" save to db" );
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
-  db.transaction(function(tx) {
+  //db.transaction(function(tx) {
     tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
-      dbuga("inserted");
+      //dbuga("inserted");
       }, function(e) {
-        dbuga("not inserted ERROR: " + e.message);
+        //dbuga("not inserted ERROR: " + e.message);
       });
     });
 
@@ -2273,7 +2273,7 @@ function loadDataWp(){
         populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
-        dbuga("Unable to load data connection:"+navigator.connection.type);
+        //dbuga("Unable to load data connection:"+navigator.connection.type);
         populateSelect();
         updateSet();
         window.clearTimeout(animTimeout);
