@@ -352,8 +352,6 @@ function resumeInit(){
   stashObj.LoadPage();
   
 
-  setupDb();
-  setupEvents();
   
   orientationTick();
   //debugGeometry();
@@ -361,6 +359,8 @@ function resumeInit(){
   setKeys=["9999_Favorites"];
   sets={"9999_Favorites":[]};
   setupLocalStorage();
+  setupDb();
+  setupEvents();
   includedImageUrls=[];
   parseDataWp(includedFeed, true);
   dbuga("includedImageUrls ="+includedImageUrls.length);
