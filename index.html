@@ -1965,7 +1965,7 @@ function updateThumbButtons(){
       else{// 
         var targetIds=["thumbImage~"+set[i].largeUrl];
         var targetUrl=thumbUrl;
-        dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so thumb to loadQueue");
+        //dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so thumb to loadQueue");
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
         loadQueue.push(loadObj);
         }
@@ -1983,7 +1983,7 @@ function updateThumbButtons(){
         //dbuga("0 thumbUrl ="+ thumbUrl);
         var thumbRef=ref;
         (function(thumbRef,thumbUrl){
-          //db.transaction(function(tx) {
+          db.transaction(function(tx) {
           //dbuga("1 thumbUrl ="+ thumbUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
