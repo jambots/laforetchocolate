@@ -332,7 +332,7 @@ function setupDb(){
     db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
 
     db.transaction(function(tx) {
-    tx.executeSql('DROP TABLE IF EXISTS test_table');
+    //tx.executeSql('DROP TABLE IF EXISTS test_table');
     tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, image_url text, image_data text)');
     localStorage.setItem("nameStack", JSON.stringify([]));
  
@@ -1922,7 +1922,7 @@ function updateThumbButtons(){
         }
       else{
         //implement db
-        dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
+        //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var thumbUrl=set[i].thumbUrl;
         dbuga("0 thumbUrl ="+ thumbUrl);
         var thumbRef=ref;
@@ -1931,7 +1931,7 @@ function updateThumbButtons(){
           dbuga("1 thumbUrl ="+ thumbUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
-          dbuga("sqlString="+sqlString);
+          //dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(thumbRef, thumbUrl){
             return function(tx,results){
