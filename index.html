@@ -393,6 +393,9 @@ function setupLocalStorage(){
   if(localStorage.getItem("nameStack") === null) {
     localStorage.setItem("nameStack", "[]");
     }
+  else{
+    dbuga("nameStack "+JSON.parse(localStorage.getItem("nameStack")).length);
+    }
   }
 function setupEvents(){
   if((agent=="windows")||(agent=="mac")){
@@ -2118,6 +2121,9 @@ function saveImageDataPhonegap(key, data){
   //dbuga("saveImageDataPhonegap "+key);
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
   nameStack.push(key);
+  var temp=key.split("/");
+  var fname=temp.pop();
+  dbuga(fname +" save to db" );
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
   db.transaction(function(tx) {
     tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
