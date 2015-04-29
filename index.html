@@ -2085,7 +2085,7 @@ urlToSrcs = function(imageUrl,imageIds) {
 }
 var defaultBase64="";
 stashDefault = function(loadUrl) {
-  //dbuga("stashDefault "+ loadUrl);
+  dbuga("stashDefault "+ loadUrl);
   this.status = 0;
   this.loadUrl = loadUrl;
   var req = this;
@@ -2095,6 +2095,7 @@ stashDefault = function(loadUrl) {
     reader.onloadend = (function(theBlob) {
       return function(e) {
       defaultBase64=e.target.result;
+      dbuga('stashed <img src="'+defaultBase64+'" />');
       }
     })(blob);    
     reader.readAsDataURL(blob);
