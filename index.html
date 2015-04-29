@@ -810,14 +810,15 @@ function hideRotor(){
 var setReady=false;
 function updateSet(){
   //alert("updateSet()");
-  updateSelectButtons();
   dbuga('updateSet()');
+  updateThumbButtons();
+  dbuga("updateThumbButtons() ran");
+  updateSelectButtons();
+  dbuga("updateSelectButtons() ran");
   prepareFlow();
   dbuga('prepareFlow() ran');
   prepareRotor();
   dbuga('prepareRotor() ran');
-  updateThumbButtons();
-  dbuga("updateThumbButtons() ran");
 
   setReady=true;
   }
