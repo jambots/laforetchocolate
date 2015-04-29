@@ -2141,7 +2141,7 @@ function saveImageDataPhonegap(key, data){
   var fname=temp.pop();
   //dbuga(fname +" save to db" );
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
-  //db.transaction(function(tx) {
+  db.transaction(function(tx) {
     tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
       //dbuga("inserted");
       }, function(e) {
