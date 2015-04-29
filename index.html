@@ -329,8 +329,8 @@ function debugSelect(selectString){
 
 function setupDb(){
   if(web==false){
+    db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
     if(localStorage.getItem("tableCreated") == "false"){
-      db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
 
       db.transaction(function(tx) {
         tx.executeSql('DROP TABLE IF EXISTS test_table');
@@ -2108,7 +2108,7 @@ stashDefault = function(loadUrl) {
     reader.onloadend = (function(theBlob) {
       return function(e) {
       defaultBase64=e.target.result;
-      dbuga('stashed <img src="'+defaultBase64+'" />');
+      dbuga('stashed <img width=40 src="'+defaultBase64+'" />');
       }
     })(blob);    
     reader.readAsDataURL(blob);
