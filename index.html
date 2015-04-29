@@ -1468,7 +1468,7 @@ function prepareRotor(){
         base64toElement(defaultBase64, flowRef);
         }
       else{
-        dbuga(i + " included or connected, not cached, so loadQueue rotor and flow");
+        dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" navigator.connection:"+navigator.connection+"  not cached, so loadQueue rotor and flow");
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
         var targetUrl=set[i].largeUrl;
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
@@ -1965,7 +1965,7 @@ function updateThumbButtons(){
       else{// 
         var targetIds=["thumbImage~"+set[i].largeUrl];
         var targetUrl=thumbUrl;
-        dbuga(i+" thumb to loadQueue");
+        dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" navigator.connection:"+navigator.connection+"  not cached so thumb to loadQueue");
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
         loadQueue.push(loadObj);
         }
