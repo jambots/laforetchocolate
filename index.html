@@ -1432,32 +1432,32 @@ function prepareRotor(){
     ctx.strokeStyle="blue";
     ctx.lineWidth=4;
     //ctx.strokeRect(0,0,rotorRef.width,rotorRef.height);
-    var seti=set[i].largeUrl;
-      var context = rotorBackRef.getContext('2d');
-      var maxWidth = rotorItemWidth*.8;
-      var lineHeight = rotorItemWidth/10;
-      var x = (rotorItemWidth) / 2;
-      var y = lineHeight*2;
-      context.font = rotorItemWidth/14+'pt engoth';
-      context.fillStyle = '#000';
-      context.strokeStyle = '#000';
-      context.lineWidth = lineHeight/40;
-      context.textAlign="center";
-      context.textBaseline="middle";
-      var titleLines=wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
-      context.font = rotorItemWidth/14+'pt filoital';
-      y=lineHeight*(2.5+titleLines);
-      var descLines=wrapText(context, set[i].desc, x, y, maxWidth, lineHeight,false);
+    var context = rotorBackRef.getContext('2d');
+    var maxWidth = rotorItemWidth*.8;
+    var lineHeight = rotorItemWidth/10;
+    var x = (rotorItemWidth) / 2;
+    var y = lineHeight*2;
+    context.font = rotorItemWidth/14+'pt engoth';
+    context.fillStyle = '#000';
+    context.strokeStyle = '#000';
+    context.lineWidth = lineHeight/40;
+    context.textAlign="center";
+    context.textBaseline="middle";
+    var titleLines=wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
+    context.font = rotorItemWidth/14+'pt filoital';
+    y=lineHeight*(2.5+titleLines);
+    var descLines=wrapText(context, set[i].desc, x, y, maxWidth, lineHeight,false);
 
     
-    if(isCached(set[i].largeUrl)==false){
-      if(dataLoaded==false){
-        dbuga("no connection so defaultBase64 to rotor and flow");
+    var largeUrl=set[i].largeUrl;
+    if(isCached(largeUrl)==false){
+      if((dataLoaded==false)&&(inArray(largeUrl,includedImageUrls)==false)){
+        dbuga("no connection, not included so defaultBase64 to rotor and flow");
         base64toElement(defaultBase64, rotorRef);
         base64toElement(defaultBase64, flowRef);
         }
       else{
-        dbuga(i + " is cached false and dataLoaded true so loadQueue rotor and flow");
+        dbuga(i + " included or connected, not cached, so loadQueue rotor and flow");
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
         var targetUrl=set[i].largeUrl;
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
@@ -1945,23 +1945,23 @@ function updateThumbButtons(){
   for (var i=0; i<set.length; i++){
     var ref=document.getElementById("thumbImage~"+set[i].largeUrl);
     //dbuga("thumb "+i+" isCached="+isCached(set[i].thumbUrl));
-    if(isCached(set[i].thumbUrl)==false){
-      if(dataLoaded){ // equivalent to has connection
-        // Create XHR, BlobBuilder and FileReader objects
-        var targetIds=["thumbImage~"+set[i].largeUrl];
-        var targetUrl=set[i].thumbUrl;
-        //dbuga(i+" targetUrl= "+ targetUrl);
-        var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
-        //dbuga("loadObj="+JSON.stringify(loadObj));
-        loadQueue.push(loadObj);
-        }
-      else{// dataLoaded=false;
+    var thumbUrl=set[i].thumbUrl;
+    if(isCached(thumbUrl)==false){
+      if((dataLoaded==false)&&(inArray(thumbUrl,includedImageUrls)==false)){
         ref.src=defaultBase64;
+        dbuga('thumb no connection, not cached, not included, use default');
+        }
+      else{// 
+        var targetIds=["thumbImage~"+set[i].largeUrl];
+        var targetUrl=thumbUrl;
+        dbuga(i+" thumb to loadQueue");
+        var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
+        loadQueue.push(loadObj);
         }
       }
     else{//use cached dataUrl
       if(web){
-        //dbuga("use cached "+ thumbUrlSet[i]);
+        dbuga("use cached thumb "+ i);
         ref.src=localStorage.getItem(set[i].thumbUrl);
         }
       else{
