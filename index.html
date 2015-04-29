@@ -1963,19 +1963,13 @@ function updateThumbButtons(){
         var thumbRef=ref;
         (function(thumbRef,thumbUrl){
           db.transaction(function(tx) {
-          dbuga("1 thumbUrl ="+ thumbUrl);
-
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
           //dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(thumbRef, thumbUrl){
             return function(tx,results){
-              dbuga("2 thumbUrl ="+ thumbUrl);
-              dbuga("2 thumbRef.id ="+ thumbRef.id);
-              //dbuga("2 results.rows.length ="+ results.rows.length);
-              //dbuga("2 results.rows ="+ JSON.stringify(results.rows));
-
-              thumbRef.src=results.rows.item(0).image_data;
+              dbuga("2 thumb from db);
+              base64toElement(results.rows.item(0).image_data,thumbRef);
               };
             })(thumbRef,thumbUrl), errorCB );
            });
@@ -2085,7 +2079,7 @@ urlToSrcs = function(imageUrl,imageIds) {
 }
 var defaultBase64="";
 stashDefault = function(loadUrl) {
-  dbuga("stashDefault "+ loadUrl);
+  //dbuga("stashDefault "+ loadUrl);
   this.status = 0;
   this.loadUrl = loadUrl;
   var req = this;
@@ -2117,7 +2111,7 @@ function saveImageData(key, data){
     }
   }
 function saveImageDataPhonegap(key, data){
-  dbuga("saveImageDataPhonegap "+key);
+  //dbuga("saveImageDataPhonegap "+key);
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
   nameStack.push(key);
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
