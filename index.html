@@ -1478,6 +1478,16 @@ function prepareRotor(){
               for(var r=0; r<refs.length; r++){
                 
                 dbuga(" 8 tagName ="+ refs[r].tagName);
+                if(refs[r].tagName=="CANVAS"){//rotor
+                  base64toCanv(results.rows.item(0).image_data, refs[r]);
+                  }
+                if(refs[r].tagName=="IMG"){//thumb
+                  refs[r].src=results.rows.item(0).image_data;
+                  }
+                if(refs[r].tagName=="DIV"){//flow
+                  refs[r].style.backgroundImage="url('" + results.rows.item(0).image_data + "')";
+                  }
+
                 }
               //thumbRef.src=results.rows.item(0).image_data;
               };
