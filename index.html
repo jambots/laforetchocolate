@@ -9,7 +9,7 @@
 <meta name = "apple-mobile-web-app-capable" content = "yes">
 <meta name = "title" content = "La Forêt" /><meta name = "description" content = "La Forêt chocolate" />
 <title>La Forêt</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script src="jquery.min.js"></script>
 <script>
 var web=false;
 </script>
@@ -1456,6 +1456,35 @@ function prepareRotor(){
         }
       else{
         //implement db to targets
+        var refs=[flowRef, rotorRef];
+
+
+        //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
+        var largeUrl=set[i].largeUrl;
+        dbuga("5 thumbUrl ="+ thumbUrl);
+        (function(refs,largeUrl){
+          db.transaction(function(tx) {
+          dbuga("6 largeUrl ="+ largeUrl);
+
+          var sqlString='SELECT image_data FROM test_table WHERE image_url="'+largeUrl+'"';
+          //dbuga("sqlString="+sqlString);
+          tx.executeSql(sqlString, [], 
+          (function(refs, largeUrl){
+            return function(tx,results){
+              dbuga("7 largeUrl ="+ largeUrl);
+              dbuga("7 refs.length ="+ refs.length);
+              for(var r=0; r<refs.length; r++){
+                
+                dbuga(" 8 tagName ="+ refs[r].tagName);
+                }
+              //thumbRef.src=results.rows.item(0).image_data;
+              };
+            })(refs,largeUrl), errorCB );
+           });
+          })(refs,largeUrl);
+
+
+
         }
       }
     }
@@ -1922,6 +1951,7 @@ function updateThumbButtons(){
         }
       else{
         //implement db
+
         //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var thumbUrl=set[i].thumbUrl;
         dbuga("0 thumbUrl ="+ thumbUrl);
