@@ -329,20 +329,21 @@ function debugSelect(selectString){
 
 function setupDb(){
   if(web==false){
-    db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
+    if(localStorage.getItem("tableCreated") == "false"){
+      db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
 
-    db.transaction(function(tx) {
-    //tx.executeSql('DROP TABLE IF EXISTS test_table');
-    tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, image_url text, image_data text)');
+      db.transaction(function(tx) {
+        //tx.executeSql('DROP TABLE IF EXISTS test_table');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, image_url text, image_data text)');
+        localStorage.setItem("tableCreated", "true");
+      });
     localStorage.setItem("nameStack", JSON.stringify([]));
- 
-    });
     }
   }
 function resumeInit(){
   dbuga('resumeInit()');
 
-  stashDefault("uploads/default.png");
+  //retrieves and sets defaultBase64 
   var stashObj = new stashDefault("uploads/default.png");
   stashObj.LoadPage();
   
@@ -370,6 +371,12 @@ function saveSetsToLocalStorage(){
   localStorage.setItem("setKeys", JSON.stringify(setKeys));
   }
 function setupLocalStorage(){
+  if(localStorage.getItem("tableCreated") === null) {
+    localStorage.setItem("tableCreated", "false");
+    }
+  else{
+    selectedSetNum=Number(localStorage.getItem("selectedSetNum"));
+    }
 
   if(localStorage.getItem("selectedSetNum") === null) {
     localStorage.setItem("selectedSetNum", "0");
