@@ -1444,10 +1444,12 @@ function prepareRotor(){
     
     if(isCached(set[i].largeUrl)==false){
       if(dataLoaded==false){
+        dbuga("no connection so defaultBase64 to rotor and flow");
         base64toElement(defaultBase64, rotorRef);
         base64toElement(defaultBase64, flowRef);
         }
       else{
+        dbuga(i + " is cached so loadQueue rotor and flow");
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
         var targetUrl=set[i].largeUrl;
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
@@ -1466,21 +1468,21 @@ function prepareRotor(){
 
         //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var largeUrl=set[i].largeUrl;
-        dbuga("5 largeUrl ="+ largeUrl);
+        //dbuga("5 largeUrl ="+ largeUrl);
         (function(refs,largeUrl){
           db.transaction(function(tx) {
-          dbuga("6 largeUrl ="+ largeUrl);
+          //dbuga("6 largeUrl ="+ largeUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+largeUrl+'"';
           //dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(refs, largeUrl){
             return function(tx,results){
-              dbuga("7 largeUrl ="+ largeUrl);
-              dbuga("7 refs.length ="+ refs.length);
+              //dbuga("7 largeUrl ="+ largeUrl);
+              //dbuga("7 refs.length ="+ refs.length);
               for(var r=0; r<refs.length; r++){
                 
-                dbuga(" 8 tagName ="+ refs[r].tagName);
+                dbuga("from db to tagName ="+ refs[r].tagName);
                 base64toElement(results.rows.item(0).image_data, refs[r]);
                 }
               };
@@ -1963,12 +1965,14 @@ function updateThumbButtons(){
         var thumbRef=ref;
         (function(thumbRef,thumbUrl){
           db.transaction(function(tx) {
+          dbuga("1 thumbUrl ="+ thumbUrl);
+
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
           //dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(thumbRef, thumbUrl){
             return function(tx,results){
-              dbuga("2 thumb from db);
+              dbuga("2 thumb from db");
               base64toElement(results.rows.item(0).image_data,thumbRef);
               };
             })(thumbRef,thumbUrl), errorCB );
