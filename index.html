@@ -333,11 +333,12 @@ function setupDb(){
       db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
 
       db.transaction(function(tx) {
-        //tx.executeSql('DROP TABLE IF EXISTS test_table');
+        tx.executeSql('DROP TABLE IF EXISTS test_table');
         tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, image_url text, image_data text)');
         localStorage.setItem("tableCreated", "true");
-      });
-    localStorage.setItem("nameStack", JSON.stringify([]));
+        });
+      localStorage.setItem("nameStack", JSON.stringify([]));
+      }
     }
   }
 function resumeInit(){
