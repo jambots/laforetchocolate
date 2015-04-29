@@ -352,7 +352,7 @@ function resumeInit(){
   setKeys=["9999_Favorites"];
   sets={"9999_Favorites":[]};
   setupLocalStorage();
-  includedImageUrls=["uploads/default.png"];
+  includedImageUrls=[];
   parseDataWp(includedFeed, true);
   dbuga("includedImageUrls ="+includedImageUrls.length);
   loadDataWp();
@@ -1444,7 +1444,8 @@ function prepareRotor(){
     
     if(isCached(set[i].largeUrl)==false){
       if(dataLoaded==false){
-        ref.src="unnabletoloadimages.jpg";
+        base64toElement(defaultBase64, rotorRef);
+        base64toElement(defaultBase64, flowRef);
         }
       else{
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
@@ -1927,7 +1928,7 @@ function updateThumbButtons(){
   var htmlString="";
   rows=1+Math.floor((set.length-1)/cols);
   for (var i=0; i<set.length; i++){
-    htmlString+='<img id="thumbImage~'+set[i].largeUrl+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="icon512.png" />';
+    htmlString+='<img id="thumbImage~'+set[i].largeUrl+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="'+defaultBase64+'" />';
     }
   //spiral.gif
   document.getElementById("thumbsScroller").innerHTML=htmlString;
@@ -1945,7 +1946,7 @@ function updateThumbButtons(){
         loadQueue.push(loadObj);
         }
       else{// dataLoaded=false;
-        ref.src="unnabletoloadimages.jpg";
+        ref.src=defaultBase64;
         }
       }
     else{//use cached dataUrl
@@ -2082,7 +2083,7 @@ urlToSrcs = function(imageUrl,imageIds) {
     r.send (null);
   }
 }
-
+var defaultBase64="";
 stashDefault = function(loadUrl) {
   dbuga("stashDefault "+ loadUrl);
   this.status = 0;
