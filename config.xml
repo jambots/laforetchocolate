@@ -20,7 +20,7 @@
 <gap:splash src="splash960.png" />
 <gap:plugin name="org.apache.cordova.device" version="0.2.12" />
 <gap:plugin name="org.apache.cordova.media" version="0.2.8" />
-<gap:plugin name="org.apache.cordova.network-information" />
+<gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
 <gap:plugin name="org.apache.cordova.file" version="1.0.1" />
 <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
 <gap:plugin name="org.devgeeks.canvas2imageplugin" version="0.6.0" />

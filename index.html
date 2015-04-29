@@ -1462,7 +1462,7 @@ function prepareRotor(){
     
     var largeUrl=set[i].largeUrl;
     if(isCached(largeUrl)==false){
-      if((dataLoaded==false)&&(inArray(largeUrl,includedImageUrls)==false)){
+      if((navigator.connection=="none")&&(inArray(largeUrl,includedImageUrls)==false)){
         dbuga("no connection, not included so defaultBase64 to rotor and flow");
         base64toElement(defaultBase64, rotorRef);
         base64toElement(defaultBase64, flowRef);
@@ -1958,7 +1958,7 @@ function updateThumbButtons(){
     //dbuga("thumb "+i+" isCached="+isCached(set[i].thumbUrl));
     var thumbUrl=set[i].thumbUrl;
     if(isCached(thumbUrl)==false){
-      if((dataLoaded==false)&&(inArray(thumbUrl,includedImageUrls)==false)){
+      if((navigator.connection=="none")&&(inArray(thumbUrl,includedImageUrls)==false)){
         ref.src=defaultBase64;
         dbuga('thumb no connection, not cached, not included, use default');
         }
@@ -2273,7 +2273,7 @@ function loadDataWp(){
         populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
-        alert("getJSON failed, status: " + textStatus + ", error: "+error)
+        dbuga("Unable to load data navigator.connection:"+navigator.connection);
         populateSelect();
         updateSet();
         window.clearTimeout(animTimeout);
