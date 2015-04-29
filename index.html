@@ -1977,11 +1977,11 @@ function updateThumbButtons(){
 
         //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var thumbUrl=set[i].thumbUrl;
-        dbuga("0 thumbUrl ="+ thumbUrl);
+        //dbuga("0 thumbUrl ="+ thumbUrl);
         var thumbRef=ref;
         (function(thumbRef,thumbUrl){
           db.transaction(function(tx) {
-          dbuga("1 thumbUrl ="+ thumbUrl);
+          //dbuga("1 thumbUrl ="+ thumbUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
           //dbuga("sqlString="+sqlString);
