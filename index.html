@@ -1452,7 +1452,7 @@ function prepareRotor(){
         base64toElement(defaultBase64, flowRef);
         }
       else{
-        dbuga(i + " is cached so loadQueue rotor and flow");
+        dbuga(i + " is cached false and dataLoaded true so loadQueue rotor and flow");
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
         var targetUrl=set[i].largeUrl;
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
@@ -2048,13 +2048,9 @@ urlToSrcs = function(imageUrl,imageIds) {
       var reader = new FileReader();
       reader.targetImageIds=req.myIds;
       //dbuga("req.myIds="+req.myIds.length);
-      reader.onloadend = (function(theBlob,targetImageIds,webUrl,included) {
+      reader.onloadend = (function(theBlob,targetImageIds,loadUrl,webUrl,included) {
         return function(e) {
           var result=e.target.result;
-          //dbuga("targetImageIds.length ="+ targetImageIds.length);
-          //dbuga("webUrl="+webUrl);
-          //dbuga("included="+included);
-
 
           for(var t=0; t<targetImageIds.length; t++){
             var el=document.getElementById(targetImageIds[t]);
@@ -2064,8 +2060,11 @@ urlToSrcs = function(imageUrl,imageIds) {
           if(included==false){
             saveImageData(webUrl, result);
             }
+          else{
+            dbuga("included "+loadUrl);
+            }
           }
-        })(blob,req.myIds,req.webUrl,req.included);
+        })(blob,req.myIds,req.loadUrl,req.webUrl,req.included);
     
       reader.readAsDataURL(blob);
       window.clearTimeout(loadTimeout);
