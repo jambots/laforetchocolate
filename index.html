@@ -343,6 +343,10 @@ function resumeInit(){
   dbuga('resumeInit()');
 
   stashDefault("uploads/default.png");
+  var stashObj = new stashDefault("uploads/default.png");
+  stashObj.LoadPage();
+  
+
   setupDb();
   setupEvents();
   
