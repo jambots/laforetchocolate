@@ -330,6 +330,8 @@ function debugSelect(selectString){
 function setupDb(){
   if(web==false){
     db = window.sqlitePlugin.openDatabase({name: "my.db", location: 2});
+    dbuga('setupDb() ');
+    
     if(localStorage.getItem("tableCreated") == "false"){
       dbuga('tableCreated=false ');
       db.transaction(function(tx) {
@@ -1930,7 +1932,7 @@ function showSetSelect(){
 var cols;
 var rows;
 function errorCB(e){
-  dbuga("errorrr");
+  dbuga("errorrr "+e);
   }
 //cur|gif|ico|jpe?g|png|svgz?|webp
 var holdThumbRef;
@@ -2143,7 +2145,7 @@ function saveImageDataPhonegap(key, data){
     tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
       dbuga("inserted");
       }, function(e) {
-        dbuga("ERROR: " + e.message);
+        dbuga("not inserted ERROR: " + e.message);
       });
     });
 
