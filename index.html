@@ -1261,7 +1261,7 @@ function thumbRelease(i){
   var d = new Date();
   var deltaT=d.getTime()-thumbTappedMs;
   if(deltaT<200){
-    //dbuga("thumbRelease("+i+") "+thumbTappedNum);
+    dbuga("thumbRelease("+i+") so selectThumb "+thumbTappedNum);
     selectThumb(thumbTappedNum);
     }
   thumbTappedMs=-1;
@@ -1913,8 +1913,8 @@ function selectThumb(num){
   rotorAtItem=num;
   rotorDockStartAt=rotorAtItem;      
 
+  dbuga("selectThumb("+num+") rotorUp set "+ rotorUp +" to true");
   rotorUp=true;
-  //dbuga("selectThumb("+num+") flowAtItem="+flowAtItem);
   document.getElementById('thumbsUi').style.display="none";
   document.getElementById('rotorUi').style.display="block";
   selectedThumbNum=num;
