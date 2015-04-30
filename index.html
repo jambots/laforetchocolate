@@ -511,7 +511,7 @@ function saveButton(){
 
     window.canvas2ImagePlugin.saveImageDataToLibrary(
         function(msg){
-            uiMessage('Saved to Device');
+            uiMessage(faveItem.title+' saved to device');
         },
         function(err){
             uiMessage('Error: '+err);
@@ -831,6 +831,7 @@ function hideRotor(){
   }
 var setReady=false;
 function updateSet(){
+  //alert("updateSet()");
   //dbuga('updateSet()');
   updateThumbButtons();
   //dbuga("updateThumbButtons() ran");
@@ -1639,6 +1640,19 @@ function clip(num){
   }
 var animTimeout;
 var faveItem;
+function updateRotorButtons(){
+        var canv=document.getElementById("saveButton");
+        roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "G", "#fff", Math.floor(grid*2)+"px signify", false);
+        var canv=document.getElementById("faveButton");
+
+        //draw heart
+        if((isFavorite(faveItem.largeUrl))&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
+          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        else{
+          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+  }
 
 function animTick(){
   window.clearTimeout(animTimeout);
@@ -1817,16 +1831,6 @@ function portraitAnim(){
         faveItem=set[target];
         //dbuga("rotor dock "+faveItem.title);
         updateRotorButtons();
-/*
-        var canv=document.getElementById("faveButton");
-        //draw hearts 
-        if((isFavorite(faveItem.largeUrl))&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
-          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-          }
-        else{
-          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-          }
-*/
         }
       }
     }
@@ -1892,16 +1896,6 @@ function selectThumb(num){
   faveItem=set[selectedThumbNum];
   //dbuga("selectThumb "+faveItem.title);
   updateRotorButtons();
-/*
-      //hearts
-        var canv=document.getElementById("faveButton");
-        if(isFavorite(faveItem.largeUrl)){
-          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-          }
-        else{
-          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-          }
-*/
   }
 var infoUp=false;
 function hideInfo(){
@@ -2153,7 +2147,7 @@ function saveImageDataPhonegap(key, data){
     tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
       //dbuga("inserted");
       }, function(e) {
-        dbuga("not inserted ERROR: " + e.message);
+        //dbuga("not inserted ERROR: " + e.message);
       });
     });
 
