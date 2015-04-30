@@ -290,7 +290,6 @@ font-family: 'Arial';
 var ddiv;
 var sdiv
 var agent="unknown";
-
 function init(){
   ddiv=document.getElementById('debugDiv');
   sdiv=document.getElementById('setSelectScroller'); 
@@ -667,6 +666,10 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
 
       populateSelect(); //will style ui then refresh scrolls
+      if(orient == portrait){
+        dbuga('just learned portrait dimension so updateSet()');
+        updateSet();
+        }
       }
     }
   if(orient != prevOrient){
@@ -681,7 +684,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       flowAtItem=rotorAtItem;
       flowDockStartAt=rotorAtItem;
       flowProg=0;
-      dbuga('changed to landscape flowAtItem='+ flowAtItem +' flowDockStartAt='+ flowDockStartAt);
+      //dbuga('changed to landscape flowAtItem='+ flowAtItem +' flowDockStartAt='+ flowDockStartAt);
       }
     }
   cellsAcross=32;
@@ -1275,7 +1278,7 @@ function flowRelease(){
   if(deltaX<landscapeScreenWidth/16){ 
   //if(Math.abs(flowDockStartAt-flowAtItem)<.1){// barely dragged
     flowAtItem=flowDockStartAt;
-    dbuga("barely set flowAtItem="+flowAtItem);
+    //dbuga("barely set flowAtItem="+flowAtItem);
     flowProg=0;
     if(flip){
       flip=false;
@@ -1517,7 +1520,7 @@ function prepareRotor(){
               //dbuga("7 refs.length ="+ refs.length);
               for(var r=0; r<refs.length; r++){
                 
-                dbuga("from db to tagName ="+ refs[r].tagName);
+                //dbuga("from db to tagName ="+ refs[r].tagName);
                 base64toElement(results.rows.item(0).image_data, refs[r]);
                 }
               };
@@ -1689,10 +1692,10 @@ function landscapeAnim(){
     var deltaX=mouseX-flowDragStartX;
     var deltaItem=deltaX/imgWidth;
     flowAtItem=flowDragStartAt-deltaItem;
-    dbuga("1 touchingFlow set flowAtItem="+flowAtItem);
+    //dbuga("1 touchingFlow set flowAtItem="+flowAtItem);
     if(flowAtItem<-.1){flowAtItem=-.1;}
     if(flowAtItem>set.length-.9){flowAtItem=set.length-.9;}
-    dbuga("1a touchingFlow set flowAtItem="+flowAtItem);
+    //dbuga("1a touchingFlow set flowAtItem="+flowAtItem);
     var d = new Date();
     var deltaT=d.getTime()-flowTappedMs;
     if(deltaT>1000){
@@ -1723,7 +1726,7 @@ function landscapeAnim(){
       var atDelta=target-flowDockStartAt;
       var atDeltaProg=atDelta*(1-flowProg*flowProg);
       flowAtItem=flowDockStartAt+atDeltaProg;
-      dbuga("landscapeAnim flowProg="+flowProg+" set flowAtItem="+flowAtItem);
+      //dbuga("landscapeAnim flowProg="+flowProg+" set flowAtItem="+flowAtItem);
     
       if(flowProg<=0){
         rotorAtItem=flowAtItem; 
@@ -1834,7 +1837,7 @@ function portraitAnim(){
       rotorAtItem=rotorDockStartAt+atDeltaProg;
       if(rotorProg<=0){
         flowAtItem=rotorAtItem;
-        dbuga("rotorProg<=0 set flowAtItem="+flowAtItem);
+        //dbuga("rotorProg<=0 set flowAtItem="+flowAtItem);
     
         rotorDockStartAt=rotorAtItem;      
         document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
@@ -1896,7 +1899,7 @@ function selectThumb(num){
   rotorDockStartAt=rotorAtItem;      
 
   rotorUp=true;
-  dbuga("selectThumb("+num+") flowAtItem="+flowAtItem);
+  //dbuga("selectThumb("+num+") flowAtItem="+flowAtItem);
   document.getElementById('thumbsUi').style.display="none";
   document.getElementById('rotorUi').style.display="block";
   selectedThumbNum=num;
@@ -1944,7 +1947,7 @@ function showSetSelect(){
 var cols;
 var rows;
 function errorCB(e){
-  dbuga("errorrr "+e);
+  uiMessage("error: "+e);
   }
 //cur|gif|ico|jpe?g|png|svgz?|webp
 var holdThumbRef;
@@ -1972,7 +1975,7 @@ function updateThumbButtons(){
     if(isCached(thumbUrl)==false){
       if((navigator.connection.type=="none")&&(inArray(thumbUrl,includedImageUrls)==false)){
         ref.src=defaultBase64;
-        dbuga('thumb no connection, not cached, not included, use default');
+        //dbuga('thumb no connection, not cached, not included, use default');
         }
       else{// 
         var targetIds=["thumbImage~"+set[i].largeUrl];
