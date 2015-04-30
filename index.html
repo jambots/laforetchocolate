@@ -680,6 +680,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     else{
       flowAtItem=rotorAtItem;
       flowDockStartAt=rotorAtItem;
+      flowProg=0;
       dbuga('changed to landscape flowAtItem='+ flowAtItem +' flowDockStartAt='+ flowDockStartAt);
       }
     }
@@ -1722,7 +1723,7 @@ function landscapeAnim(){
       var atDelta=target-flowDockStartAt;
       var atDeltaProg=atDelta*(1-flowProg*flowProg);
       flowAtItem=flowDockStartAt+atDeltaProg;
-      dbuga("landscapeAnim set flowAtItem="+flowAtItem);
+      dbuga("landscapeAnim flowProg="+flowProg+" set flowAtItem="+flowAtItem);
     
       if(flowProg<=0){
         rotorAtItem=flowAtItem; 
