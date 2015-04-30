@@ -1940,7 +1940,8 @@ function showInfo(){
 function hideSetSelect(){
   updateLoadingCanvas();
   dbuga("hideSetSelect() called" +selectUp);
-  selectUp=false; 
+  selectUp=false;
+  dbuga('rotorUp='+rotorUp);
   window.setTimeout('document.getElementById("setSelectDim").style.display="none"', 100);
   }
 
