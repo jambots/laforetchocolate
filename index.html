@@ -1719,6 +1719,9 @@ function landscapeAnim(){
         document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
         faveItem=set[target];
         //dbuga("flow dock "+faveItem.title);
+
+        var canv=document.getElementById("saveButton");
+        roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "G", "#fff", Math.floor(grid*2)+"px signify", false);
         var canv=document.getElementById("faveButton");
 
         //draw heart
