@@ -653,7 +653,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       absScreenHeight=viewportWidth;
       }
     }
-
+  var needsUpdateSet=false;
   if(orient != prevOrient){
     if((portraitKnown)&&(landscapeKnown)&&(bothKnown==false)){
       bothKnown=true;
@@ -662,14 +662,12 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       blingHeight=portraitScreenWidth-landscapeScreenHeight;
       cellsDown=Math.floor((absScreenHeight-blingHeight)/grid);
       //dbuga("blingHeight ="+ blingHeight +' cellsDown:'+cellsDown);
-      flowItemHeight=Math.floor(landscapeScreenHeight*.8);
-      flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
+      //flowItemHeight=Math.floor(landscapeScreenHeight*.8);
+      //flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
 
-      populateSelect(); //will style ui then refresh scrolls
-      if(orient == "portrait"){
-        dbuga('just learned portrait dimension so updateSet()');
-        updateSet();
-        }
+
+      dbuga('just learned both dimension so updateSet() after imageGeometry');
+      needsUpdateSet=true;
       }
     }
   if(orient != prevOrient){
@@ -705,6 +703,10 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     document.getElementById('landscapeMain').style.display="none";
     }
   imageGeometry();
+  if(needsUpdateSet){
+    populateSelect(); //will style ui then refresh scrolls
+    updateSet();
+    }
   //debugGeometry();
   //dbuga("measured");
   }
