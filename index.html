@@ -114,10 +114,10 @@ font-family: 'Arial';
   }
 #setSelectModal{
   position:absolute;
-  background-color:#f00;
+  background-color:#00F;
   width:200px;
   height:300px;
-  top:10px;
+  top:-1000px;
   left:10px;
   -webkit-perspective: 1000;
   -webkit-transform: translate3d(0, 0, 0);
@@ -999,7 +999,6 @@ function populateSelect(){
   window.setTimeout("styleUi()", 100);
   if(selectUp){
     document.getElementById('setSelectDim').style.display="block";
-    document.getElementById('setSelectDim').style.left="0";
     }
   }
 function styleUi(){
