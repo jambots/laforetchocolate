@@ -666,7 +666,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
 
       populateSelect(); //will style ui then refresh scrolls
-      if(orient == portrait){
+      if(orient == "portrait"){
         dbuga('just learned portrait dimension so updateSet()');
         updateSet();
         }
