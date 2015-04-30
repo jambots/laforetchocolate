@@ -134,7 +134,7 @@ font-family: 'Arial';
   }
 #setSelectHolder{
   position:absolute;
-  background-color:#eee;
+  background-color:#ccc;
   width:200px;
   height:250px;
   top:50px;
@@ -345,7 +345,7 @@ function setupDb(){
     }
   }
 function resumeInit(){
-  //dbuga('resumeInit()');
+  dbug('');
 
   //retrieves and sets defaultBase64 
   var stashObj = new stashDefault("uploads/default.png");
@@ -494,7 +494,7 @@ function saveButton(){
   season=temp[1];
   saveName=season+"_"+fileName;
   
-  //dbuga('saveName='+saveName);
+            uiMessage('Saving...');
   
   var dstCanvas = document.createElement('canvas');
   dstCanvas.width = rotorItemWidth;
@@ -511,7 +511,7 @@ function saveButton(){
 
     window.canvas2ImagePlugin.saveImageDataToLibrary(
         function(msg){
-            uiMessage(faveItem.title+' saved to device');
+            uiMessage('Saved to Device');
         },
         function(err){
             uiMessage('Error: '+err);
@@ -1642,7 +1642,7 @@ var animTimeout;
 var faveItem;
 function updateRotorButtons(){
         var canv=document.getElementById("saveButton");
-        roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "G", "#fff", Math.floor(grid*2)+"px signify", false);
+          roundRect(canv, "#666", "#222", "G", "#fff", Math.floor(grid*2)+"px signify", false);
         var canv=document.getElementById("faveButton");
 
         //draw heart
