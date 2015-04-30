@@ -969,6 +969,8 @@ function infoCancel(){
 var selectPopulated=false;
 
 function populateSelect(){
+  document.getElementById('setSelectDim').style.display="none";
+
   setKeys=setKeys.sort();
   setKeys=setKeys.reverse();
   selectPopulated=true;
@@ -988,6 +990,9 @@ function populateSelect(){
     }
   sdiv.innerHTML=htmlString;
   window.setTimeout("styleUi()", 100);
+  if(selectUp){
+    document.getElementById('setSelectDim').style.display="block";
+    }
   }
 function styleUi(){
   document.getElementById("infoLabel").style.width=grid*modalWidth/2+"px";
@@ -2287,7 +2292,7 @@ function loadDataWp(){
       parseDataWp(json, false);
       if(setKeys.length>1){selectedSetNum=1;}
         dataLoaded=true;
-        if(orient=="portrait"){document.getElementById('setSelectDim').style.display="none";}
+        //if(orient=="portrait"){document.getElementById('setSelectDim').style.display="none";}
         populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
