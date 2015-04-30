@@ -612,8 +612,8 @@ function orientationTick(){
     //imageGeometry();
     //debugGeometry();
     }
-  dbug('');
-  debugGeometry();
+  //dbug('');
+  //debugGeometry();
   }
 
 var grid=3;
@@ -1939,9 +1939,9 @@ function showInfo(){
 
 function hideSetSelect(){
   updateLoadingCanvas();
-  //dbuga("hideSetSelect() called" +selectUp);
+  dbuga("hideSetSelect() called" +selectUp);
   selectUp=false; 
-  document.getElementById('setSelectDim').style.display="none";
+  window.setTimeout('document.getElementById('setSelectDim').style.display="none"', 100);
   }
 function onBackKeyDown() {
   // Handle the back button
