@@ -511,14 +511,34 @@ function saveButton(){
 
     window.canvas2ImagePlugin.saveImageDataToLibrary(
         function(msg){
-            alert('Saved to Device');
+            message(faveItem.title+' saved to device');
         },
         function(err){
-            alert('Error: '+err);
+            message('Error: '+err);
         },
         dstCanvas
     );
 
+  var canv=document.getElementById("saveButton");
+  canv.width=Math.floor(grid*3);
+  canv.height=Math.floor(grid*3);
+  canv.style.top=grid*.5+"px";
+  canv.style.left=grid*.5+"px";
+  //roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "G", "#fff", Math.floor(grid*2)+"px signify", false);
+  roundRect(canv, "#666", "#66f", "G", "#fff", Math.floor(grid*2)+"px signify", false);
+/*
+        //draw heart
+        if((isFavorite(faveItem.largeUrl))&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
+          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+        else{
+          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
+          }
+*/
+
+  }
+function message(msg){
+  document.getElementById("rotorLabel").innerHTML=msg;
   }
 var unfaveArray=[];
 function isFavorite(largeUrl){
