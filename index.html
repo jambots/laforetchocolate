@@ -2199,7 +2199,9 @@ function initOrRefreshScrolls(){
           tScroll.refresh();
           }
         if(selectUp){
-          document.getElementById('setSelectDim').style.display="block"
+          document.getElementById('setSelectDim').style.display="block";
+         document.getElementById('setSelectDim').style.left="0";
+         document.getElementById('setSelectModal').style.top="10px";
           sScroll.refresh();
           //dbuga(' -- selectUp so sScroll.refresh()');
           }
