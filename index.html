@@ -612,6 +612,8 @@ function orientationTick(){
     //imageGeometry();
     //debugGeometry();
     }
+  dbug('');
+  debugGeometry();
   }
 
 var grid=3;
@@ -740,12 +742,15 @@ var portraitContentAspect=0;
 function debugGeometry(){
 dbug("<br>grid="+ grid);
 
-dbuga("loadQueue="+ loadQueue.length);
-dbuga("modalWidth="+ modalWidth);
-dbuga("modalMargin ="+ modalMargin);
+//dbuga("loadQueue="+ loadQueue.length);
+//dbuga("modalWidth="+ modalWidth);
+//dbuga("modalMargin ="+ modalMargin);
 dbuga("selectWidth="+ selectWidth);
 
-dbuga("web="+ web);
+//dbuga("web="+ web);
+dbuga("flip="+flip);
+dbuga("rotorAtItem="+ rotorAtItem);
+dbuga("flowAtItem="+ flowAtItem);
 dbuga("rotorItemFit="+ rotorItemFit);
 dbuga("portraitKnown="+ portraitKnown);
 dbuga("landscapeKnown ="+ landscapeKnown);
