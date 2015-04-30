@@ -2287,6 +2287,7 @@ function loadDataWp(){
       parseDataWp(json, false);
       if(setKeys.length>1){selectedSetNum=1;}
         dataLoaded=true;
+        if(orient=="portrait"){document.getElementById('setSelectDim').style.display="none";}
         populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
@@ -2442,7 +2443,7 @@ function gestureStart(e){
     <div id="thumbsHolder">
       <div id="thumbsScroller"></div>
     </div>
-    <div id="setSelectDim">
+    <div id="setSelectDim" style="display:none;">
       <div id="setSelectModal">
       <div id="setSelectNavTop">
         <canvas id="setSelectCancel"></canvas>
