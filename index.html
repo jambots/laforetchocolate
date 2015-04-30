@@ -1981,7 +1981,7 @@ function updateThumbButtons(){
   var htmlString="";
   rows=1+Math.floor((set.length-1)/cols);
   for (var i=0; i<set.length; i++){
-    htmlString+='<img id="thumbImage~'+set[i].largeUrl+'" onmousedown="thumbClick('+i+')" onmouseup="thumbRelease('+i+'); return false;" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+'); return false;" width='+thumbWidth+' src="'+defaultBase64+'" />';
+    htmlString+='<img id="thumbImage~'+set[i].largeUrl+'" ontouchstart="thumbTap('+i+')" ontouchend="thumbRelease('+i+');" width='+thumbWidth+' src="'+defaultBase64+'" />';
     }
   //spiral.gif
   document.getElementById("thumbsScroller").innerHTML=htmlString;
