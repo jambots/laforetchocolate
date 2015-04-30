@@ -751,6 +751,8 @@ dbuga("selectWidth="+ selectWidth);
 dbuga("flip="+flip);
 dbuga("rotorAtItem="+ rotorAtItem);
 dbuga("flowAtItem="+ flowAtItem);
+dbuga("rotorAtItem="+ rotorAtItem);
+dbuga("flowAtItem="+ flowAtItem);
 dbuga("rotorItemFit="+ rotorItemFit);
 dbuga("portraitKnown="+ portraitKnown);
 dbuga("landscapeKnown ="+ landscapeKnown);
@@ -1742,6 +1744,7 @@ function landscapeAnim(){
     
       if(flowProg<=0){
         rotorAtItem=flowAtItem; 
+        rotorDockStartAt=rotorAtItem;
         flowDockStartAt=flowAtItem;      
         document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
         faveItem=set[target];
