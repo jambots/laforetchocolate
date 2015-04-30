@@ -117,7 +117,7 @@ font-family: 'Arial';
   background-color:#00F;
   width:200px;
   height:300px;
-  top:-100px;
+  top:-1000px;
   left:10px;
   -webkit-perspective: 1000;
   -webkit-transform: translate3d(0, 0, 0);
@@ -2201,7 +2201,7 @@ function initOrRefreshScrolls(){
         if(selectUp){
           document.getElementById('setSelectDim').style.display="block";
          document.getElementById('setSelectDim').style.left="0";
-         document.getElementById('setSelectModal').style.top="10px";
+           document.getElementById("setSelectModal").style.top=grid*modalMargin+"px";
           sScroll.refresh();
           //dbuga(' -- selectUp so sScroll.refresh()');
           }
