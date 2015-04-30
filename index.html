@@ -511,10 +511,10 @@ function saveButton(){
 
     window.canvas2ImagePlugin.saveImageDataToLibrary(
         function(msg){
-            message(faveItem.title+' saved to device');
+            uiMessage('Saved to Device');
         },
         function(err){
-            message('Error: '+err);
+            uiMessage('Error: '+err);
         },
         dstCanvas
     );
@@ -526,18 +526,9 @@ function saveButton(){
   canv.style.left=grid*.5+"px";
   //roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "G", "#fff", Math.floor(grid*2)+"px signify", false);
   roundRect(canv, "#666", "#66f", "G", "#fff", Math.floor(grid*2)+"px signify", false);
-/*
-        //draw heart
-        if((isFavorite(faveItem.largeUrl))&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
-          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-          }
-        else{
-          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-          }
-*/
 
   }
-function message(msg){
+function uiMessage(msg){
   document.getElementById("rotorLabel").innerHTML=msg;
   }
 var unfaveArray=[];
@@ -840,7 +831,6 @@ function hideRotor(){
   }
 var setReady=false;
 function updateSet(){
-  //alert("updateSet()");
   //dbuga('updateSet()');
   updateThumbButtons();
   //dbuga("updateThumbButtons() ran");
@@ -1719,18 +1709,7 @@ function landscapeAnim(){
         document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
         faveItem=set[target];
         //dbuga("flow dock "+faveItem.title);
-
-        var canv=document.getElementById("saveButton");
-        roundRect(canv, "rgba(0,0,0,0)", "rgba(255,0,0,0)", "G", "#fff", Math.floor(grid*2)+"px signify", false);
-        var canv=document.getElementById("faveButton");
-
-        //draw heart
-        if((isFavorite(faveItem.largeUrl))&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
-          roundRect(canv, "#666", "#66f", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-          }
-        else{
-          roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
-          }
+        updateRotorButtons();
         }
       }
     }
@@ -1837,6 +1816,8 @@ function portraitAnim(){
         document.getElementById("rotorLabel").innerHTML=(target+1)+" of "+set.length;
         faveItem=set[target];
         //dbuga("rotor dock "+faveItem.title);
+        updateRotorButtons();
+/*
         var canv=document.getElementById("faveButton");
         //draw hearts 
         if((isFavorite(faveItem.largeUrl))&&(unfaveArray.indexOf(faveItem.largeUrl) == -1)){
@@ -1845,6 +1826,7 @@ function portraitAnim(){
         else{
           roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
           }
+*/
         }
       }
     }
@@ -1909,7 +1891,8 @@ function selectThumb(num){
   
   faveItem=set[selectedThumbNum];
   //dbuga("selectThumb "+faveItem.title);
-
+  updateRotorButtons();
+/*
       //hearts
         var canv=document.getElementById("faveButton");
         if(isFavorite(faveItem.largeUrl)){
@@ -1918,6 +1901,7 @@ function selectThumb(num){
         else{
           roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
           }
+*/
   }
 var infoUp=false;
 function hideInfo(){
@@ -2169,7 +2153,7 @@ function saveImageDataPhonegap(key, data){
     tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
       //dbuga("inserted");
       }, function(e) {
-        //dbuga("not inserted ERROR: " + e.message);
+        dbuga("not inserted ERROR: " + e.message);
       });
     });
 
