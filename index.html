@@ -376,10 +376,6 @@ function resumeInit(){
   loadDataWp();
   clearInterval(orientationInterval);
   orientationInterval=setInterval('orientationTick()', 100);
-  dbuga('begin here?');
-  window.clearTimeout(animTimeout);
-  animTimeout=window.setTimeout("animTick()", 25);
-
   }
 function saveSetsToLocalStorage(){
   //dbuga("saveSetsToLocalStorage() "+setKeys.length);
@@ -889,7 +885,7 @@ function updateSet(){
   //dbuga('prepareFlow() ran');
   prepareRotor();
   //dbuga('prepareRotor() ran');
-
+  animTick();
   setReady=true;
   }
 var loadQueue=[];
