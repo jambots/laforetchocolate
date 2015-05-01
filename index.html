@@ -2088,8 +2088,31 @@ function base64toElement(result, el){
   }
   if(el.tagName=="IMG"){//thumb
     el.src=result;
-  }
-  if(el.tagName=="DIV"){//flow
+    var iw=this.width;
+    var ih=this.height;
+    var ia=iw/ih;
+    var ew=thumbWidth;
+    var eh=thumbWidth/sourceAspect;
+    var ea=ew/eh;
+    var topPad=0;
+    var leftPad=0;
+    var drawWidth=ew;
+    var drawHeight=eh;
+
+    if(ia>ea){//image wider, pad top, fit width
+      drawHeight=drawWidth/ia;
+      topPad=(eh-drawHeight)/2;
+      }
+    else{//image taller, pad left, fit height
+      dbuga(Math.floor(drawWidth)+" x "+Math.floor(drawHeight));
+      drawWidth=drawHeight*ia;
+      leftPad=(ew-drawWidth)/2;
+      }
+    el.width=drawWidth;
+    el.height=drawHeight;
+    el.style.margin=topPad+"px "+leftPad+"px "+ topPad+"px "+leftPad+"px ";
+    }
+  if(el.tagName=="DIV"){//flow - background automatically contained and centered
       el.style.backgroundImage="url('" + result + "')";
     }
   }
@@ -2113,15 +2136,15 @@ function base64toCanv(data, canv){
         topPad=(eh-drawHeight)/2;
         }
       else{//image taller, pad left, fit height
-        dbuga(Math.floor(drawWidth)+" x "+Math.floor(drawHeight));
+        //dbuga(Math.floor(drawWidth)+" x "+Math.floor(drawHeight));
         drawWidth=drawHeight*ia;
         leftPad=(ew-drawWidth)/2;
         }
       var ctx=elem.getContext("2d");
       ctx.drawImage(this, leftPad, topPad, drawWidth, drawHeight);
-      ctx.lineWidth=4;
-      ctx.strokeStyle="red";
-      ctx.strokeRect(0, 0,elem.width, elem.height);
+      //ctx.lineWidth=4;
+      //ctx.strokeStyle="red";
+      //ctx.strokeRect(0, 0,elem.width, elem.height);
       
       }
     }(canv));      
