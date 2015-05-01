@@ -2096,18 +2096,20 @@ function base64toElement(result, el){
     var ea=ew/eh;
     var topPad=0;
     var leftPad=0;
-    var drawWidth=ew;
-    var drawHeight=eh;
+    var drawWidth=Math.floor(ew);
+    var drawHeight=Math.floor(eh);
 
     if(ia>ea){//image wider, pad top, fit width
-      drawHeight=drawWidth/ia;
-      topPad=(eh-drawHeight)/2;
+      drawHeight=Math.floor(drawWidth/ia);
+      topPad=Math.floor(eh-drawHeight)/2;
+      dbuga("img wide topPad: "+topPad+ " leftPad:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);
       }
     else{//image taller, pad left, fit height
-      dbuga(Math.floor(drawWidth)+" x "+Math.floor(drawHeight));
-      drawWidth=drawHeight*ia;
-      leftPad=(ew-drawWidth)/2;
+      drawWidth=Math.floor(drawHeight*ia);
+      leftPad=Math.floor(ew-drawWidth)/2;
+      dbuga("img tall topPad: "+topPad+ " leftPad:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);
       }
+    
     el.width=drawWidth;
     el.height=drawHeight;
     el.style.margin=topPad+"px "+leftPad+"px "+ topPad+"px "+leftPad+"px ";
