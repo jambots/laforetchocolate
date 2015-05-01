@@ -2087,10 +2087,10 @@ function base64toElement(result, el){
     base64toCanv(result, el);
   }
   if(el.tagName=="IMG"){//thumb
-    
-    el.src=result;
-    var iw=el.width;
-    var ih=el.height;
+    var img = new Image();
+    img.src=result;
+    var iw=img.width;
+    var ih=img.height;
     var ia=iw/ih;
     var ew=thumbWidth;
     var eh=thumbWidth/sourceAspect;
@@ -2114,6 +2114,7 @@ function base64toElement(result, el){
     el.width=drawWidth;
     el.height=drawHeight;
     el.style.margin=topPad+"px "+leftPad+"px "+ topPad+"px "+leftPad+"px ";
+    el.src=result;
     }
   if(el.tagName=="DIV"){//flow - background automatically contained and centered
       el.style.backgroundImage="url('" + result + "')";
