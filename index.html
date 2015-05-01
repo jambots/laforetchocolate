@@ -866,15 +866,15 @@ function hideRotor(){
 var setReady=false;
 function updateSet(){
   //alert("updateSet()");
-  //dbuga('updateSet()');
+  dbuga('updateSet()');
   updateThumbButtons();
-  //dbuga("updateThumbButtons() ran");
+  dbuga("updateThumbButtons() ran");
   updateSelectButtons();
-  //dbuga("updateSelectButtons() ran");
+  dbuga("updateSelectButtons() ran");
   prepareFlow();
-  //dbuga('prepareFlow() ran');
+  dbuga('prepareFlow() ran');
   prepareRotor();
-  //dbuga('prepareRotor() ran');
+  dbuga('prepareRotor() ran');
 
   setReady=true;
   }
@@ -2383,7 +2383,7 @@ var feedURL="http://www.laforetchocolate.com/wordpress/category/allocation-choco
 
 function loadDataWp(){
   //dbuga("loadDataWp()");     
-  $(document).ready(function(){
+  //$(document).ready(function(){
     //dbuga("doc ready so getJSON "+feedURL);     
     //$.getJSON(feedURL, function(json) {
     $.getJSON(feedURL, function(json) {
@@ -2394,14 +2394,14 @@ function loadDataWp(){
         populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
-        //dbuga("Unable to load data connection:"+navigator.connection.type);
+        dbuga("Unable to load data connection:"+navigator.connection.type);
         populateSelect();
         updateSet();
         window.clearTimeout(animTimeout);
         animTimeout=window.setTimeout("animTick()", 25);
         dataLoaded=false;
       });
-    });
+  // });
   }
 function parseDataWp(entries, included){
   //dbuga('parseDataWp  entries.length='+entries.length);
