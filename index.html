@@ -1938,7 +1938,7 @@ function selectThumb(num){
   rotorAtItem=num;
   rotorDockStartAt=rotorAtItem;      
 
-  //dbuga("selectThumb("+num+") rotorUp set "+ rotorUp +" to true");
+  dbuga("selectThumb("+num+") rotorUp set "+ rotorUp +" to true");
   rotorUp=true;
   document.getElementById('thumbsUi').style.display="none";
   document.getElementById('rotorUi').style.display="block";
@@ -1947,7 +1947,7 @@ function selectThumb(num){
   document.getElementById("rotorLabel").innerHTML=(selectedThumbNum+1)+" of "+set.length;
   
   faveItem=set[selectedThumbNum];
-  //dbuga("selectThumb "+faveItem.title);
+  dbuga("selectThumb "+faveItem.title);
   updateRotorButtons();
   }
 var infoUp=false;
@@ -1994,7 +1994,7 @@ function errorCB(e){
 //cur|gif|ico|jpe?g|png|svgz?|webp
 var holdThumbRef;
 function updateThumbButtons(){
-  //dbuga("updateThumbButtons() ");
+  dbuga("updateThumbButtons() ");
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
   
@@ -2012,43 +2012,43 @@ function updateThumbButtons(){
   document.getElementById("thumbsScroller").innerHTML=htmlString;
   for (var i=0; i<set.length; i++){
     var ref=document.getElementById("thumbImage~"+set[i].largeUrl);
-    //dbuga("thumb "+i+" isCached="+isCached(set[i].thumbUrl));
+    dbuga("thumb "+i+" isCached="+isCached(set[i].thumbUrl));
     var thumbUrl=set[i].thumbUrl;
     if(isCached(thumbUrl)==false){
       if((navigator.connection.type=="none")&&(inArray(thumbUrl,includedImageUrls)==false)){
         ref.src=defaultBase64;
-        //dbuga('thumb no connection, not cached, not included, use default');
+        dbuga('thumb no connection, not cached, not included, use default');
         }
       else{// 
         var targetIds=["thumbImage~"+set[i].largeUrl];
         var targetUrl=thumbUrl;
-        //dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so thumb to loadQueue");
+        dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so thumb to loadQueue");
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
         loadQueue.push(loadObj);
         }
       }
     else{//use cached dataUrl
       if(web){
-        //dbuga("use cached thumb "+ i);
+        dbuga("use cached thumb "+ i);
         ref.src=localStorage.getItem(set[i].thumbUrl);
         }
       else{
         //implement db
 
-        //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
+        dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var thumbUrl=set[i].thumbUrl;
         //dbuga("0 thumbUrl ="+ thumbUrl);
         var thumbRef=ref;
         (function(thumbRef,thumbUrl){
           db.transaction(function(tx) {
-          //dbuga("1 thumbUrl ="+ thumbUrl);
+          dbuga("1 thumbUrl ="+ thumbUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
           //dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(thumbRef, thumbUrl){
             return function(tx,results){
-              //dbuga("2 thumb from db");
+              dbuga("2 thumb from db");
               base64toElement(results.rows.item(0).image_data,thumbRef);
               };
             })(thumbRef,thumbUrl), errorCB );
@@ -2390,21 +2390,18 @@ function loadDataWp(){
       parseDataWp(json, false);
       if(setKeys.length>1){selectedSetNum=1;}
         dataLoaded=true;
-        //if(orient=="portrait"){document.getElementById('setSelectDim').style.display="none";}
         populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
         dbuga("Unable to load data connection:"+navigator.connection.type);
         populateSelect();
         updateSet();
-        window.clearTimeout(animTimeout);
-        animTimeout=window.setTimeout("animTick()", 25);
         dataLoaded=false;
       });
   // });
   }
 function parseDataWp(entries, included){
-  //dbuga('parseDataWp  entries.length='+entries.length);
+  dbuga('parseDataWp  entries.length='+entries.length);
   for (var e=0; e<entries.length; e++){
     var entry=entries[e];
     //dbuga("<br > entry.title ="+entry.title);
