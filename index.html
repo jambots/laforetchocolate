@@ -2105,7 +2105,8 @@ function base64toCanv(data, canv){
         topPad=(eh-drawHeight)/2;
         }
       else{//image taller, pad left, fit height
-        drawWidtht=drawHeight*ia;
+        dbuga(Math.floor(drawWidth)+" x "+Math.floor(drawHeight));
+        drawWidth=drawHeight*ia;
         leftPad=(ew-drawWidth)/2;
         }
       var ctx=elem.getContext("2d");
