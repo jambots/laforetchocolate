@@ -2087,39 +2087,46 @@ function base64toElement(result, el){
     base64toCanv(result, el);
   }
   if(el.tagName=="IMG"){//thumb
-    var img = new Image();
-    img.src=result;
-    var iw=img.width;
-    var ih=img.height;
-    var ia=iw/ih;
-    var ew=thumbWidth;
-    var eh=thumbWidth/sourceAspect;
-    var ea=ew/eh;
-    var topPad=0;
-    var leftPad=0;
-    var drawWidth=Math.floor(ew);
-    var drawHeight=Math.floor(eh);
-
-    if(ia>ea){//image wider, pad top, fit width
-      drawHeight=Math.floor(drawWidth/ia);
-      topPad=Math.floor(eh-drawHeight)/2;
-      dbuga("img wide topPad: "+topPad+ " leftPad:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);
-      }
-    else{//image taller, pad left, fit height
-      drawWidth=Math.floor(drawHeight*ia);
-      leftPad=Math.floor(ew-drawWidth)/2;
-      dbuga("img tall topPad: "+topPad+ " leftPad:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);
-      }
-    
-    el.width=drawWidth;
-    el.height=drawHeight;
-    el.style.margin=topPad+"px "+leftPad+"px "+ topPad+"px "+leftPad+"px ";
-    el.src=result;
+    base64toImage(result, el);
     }
   if(el.tagName=="DIV"){//flow - background automatically contained and centered
       el.style.backgroundImage="url('" + result + "')";
     }
   }
+function base64toImage(data,image){
+  var img = new Image();
+  img.onload = (function (elem) {
+    return function() {
+      var iw=this.width;
+      var ih=this.height;
+      var ia=iw/ih;
+      var ew=elem.width;
+      var eh=elem.height;
+      var ea=ew/eh;
+      var topPad=0;
+      var leftPad=0;
+      var drawWidth=ew;
+      var drawHeight=eh;
+
+      if(ia>ea){//image wider, pad top, fit width
+        drawHeight=drawWidth/ia;
+        topPad=(eh-drawHeight)/2;
+        dbuga("wide t:"+topPad+" l:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);        
+        }
+      else{//image taller, pad left, fit height
+        drawWidth=drawHeight*ia;
+        leftPad=(ew-drawWidth)/2;
+        dbuga("tall t:"+topPad+" l:"+leftPad+" w:"+drawWidth +" h:"+drawHeight);        
+        }
+      elem.width=drawWidth;
+      elem.height=drawHeight;
+      elem.style.margin=topPad+"px "+leftPad+"px "+ topPad+"px "+leftPad+"px ";
+      
+      }
+    }(image));      
+  img.src = data;
+  }
+
 function base64toCanv(data, canv){
   var img = new Image();
   img.onload = (function (elem) {
