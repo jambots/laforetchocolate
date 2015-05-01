@@ -345,7 +345,7 @@ function setupDb(){
   }
 function appPaused(){
   localStorage.setItem("selectedSetNum", selectedSetNum);
-  dbuga('appPaused()');
+  //dbuga('appPaused()');
   }
 function appResumed(){
   //dbuga('appResumed()');
@@ -678,7 +678,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       //flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
 
 
-      dbuga('just learned both dimension so updateSet() after imageGeometry');
+      //dbuga('just learned both dimension so updateSet() after imageGeometry');
       needsUpdateSet=true;
       }
     }
@@ -1286,7 +1286,7 @@ function thumbRelease(i){
   var d = new Date();
   var deltaT=d.getTime()-thumbTappedMs;
   if(deltaT<200){
-    dbuga("thumbRelease("+i+") so selectThumb "+thumbTappedNum);
+    //dbuga("thumbRelease("+i+") so selectThumb "+thumbTappedNum);
     selectThumb(thumbTappedNum);
     }
   thumbTappedMs=-1;
@@ -1938,7 +1938,7 @@ function selectThumb(num){
   rotorAtItem=num;
   rotorDockStartAt=rotorAtItem;      
 
-  dbuga("selectThumb("+num+") rotorUp set "+ rotorUp +" to true");
+  //dbuga("selectThumb("+num+") rotorUp set "+ rotorUp +" to true");
   rotorUp=true;
   document.getElementById('thumbsUi').style.display="none";
   document.getElementById('rotorUi').style.display="block";
@@ -1964,9 +1964,9 @@ function showInfo(){
 
 function hideSetSelect(){
   updateLoadingCanvas();
-  dbuga("hideSetSelect() called" +selectUp);
+  //dbuga("hideSetSelect() called" +selectUp);
   selectUp=false;
-  dbuga('rotorUp='+rotorUp);
+  //dbuga('rotorUp='+rotorUp);
   window.setTimeout('document.getElementById("setSelectDim").style.display="none"', 100);
   }
 
@@ -2111,12 +2111,12 @@ function base64toImage(data,image){
       if(ia>ea){//image wider, pad top, fit width
         drawHeight=drawWidth/ia;
         topPad=(eh-drawHeight)/2;
-        dbuga("wide t:"+topPad+" l:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);        
+        //dbuga("wide t:"+topPad+" l:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);        
         }
       else{//image taller, pad left, fit height
         drawWidth=drawHeight*ia;
         leftPad=(ew-drawWidth)/2;
-        dbuga("tall t:"+topPad+" l:"+leftPad+" w:"+drawWidth +" h:"+drawHeight);        
+        //dbuga("tall t:"+topPad+" l:"+leftPad+" w:"+drawWidth +" h:"+drawHeight);        
         }
       elem.width=drawWidth;
       elem.height=drawHeight;
@@ -2419,6 +2419,7 @@ function parseDataWp(entries, included){
       var item=items[i];
       var title= attributeInItem("alt",item);
       title=title.replace("&amp;", "&");
+      title=title.toLowerCase();
       var desc= textInItem(item);
       desc=desc.replace("&amp;", "&");
       var largeUrl= attributeInItem("href",item);
