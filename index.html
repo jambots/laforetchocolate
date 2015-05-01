@@ -376,6 +376,7 @@ function resumeInit(){
   loadDataWp();
   clearInterval(orientationInterval);
   orientationInterval=setInterval('orientationTick()', 100);
+  dbuga('begin here?');
   window.clearTimeout(animTimeout);
   animTimeout=window.setTimeout("animTick()", 25);
 
@@ -685,13 +686,13 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       //flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
 
 
-      dbuga('just learned both dimension so updateSet() after imageGeometry');
+      //dbuga('just learned both dimension so updateSet() after imageGeometry');
       if(matched==false){
-        dbuga('mismatch so, update needed');
+        //dbuga('mismatch so, update needed');
         needsUpdateSet=true;
         }
       else{
-        dbuga('predicted correctly, no update needed!');
+        //dbuga('predicted correctly, no update needed!');
         }
       }
     }
@@ -2463,8 +2464,6 @@ function parseDataWp(entries, included){
     //dbuga(" setKeys.length="+setKeys.length);
     }
   saveSetsToLocalStorage();
-  //window.clearTimeout(animTimeout);
-  //animTimeout=window.setTimeout("animTick()", 25);
 
   }
 function textInItem(item){
