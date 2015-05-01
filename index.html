@@ -749,6 +749,13 @@ var portraitKnown=false;
 var portraitContentHeight=0;
 var portraitContentWidth=0;
 var portraitContentAspect=0;
+
+
+function returnWidthHeight(imageData){
+  var img=new Image();
+  img.src=imageData;
+  return {"width":img.width, "height":img.height};
+  }
 function debugGeometry(){
 dbug("<br>grid="+ grid);
 
@@ -2109,7 +2116,8 @@ urlToSrcs = function(imageUrl,imageIds) {
       reader.onloadend = (function(theBlob,targetImageIds,loadUrl,webUrl,included) {
         return function(e) {
           var result=e.target.result;
-
+          var sizeObj=returnWidthHeight(target.result);
+          dbuga(JSON.stringify(sizeObj));
           for(var t=0; t<targetImageIds.length; t++){
             var el=document.getElementById(targetImageIds[t]);
             //dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
