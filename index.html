@@ -344,10 +344,12 @@ function setupDb(){
     }
   }
 function appPaused(){
+  localStorage.setItem("selectedSetNum", selectedSetNum);
   dbuga('appPaused()');
   }
 function appResumed(){
-  dbuga('appResumed()');
+  //dbuga('appResumed()');
+  loadDataWp();
   }
 function resumeInit(){
   dbug('');
@@ -2327,7 +2329,6 @@ function loadDataWp(){
   }
 function parseDataWp(entries, included){
   //dbuga('parseDataWp  entries.length='+entries.length);
-  var added=false;
   for (var e=0; e<entries.length; e++){
     var entry=entries[e];
     //dbuga("<br > entry.title ="+entry.title);
@@ -2352,19 +2353,29 @@ function parseDataWp(entries, included){
         includedImageUrls.push(thumbUrl);
         }
       }
-    if(inArray(setKey, setKeys)){
-      //dbuga("duplicate "+entry.title);
-      }
-    else{
-      if(set.length>0){
+    if(set.length>0){
+      sets[setKey]=set;
+      if(inArray(setKey, setKeys)==false){
         setKeys.push(setKey);
-        sets[setKey]=set;
-        added=true;
+        //dbuga("added new set "+setKey);
+        }
+      else{
+        //dbuga("updated existing set "+setKey);
+        }
+      }
+    else{//empty set, remove setKey
+      var tempKeys=setKeys;
+      setKeys=[];
+      for(var k=0; k<tempKeys.length; k++){
+        var thisKey=tempKeys[k];
+        if(thisKey != setKey){
+          setKeys.push(thisKey);
+          }
         }
       }
     //dbuga(" setKeys.length="+setKeys.length);
     }
-  if(added){saveSetsToLocalStorage();}
+  saveSetsToLocalStorage();
   window.clearTimeout(animTimeout);
   animTimeout=window.setTimeout("animTick()", 25);
 
