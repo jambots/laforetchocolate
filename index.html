@@ -1994,9 +1994,9 @@ function errorCB(e){
 //cur|gif|ico|jpe?g|png|svgz?|webp
 var holdThumbRef;
 function updateThumbButtons(){
-  dbuga("updateThumbButtons() ");
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
+  dbuga("updateThumbButtons() "+selectedSetKey+" "+set.length);
   
   var temp=selectedSetKey.split("_");
   var title=temp[1];
