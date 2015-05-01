@@ -644,9 +644,11 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
   viewportWidth=window.innerWidth;
   viewportHeight=window.innerHeight;
   var prevOrient=orient;
+  var matched=false;
   if(viewportWidth>viewportHeight){
     orient="landscape";
     landscapeKnown=true;
+    if((landscapeScreenWidth==viewportWidth)&&(landscapeScreenHeight==viewportHeight)){matched=true;}
     landscapeScreenWidth=viewportWidth;
     landscapeScreenHeight=viewportHeight;
     absScreenHeight=landscapeScreenWidth;
@@ -659,6 +661,8 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
   else{
     orient="portrait";
     portraitKnown=true;
+    if((portraitScreenWidth==viewportWidth)&&(portraitScreenHeight==viewportHeight)){matched=true;}
+
     portraitScreenWidth=viewportWidth;
     portraitScreenHeight=viewportHeight;
     absScreenWidth= portraitScreenWidth;
@@ -681,8 +685,14 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       //flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
 
 
-      //dbuga('just learned both dimension so updateSet() after imageGeometry');
-      needsUpdateSet=true;
+      dbuga('just learned both dimension so updateSet() after imageGeometry');
+      if(matched==false){
+        dbuga('mismatch so, update needed');
+        needsUpdateSet=true;
+        }
+      else{
+        dbuga('predicted correctly, no update needed!');
+        }
       }
     }
   if(orient != prevOrient){
