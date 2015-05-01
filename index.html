@@ -2095,7 +2095,7 @@ function base64toElement(result, el){
   }
 function base64toImage(data,image){
   var img = new Image();
-  img.onload = (function (elem) {
+  img.onload = (function (data, elem) {
     return function() {
       var iw=this.width;
       var ih=this.height;
@@ -2121,9 +2121,9 @@ function base64toImage(data,image){
       elem.width=drawWidth;
       elem.height=drawHeight;
       elem.style.margin=topPad+"px "+leftPad+"px "+ topPad+"px "+leftPad+"px ";
-      
+      elem.src=data;
       }
-    }(image));      
+    }(data, image));      
   img.src = data;
   }
 
