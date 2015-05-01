@@ -343,8 +343,16 @@ function setupDb(){
       }
     }
   }
+function appPaused(){
+  dbuga('appPaused()');
+  }
+function appResumed(){
+  dbuga('appResumed()');
+  }
 function resumeInit(){
   dbug('');
+  document.addEventListener("pause", appPaused, false);
+  document.addEventListener("resume", appResumed, false);
 
   //retrieves and sets defaultBase64 
   var stashObj = new stashDefault("uploads/default.png");
