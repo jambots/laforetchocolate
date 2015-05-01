@@ -920,9 +920,17 @@ function prepareFlow(){
       context.lineWidth = lineHeight/40;
     context.textAlign="center";
     context.textBaseline="middle";
-    wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
+
+    //wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
+    var titleLines=wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
     context.font = flowItemWidth/14+'pt filoital';
-    wrapText(context, set[i].desc, x, lineHeight*4.5, maxWidth, lineHeight,false);
+    //wrapText(context, set[i].desc, x, lineHeight*4.5, maxWidth, lineHeight,false);
+    y=lineHeight*(2.5+titleLines);
+    var descLines=wrapText(context, set[i].desc, x, y, maxWidth, lineHeight,false);
+
+
+
+
     }
   }
 
