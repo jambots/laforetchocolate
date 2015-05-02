@@ -1016,7 +1016,7 @@ function populateSelect(){
   setKeys=setKeys.sort();
   setKeys=setKeys.reverse();
   selectPopulated=true;
-  //dbuga('populateSelect() cellsAcross='+ cellsAcross);
+  dbuga('populateSelect() setKeys.length='+ setKeys.length);
   modalWidth=32;	
   selectWidth=28;	
   modalMargin=(cellsAcross-modalWidth)/2;
@@ -1025,10 +1025,11 @@ function populateSelect(){
   htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';
   for (var s=0; s<setKeys.length; s++){
     htmlString+='<div style="height:'+grid*4+'px; width:'+grid*selectWidth+'px; padding-left:'+grid*2+'px; float:left;">';
-    htmlString+='<canvas onmousedown="setTap('+s+')" onmouseup="setRelease('+s+')" ontouchstart="setTap('+s+')" ontouchend="setRelease('+s+')" height='+Math.floor(grid*4)+' width='+Math.floor(grid*selectWidth)+' id="canv_'+s+'" style="position:absolute;"></canvas>';
+    htmlString+='<canvas ontouchstart="setTap('+s+')" ontouchend="setRelease('+s+')" height='+Math.floor(grid*4)+' width='+Math.floor(grid*selectWidth)+' id="canv_'+s+'" style="position:absolute;"></canvas>';
     htmlString+='</div>';
-    if(s==0){htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';}
-    //largeUrlSets[setKeys[s]].sort();
+    if(s==0){// fav spacer
+    htmlString+='<div style="height:'+grid*2+'px; width:'+grid*selectWidth+'px;float:left;"></div>';
+      }
     }
   sdiv.innerHTML=htmlString;
   window.setTimeout("styleUi()", 100);
@@ -2607,8 +2608,8 @@ function gestureStart(e){
 <canvas id="loadingCanvas" style="position:absolute; Zbackground-color:rgba(0,0,0,.25);"></canvas>
 
 <div id="debugDiv" style="top:0px;left:190px; position:absolute; background-color:rgba(255,255,255,.8);" ontouchstart="dbug('');">
-<span class="engoth">a</span>
-<span class="filoital">a</span>
+<span class="engoth">.</span>
+<span class="filoital">.</span>
 </div>
 </body>
 </html>

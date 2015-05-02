@@ -10,7 +10,10 @@
     <name>La Forêt</name>
     <description>La Forêt chocolate</description>
 <gap:platform name="android" />
-<gap:platform name="ios" /><gap:config-file platform="android" parent="/manifest/application">
+<!--
+<gap:platform name="ios" />
+-->
+<gap:config-file platform="android" parent="/manifest/application">
     <activity android:launchMode="singleInstance" />
     <preference name="keeprunning" value="false"/>
 </gap:config-file>
