@@ -352,7 +352,7 @@ function appResumed(){
   loadDataWp();
   }
 function resumeInit(){
-  dbug('');
+  //dbug('');
   document.addEventListener("pause", appPaused, false);
   document.addEventListener("resume", appResumed, false);
 
@@ -1538,12 +1538,12 @@ function prepareRotor(){
     var largeUrl=set[i].largeUrl;
     if(isCached(largeUrl)==false){
       if((navigator.connection.type=="none")&&(inArray(largeUrl,includedImageUrls)==false)){
-        dbuga("no connection, not included so defaultBase64 to rotor and flow");
+        //dbuga("no connection, not included so defaultBase64 to rotor and flow");
         base64toElement(defaultBase64, rotorRef);
         base64toElement(defaultBase64, flowRef);
         }
       else{
-        dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached, so loadQueue rotor and flow");
+        //dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached, so loadQueue rotor and flow");
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
         var targetUrl=set[i].largeUrl;
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
@@ -2068,7 +2068,7 @@ function updateThumbButtons(){
           tx.executeSql(sqlString, [], 
           (function(thumbRef, thumbUrl){
             return function(tx,results){
-              dbuga("2 thumb from db");
+              //dbuga("2 thumb from db");
               base64toElement(results.rows.item(0).image_data,thumbRef);
               };
             })(thumbRef,thumbUrl), errorCB );
@@ -2105,7 +2105,7 @@ function base64toElement(result, el){
   //var imageAspect=imageWidth/imageHeight;
   
   //dbuga(JSON.stringify(sizeObj));
-  dbuga(result.length+' el.tagName:'+el.tagName);
+  //dbuga(result.length+' el.tagName:'+el.tagName);
   
   if(el.tagName=="CANVAS"){//rotor
     base64toCanv(result, el);
@@ -2118,17 +2118,17 @@ function base64toElement(result, el){
     }
   }
 function base64toImage(data,el,widthPx){
-  dbuga("data:"+data.length+", el:"+ el.tagName +", widthPx:"+ widthPx);
+  //dbuga("data:"+data.length+", el:"+ el.tagName +", widthPx:"+ widthPx);
   var img = new Image();
   img.onload = (function (data, elem, usePx) {
     return function() {
-      dbuga("data:"+data.length+", elem:"+ elem.tagName +", usePx:"+ usePx);
+      //dbuga("data:"+data.length+", elem:"+ elem.tagName +", usePx:"+ usePx);
       var iw=this.width;
       var ih=this.height;
       var ia=iw/ih;
       if((iw==0)||(ih==0)){
         ia=sourceAspect;
-        dbuga('this zeros, sourceAspect:'+sourceAspect);
+        //dbuga('this zeros, sourceAspect:'+sourceAspect);
         }
 
       var ew=usePx;
@@ -2143,12 +2143,12 @@ function base64toImage(data,el,widthPx){
       if(ia>ea){//image wider, pad top, fit width
         drawHeight=drawWidth/ia;
         topPad=(eh-drawHeight)/2;
-        dbuga("wide t:"+topPad+" l:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);        
+        //dbuga("wide t:"+topPad+" l:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);        
         }
       else{//image taller, pad left, fit height
         drawWidth=drawHeight*ia;
         leftPad=(ew-drawWidth)/2;
-        dbuga("tall t:"+topPad+" l:"+leftPad+" w:"+drawWidth +" h:"+drawHeight);        
+        //dbuga("tall t:"+topPad+" l:"+leftPad+" w:"+drawWidth +" h:"+drawHeight);        
         }
       elem.width=drawWidth;
       elem.height=drawHeight;
