@@ -2119,7 +2119,7 @@ function base64toElement(result, el){
   }
 function base64toImage(data,image,widthPx){
   var img = new Image();
-  img.onload = (function (data, elem) {
+  img.onload = (function (data, elem, usePx) {
     return function() {
       var iw=this.width;
       var ih=this.height;
@@ -2129,7 +2129,7 @@ function base64toImage(data,image,widthPx){
         dbuga('this zeros, sourceAspect:'+sourceAspect);
         }
 
-      var ew=widthPx;
+      var ew=usePx;
       var eh=width/sourceAspect;
       var ea=sourceAspect;
 
@@ -2153,7 +2153,7 @@ function base64toImage(data,image,widthPx){
       elem.style.margin=topPad+"px "+leftPad+"px "+ topPad+"px "+leftPad+"px ";
       elem.src=data;
       }
-    }(data, image));      
+    }(data, widthPx));      
   img.src = data;
   }
 
