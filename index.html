@@ -2118,6 +2118,7 @@ function base64toElement(result, el){
     }
   }
 function base64toImage(data,el,widthPx){
+  dbuga("data:"+data.length+", el:"+ el.tagName +", widthPx:"+ widthPx);
   var img = new Image();
   img.onload = (function (data, elem, usePx) {
     return function() {
