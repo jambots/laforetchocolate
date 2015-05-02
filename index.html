@@ -2405,16 +2405,17 @@ function loadDataWp(){
       parseDataWp(json, false);
       if(setKeys.length>1){selectedSetNum=1;}
         dataLoaded=true;
-        if(selectPopulated==false){
+        //if(selectPopulated==false){
           dbuga('loadDataWp selectPopulated false so populateSelect()');
           populateSelect();
-          }
+        //  }
         updateSet();
       }).fail( function(d, textStatus, error) {
-         if(selectPopulated==false){
+        if(setKeys.length>1){selectedSetNum=1;}
+        //if(selectPopulated==false){
           dbuga('loadDataWp selectPopulated false so populateSelect()');
           populateSelect();
-          }
+        //  }
         updateSet();
         dataLoaded=false;
       });
