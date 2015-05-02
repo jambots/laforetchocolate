@@ -697,7 +697,10 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       rotorAtItem=flowAtItem;
       initOrRefreshScrolls();
       //dbuga('changed to portrait so populateSelect()  or  updateSelectButtons()');
-      if(selectPopulated==false){populateSelect();}
+      if(selectPopulated==false){
+        dbuga('selectPopulated false so populateSelect()');
+        populateSelect();
+        }
       else{updateSelectButtons();}
       }
     else{
@@ -726,6 +729,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     }
   imageGeometry();
   if(needsUpdateSet){
+    dbuga('needsUpdateSet so populateSelect()');
     populateSelect(); //will style ui then refresh scrolls
     updateSet();
     }
@@ -2401,10 +2405,12 @@ function loadDataWp(){
       parseDataWp(json, false);
       if(setKeys.length>1){selectedSetNum=1;}
         dataLoaded=true;
+        dbuga('parseDataWp() so populateSelect()');
         populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
         dbuga("Unable to load data connection:"+navigator.connection.type);
+        dbuga('FAIL so parseDataWp() so populateSelect()');
         populateSelect();
         updateSet();
         dataLoaded=false;
@@ -2417,11 +2423,11 @@ function parseDataWp(entries, included){
     var entry=entries[e];
     var entryDate=entry.date.split(" ")[0];
     var setKey=entryDate+"_"+entry.title;
-    dbuga("<br >setKey="+setKey +" included="+included);
+    //dbuga("<br >setKey="+setKey +" included="+included);
     var set=[];
     var content=entry.content;
     var items=returnItemsInContent(content);
-    dbuga("items.length="+ items.length);
+    //dbuga("items.length="+ items.length);
     for (var i=0; i<items.length; i++){
       var item=items[i];
       var title= attributeInItem("alt",item);
@@ -2453,10 +2459,11 @@ function parseDataWp(entries, included){
       for(var k=0; k<tempKeys.length; k++){
         var thisKey=tempKeys[k];
         if(thisKey != setKey){
+          dbuga('empty, keep '+thisKey);
           setKeys.push(thisKey);
           }
         else{
-          dbuga("empty, removed "+thisKey);
+          dbuga("empty, remove "+thisKey);
           }
         }
       }
