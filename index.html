@@ -1595,7 +1595,7 @@ function prepareRotor(){
   }
 var loadTimeout;
 function loadTick(){
-  //dbuga('loadTick '+loadQueue.length);
+  dbuga('loadTick '+loadQueue.length);
   window.clearTimeout(loadTimeout);
   if(loadQueue.length==0){
     return false;
@@ -2040,7 +2040,7 @@ function updateThumbButtons(){
       else{// 
         var targetIds=["thumbImage~"+set[i].largeUrl];
         var targetUrl=thumbUrl;
-        dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so thumb to loadQueue");
+        dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so q");
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
         loadQueue.push(loadObj);
         }
@@ -2062,7 +2062,7 @@ function updateThumbButtons(){
           dbuga("1 thumbUrl ="+ thumbUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
-          //dbuga("sqlString="+sqlString);
+          dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(thumbRef, thumbUrl){
             return function(tx,results){
@@ -2232,7 +2232,7 @@ urlToSrcs = function(imageUrl,imageIds) {
   this.LoadPage = function() {
     var r = new XMLHttpRequest();
     r.onloadend = onLoad;
-    //dbuga("loadPage "+this.loadUrl);
+    dbuga("loadPage "+this.loadUrl);
     r.open ("GET", this.loadUrl, true);
     r.responseType = 'blob';
     r.send (null);
