@@ -2126,11 +2126,16 @@ function base64toImage(data,image){
       var ia=iw/ih;
       if((iw==0)||(ih==0)){
         ia=sourceAspect;
+        dbuga('this zeros, sourceAspect:'+sourceAspect);
         }
 
       var ew=elem.width;
       var eh=elem.height;
       var ea=ew/eh;
+      if((ew==0)||(eh==0)){
+        ea=sourceAspect;
+        dbuga('elem zeros, sourceAspect:'+sourceAspect);
+        }
       var topPad=0;
       var leftPad=0;
       var drawWidth=ew;
