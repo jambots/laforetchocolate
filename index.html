@@ -2135,12 +2135,12 @@ function base64toImage(data,image){
       if(ia>ea){//image wider, pad top, fit width
         drawHeight=drawWidth/ia;
         topPad=(eh-drawHeight)/2;
-        //dbuga("wide t:"+topPad+" l:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);        
+        dbuga("wide t:"+topPad+" l:"+leftPad+" w:"+drawWidth+" h:"+drawHeight);        
         }
       else{//image taller, pad left, fit height
         drawWidth=drawHeight*ia;
         leftPad=(ew-drawWidth)/2;
-        //dbuga("tall t:"+topPad+" l:"+leftPad+" w:"+drawWidth +" h:"+drawHeight);        
+        dbuga("tall t:"+topPad+" l:"+leftPad+" w:"+drawWidth +" h:"+drawHeight);        
         }
       elem.width=drawWidth;
       elem.height=drawHeight;
