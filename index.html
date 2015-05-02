@@ -697,11 +697,11 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       rotorAtItem=flowAtItem;
       initOrRefreshScrolls();
       //dbuga('changed to portrait so populateSelect()  or  updateSelectButtons()');
-      if(selectPopulated==false){
-        dbuga('selectPopulated false so populateSelect()');
-        populateSelect();
-        }
-      else{updateSelectButtons();}
+      //if(selectPopulated==false){
+      //  dbuga('selectPopulated false so populateSelect()');
+      //  populateSelect();
+      //  }
+      //else{updateSelectButtons();}
       }
     else{
       flowAtItem=rotorAtItem;
@@ -2405,13 +2405,16 @@ function loadDataWp(){
       parseDataWp(json, false);
       if(setKeys.length>1){selectedSetNum=1;}
         dataLoaded=true;
-        dbuga('parseDataWp() so populateSelect()');
-        populateSelect();
+        if(selectPopulated==false){
+          dbuga('loadDataWp selectPopulated false so populateSelect()');
+          populateSelect();
+          }
         updateSet();
       }).fail( function(d, textStatus, error) {
-        dbuga("Unable to load data connection:"+navigator.connection.type);
-        dbuga('FAIL so parseDataWp() so populateSelect()');
-        populateSelect();
+         if(selectPopulated==false){
+          dbuga('loadDataWp selectPopulated false so populateSelect()');
+          populateSelect();
+          }
         updateSet();
         dataLoaded=false;
       });
