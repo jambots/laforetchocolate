@@ -348,7 +348,7 @@ function appPaused(){
   //dbuga('appPaused()');
   }
 function appResumed(){
-  //dbuga('appResumed()');
+  dbuga('appResumed()');
   loadDataWp();
   }
 function resumeInit(){
@@ -372,7 +372,7 @@ function resumeInit(){
   setupEvents();
   includedImageUrls=[];
   parseDataWp(includedFeed, true);
-  //dbuga("includedImageUrls ="+includedImageUrls.length);
+  dbuga("includedImageUrls ="+includedImageUrls.length);
   loadDataWp();
   clearInterval(orientationInterval);
   orientationInterval=setInterval('orientationTick()', 100);
@@ -2392,7 +2392,7 @@ var feedURL="http://www.laforetchocolate.com/wordpress/category/allocation-choco
 // remember wordpress may need allow cors plugin then settings > cors to allow *. May not for app shell.
 
 function loadDataWp(){
-  //dbuga("loadDataWp()");     
+  dbuga("loadDataWp()");     
   //$(document).ready(function(){
     //dbuga("doc ready so getJSON "+feedURL);     
     //$.getJSON(feedURL, function(json) {
@@ -2403,7 +2403,7 @@ function loadDataWp(){
         populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
-        //dbuga("Unable to load data connection:"+navigator.connection.type);
+        dbuga("Unable to load data connection:"+navigator.connection.type);
         populateSelect();
         updateSet();
         dataLoaded=false;
@@ -2411,17 +2411,16 @@ function loadDataWp(){
   // });
   }
 function parseDataWp(entries, included){
-  //dbuga('parseDataWp  entries.length='+entries.length);
+  dbuga('parseDataWp  entries.length='+entries.length);
   for (var e=0; e<entries.length; e++){
     var entry=entries[e];
-    //dbuga("<br > entry.title ="+entry.title);
     var entryDate=entry.date.split(" ")[0];
     var setKey=entryDate+"_"+entry.title;
-    //dbuga("<br >setKey="+setKey +" included="+included);
+    dbuga("<br >setKey="+setKey +" included="+included);
     var set=[];
     var content=entry.content;
     var items=returnItemsInContent(content);
-    //dbuga("items.length="+ items.length);
+    dbuga("items.length="+ items.length);
     for (var i=0; i<items.length; i++){
       var item=items[i];
       var title= attributeInItem("alt",item);
@@ -2441,10 +2440,10 @@ function parseDataWp(entries, included){
       sets[setKey]=set;
       if(inArray(setKey, setKeys)==false){
         setKeys.push(setKey);
-        //dbuga("added new set "+setKey);
+        dbuga("added new set "+setKey);
         }
       else{
-        //dbuga("updated existing set "+setKey);
+        dbuga("updated existing set "+setKey);
         }
       }
     else{//empty set, remove setKey
@@ -2455,9 +2454,12 @@ function parseDataWp(entries, included){
         if(thisKey != setKey){
           setKeys.push(thisKey);
           }
+        else{
+          dbuga("empty, removed "+thisKey);
+          }
         }
       }
-    //dbuga(" setKeys.length="+setKeys.length);
+    dbuga(" setKeys.length="+setKeys.length);
     }
   saveSetsToLocalStorage();
 
@@ -2604,7 +2606,7 @@ function gestureStart(e){
 </div><! end of portraitMain>
 <canvas id="loadingCanvas" style="position:absolute; Zbackground-color:rgba(0,0,0,.25);"></canvas>
 
-<div id="debugDiv" style="top:0px;left:190px; position:absolute; background-color:rgba(255,255,255,0);" ontouchstart="dbug('');">
+<div id="debugDiv" style="top:0px;left:190px; position:absolute; background-color:rgba(255,255,255,.8);" ontouchstart="dbug('');">
 <span class="engoth">a</span>
 <span class="filoital">a</span>
 </div>
