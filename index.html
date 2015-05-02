@@ -2124,6 +2124,10 @@ function base64toImage(data,image){
       var iw=this.width;
       var ih=this.height;
       var ia=iw/ih;
+      if((iw==0)||(ih==0)){
+        ia=sourceAspect;
+        }
+
       var ew=elem.width;
       var eh=elem.height;
       var ea=ew/eh;
@@ -2159,9 +2163,6 @@ function base64toCanv(data, canv){
       var iw=this.width;
       var ih=this.height;
       var ia=iw/ih;
-      if((iw==0)||(ih==0)){
-        ia=sourceAspect;
-        }
       var ew=elem.width;
       var eh=elem.height;
       var ea=ew/eh;
