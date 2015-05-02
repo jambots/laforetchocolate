@@ -1587,7 +1587,10 @@ function prepareRotor(){
         }
       }
     }
-  if(loadQueue.length>0){loadTick();}
+  if(loadQueue.length>0){
+    dbuga('in prepareRotor loadQueue.length='+loadQueue.length+' so loadTick()');
+    loadTick();
+    }
   updateLoadingCanvas();
   }
 var loadTimeout;
@@ -2074,7 +2077,10 @@ function updateThumbButtons(){
       }
     }
   document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
-  if(loadQueue.length>0){loadTick();}
+  if(loadQueue.length>0){
+    dbuga('in updateThumbButtons loadQueue.length='+loadQueue.length+' so loadTick()');
+    loadTick();
+    }
   //dbuga('updateThumbButtons scrollsSet='+scrollsSet );
   initOrRefreshScrolls();
   if(scrollsSet){
