@@ -2111,13 +2111,13 @@ function base64toElement(result, el){
     base64toCanv(result, el);
   }
   if(el.tagName=="IMG"){//thumb
-    base64toImage(result, el);
+    base64toImage(result, el, thumbWidth);
     }
   if(el.tagName=="DIV"){//flow - background automatically contained and centered
       el.style.backgroundImage="url('" + result + "')";
     }
   }
-function base64toImage(data,image){
+function base64toImage(data,image,widthPx){
   var img = new Image();
   img.onload = (function (data, elem) {
     return function() {
@@ -2129,13 +2129,10 @@ function base64toImage(data,image){
         dbuga('this zeros, sourceAspect:'+sourceAspect);
         }
 
-      var ew=elem.width;
-      var eh=elem.height;
-      var ea=ew/eh;
-      if((ew==0)||(eh==0)){
-        ea=sourceAspect;
-        dbuga('elem zeros, sourceAspect:'+sourceAspect);
-        }
+      var ew=widthPx;
+      var eh=width/sourceAspect;
+      var ea=sourceAspect;
+
       var topPad=0;
       var leftPad=0;
       var drawWidth=ew;
