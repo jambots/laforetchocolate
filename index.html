@@ -2153,12 +2153,15 @@ function base64toImage(data,image){
 
 function base64toCanv(data, canv){
   var img = new Image();
-  var self = this;
-  img.onload = (function (elem, self) {
+  
+  img.onload = (function (elem) {
     return function() {
-      var iw=self.width;
-      var ih=self.height;
+      var iw=this.width;
+      var ih=this.height;
       var ia=iw/ih;
+      if((iw==0)||(ih==0)){
+        ia=sourceAspect;
+        }
       var ew=elem.width;
       var eh=elem.height;
       var ea=ew/eh;
@@ -2183,7 +2186,7 @@ function base64toCanv(data, canv){
       //ctx.strokeRect(0, 0,elem.width, elem.height);
       
       }
-    }(canv,self)); 
+    }(canv)); 
        
   img.src = data;
   }
