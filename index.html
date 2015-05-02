@@ -2122,6 +2122,7 @@ function base64toImage(data,el,widthPx){
   var img = new Image();
   img.onload = (function (data, elem, usePx) {
     return function() {
+      dbuga("data:"+data.length+", elem:"+ elem.tagName +", usePx:"+ usePx);
       var iw=this.width;
       var ih=this.height;
       var ia=iw/ih;
@@ -2131,7 +2132,7 @@ function base64toImage(data,el,widthPx){
         }
 
       var ew=usePx;
-      var eh=width/sourceAspect;
+      var eh=ew/sourceAspect;
       var ea=sourceAspect;
 
       var topPad=0;
