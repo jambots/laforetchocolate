@@ -2011,7 +2011,7 @@ var holdThumbRef;
 function updateThumbButtons(){
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
-  //dbuga("updateThumbButtons() "+selectedSetKey+" "+set.length);
+  dbuga("updateThumbButtons() "+selectedSetKey+" "+set.length);
   
   var temp=selectedSetKey.split("_");
   var title=temp[1];
@@ -2027,43 +2027,43 @@ function updateThumbButtons(){
   document.getElementById("thumbsScroller").innerHTML=htmlString;
   for (var i=0; i<set.length; i++){
     var ref=document.getElementById("thumbImage~"+set[i].largeUrl);
-    //dbuga("thumb "+i+" isCached="+isCached(set[i].thumbUrl));
+    dbuga("thumb "+i+" isCached="+isCached(set[i].thumbUrl));
     var thumbUrl=set[i].thumbUrl;
     if(isCached(thumbUrl)==false){
       if((navigator.connection.type=="none")&&(inArray(thumbUrl,includedImageUrls)==false)){
         ref.src=defaultBase64;
-        //dbuga('thumb no connection, not cached, not included, use default');
+        dbuga('thumb no connection, not cached, not included, use default');
         }
       else{// 
         var targetIds=["thumbImage~"+set[i].largeUrl];
         var targetUrl=thumbUrl;
-        //dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so thumb to loadQueue");
+        dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so thumb to loadQueue");
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
         loadQueue.push(loadObj);
         }
       }
     else{//use cached dataUrl
       if(web){
-        //dbuga("use cached thumb "+ i);
+        dbuga("use cached thumb "+ i);
         ref.src=localStorage.getItem(set[i].thumbUrl);
         }
       else{
         //implement db
 
-        //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
+        dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var thumbUrl=set[i].thumbUrl;
         //dbuga("0 thumbUrl ="+ thumbUrl);
         var thumbRef=ref;
         (function(thumbRef,thumbUrl){
           db.transaction(function(tx) {
-          //dbuga("1 thumbUrl ="+ thumbUrl);
+          dbuga("1 thumbUrl ="+ thumbUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
           //dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(thumbRef, thumbUrl){
             return function(tx,results){
-              //dbuga("2 thumb from db");
+              dbuga("2 thumb from db");
               base64toElement(results.rows.item(0).image_data,thumbRef);
               };
             })(thumbRef,thumbUrl), errorCB );
@@ -2447,13 +2447,19 @@ function parseDataWp(entries, included){
         }
       }
     if(set.length>0){
-      sets[setKey]=set;
       if(inArray(setKey, setKeys)==false){
         setKeys.push(setKey);
+        sets[setKey]=set;
         dbuga("added new set "+setKey);
         }
       else{
-        dbuga("updated existing set "+setKey);
+        if(included){
+          dbuga("included, don't update set "+setKey);
+          }
+        else{
+          dbuga("not included, update set "+setKey);
+          sets[setKey]=set;
+          }
         }
       }
     else{//empty set, remove setKey
