@@ -2420,7 +2420,7 @@ function loadDataWp(){
         //  }
         updateSet();
       }).fail( function(d, textStatus, error) {
-        //if(setKeys.length>1){selectedSetNum=1;}
+        if(setKeys.length>1){selectedSetNum=1;}
         //if(selectPopulated==false){
           //dbuga('loadDataWp so populateSelect() updateSet()');
           populateSelect();
