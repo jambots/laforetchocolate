@@ -729,7 +729,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     }
   imageGeometry();
   if(needsUpdateSet){
-    dbuga('needsUpdateSet so populateSelect()');
+    dbuga('needsUpdateSet so populateSelect() updateSet()');
     populateSelect(); //will style ui then refresh scrolls
     updateSet();
     }
@@ -853,10 +853,11 @@ function imageGeometry(){
   }
 
 function selectSet(setNum){
-  //dbug("selectSet("+setNum+")");
   if(selectedSetNum != setNum){
     selectedSetNum=setNum;
     localStorage.setItem("selectedSetNum", setNum);
+    dbuga("selectSet("+setNum+") so updateSet()");
+    
     updateSet();
     }
   hideSetSelect();
@@ -874,21 +875,22 @@ function hideRotor(){
       removeFavorite(unfaveArray[u]);
       }
     unfaveArray=[];
+    dbuga('hideRotor updateSet()');
     updateSet();
     }
   }
 var setReady=false;
 function updateSet(){
   //alert("updateSet()");
-  //dbuga('updateSet()');
+  dbuga('updateSet()');
   updateThumbButtons();
-  //dbuga("updateThumbButtons() ran");
+  dbuga("updateThumbButtons() ran");
   updateSelectButtons();
-  //dbuga("updateSelectButtons() ran");
+  dbuga("updateSelectButtons() ran");
   prepareFlow();
-  //dbuga('prepareFlow() ran');
+  dbuga('prepareFlow() ran');
   prepareRotor();
-  //dbuga('prepareRotor() ran');
+  dbuga('prepareRotor() ran');
   animTick();
   setReady=true;
   }
@@ -2412,16 +2414,15 @@ function loadDataWp(){
       if(setKeys.length>1){selectedSetNum=1;}
         dataLoaded=true;
         //if(selectPopulated==false){
-          dbuga('loadDataWp selectPopulated false so populateSelect()');
+          dbuga('loadDataWp so populateSelect() updateSet()');
           populateSelect();
         //  }
         updateSet();
       }).fail( function(d, textStatus, error) {
         if(setKeys.length>1){selectedSetNum=1;}
         //if(selectPopulated==false){
-          dbuga('loadDataWp selectPopulated false so populateSelect()');
+          dbuga('loadDataWp so populateSelect() updateSet()');
           populateSelect();
-        //  }
         updateSet();
         dataLoaded=false;
       });
