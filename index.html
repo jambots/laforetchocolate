@@ -2153,10 +2153,11 @@ function base64toImage(data,image){
 
 function base64toCanv(data, canv){
   var img = new Image();
-  img.onload = (function (elem) {
+  var ref=img;
+  img.onload = (function (elem, theRef) {
     return function() {
-      var iw=this.width;
-      var ih=this.height;
+      var iw=theRef.width;
+      var ih=theRef.height;
       var ia=iw/ih;
       var ew=elem.width;
       var eh=elem.height;
@@ -2182,7 +2183,8 @@ function base64toCanv(data, canv){
       //ctx.strokeRect(0, 0,elem.width, elem.height);
       
       }
-    }(canv));      
+    }(canv, ref)); 
+       
   img.src = data;
   }
 urlToSrcs = function(imageUrl,imageIds) {
