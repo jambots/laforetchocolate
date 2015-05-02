@@ -318,7 +318,7 @@ function debugSelect(selectString){
                 var rowString=JSON.stringify(row);
                 var temp=rowString.split("/");
                 rowString=temp.pop();
-                dbuga("row is " + rowString);
+                //dbuga("row is " + rowString);
                 }
             });
    });
@@ -348,11 +348,11 @@ function appPaused(){
   //dbuga('appPaused()');
   }
 function appResumed(){
-  dbuga('appResumed()');
+  //dbuga('appResumed()');
   loadDataWp();
   }
 function resumeInit(){
-  dbug('');
+  //dbug('');
   document.addEventListener("pause", appPaused, false);
   document.addEventListener("resume", appResumed, false);
 
@@ -372,7 +372,7 @@ function resumeInit(){
   setupEvents();
   includedImageUrls=[];
   parseDataWp(includedFeed, true);
-  dbuga("includedImageUrls ="+includedImageUrls.length);
+  //dbuga("includedImageUrls ="+includedImageUrls.length);
   loadDataWp();
   clearInterval(orientationInterval);
   orientationInterval=setInterval('orientationTick()', 100);
@@ -698,7 +698,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
       initOrRefreshScrolls();
       //dbuga('changed to portrait so populateSelect()  or  updateSelectButtons()');
       //if(selectPopulated==false){
-      //  dbuga('selectPopulated false so populateSelect()');
+      //  //dbuga('selectPopulated false so populateSelect()');
       //  populateSelect();
       //  }
       //else{updateSelectButtons();}
@@ -729,7 +729,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     }
   imageGeometry();
   if(needsUpdateSet){
-    dbuga('needsUpdateSet so populateSelect() updateSet()');
+    //dbuga('needsUpdateSet so populateSelect() updateSet()');
     populateSelect(); //will style ui then refresh scrolls
     updateSet();
     }
@@ -856,7 +856,7 @@ function selectSet(setNum){
   if(selectedSetNum != setNum){
     selectedSetNum=setNum;
     localStorage.setItem("selectedSetNum", setNum);
-    dbuga("selectSet("+setNum+") so updateSet()");
+    //dbuga("selectSet("+setNum+") so updateSet()");
     
     updateSet();
     }
@@ -875,22 +875,22 @@ function hideRotor(){
       removeFavorite(unfaveArray[u]);
       }
     unfaveArray=[];
-    dbuga('hideRotor updateSet()');
+    //dbuga('hideRotor updateSet()');
     updateSet();
     }
   }
 var setReady=false;
 function updateSet(){
   //alert("updateSet()");
-  dbuga('updateSet()');
+  //dbuga('updateSet()');
   updateThumbButtons();
-  dbuga("updateThumbButtons() ran");
+  //dbuga("updateThumbButtons() ran");
   updateSelectButtons();
-  dbuga("updateSelectButtons() ran");
+  //dbuga("updateSelectButtons() ran");
   prepareFlow();
-  dbuga('prepareFlow() ran');
+  //dbuga('prepareFlow() ran');
   prepareRotor();
-  dbuga('prepareRotor() ran');
+  //dbuga('prepareRotor() ran');
   animTick();
   setReady=true;
   }
@@ -1022,7 +1022,7 @@ function populateSelect(){
   setKeys=setKeys.sort();
   setKeys=setKeys.reverse();
   selectPopulated=true;
-  dbuga('populateSelect() setKeys.length='+ setKeys.length);
+  //dbuga('populateSelect() setKeys.length='+ setKeys.length);
   modalWidth=32;	
   selectWidth=28;	
   modalMargin=(cellsAcross-modalWidth)/2;
@@ -1590,14 +1590,14 @@ function prepareRotor(){
       }
     }
   if(loadQueue.length>0){
-    dbuga('in prepareRotor loadQueue.length='+loadQueue.length+' so loadTick()');
+    //dbuga('in prepareRotor loadQueue.length='+loadQueue.length+' so loadTick()');
     loadTick();
     }
   updateLoadingCanvas();
   }
 var loadTimeout;
 function loadTick(){
-  dbuga('loadTick '+loadQueue.length);
+  //dbuga('loadTick '+loadQueue.length);
   window.clearTimeout(loadTimeout);
   if(loadQueue.length==0){
     return false;
@@ -2016,7 +2016,7 @@ var holdThumbRef;
 function updateThumbButtons(){
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
-  dbuga("updateThumbButtons() "+selectedSetKey+" "+set.length);
+  //dbuga("updateThumbButtons() "+selectedSetKey+" "+set.length);
   
   var temp=selectedSetKey.split("_");
   var title=temp[1];
@@ -2032,43 +2032,43 @@ function updateThumbButtons(){
   document.getElementById("thumbsScroller").innerHTML=htmlString;
   for (var i=0; i<set.length; i++){
     var ref=document.getElementById("thumbImage~"+set[i].largeUrl);
-    dbuga("thumb "+i+" isCached="+isCached(set[i].thumbUrl));
+    //dbuga("thumb "+i+" isCached="+isCached(set[i].thumbUrl));
     var thumbUrl=set[i].thumbUrl;
     if(isCached(thumbUrl)==false){
       if((navigator.connection.type=="none")&&(inArray(thumbUrl,includedImageUrls)==false)){
         ref.src=defaultBase64;
-        dbuga('thumb no connection, not cached, not included, use default');
+        //dbuga('thumb no connection, not cached, not included, use default');
         }
       else{// 
         var targetIds=["thumbImage~"+set[i].largeUrl];
         var targetUrl=thumbUrl;
-        dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so q");
+        //dbuga(i + " included:"+inArray(thumbUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached so q");
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
         loadQueue.push(loadObj);
         }
       }
     else{//use cached dataUrl
       if(web){
-        dbuga("use cached thumb "+ i);
+        //dbuga("use cached thumb "+ i);
         ref.src=localStorage.getItem(set[i].thumbUrl);
         }
       else{
         //implement db
 
-        dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
+        //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var thumbUrl=set[i].thumbUrl;
         //dbuga("0 thumbUrl ="+ thumbUrl);
         var thumbRef=ref;
         (function(thumbRef,thumbUrl){
           db.transaction(function(tx) {
-          dbuga("1 thumbUrl ="+ thumbUrl);
+          //dbuga("1 thumbUrl ="+ thumbUrl);
 
           var sqlString='SELECT image_data FROM test_table WHERE image_url="'+thumbUrl+'"';
-          dbuga("sqlString="+sqlString);
+          //dbuga("sqlString="+sqlString);
           tx.executeSql(sqlString, [], 
           (function(thumbRef, thumbUrl){
             return function(tx,results){
-              dbuga("2 thumb from db");
+              //dbuga("2 thumb from db");
               base64toElement(results.rows.item(0).image_data,thumbRef);
               };
             })(thumbRef,thumbUrl), errorCB );
@@ -2080,7 +2080,7 @@ function updateThumbButtons(){
     }
   document.getElementById("thumbsScroller").style.height=(thumbHeight*rows)+"px";
   if(loadQueue.length>0){
-    dbuga('in updateThumbButtons loadQueue.length='+loadQueue.length+' so loadTick()');
+    //dbuga('in updateThumbButtons loadQueue.length='+loadQueue.length+' so loadTick()');
     loadTick();
     }
   //dbuga('updateThumbButtons scrollsSet='+scrollsSet );
@@ -2234,7 +2234,7 @@ urlToSrcs = function(imageUrl,imageIds) {
   this.LoadPage = function() {
     var r = new XMLHttpRequest();
     r.onloadend = onLoad;
-    dbuga("loadPage "+this.loadUrl);
+    //dbuga("loadPage "+this.loadUrl);
     r.open ("GET", this.loadUrl, true);
     r.responseType = 'blob';
     r.send (null);
@@ -2402,10 +2402,11 @@ var pi=Math.PI;
 var dataLoaded=false;
 //move to config.js 
 var feedURL="http://www.laforetchocolate.com/wordpress/category/allocation-chocolates/json";
+feedURL="http://www.laforetchocolate.com/test/category/allocation-chocolates/json";
 // remember wordpress may need allow cors plugin then settings > cors to allow *. May not for app shell.
 
 function loadDataWp(){
-  dbuga("loadDataWp()");     
+  //dbuga("loadDataWp()");     
   //$(document).ready(function(){
     //dbuga("doc ready so getJSON "+feedURL);     
     //$.getJSON(feedURL, function(json) {
@@ -2414,14 +2415,14 @@ function loadDataWp(){
       if(setKeys.length>1){selectedSetNum=1;}
         dataLoaded=true;
         //if(selectPopulated==false){
-          dbuga('loadDataWp so populateSelect() updateSet()');
+          //dbuga('loadDataWp so populateSelect() updateSet()');
           populateSelect();
         //  }
         updateSet();
       }).fail( function(d, textStatus, error) {
-        if(setKeys.length>1){selectedSetNum=1;}
+        //if(setKeys.length>1){selectedSetNum=1;}
         //if(selectPopulated==false){
-          dbuga('loadDataWp so populateSelect() updateSet()');
+          //dbuga('loadDataWp so populateSelect() updateSet()');
           populateSelect();
         updateSet();
         dataLoaded=false;
@@ -2429,7 +2430,7 @@ function loadDataWp(){
   // });
   }
 function parseDataWp(entries, included){
-  dbuga('parseDataWp  entries.length='+entries.length);
+  //dbuga('parseDataWp  entries.length='+entries.length);
   for (var e=0; e<entries.length; e++){
     var entry=entries[e];
     var entryDate=entry.date.split(" ")[0];
@@ -2458,14 +2459,14 @@ function parseDataWp(entries, included){
       if(inArray(setKey, setKeys)==false){
         setKeys.push(setKey);
         sets[setKey]=set;
-        dbuga("added new set "+setKey);
+        //dbuga("added new set "+setKey);
         }
       else{
         if(included){
-          dbuga("included, don't update set "+setKey);
+          //dbuga("included, don't update set "+setKey);
           }
         else{
-          dbuga("not included, update set "+setKey);
+          //dbuga("not included, update set "+setKey);
           sets[setKey]=set;
           }
         }
@@ -2476,15 +2477,15 @@ function parseDataWp(entries, included){
       for(var k=0; k<tempKeys.length; k++){
         var thisKey=tempKeys[k];
         if(thisKey != setKey){
-          dbuga('empty, keep '+thisKey);
+          //dbuga('empty, keep '+thisKey);
           setKeys.push(thisKey);
           }
         else{
-          dbuga("empty, remove "+thisKey);
+          //dbuga("empty, remove "+thisKey);
           }
         }
       }
-    dbuga(" setKeys.length="+setKeys.length);
+    //dbuga(" setKeys.length="+setKeys.length);
     }
   saveSetsToLocalStorage();
 
