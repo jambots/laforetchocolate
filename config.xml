@@ -3,12 +3,12 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.jambots.laforetchocolate"
-        versionCode="8" 
-        version   = "1.8">
+        versionCode="9" 
+        version   = "2.0">
 
-    <preference name="phonegap-version" value="3.7.0" />
+<preference name="phonegap-version" value="cli-5.2.0" />
     <name>La Forêt</name>
-    <description>La Forêt chocolate</description>
+    <description>La Forêt Chocolate</description>
 <!--
 <gap:platform name="android" />
 -->
