@@ -168,7 +168,7 @@ function resumeInit(){
 
   
   orientationTick();
-  debugGeometry();
+  //debugGeometry();
   dbuga('end of resumeInit orientationTick() ran');
   setKeys=["9999_Favorites"];
   sets={"9999_Favorites":[]};
@@ -1732,7 +1732,7 @@ function updateThumbButtons(){
     if(isCached(thumbUrl)==false){
       if((navigator.connection.type=="none")&&(inArray(thumbUrl,includedImageUrls)==false)){
         ref.src=defaultBase64;
-        //dbuga('thumb no connection, not cached, not included, use default');
+        dbuga('thumb no connection, not cached, not included, use default');
         }
       else{// 
         var targetIds=["thumbImage~"+set[i].largeUrl];
@@ -2104,7 +2104,8 @@ function updateSelectButtons(){
 var pi=Math.PI;
 var dataLoaded=false;
 //move to config.js 
-var feedURL="http://www.laforetchocolate.com/wordpress/category/allocation-chocolates/json";
+var feedURL="http://www.chromaris.org/category/allocation-chocolates/feed/?json=1";
+//var feedURL="http://www.laforetchocolate.com/wordpress/category/allocation-chocolates/json";
 //feedURL="http://www.laforetchocolate.com/test/category/allocation-chocolates/json";
 // remember wordpress may need allow cors plugin then settings > cors to allow *. May not for app shell.
 

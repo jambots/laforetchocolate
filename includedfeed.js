@@ -1,132 +1,347 @@
-var includedFeed=[
-    {
-        "id": 303,
-        "title": "Winter 2014",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/winter-2014-3/",
-        "content": "[caption id=\"attachment_304\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0101.jpg\"><img class=\"size-medium wp-image-304\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0101-219x300.jpg\" alt=\"Battenberg Cake\" width=\"219\" height=\"300\" /></a> Almond marzipan, moist cake and Valrhona Ivoire white chocolate fashioned into the classic tea cake with pink and white checks.[/caption]\r\n\r\n[caption id=\"attachment_305\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0201.jpg\"><img class=\"size-medium wp-image-305\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0201-219x300.jpg\" alt=\"Blackberry Flummery\" width=\"219\" height=\"300\" /></a> Vanilla pudding ganache swirled with blackberry jam in an E. Guittard white chocolate shell with purple and gold blush.[/caption]\r\n\r\n[caption id=\"attachment_306\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0301.jpg\"><img class=\"size-medium wp-image-306\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0301-219x300.jpg\" alt=\"4 Chocolate Trifle\" width=\"219\" height=\"300\" /></a> Inspired by Paul A. Young, layers of chocolate cake crumbs, milk, white and dark chocolate meltaways and a chocolate pearl.[/caption]\r\n\r\n[caption id=\"attachment_307\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0401.jpg\"><img class=\"size-medium wp-image-307\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0401-219x300.jpg\" alt=\"Cinder Toffee &amp; Coffee\" width=\"219\" height=\"300\" /></a> Our classic honeycomb aka cinder toffee paired with Valrhona Bahibe coffee ganache in a dark chocolate shell with gold swoosh.[/caption]\r\n\r\n[caption id=\"attachment_308\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0501.jpg\"><img class=\"size-medium wp-image-308\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0501-219x300.jpg\" alt=\"Figgy Pudding\" width=\"219\" height=\"300\" /></a> All the complex flavors of this Christmas classic with warm spices, dried fruits and a little Cognac in a dark chocolate shell with piped holly berries.[/caption]\r\n\r\n[caption id=\"attachment_309\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0601.jpg\"><img class=\"size-medium wp-image-309\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0601-219x300.jpg\" alt=\"Claire’s Gingernut\" width=\"219\" height=\"300\" /></a> Ginger-spiced brown sugar butter cookie cream in a Valrhona 70% dark chocolate shell with plaid stripes.[/caption]\r\n\r\n[caption id=\"attachment_310\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0701.jpg\"><img class=\"size-medium wp-image-310\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0701-219x300.jpg\" alt=\"Rococo\" width=\"219\" height=\"300\" /></a> Marc de champagne ganache in a Valrhona Jivara Lactée milk chocolate shell with pearl luster and chocolate pop rocks![/caption]\r\n\r\n[caption id=\"attachment_311\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0801.jpg\"><img class=\"size-medium wp-image-311\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0801-219x300.jpg\" alt=\"Sticky Toffee Pudding\" width=\"219\" height=\"300\" /></a> Caramelized white chocolate and date bits topping a rich toffee ganache in a milk chocolate shell with gold luster.[/caption]\r\n\r\n[caption id=\"attachment_312\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0901.jpg\"><img class=\"wp-image-312 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0901-219x300.jpg\" alt=\"Syllabub\" width=\"219\" height=\"300\" /></a> Light and foamy whip with dry sherry, lemon and a touch of nutmeg in a Valrhona Opalyse white chocolate shell.[/caption]\r\n\r\n[caption id=\"attachment_313\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1001.jpg\"><img class=\"wp-image-313 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1001-219x300.jpg\" alt=\"William Curley\" width=\"219\" height=\"300\" /></a> Single malt whisky ganache paired with hazelnut dacquoise and praline enrobed with our signature dark chocolate blend.[/caption]",
-        "excerpt": "",
-        "date": "2014-11-26 08:34:33",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    },
-    {
-        "id": 331,
-        "title": "Fall 2014",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/fall-2014-2/",
-        "content": "[caption id=\"attachment_333\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/010.jpg\"><img class=\"size-medium wp-image-333\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/010-219x300.jpg\" alt=\"Mariage Frères\" width=\"219\" height=\"300\" /></a> Earl Grey French Blue tea infused ganache enrobed in blended dark chocolate and garnished with a blue cornflower.[/caption]\r\n\r\n[caption id=\"attachment_334\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/020.jpg\"><img class=\"size-medium wp-image-334\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/020-219x300.jpg\" alt=\"Patrick Roger\" width=\"219\" height=\"300\" /></a> My mentor’s liquid pear caramel with F. Meyer Poire William ganache in a Valrhona Guanaja 70% dark chocolate shell with green-blue stripes.[/caption]\r\n\r\n[caption id=\"attachment_335\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/030.jpg\"><img class=\"size-medium wp-image-335\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/030-219x300.jpg\" alt=\"À la Mère de Famille\" width=\"219\" height=\"300\" /></a> Inspired by the Parisian confectioner, cassis pâte de fruit ganache and marshmallow in a 72% dark chocolate shell with red swoosh.[/caption]\r\n\r\n[caption id=\"attachment_336\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/040.jpg\"><img class=\"size-medium wp-image-336\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/040-219x300.jpg\" alt=\"Crêpe Suzette\" width=\"219\" height=\"300\" /></a> Flambéed Grand Marnier and Cognac, orange zest and browned butter flavored ganache in a Valrhona 62% dark chocolate shell with orange swirls.[/caption]\r\n\r\n[caption id=\"attachment_337\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/050.jpg\"><img class=\"size-medium wp-image-337\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/050-219x300.jpg\" alt=\"La Fée Verte\" width=\"219\" height=\"300\" /></a> Maison Alandia Absinthe paired with Valrhona Otucan Pure Venezuela 69% dark chocolate ganache in a dark chocolate shell with green luster.[/caption]\r\n\r\n[caption id=\"attachment_338\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/060.jpg\"><img class=\"wp-image-338 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/060-219x300.jpg\" alt=\"Mille-feuille Praliné\" width=\"219\" height=\"300\" /></a> A classic updated with hazelnut praline, crispy feuilletine, Valrhona Caramélia and vanilla bean meltaway layers with a marbled chocolate disk.[/caption]\r\n\r\n[caption id=\"attachment_339\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/070.jpg\"><img class=\"size-medium wp-image-339\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/070-219x300.jpg\" alt=\"Tarte au citron\" width=\"219\" height=\"300\" /></a> Milk chocolate “crust” filled with tart lemon cream and finished with white chocolate “sucre glace” and candied lemon zest.[/caption]\r\n\r\n[caption id=\"attachment_340\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/080.jpg\"><img class=\"size-medium wp-image-340\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/080-219x300.jpg\" alt=\"Escargot\" width=\"219\" height=\"300\" /></a> A bistro staple and the layout of Paris’ 20 arrondissements, a milk chocolate snail filled with pistachio gianduja and marzipan and wrapped in gold foil.[/caption]\r\n\r\n[caption id=\"attachment_341\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/090.jpg\"><img class=\"size-medium wp-image-341\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/090-219x300.jpg\" alt=\"Ispahan\" width=\"219\" height=\"300\" /></a> P. Hermé’s signature combination, raspberry and lychee pâte de fruit and rose water in a white chocolate shell with pink blush.[/caption]\r\n\r\n[caption id=\"attachment_342\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/100.jpg\"><img class=\"size-medium wp-image-342\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2014/08/100-219x300.jpg\" alt=\"Mont Blanc\" width=\"219\" height=\"300\" /></a> Crème de marron whip and piped chocolate curls in a Valrhona Opalyse chocolate cup with gold leaf.[/caption]",
-        "excerpt": "",
-        "date": "2014-08-26 15:31:45",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    },
-    {
-        "id": 317,
-        "title": "Summer 2014",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/summer-2014-2/",
-        "content": "[caption id=\"attachment_318\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0102.jpg\"><img class=\"size-medium wp-image-318\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0102-219x300.jpg\" alt=\"Boston Cream Pie\" width=\"219\" height=\"300\" /></a> Cake-infused, vanilla bean custard ganache in a Valrhona 70% Guanaja dark chocolate shell with white chocolate zigzag.[/caption]\r\n\r\n[caption id=\"attachment_319\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0202.jpg\"><img class=\"size-medium wp-image-319\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0202-219x300.jpg\" alt=\"Tarte au Chocolat\" width=\"219\" height=\"300\" /></a> The world’s tiniest milk chocolate and graham cracker tart shell filled with 64% Tainori dark chocolate ganache and a touch of gold leaf.[/caption]\r\n\r\n[caption id=\"attachment_320\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0302.jpg\"><img class=\"size-medium wp-image-320\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0302-219x300.jpg\" alt=\"German Chocolate Cake\" width=\"219\" height=\"300\" /></a> Chewy coconut, toasted pecans and sweetened condensed milk ganache in a 70% dark chocolate with bronze swoosh.[/caption]\r\n\r\n[caption id=\"attachment_321\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0402.jpg\"><img class=\"size-medium wp-image-321\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0402-219x300.jpg\" alt=\"La Forêt Noire\" width=\"219\" height=\"300\" /></a> Light vanilla whip, dark cherry pate de fruit and Kirschwasser ganache in a Valrhona Otucan 69% dark chocolate shell with red swoosh.[/caption]\r\n\r\n[caption id=\"attachment_322\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0502.jpg\"><img class=\"size-medium wp-image-322\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0502-219x300.jpg\" alt=\"Blum’s Coffee Crunch Cake\" width=\"219\" height=\"300\" /></a> An ethereal concoction of light lemon cream and crispy coffee “honeycomb” in a Valrhona 46% Bahibe milk chocolate shell.[/caption]\r\n\r\n[caption id=\"attachment_323\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0602.jpg\"><img class=\"size-medium wp-image-323\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0602-219x300.jpg\" alt=\"Peanut Butter Pie\" width=\"219\" height=\"300\" /></a> Squares of creamy peanut butter and tangy buttermilk in a Valrhona 64% Satilia shell with toasted Virginia peanuts and Maldon sea salt.[/caption]\r\n\r\n[caption id=\"attachment_324\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0702.jpg\"><img class=\"size-medium wp-image-324\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0702-219x300.jpg\" alt=\"Banana Cream Pie\" width=\"219\" height=\"300\" /></a> Milk chocolate pie “crust”, caramelized white chocolate-banana melt away topped with whipped vanilla bean white chocolate.[/caption]\r\n\r\n[caption id=\"attachment_325\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0802.jpg\"><img class=\"size-medium wp-image-325\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0802-219x300.jpg\" alt=\"Derby Pie\" width=\"219\" height=\"300\" /></a> Michter’s Small Batch Bourbon and walnut emulsion with dark chocolate chips in an E. Guittard milk chocolate shell topped with walnut crumble.[/caption]\r\n\r\n[caption id=\"attachment_326\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0902.jpg\"><img class=\"size-medium wp-image-326\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0902-219x300.jpg\" alt=\"Lemon-Lime Meringue Pie\" width=\"219\" height=\"300\" /></a> An American classic: tart citrus ganache paired with brown sugar marshmallow in an E. Guittard white chocolate shell with smoky swirls.[/caption]\r\n\r\n[caption id=\"attachment_327\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1002.jpg\"><img class=\"size-medium wp-image-327\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1002-219x300.jpg\" alt=\"Strawberry Shortcake\" width=\"219\" height=\"300\" /></a> Summer’s first strawberries and toasted almond biscuit in a Valrhona Opalyse white chocolate shell with pink blush.[/caption]",
-        "excerpt": "",
-        "date": "2014-05-26 14:13:03",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    },
-    {
-        "id": 346,
-        "title": "Spring 2014",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/spring-2014-2/",
-        "content": "[caption id=\"attachment_347\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0103.jpg\"><img class=\"wp-image-347 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0103-219x300.jpg\" alt=\"Domori Sambirano\" width=\"219\" height=\"300\" /></a> A dark chocolate truffle ganache featuring single origin Trinitario cacao from North West Madagascar fermented for 5 days, with signature tree logo.[/caption]\r\n\r\n[caption id=\"attachment_348\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0203.jpg\"><img class=\"wp-image-348 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0203-219x300.jpg\" alt=\"Blue Bottle\" width=\"219\" height=\"300\" /></a> Ethiopian heirloom cold processed coffee extract and Valrhona Bahibe 46% milk chocolate ganache in a 70% dark chocolate shell with blue swoosh.[/caption]\r\n\r\n[caption id=\"attachment_349\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0303.jpg\"><img class=\"wp-image-349 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0303-219x300.jpg\" alt=\"Black Pepper Cashew\" width=\"219\" height=\"300\" /></a> Spiced cashew praline and smoked E. Guittard 41% milk chocolate enrobed in milk chocolate and garnished with cracked black pepper.[/caption]\r\n\r\n[caption id=\"attachment_350\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0403.jpg\"><img class=\"wp-image-350 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0403-219x300.jpg\" alt=\"Humboldt Fog\" width=\"219\" height=\"300\" /></a> A layer of vegetable ash separates two milky layers of Valrhona Opalys 33% white chocolate ganache in a hand-rolled shell with white pearl luster.[/caption]\r\n\r\n[caption id=\"attachment_351\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0503.jpg\"><img class=\"wp-image-351 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0503-219x300.jpg\" alt=\"Niçoise Olive\" width=\"219\" height=\"300\" /></a> Candied black olives stud a cold-pressed Arbequina olive oil ganache in a Valrhona Ivoire 35% white chocolate shell with black speckles.[/caption]\r\n\r\n[caption id=\"attachment_352\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0603.jpg\"><img class=\"wp-image-352 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0603-219x300.jpg\" alt=\"Sakura\" width=\"219\" height=\"300\" /></a> Almond marzipan with preserved cherry blossoms and scented buttercream in an E. Guittard white chocolate shell with candied blossom garnish.[/caption]\r\n\r\n[caption id=\"attachment_353\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0703.jpg\"><img class=\"wp-image-353 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0703-219x300.jpg\" alt=\"Vanilla Milk Jam\" width=\"219\" height=\"300\" /></a> Caramelized milk jam ganache infused with Heilala vanilla, grown and cured in Tonga, in a Valrhona 64% dark chocolate shell with gold stripe.[/caption]\r\n\r\n[caption id=\"attachment_354\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0803.jpg\"><img class=\"wp-image-354 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0803-219x300.jpg\" alt=\"Bergamot Orange\" width=\"219\" height=\"300\" /></a> Tart and fragrant Bergamot pâte de fruit paired with Valrhona Araguani 72% dark chocolate in a dark chocolate shell with yellow cocoa butter spots.[/caption]\r\n\r\n[caption id=\"attachment_356\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1003.jpg\"><img class=\"wp-image-356 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1003-219x300.jpg\" alt=\"White Miso\" width=\"219\" height=\"300\" /></a> Valrhona Dulcey caramelized white chocolate and white miso ganache and candied cocoa nib meltaway in a dark chocolate shell with golden swirl.[/caption]\r\n\r\n[caption id=\"attachment_355\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0903.jpg\"><img class=\"wp-image-355 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0903-219x300.jpg\" alt=\"Mostarda\" width=\"219\" height=\"300\" /></a> Candied fruits preserved with spicy mustard seed oil in a Valrhona Jivara 40% milk chocolate cup with gold luster.[/caption]",
-        "excerpt": "",
-        "date": "2014-02-26 15:50:18",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    },
-    {
-        "id": 345,
-        "title": "Holiday 2013",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/holiday-2013-2/",
-        "content": "[caption id=\"attachment_358\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0104.jpg\"><img class=\"size-medium wp-image-358\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0104-219x300.jpg\" alt=\"Salted Butter Caramel\" width=\"219\" height=\"300\" /></a> Soft caramel and Valrhona 64% Taïnori dark chocolate ganache in a 70% dark chocolate shell with silver leaf.[/caption]\r\n\r\n[caption id=\"attachment_359\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0204.jpg\"><img class=\"size-medium wp-image-359\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0204-219x300.jpg\" alt=\"Dulce de Leche Sundae\" width=\"219\" height=\"300\" /></a> Valrhona Dulcey caramelized white chocolate ganache and dark chocolate fudge in a Valrhona 70% Guanaja dark chocolate shell with candied cocoa nibs.[/caption]\r\n\r\n[caption id=\"attachment_360\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0304.jpg\"><img class=\"size-medium wp-image-360\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0304-219x300.jpg\" alt=\"Amedei Chuao\" width=\"219\" height=\"300\" /></a> A hand-rolled truffle featuring pure criollo chocolate from the Chuao region of Venezuela in a dark chocolate shell with extra-dark cocoa powder.[/caption]\r\n\r\n[caption id=\"attachment_361\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0404.jpg\"><img class=\"size-medium wp-image-361\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0404-219x300.jpg\" alt=\"Dammsugare\" width=\"219\" height=\"300\" /></a> Kronan Swedish Punsch liqueur-soaked cookie crumb and almond marzipan roll, coated in pale green white chocolate and hand-dipped in dark chocolate.[/caption]\r\n\r\n[caption id=\"attachment_362\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0504.jpg\"><img class=\"size-medium wp-image-362\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0504-219x300.jpg\" alt=\"After 8\" width=\"219\" height=\"300\" /></a> Menthol-infused fondant cream and Michel Cluizel Vanuari 63% chocolate melt-away in a dark chocolate cup with our signature tree logo.[/caption]\r\n\r\n[caption id=\"attachment_363\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0604.jpg\"><img class=\"size-medium wp-image-363\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0604-219x300.jpg\" alt=\"Baci Nocciole\" width=\"219\" height=\"300\" /></a> A classic “gianduja” with Piedmonte hazelnut praline and Valrhona Jivara Lactée milk chocolate in a foil cup with hazelnut garnish.[/caption]\r\n\r\n[caption id=\"attachment_364\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0704.jpg\"><img class=\"size-medium wp-image-364\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0704-219x300.jpg\" alt=\"Pepparkakor\" width=\"219\" height=\"300\" /></a> Ginger, cinnamon and clove infused brown sugar ganache in an E. Guittard 42% Orinoco milk chocolate shell with dark speckles and gold leaf.[/caption]\r\n\r\n[caption id=\"attachment_366\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0904.jpg\"><img class=\"wp-image-366 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0904-219x300.jpg\" alt=\"Pan Forte\" width=\"219\" height=\"300\" /></a> Warm spices and cocoa with assorted dried fruits, almonds and hazelnuts in a milk chocolate cup with silver sparkle.[/caption]\r\n\r\n[caption id=\"attachment_365\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0804.jpg\"><img class=\"wp-image-365 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0804-219x300.jpg\" alt=\"1768 Milk Punch\" width=\"219\" height=\"300\" /></a> Inspired by Benjamin Franklin’s original recipe, brandy, lemon and nutmeg infused ganache in a Valrhona Ivoire white chocolate shell with silver luster.[/caption]\r\n\r\n[caption id=\"attachment_367\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1004.jpg\"><img class=\"wp-image-367 size-medium\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1004-219x300.jpg\" alt=\"Cha Yen\" width=\"219\" height=\"300\" /></a> Thai tea-infused white chocolate and sweetened condensed milk ganache in an orange speckled E. Guittard white chocolate shell.[/caption]",
-        "excerpt": "",
-        "date": "2013-11-26 15:59:01",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    },
-    {
-        "id": 369,
-        "title": "Fall 2013",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/fall-2013-2/",
-        "content": "[caption id=\"attachment_370\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0105.jpg\"><img class=\"size-medium wp-image-370\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0105-219x300.jpg\" alt=\"Coconut Joy\" width=\"219\" height=\"300\" /></a> Chewy coconut filling and a whole roasted almond enrobed in Valrhona Satilia 62% dark chocolate with silver leaf.[/caption]\r\n\r\n[caption id=\"attachment_371\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0205.jpg\"><img class=\"size-medium wp-image-371\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0205-219x300.jpg\" alt=\"Sazerac Truffle\" width=\"219\" height=\"300\" /></a> A classic cocktail of rye whiskey, Peychauds bitters and Herbsaint liqueur in a hand-rolled dark chocolate shell with green luster.[/caption]\r\n\r\n[caption id=\"attachment_372\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0305.jpg\"><img class=\"size-medium wp-image-372\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0305-219x300.jpg\" alt=\"Doberge Cake\" width=\"219\" height=\"300\" /></a> A New Orleans original, vanilla custard and toasted cake crumbs in an E. Guittard 72% dark chocolate shell with striped chocolate disk.[/caption]\r\n\r\n[caption id=\"attachment_373\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0405.jpg\"><img class=\"size-medium wp-image-373\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0405-219x300.jpg\" alt=\"Sassafras\" width=\"219\" height=\"300\" /></a> Sassafras root and fresh bay leaf paired with Valrhona single-origin Dominican Republic dark chocolate in a dark chocolate square.[/caption]\r\n\r\n[caption id=\"attachment_374\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0505.jpg\"><img class=\"size-medium wp-image-374\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0505-219x300.jpg\" alt=\"“Bam!”\" width=\"219\" height=\"300\" /></a> The Granada Chocolate Company’s 71% dark chocolate infused with spicy cayenne pepper and salted butter caramel in a dark chocolate shell with orange swoosh.[/caption]\r\n\r\n[caption id=\"attachment_375\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0605.jpg\"><img class=\"size-medium wp-image-375\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0605-219x300.jpg\" alt=\"Chicory Café au Lait\" width=\"219\" height=\"300\" /></a> Roasted chicory root, coffee and milky Opalyse white chocolate ganache in a Valrhona Orizaba milk chocolate shell with gold leaf.[/caption]\r\n\r\n[caption id=\"attachment_376\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0705.jpg\"><img class=\"size-medium wp-image-376\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0705-219x300.jpg\" alt=\"Fun Size\" width=\"219\" height=\"300\" /></a> A mini candy bar of caramel ganache and Virginia peanut nougat enrobed in E. Guittard Orinoco milk chocolate.[/caption]\r\n\r\n[caption id=\"attachment_377\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0805.jpg\"><img class=\"size-medium wp-image-377\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0805-219x300.jpg\" alt=\"Pecan Praline\" width=\"219\" height=\"300\" /></a> House-made pecan praline emulsified with Louisiana Praline pecan liqueur in a Valrhona Jivara Lactée milk chocolate shell with candied pecans.[/caption]\r\n\r\n[caption id=\"attachment_378\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0905.jpg\"><img class=\"size-medium wp-image-378\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0905-219x300.jpg\" alt=\"Creole Cream Cheese &amp; Strawberries\" width=\"219\" height=\"300\" /></a> A taste of Louisiana summer, Valrhona Ivoire white chocolate shell filled with strawberry jam and tangy cream cheese ganache.[/caption]\r\n\r\n[caption id=\"attachment_379\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1005.jpg\"><img class=\"size-medium wp-image-379\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1005-219x300.jpg\" alt=\"Banana’s Foster\" width=\"219\" height=\"300\" /></a> Brown sugar and cinnamon whip with rum-spiked banana pâte de fruit in an E. Guittard white chocolate shell with dark chocolate speckles.[/caption]",
-        "excerpt": "",
-        "date": "2013-08-26 16:04:58",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    },
-    {
-        "id": 408,
-        "title": "Spring 2013",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/spring-2013-2/",
-        "content": "[caption id=\"attachment_409\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0107.jpg\"><img class=\"size-medium wp-image-409\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0107-234x300.jpg\" alt=\"Pistachio Gianduja\" width=\"234\" height=\"300\" /></a> Sicilian pistachio paste, crispy feuilletine and Valrhona Orizaba 39% milk chocolate in a gold foil cup.[/caption]\r\n\r\n[caption id=\"attachment_410\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0207.jpg\"><img class=\"size-medium wp-image-410\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0207-234x300.jpg\" alt=\"Sakura Matcha\" width=\"234\" height=\"300\" /></a> A classic Japanese Kit Kat® flavor reimagined with a green tea and rice pearl meltaway and cherry blossom whip.[/caption]\r\n\r\n[caption id=\"attachment_411\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0307.jpg\"><img class=\"size-medium wp-image-411\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0307-234x300.jpg\" alt=\"Coffee and Donuts\" width=\"234\" height=\"300\" /></a> Cold-infused Café du Monde® chicory coffee ganache and toasty “beignet” marshmallow, with a dark chocolate shell with orange speckles.[/caption]\r\n\r\n[caption id=\"attachment_412\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0407.jpg\"><img class=\"size-medium wp-image-412\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0407-234x300.jpg\" alt=\"Thyme-Citron\" width=\"234\" height=\"300\" /></a> Local Napa Valley Buddha’s Hand and almond paste with garden thyme- infused ganache in a Valrhona 70% dark chocolate shell with dark velvet.[/caption]\r\n\r\n[caption id=\"attachment_413\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0507.jpg\"><img class=\"size-medium wp-image-413\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0507-234x300.jpg\" alt=\"Sur Del Lago\" width=\"234\" height=\"300\" /></a> Domori single-origin Venezuelan 72% chocolate ganache in a dark chocolate palet, with a gold and orange swoosh.[/caption]\r\n\r\n[caption id=\"attachment_414\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0607.jpg\"><img class=\"size-medium wp-image-414\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0607-234x300.jpg\" alt=\"Fresh Almond\" width=\"234\" height=\"300\" /></a> Almond milk and almond oil ganache in a white chocolate sphere with pale green velvet.[/caption]\r\n\r\n[caption id=\"attachment_415\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0707.jpg\"><img class=\"size-medium wp-image-415\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0707-234x300.jpg\" alt=\"Carrot Cake\" width=\"234\" height=\"300\" /></a> Carrot and spice marzipan with rum, golden raisins and pecans, coated in tangy white chocolate and milk chocolate caps.[/caption]\r\n\r\n[caption id=\"attachment_416\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0807.jpg\"><img class=\"size-medium wp-image-416\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0807-234x300.jpg\" alt=\"Maple Cream\" width=\"234\" height=\"300\" /></a> Tonewood Maple Cream from Vermont and M. Cluizel 50% Mangaro milk chocolate ganache in a milk chocolate square, garnished with maple flakes.[/caption]\r\n\r\n[caption id=\"attachment_417\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0907.jpg\"><img class=\"size-medium wp-image-417\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/0907-234x300.jpg\" alt=\"P B &amp; J\" width=\"234\" height=\"300\" /></a> Concord grape jelly and slow-roasted peanut butter whip in a Valrhona 62% dark chocolate shell with silver leaf.[/caption]\r\n\r\n[caption id=\"attachment_418\" align=\"alignnone\" width=\"234\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1007.jpg\"><img class=\"size-medium wp-image-418\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/04/1007-234x300.jpg\" alt=\"Rhubarb Crisp\" width=\"234\" height=\"300\" /></a> Tart rhubarb and Heilala vanilla bean pâte de fruit and vanilla-rhubarb whip in a Valrhona Ivoire white chocolate shell with cinnamon-oat crisp.[/caption]",
-        "excerpt": "",
-        "date": "2013-02-26 19:33:20",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    },
-    {
-        "id": 394,
-        "title": "Summer 2012",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/summer-2012-2/",
-        "content": "[caption id=\"attachment_396\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/010.jpg\"><img class=\"size-medium wp-image-396\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/010-219x300.jpg\" alt=\"Meyer Lemon Meringue Pie\" width=\"219\" height=\"300\" /></a> Tart lemon ganache and brown sugar meringue in an E. Guittard white chocolate shell with toasty speckles.[/caption]\r\n\r\n[caption id=\"attachment_397\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/020.jpg\"><img class=\"size-medium wp-image-397\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/020-219x300.jpg\" alt=\"Walnut Nocino\" width=\"219\" height=\"300\" /></a> Tenbrink Farms Chandler walnut praline emulsion with locally-made Nocino della Christina in a Valrhona Jivara Lactée milk chocolate shell with candied walnuts.[/caption]\r\n\r\n[caption id=\"attachment_398\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/030.jpg\"><img class=\"size-medium wp-image-398\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/030-219x300.jpg\" alt=\"Vanilla Rum Truffle\" width=\"219\" height=\"300\" /></a> Vanilla Rum Truffle[/caption]\r\n\r\n[caption id=\"attachment_399\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/040.jpg\"><img class=\"size-medium wp-image-399\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/040-219x300.jpg\" alt=\"Cabernet Truffle\" width=\"219\" height=\"300\" /></a> 2008 Vine Cliff Cabernet reduction and Valrhona 72% Araguani chocolate ganache in a dark chocolate burgundy dome.[/caption]\r\n\r\n[caption id=\"attachment_400\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/050.jpg\"><img class=\"size-medium wp-image-400\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/050-219x300.jpg\" alt=\"Olive Oil Palet d’Argent\" width=\"219\" height=\"300\" /></a> Olive Oil Palet d’Argent[/caption]\r\n\r\n[caption id=\"attachment_401\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/060.jpg\"><img class=\"size-medium wp-image-401\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/060-219x300.jpg\" alt=\"After 8\" width=\"219\" height=\"300\" /></a> Eucalyptus infused fondant cream and Michel Cluizel Vanuari Noir 63% chocolate melt-away in a dark chocolate cup with signature tree logo.[/caption]\r\n\r\n[caption id=\"attachment_402\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/070.jpg\"><img class=\"size-medium wp-image-402\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/070-219x300.jpg\" alt=\"Strawberries &amp; Cream\" width=\"219\" height=\"300\" /></a> Silverado Trail strawberries and vanilla bean butter cream in a Valrhona Ivoire white chocolate shell with a red swirl.[/caption]\r\n\r\n[caption id=\"attachment_403\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/080.jpg\"><img class=\"size-medium wp-image-403\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/080-219x300.jpg\" alt=\"Sage Caramel\" width=\"219\" height=\"300\" /></a> Full Table Farm sage scented salted butter caramel paired with Valrhona 64% Tainori ganache in a dark chocolate shell with green and gold leaf.[/caption]\r\n\r\n[caption id=\"attachment_404\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/090.jpg\"><img class=\"size-medium wp-image-404\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/090-219x300.jpg\" alt=\"Elderberry Shrub\" width=\"219\" height=\"300\" /></a> Aigre-dolce gelée and ganache flavored with elderberries locally foraged by Connie Green in a.[/caption]\r\n\r\n[caption id=\"attachment_405\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/100.jpg\"><img class=\"size-medium wp-image-405\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2012/05/100-219x300.jpg\" alt=\"Honey &amp; Almond Praline\" width=\"219\" height=\"300\" /></a> Marshall Farms Napa Valley Wildflower honey and almond praline hand-dipped in E. Guittard 41% Orinoco milk chocolate with gold luster.[/caption]",
-        "excerpt": "",
-        "date": "2012-05-29 15:52:29",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    },
-    {
-        "id": 420,
-        "title": "Winter 2011",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/winter-2011-2/",
-        "content": "[caption id=\"attachment_429\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/010.jpg\"><img class=\"size-medium wp-image-429\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/010-219x300.jpg\" alt=\"Salted Butter Caramel\" width=\"219\" height=\"300\" /></a> soft caramel and Valrhona 64% Taïnori dark chocolate ganache in a 70% dark chocolate shell with gold leaf.[/caption]\r\n\r\n[caption id=\"attachment_430\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/020.jpg\"><img class=\"size-medium wp-image-430\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/020-219x300.jpg\" alt=\"Peppermint Bonbon\" width=\"219\" height=\"300\" /></a> light peppermint whip with dark chocolate flakes in a Valrhona Araguani 72% dark chocolate shell with red and white stripes.[/caption]\r\n\r\n[caption id=\"attachment_428\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/030.jpg\"><img class=\"size-medium wp-image-428\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/030-219x300.jpg\" alt=\"Mangaro Palet D’or\" width=\"219\" height=\"300\" /></a> Michel Cluizel Estate Grown Madagascar 65% chocolate ganache in a dark chocolate shell with a gold swoosh.[/caption]\r\n\r\n[caption id=\"attachment_426\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/040.jpg\"><img class=\"size-medium wp-image-426\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/040-219x300.jpg\" alt=\"1786 Milk Punch\" width=\"219\" height=\"300\" /></a> Inspired by Benjamin Franklin’s original recipe, brandy, lemon and nutmeg infused ganache in a Valrhona Ivoire white chocolate shell with silver luster.[/caption]\r\n\r\n[caption id=\"attachment_427\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/050.jpg\"><img class=\"size-medium wp-image-427\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/050-219x300.jpg\" alt=\"Mugo Pine\" width=\"219\" height=\"300\" /></a> Italian Mugolio pine cone bud syrup and mascarpone ganache in a “snow capped” 62% Valrhona dark chocolate shell.[/caption]\r\n\r\n[caption id=\"attachment_425\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/060.jpg\"><img class=\"size-medium wp-image-425\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/060-219x300.jpg\" alt=\"White Fruitcake\" width=\"219\" height=\"300\" /></a> Candied buddha’s hand, mandarin and meyer lemon, toasted hazelnuts, golden raisins and cognac-soaked poundcake in a white chocolate meltaway cup.[/caption]\r\n\r\n[caption id=\"attachment_423\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/070.jpg\"><img class=\"size-medium wp-image-423\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/070-219x300.jpg\" alt=\"Sweet Potato &amp; Ginger\" width=\"219\" height=\"300\" /></a> Delicate, ginger scented sweet potato ganache in a Valrhona 70% dark chocolate shell with toasted marshmallows.[/caption]\r\n\r\n[caption id=\"attachment_424\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/080.jpg\"><img class=\"size-medium wp-image-424\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/080-219x300.jpg\" alt=\"Mexican Hot Chocolate\" width=\"219\" height=\"300\" /></a> Ah Cacao Mexican-grown 100% criollo chocolate blended with chile pasilla in 62% dark chocolate shell with red and bronze.[/caption]\r\n\r\n[caption id=\"attachment_422\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/090.jpg\"><img class=\"size-medium wp-image-422\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/090-219x300.jpg\" alt=\"San Saba Pecan\" width=\"219\" height=\"300\" /></a> Native Texas pecan praline emulsified with Louisiana-made pecan liqueur in a Valrhona Jivara Lactée milk chocolate shell with candied pecans.[/caption]\r\n\r\n[caption id=\"attachment_421\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/100.jpg\"><img class=\"size-medium wp-image-421\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/100-219x300.jpg\" alt=\"Smokehouse Almond\" width=\"219\" height=\"300\" /></a> Hickory-smoked Califoria almonds blended with E. Guittard Orinoco milk chocolate in a speckled milk chocolate shell.[/caption]",
-        "excerpt": "",
-        "date": "2011-11-20 05:29:40",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    },
-    {
-        "id": 441,
-        "title": "Fall 2011",
-        "permalink": "http://www.laforetchocolate.com/wordpress/allocation-chocolates/fall-2011-2/",
-        "content": "[caption id=\"attachment_442\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0101.jpg\"><img class=\"size-medium wp-image-442\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0101-219x300.jpg\" alt=\"Wild Rice &amp; Caramel\" width=\"219\" height=\"300\" /></a> our classic salted butter caramel paired with wild rice infused chocolate ganache in a Valrhona 70% dark chocolate sphere.[/caption]\r\n\r\n[caption id=\"attachment_443\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0201.jpg\"><img class=\"size-medium wp-image-443\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0201-219x300.jpg\" alt=\"Pumpkin Pie \" width=\"219\" height=\"300\" /></a> spiced pumpkin confiture de lait in an E. Guittard white chocolate shell with graham cracker crust.[/caption]\r\n\r\n[caption id=\"attachment_444\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0301.jpg\"><img class=\"size-medium wp-image-444\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0301-219x300.jpg\" alt=\"Horchata de almendra\" width=\"219\" height=\"300\" /></a> almond milk infused with Alba cinnamon and lemon in a Valrhona Jivara Lactée milk chocolate shell.[/caption]\r\n\r\n[caption id=\"attachment_445\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0401.jpg\"><img class=\"size-medium wp-image-445\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0401-219x300.jpg\" alt=\"Root Beer Float\" width=\"219\" height=\"300\" /></a> White chocolate whip and root beer pâte de fruit in a Valrhona Ivoire shell with dark chocolate specks.[/caption]\r\n\r\n[caption id=\"attachment_446\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0501.jpg\"><img class=\"size-medium wp-image-446\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0501-219x300.jpg\" alt=\"Roasted Chestnut Marzipan\" width=\"219\" height=\"300\" /></a> Locally grown Italian chestnuts perfumed with Tuscan chestnut flower honey in a Valrhona Taïnori 64% dark chocolate shell.[/caption]\r\n\r\n[caption id=\"attachment_447\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0601.jpg\"><img class=\"size-medium wp-image-447\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0601-219x300.jpg\" alt=\"Smoked Maple Pecan\" width=\"219\" height=\"300\" /></a> Applewood-smoked pecan praline cream in Valrhona Jivara Lactée milk chocolate shell with silver swirls.[/caption]\r\n\r\n[caption id=\"attachment_448\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0701.jpg\"><img class=\"size-medium wp-image-448\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0701-219x300.jpg\" alt=\"Poire Belle Hélène\" width=\"219\" height=\"300\" /></a> Napa Valley Bosc pear preserves and vanilla bean buttercream in a Valrhona 62% striped dark chocolate shell.[/caption]\r\n\r\n[caption id=\"attachment_449\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0801.jpg\"><img class=\"size-medium wp-image-449\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0801-219x300.jpg\" alt=\"Café Brûlot\" width=\"219\" height=\"300\" /></a> Coffee ganache spiked with warm spices, orange zest and brandy in a Valrhona 70% dark chocolate shell with silver leaf.[/caption]\r\n\r\n[caption id=\"attachment_450\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0901.jpg\"><img class=\"size-medium wp-image-450\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/0901-219x300.jpg\" alt=\"Scotch Whisky Truffle\" width=\"219\" height=\"300\" /></a> Felchlin Grand Cru Sauvage Bolivia 68% dark chocolate paired with smoky Islay whisky in a “black pearl” dark chocolate shell.[/caption]\r\n\r\n[caption id=\"attachment_451\" align=\"alignnone\" width=\"219\"]<a href=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/1001.jpg\"><img class=\"size-medium wp-image-451\" src=\"http://www.laforetchocolate.com/wordpress/wp-content/uploads/2015/05/1001-219x300.jpg\" alt=\"Apple Cider\" width=\"219\" height=\"300\" /></a> Apple cider and cinnamon ganache a Valrhona Caramélia milk chocolate shell with bronze luster.[/caption]",
-        "excerpt": "",
-        "date": "2011-08-25 09:52:35",
-        "author": "admin",
-        "categories": [
-            "Allocation Chocolates"
-        ],
-        "tags": []
-    }
-];
+var includedFeed=[{
+		"id": 4,
+		"type": "post",
+		"slug": "winter-2014",
+		"url": "http:\/\/www.chromaris.org\/2014\/11\/01\/winter-2014\/",
+		"status": "publish",
+		"title": "Winter 2014",
+		"title_plain": "Winter 2014",
+		"content": "<figure id=\"attachment_16\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010.jpg\" rel=\"attachment wp-att-16\"><img class=\"size-medium wp-image-16\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010-219x300.jpg\" alt=\"Battenberg Cake\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">Almond marzipan, moist cake and Valrhona Ivoire white chocolate fashioned into the classic tea cake with pink and white checks.<\/figcaption><\/figure>\n<figure id=\"attachment_18\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020.jpg\" rel=\"attachment wp-att-18\"><img class=\"size-medium wp-image-18\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020-219x300.jpg\" alt=\"Blackberry Flummery\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">Vanilla pudding ganache swirled with blackberry jam in an E. Guittard white chocolate shell with purple and gold blush.<\/figcaption><\/figure>\n<figure id=\"attachment_19\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030.jpg\" rel=\"attachment wp-att-19\"><img class=\"size-medium wp-image-19\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030-219x300.jpg\" alt=\"4 Chocolate Trifle\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">Inspired by Paul A. Young, layers of chocolate cake crumbs, milk, white and dark chocolate meltaways and a chocolate pearl.<\/figcaption><\/figure>\n<figure id=\"attachment_20\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040.jpg\" rel=\"attachment wp-att-20\"><img class=\"size-medium wp-image-20\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040-219x300.jpg\" alt=\"Cinder Toffee &amp; Coffee\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">Our classic honeycomb aka cinder toffee paired with Valrhona Bahibe coffee ganache in a dark chocolate shell with gold swoosh.<\/figcaption><\/figure>\n<figure id=\"attachment_22\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060.jpg\" rel=\"attachment wp-att-22\"><img class=\"size-medium wp-image-22\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060-219x300.jpg\" alt=\"Claire\u2019s Gingernut\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">Ginger-spiced brown sugar butter cookie cream in a Valrhona 70% dark chocolate shell with plaid stripes.<\/figcaption><\/figure>\n<figure id=\"attachment_21\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050.jpg\" rel=\"attachment wp-att-21\"><img class=\"size-medium wp-image-21\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050-219x300.jpg\" alt=\"Figgy Pudding\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">All the complex flavors of this Christmas classic with warm spices, dried fruits and a little Cognac in a dark chocolate shell with piped holly berries.<\/figcaption><\/figure>\n<figure id=\"attachment_23\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070.jpg\" rel=\"attachment wp-att-23\"><img class=\"size-medium wp-image-23\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070-219x300.jpg\" alt=\"Rococo\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">Marc de champagne ganache in a Valrhona Jivara Lact\u00e9e milk chocolate shell with pearl luster and chocolate pop rocks!<\/figcaption><\/figure>\n<figure id=\"attachment_24\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080.jpg\" rel=\"attachment wp-att-24\"><img class=\"size-medium wp-image-24\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080-219x300.jpg\" alt=\"Sticky Toffee Pudding\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">Caramelized white chocolate and date bits topping a rich toffee ganache in a milk chocolate shell with gold luster.<\/figcaption><\/figure>\n<figure id=\"attachment_25\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090.jpg\" rel=\"attachment wp-att-25\"><img class=\"size-medium wp-image-25\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090-219x300.jpg\" alt=\"Syllabub\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">Light and foamy whip with dry sherry, lemon and a touch of nutmeg in a Valrhona Opalyse white chocolate shell.<\/figcaption><\/figure>\n<figure id=\"attachment_26\" style=\"width: 219px\" class=\"wp-caption alignnone\"><a href=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100.jpg\" rel=\"attachment wp-att-26\"><img class=\"size-medium wp-image-26\" src=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100-219x300.jpg\" alt=\"William Curley\" width=\"219\" height=\"300\" srcset=\"http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100-219x300.jpg 219w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100-768x1051.jpg 768w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100-748x1024.jpg 748w, http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100.jpg 798w\" sizes=\"(max-width: 219px) 100vw, 219px\" \/><\/a><figcaption class=\"wp-caption-text\">Single malt whisky ganache paired with hazelnut dacquoise and praline enrobed with our signature dark chocolate blend.<\/figcaption><\/figure>\n",
+		"excerpt": "",
+		"date": "2014-11-01 18:04:53",
+		"modified": "2016-02-29 23:36:07",
+		"categories": [{
+			"id": 5,
+			"slug": "allocation-chocolates",
+			"title": "Allocation Chocolates",
+			"description": "",
+			"parent": 0,
+			"post_count": 1
+		}],
+		"tags": [],
+		"author": {
+			"id": 1,
+			"slug": "chromarisadmin",
+			"name": "chromarisadmin",
+			"first_name": "",
+			"last_name": "",
+			"nickname": "chromarisadmin",
+			"url": "",
+			"description": ""
+		},
+		"comments": [],
+		"attachments": [{
+			"id": 19,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030.jpg",
+			"slug": "030",
+			"title": "030",
+			"description": "",
+			"caption": "Inspired by Paul A. Young, layers of chocolate cake crumbs, milk, white and dark chocolate meltaways and a chocolate pearl.",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/030-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}, {
+			"id": 16,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010.jpg",
+			"slug": "010",
+			"title": "010",
+			"description": "",
+			"caption": "Almond marzipan, moist cake and Valrhona Ivoire white chocolate fashioned into the classic tea cake with pink and white checks.",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/010-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}, {
+			"id": 18,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020.jpg",
+			"slug": "020",
+			"title": "020",
+			"description": "",
+			"caption": "Vanilla pudding ganache swirled with blackberry jam in an E. Guittard white chocolate shell with purple and gold blush.",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/020-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}, {
+			"id": 20,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040.jpg",
+			"slug": "040",
+			"title": "040",
+			"description": "",
+			"caption": "Our classic honeycomb aka cinder toffee paired with Valrhona Bahibe coffee ganache in a dark chocolate shell with gold swoosh.",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/040-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}, {
+			"id": 21,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050.jpg",
+			"slug": "050",
+			"title": "050",
+			"description": "",
+			"caption": "All the complex flavors of this Christmas classic with warm spices, dried fruits and a little Cognac in a dark chocolate shell with piped holly berries.",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/050-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}, {
+			"id": 22,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060.jpg",
+			"slug": "060",
+			"title": "060",
+			"description": "",
+			"caption": "Ginger-spiced brown sugar butter cookie cream in a Valrhona 70% dark chocolate shell with plaid stripes.",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/060-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}, {
+			"id": 23,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070.jpg",
+			"slug": "070",
+			"title": "070",
+			"description": "",
+			"caption": "Marc de champagne ganache in a Valrhona Jivara Lact\u00e9e milk chocolate shell with pearl luster and chocolate pop rocks!",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/070-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}, {
+			"id": 24,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080.jpg",
+			"slug": "080",
+			"title": "080",
+			"description": "",
+			"caption": "Caramelized white chocolate and date bits topping a rich toffee ganache in a milk chocolate shell with gold luster.",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/080-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}, {
+			"id": 25,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090.jpg",
+			"slug": "090",
+			"title": "090",
+			"description": "",
+			"caption": "Light and foamy whip with dry sherry, lemon and a touch of nutmeg in a Valrhona Opalyse white chocolate shell.",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/090-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}, {
+			"id": 26,
+			"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100.jpg",
+			"slug": "100",
+			"title": "100",
+			"description": "",
+			"caption": "Single malt whisky ganache paired with hazelnut dacquoise and praline enrobed with our signature dark chocolate blend.",
+			"parent": 4,
+			"mime_type": "image\/jpeg",
+			"images": {
+				"full": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100.jpg",
+					"width": 798,
+					"height": 1092
+				},
+				"thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100-150x150.jpg",
+					"width": 150,
+					"height": 150
+				},
+				"medium": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100-219x300.jpg",
+					"width": 219,
+					"height": 300
+				},
+				"post-thumbnail": {
+					"url": "http:\/\/www.chromaris.org\/wp-content\/uploads\/2014\/11\/100-798x510.jpg",
+					"width": 798,
+					"height": 510
+				}
+			}
+		}],
+		"comment_count": 0,
+		"comment_status": "open",
+		"custom_fields": {}
+	}]
