@@ -1940,14 +1940,14 @@ urlToSrcs = function(imageUrl,imageIds) {
   this.LoadPage = function() {
     var r = new XMLHttpRequest();
     r.onloadend = onLoad;
-    //dbuga("loadPage "+this.loadUrl);
+    dbuga("loadPage GET "+this.loadUrl);
     r.open ("GET", this.loadUrl, true);
     r.responseType = 'blob';
     r.send (null);
   }
 }
 stashDefault = function(loadUrl) {
-  //dbuga("stashDefault "+ loadUrl);
+  dbuga("stashDefault "+ loadUrl);
   this.status = 0;
   this.loadUrl = loadUrl;
   var req = this;
@@ -1957,7 +1957,7 @@ stashDefault = function(loadUrl) {
     reader.onloadend = (function(theBlob) {
       return function(e) {
       defaultBase64=e.target.result;
-      //dbuga('stashed <img width=40 src="'+defaultBase64+'" />');
+      dbuga('stashed <img width=40 src="'+defaultBase64+'" />');
       }
     })(blob);    
     reader.readAsDataURL(blob);
@@ -1965,6 +1965,7 @@ stashDefault = function(loadUrl) {
   this.LoadPage = function() {
     var r = new XMLHttpRequest();
     r.onloadend = onLoad;
+    console.log("GET this.LoadPage");
     r.open ("GET", this.loadUrl, true);
     r.responseType = 'blob';
     r.send (null);
