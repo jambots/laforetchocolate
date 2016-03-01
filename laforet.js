@@ -1891,7 +1891,7 @@ function base64toCanv(data, canv){
   img.src = data;
   }
 urlToSrcs = function(imageUrl,imageIds) {
-  //dbuga("urlToSrcs "+imageUrl);
+  dbuga("urlToSrcs "+imageUrl);
   var included=false;
   var loadUrl=imageUrl;
   if(inArray(loadUrl,includedImageUrls)){
@@ -1949,7 +1949,7 @@ urlToSrcs = function(imageUrl,imageIds) {
   }
 }
 stashDefault = function(loadUrl) {
-  dbuga("stashDefault "+ loadUrl);
+  //dbuga("stashDefault "+ loadUrl);
   this.status = 0;
   this.loadUrl = loadUrl;
   var req = this;
@@ -2137,6 +2137,7 @@ function loadDataWp(){
   // });
   }
 function parseDataWp(entries, included){
+  if(included==false){return false;}
   dbuga('parseDataWp  entries.length='+entries.length);
   for (var e=0; e<entries.length; e++){
     var entry=entries[e];
