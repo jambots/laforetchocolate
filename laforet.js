@@ -451,7 +451,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     portraitScreenWidth=viewportWidth;
     portraitScreenHeight=viewportHeight;
     absScreenWidth= portraitScreenWidth;
-      if(landscapeKnown==false){// let's play guess the landscape dimension! 
+    if(landscapeKnown==false){// let's play guess the landscape dimension! 
       landscapeScreenWidth=viewportHeight;
       landscapeScreenHeight=viewportWidth;
       absScreenHeight=viewportWidth;
@@ -1308,22 +1308,24 @@ function prepareRotor(){
       }
     }
   if(loadQueue.length>0){
-    //dbuga('in prepareRotor loadQueue.length='+loadQueue.length+' so loadTick()');
+    dbuga('in prepareRotor loadQueue.length='+loadQueue.length+' so loadTick()');
     loadTick();
     }
   updateLoadingCanvas();
   }
 function loadTick(){
-  //dbuga('loadTick '+loadQueue.length);
+  dbuga('<br>loadTick '+loadQueue.length);
   window.clearTimeout(loadTimeout);
   if(loadQueue.length==0){
+    dbuga(' loadQueue=[] so bail');
     return false;
     }
 
   var loadItem=loadQueue.shift();
-  dbuga('loadTick '+JSON.stringify(loadItem));
+  dbuga(' - loadTick '+JSON.stringify(loadItem));
   var tempObj = new urlToSrcs(loadItem.targetUrl, loadItem.targetIds);
   tempObj.LoadPage();
+  dbuga('loadTick completed');
   }
 function updateLoadingCanvas(){
   var canv=document.getElementById("loadingCanvas");
