@@ -1,6 +1,6 @@
 #loadingCanvas{position:absolute; Zbackground-color:rgba(0,0,0,.25);}
 
-#debugDiv{top:0px;left:190px; position:absolute; background-color:rgba(255,255,255,0);}
+#debugDiv{top:0px;left:190px; position:absolute; background-color:rgba(255,255,255,.6);}
 
 #infoHolder{
   background-image:url('info.png');
