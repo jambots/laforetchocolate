@@ -2158,6 +2158,7 @@ function loadDataWp(){
   }
 function parseDataWp(entries, included){
   if(included==false){
+    return false;
     entries=entries.posts;
     }
   dbuga('parseDataWp  entries.length='+entries.length);
