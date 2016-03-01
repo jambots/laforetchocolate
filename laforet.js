@@ -1187,7 +1187,7 @@ function prepareRotor(){
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
 
-  //dbuga("prepareRotor "+selectedSetKey+" "+set.length);
+  dbuga("prepareRotor "+selectedSetKey+" "+set.length);
   var htmlString="";
   for (var i=0; i<set.length; i++){
     if((agent=="windows")||(agent=="mac")){
@@ -1222,6 +1222,7 @@ function prepareRotor(){
   document.getElementById("rotor").innerHTML=htmlString;
   document.getElementById("rotor").style.width=portraitScreenWidth+"px";
   // desktop stops here, no ref wtf?
+  dbuga('prepareRotor 2');
   for (var i=0; i<set.length; i++){
     var rotorRef=document.getElementById("rotorImage~"+set[i].largeUrl);
     var rotorBackRef=document.getElementById("rotorBack~"+set[i].largeUrl);
@@ -1256,12 +1257,12 @@ function prepareRotor(){
     var largeUrl=set[i].largeUrl;
     if(isCached(largeUrl)==false){
       if((navigator.connection.type=="none")&&(inArray(largeUrl,includedImageUrls)==false)){
-        //dbuga("no connection, not included so defaultBase64 to rotor and flow");
+        dbuga("no connection, not included so defaultBase64 to rotor and flow");
         base64toElement(defaultBase64, rotorRef);
         base64toElement(defaultBase64, flowRef);
         }
       else{
-        //dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached, so loadQueue rotor and flow");
+        dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached, so loadQueue rotor and flow");
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
         var targetUrl=set[i].largeUrl;
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
@@ -1278,9 +1279,9 @@ function prepareRotor(){
         var refs=[flowRef, rotorRef];
 
 
-        //dbuga("0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
+        dbuga("CDU 0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var largeUrl=set[i].largeUrl;
-        //dbuga("5 largeUrl ="+ largeUrl);
+        dbuga("CDU 5 largeUrl ="+ largeUrl);
         (function(refs,largeUrl){
           db.transaction(function(tx) {
           //dbuga("6 largeUrl ="+ largeUrl);
@@ -1307,11 +1308,13 @@ function prepareRotor(){
         }
       }
     }
-  if(loadQueue.length>0){
-    dbuga('in prepareRotor loadQueue.length='+loadQueue.length+' so loadTick()');
-    loadTick();
-    }
+
+  window.clearTimeout(loadTimeout);
   updateLoadingCanvas();
+  if(loadQueue.length>0){
+    loadTimeout=window.setTimeout("loadTick()", 2000);
+    dbuga('in prepareRotor loadQueue.length='+loadQueue.length+' so setTimeout loadTick()');
+    }
   }
 function loadTick(){
   dbuga('<br>loadTick '+loadQueue.length);
