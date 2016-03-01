@@ -2139,26 +2139,27 @@ function parseDataWp(entries, included){
     var entry=entries[e];
     var entryDate=entry.date.split(" ")[0];
     var setKey=entryDate+"_"+entry.title;
-    dbuga("<br >setKey="+setKey +" included="+included);
+    dbuga("<br >setKey="+setKey +"<br>included="+included);
     var set=[];
-    var content=entry.content;
-    var items=returnItemsInContent(content);
+
+    var items=entries[i].attachments;
     dbuga("items.length="+ items.length);
     for (var i=0; i<items.length; i++){
       var item=items[i];
-      var title= attributeInItem("alt",item);
-      title=title.replace("&amp;", "&");
-      title=title.toLowerCase();
-      var desc= textInItem(item);
-      desc=desc.replace("&amp;", "&");
-      var largeUrl= attributeInItem("href",item);
-      var thumbUrl= attributeInItem("src",item);
+      var title=item.title;
+      //title=title.replace("&amp;", "&");
+      //title=title.toLowerCase();
+      var desc=item.description;
+      //desc=desc.replace("&amp;", "&");
+      var largeUrl= item.url;
+      var thumbUrl= item.images.thumbnail.url;
       set.push({"largeUrl":largeUrl, "thumbUrl":thumbUrl, "title":title, "desc":desc});
       if(included){
         includedImageUrls.push(largeUrl);
         includedImageUrls.push(thumbUrl);
         }
       }
+
     if(set.length>0){
       if(inArray(setKey, setKeys)==false){
         setKeys.push(setKey);
