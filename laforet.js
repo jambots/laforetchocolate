@@ -1354,7 +1354,7 @@ function updateLoadingCanvas(){
 
  
 function saveImageDataLocalStorage(key, data){
-  //dbuga("saveImageDataLocalStorage <br>"+key);
+  dbuga("saveImageDataLocalStorage <br>"+key);
   
   var purged=0;
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
@@ -1391,7 +1391,7 @@ function saveImageDataLocalStorage(key, data){
   try{
     localStorage.setItem(key, data);
     } catch(e) {
-    //dbuga(e);
+    dbuga(e);
     saved=false;
     }
   while((saved==false)&&(nameStack.length>0)){
@@ -1403,18 +1403,18 @@ function saveImageDataLocalStorage(key, data){
     try{
       localStorage.setItem(key, data);
       } catch(e) {
-      //dbuga(e);
+      dbuga(e);
       saved=false;
       }
     }
 
   if(saved){
     nameStack.push(key);
-    //dbuga(' saved: '+nameStack.length+" "+key);
+    dbuga(' saved: '+nameStack.length+" "+key);
     purged=0;
     }
   else{
-    //dbuga('failed '+key);
+    dbuga('failed '+key);
     }
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
   }
@@ -1980,18 +1980,18 @@ function saveImageData(key, data){
     }
   }
 function saveImageDataPhonegap(key, data){
-  //dbuga("saveImageDataPhonegap "+key);
+  dbuga("<br>saveImageDataPhonegap "+key);
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
   nameStack.push(key);
   var temp=key.split("/");
   var fname=temp.pop();
-  //dbuga(fname +" save to db" );
+  dbuga(fname +" save to db" );
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
   db.transaction(function(tx) {
     tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
-      //dbuga("inserted");
+      dbuga("inserted");
       }, function(e) {
-        //dbuga("not inserted ERROR: " + e.message);
+        dbuga("not inserted ERROR: " + e.message);
       });
     });
 
