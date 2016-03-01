@@ -1188,7 +1188,7 @@ function prepareRotor(){
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
 
-  dbuga("prepareRotor "+selectedSetKey+" "+set.length);
+  //dbuga("prepareRotor "+selectedSetKey+" "+set.length);
   var htmlString="";
   for (var i=0; i<set.length; i++){
     if((agent=="windows")||(agent=="mac")){
@@ -1223,18 +1223,18 @@ function prepareRotor(){
   document.getElementById("rotor").innerHTML=htmlString;
   document.getElementById("rotor").style.width=portraitScreenWidth+"px";
   // desktop stops here, no ref wtf?
-  dbuga('prepareRotor completed setTimeout');
+  //dbuga('prepareRotor completed setTimeout');
   window.setTimeout("resumePrepareRotor()", 2000);
   }
 function resumePrepareRotor(){
 
-  dbuga('resumePrepareRotor');
+  //dbuga('resumePrepareRotor');
   var selectedSetKey=setKeys[selectedSetNum];
   var set=sets[selectedSetKey];
 
   for (var i=0; i<set.length; i++){
     var rotorRefId="rotorImage~"+set[i].largeUrl;
-    dbuga('resumePrepareRotor 3 i='+i+" "+rotorRefId);
+    //dbuga('resumePrepareRotor 3 i='+i+" "+rotorRefId);
     
     var rotorRef=document.getElementById(rotorRefId);
     var rotorBackRef=document.getElementById("rotorBack~"+set[i].largeUrl);
@@ -1269,12 +1269,12 @@ function resumePrepareRotor(){
     var largeUrl=set[i].largeUrl;
     if(isCached(largeUrl)==false){
       if((navigator.connection.type=="none")&&(inArray(largeUrl,includedImageUrls)==false)){
-        dbuga("no connection, not included so defaultBase64 to rotor and flow");
+        //dbuga("no connection, not included so defaultBase64 to rotor and flow");
         base64toElement(defaultBase64, rotorRef);
         base64toElement(defaultBase64, flowRef);
         }
       else{
-        dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached, so loadQueue rotor and flow");
+        //dbuga(i + " included:"+inArray(largeUrl,includedImageUrls)+" connection:"+navigator.connection.type+"  not cached, so loadQueue rotor and flow");
         var targetIds=["rotorImage~"+set[i].largeUrl,"flowImage~"+set[i].largeUrl];
         var targetUrl=set[i].largeUrl;
         var loadObj={"targetIds":targetIds, "targetUrl":targetUrl};
@@ -1291,9 +1291,9 @@ function resumePrepareRotor(){
         var refs=[flowRef, rotorRef];
 
 
-        dbuga("CDU 0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
+        //dbuga("CDU 0 pg cached set["+i+"].thumbUrl="+set[i].thumbUrl);
         var largeUrl=set[i].largeUrl;
-        dbuga("CDU 5 largeUrl ="+ largeUrl);
+        //dbuga("CDU 5 largeUrl ="+ largeUrl);
         (function(refs,largeUrl){
           db.transaction(function(tx) {
           //dbuga("6 largeUrl ="+ largeUrl);
@@ -1319,31 +1319,31 @@ function resumePrepareRotor(){
 
         }
       }
-    dbuga('resumePrepareRotor 3 end i='+i);
+    //dbuga('resumePrepareRotor 3 end i='+i);
     }
-  dbuga('resumePrepareRotor 4');
+  //dbuga('resumePrepareRotor 4');
 
   window.clearTimeout(loadTimeout);
   updateLoadingCanvas();
   if(loadQueue.length>0){
     loadTimeout=window.setTimeout("loadTick()", 2000);
-    dbuga('in resumePrepareRotor loadQueue.length='+loadQueue.length+' so setTimeout loadTick()');
+    //dbuga('in resumePrepareRotor loadQueue.length='+loadQueue.length+' so setTimeout loadTick()');
     }
-  dbuga('resumePrepareRotor complete');
+  //dbuga('resumePrepareRotor complete');
   }
 function loadTick(){
-  dbuga('<br>loadTick '+loadQueue.length);
+  //dbuga('<br>loadTick '+loadQueue.length);
   window.clearTimeout(loadTimeout);
   if(loadQueue.length==0){
-    dbuga(' loadQueue=[] so bail');
+    //dbuga(' loadQueue=[] so bail');
     return false;
     }
 
   var loadItem=loadQueue.shift();
-  dbuga(' - loadTick '+JSON.stringify(loadItem));
+  //dbuga(' - loadTick '+JSON.stringify(loadItem));
   var tempObj = new urlToSrcs(loadItem.targetUrl, loadItem.targetIds);
   tempObj.LoadPage();
-  dbuga('loadTick completed');
+  //dbuga('loadTick completed');
   }
 function updateLoadingCanvas(){
   var canv=document.getElementById("loadingCanvas");
@@ -1374,7 +1374,7 @@ function updateLoadingCanvas(){
 
  
 function saveImageDataLocalStorage(key, data){
-  dbuga("saveImageDataLocalStorage <br>"+key);
+  //dbuga("saveImageDataLocalStorage <br>"+key);
   
   var purged=0;
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
@@ -1411,7 +1411,7 @@ function saveImageDataLocalStorage(key, data){
   try{
     localStorage.setItem(key, data);
     } catch(e) {
-    dbuga(e);
+    //dbuga(e);
     saved=false;
     }
   while((saved==false)&&(nameStack.length>0)){
@@ -1423,18 +1423,18 @@ function saveImageDataLocalStorage(key, data){
     try{
       localStorage.setItem(key, data);
       } catch(e) {
-      dbuga(e);
+      //dbuga(e);
       saved=false;
       }
     }
 
   if(saved){
     nameStack.push(key);
-    dbuga(' saved: '+nameStack.length+" "+key);
+    //dbuga(' saved: '+nameStack.length+" "+key);
     purged=0;
     }
   else{
-    dbuga('failed '+key);
+    //dbuga('failed '+key);
     }
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
   }
@@ -1911,7 +1911,7 @@ function base64toCanv(data, canv){
   img.src = data;
   }
 urlToSrcs = function(imageUrl,imageIds) {
-  dbuga("urlToSrcs "+imageUrl);
+  //dbuga("urlToSrcs "+imageUrl);
   var included=false;
   var loadUrl=imageUrl;
   if(inArray(loadUrl,includedImageUrls)){
@@ -1925,29 +1925,29 @@ urlToSrcs = function(imageUrl,imageIds) {
   this.loadUrl = loadUrl;
   this.included = included;
   this.myIds = imageIds;
-  dbuga("imageIds ="+ imageIds.length);
+  //dbuga("imageIds ="+ imageIds.length);
   var req = this;
   function onLoad (e){
-      dbuga("onLoad(e) req.myIds="+req.myIds.length);
+      //dbuga("onLoad(e) req.myIds="+req.myIds.length);
       var blob = new Blob([e.target.response], {type: "image/jpeg"});
       var reader = new FileReader();
       reader.targetImageIds=req.myIds;
       reader.onloadend = (function(theBlob,targetImageIds,loadUrl,webUrl,included) {
         return function(e) {
-          dbuga('reader.onloadend');
+          //dbuga('reader.onloadend');
           var result=e.target.result;
           for(var t=0; t<targetImageIds.length; t++){
             var el=document.getElementById(targetImageIds[t]);
-            dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
+            //dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
             base64toElement(result, el);
             }
           if(included==false){
             saveImageData(webUrl, result);
             }
           else{
-            dbuga("included "+loadUrl);
+            //dbuga("included "+loadUrl);
             }
-          dbuga('reader.onloadend completed');
+          //dbuga('reader.onloadend completed');
 
           }
         })(blob,req.myIds,req.loadUrl,req.webUrl,req.included);    
@@ -1962,14 +1962,14 @@ urlToSrcs = function(imageUrl,imageIds) {
   this.LoadPage = function() {
     var r = new XMLHttpRequest();
     r.onloadend = onLoad;
-    dbuga("loadPage GET "+this.loadUrl);
+    //dbuga("loadPage GET "+this.loadUrl);
     r.open ("GET", this.loadUrl, true);
     r.responseType = 'blob';
     r.send (null);
   }
 }
 stashDefault = function(loadUrl) {
-  dbuga("stashDefault "+ loadUrl);
+  //dbuga("stashDefault "+ loadUrl);
   this.status = 0;
   this.loadUrl = loadUrl;
   var req = this;
@@ -1979,7 +1979,7 @@ stashDefault = function(loadUrl) {
     reader.onloadend = (function(theBlob) {
       return function(e) {
       defaultBase64=e.target.result;
-      dbuga('  in stasheDefault');
+      //dbuga('  in stasheDefault');
       }
     })(blob);    
     reader.readAsDataURL(blob);
@@ -2003,18 +2003,18 @@ function saveImageData(key, data){
     }
   }
 function saveImageDataPhonegap(key, data){
-  dbuga("<br>saveImageDataPhonegap "+key);
+  //dbuga("<br>saveImageDataPhonegap "+key);
   var nameStack=JSON.parse(localStorage.getItem("nameStack"));
   nameStack.push(key);
   var temp=key.split("/");
   var fname=temp.pop();
-  dbuga(fname +" save to db" );
+  //dbuga(fname +" save to db" );
   localStorage.setItem("nameStack", JSON.stringify(nameStack));
   db.transaction(function(tx) {
     tx.executeSql("INSERT INTO test_table (image_url, image_data) VALUES (?,?)", [key, data], function(tx, res){
-      dbuga("inserted");
+      //dbuga("inserted");
       }, function(e) {
-        dbuga("not inserted ERROR: " + e.message);
+        //dbuga("not inserted ERROR: " + e.message);
       });
     });
 
@@ -2157,7 +2157,7 @@ function loadDataWp(){
   // });
   }
 function parseDataWp(entries, included){
-  if(included==false){return false;}
+  //if(included==false){return false;}
   dbuga('parseDataWp  entries.length='+entries.length);
   for (var e=0; e<entries.length; e++){
     var entry=entries[e];
@@ -2171,7 +2171,7 @@ function parseDataWp(entries, included){
     for (var i=0; i<items.length; i++){
       var item=items[i];
       var title=item.title;
-      //title=title.replace("&amp;", "&");
+      title=title.replace("&amp;", "&");
       //title=title.toLowerCase();
       var desc=item.description;
       //desc=desc.replace("&amp;", "&");
@@ -2188,14 +2188,14 @@ function parseDataWp(entries, included){
       if(inArray(setKey, setKeys)==false){
         setKeys.push(setKey);
         sets[setKey]=set;
-        dbuga("added new set "+setKey);
+        //dbuga("added new set "+setKey);
         }
       else{
         if(included){
-          dbuga("included, don't update set "+setKey);
+          //dbuga("included, don't update set "+setKey);
           }
         else{
-          dbuga("not included, update set "+setKey);
+          //dbuga("not included, update set "+setKey);
           sets[setKey]=set;
           }
         }
@@ -2206,11 +2206,11 @@ function parseDataWp(entries, included){
       for(var k=0; k<tempKeys.length; k++){
         var thisKey=tempKeys[k];
         if(thisKey != setKey){
-          dbuga('empty, keep '+thisKey);
+          //dbuga('empty, keep '+thisKey);
           setKeys.push(thisKey);
           }
         else{
-          dbuga("empty, remove "+thisKey);
+          //dbuga("empty, remove "+thisKey);
           }
         }
       }
