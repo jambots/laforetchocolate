@@ -2157,7 +2157,9 @@ function loadDataWp(){
   // });
   }
 function parseDataWp(entries, included){
-  //if(included==false){return false;}
+  if(included==false){
+    entries=entries.posts;
+    }
   dbuga('parseDataWp  entries.length='+entries.length);
   for (var e=0; e<entries.length; e++){
     var entry=entries[e];
