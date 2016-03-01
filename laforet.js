@@ -1970,7 +1970,7 @@ stashDefault = function(loadUrl) {
     var r = new XMLHttpRequest();
     r.onloadend = onLoad;
     console.log("GET this.LoadPage");
-    r.open ("GET", this.loadUrl, true);
+    r.open ("GET", this.loadUrl+"?rnd="+rnd(200000), true);
     r.responseType = 'blob';
     r.send (null);
     }
