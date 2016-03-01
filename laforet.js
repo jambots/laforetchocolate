@@ -1029,7 +1029,7 @@ function thumbTap(i){
   thumbTappedMs=d.getTime();
   window.clearTimeout(loadTimeout);
   if(loadQueue.length>0){
-    loadTimeout=window.setTimeout("loadTick()", 100);
+    loadTimeout=window.setTimeout("loadTick()", 2000);
     }
   }
 function thumbRelease(i){
@@ -1937,7 +1937,7 @@ urlToSrcs = function(imageUrl,imageIds) {
       window.clearTimeout(loadTimeout);
       updateLoadingCanvas();
       if(loadQueue.length>0){
-        loadTimeout=window.setTimeout("loadTick()", 100);
+        loadTimeout=window.setTimeout("loadTick()", 2000);
         }
 
   }
@@ -1951,7 +1951,7 @@ urlToSrcs = function(imageUrl,imageIds) {
   }
 }
 stashDefault = function(loadUrl) {
-  //dbuga("stashDefault "+ loadUrl);
+  dbuga("stashDefault "+ loadUrl);
   this.status = 0;
   this.loadUrl = loadUrl;
   var req = this;
@@ -1961,7 +1961,7 @@ stashDefault = function(loadUrl) {
     reader.onloadend = (function(theBlob) {
       return function(e) {
       defaultBase64=e.target.result;
-      dbuga('stashed <img width=40 src="'+defaultBase64+'" />');
+      dbuga('  in stasheDefault');
       }
     })(blob);    
     reader.readAsDataURL(blob);
@@ -1970,7 +1970,7 @@ stashDefault = function(loadUrl) {
     var r = new XMLHttpRequest();
     r.onloadend = onLoad;
     console.log("GET this.LoadPage");
-    r.open ("GET", this.loadUrl+"?rnd="+rnd(200000), true);
+    r.open ("GET", this.loadUrl, true);
     r.responseType = 'blob';
     r.send (null);
     }
