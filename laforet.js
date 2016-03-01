@@ -500,7 +500,6 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     }
   cellsAcross=32;
   if(absScreenWidth>540){cellsAcross=48;}
-  cellsAcross=48;
   var newGrid=absScreenWidth/cellsAcross;
   if(grid != newGrid){// init or resize somehow, not on rotate
     grid=newGrid;
@@ -2154,7 +2153,7 @@ function parseDataWp(entries, included){
       var desc=item.description;
       //desc=desc.replace("&amp;", "&");
       var largeUrl= item.url;
-      var thumbUrl= item.images.thumbnail.url;
+      var thumbUrl= item.images.medium.url;
       set.push({"largeUrl":largeUrl, "thumbUrl":thumbUrl, "title":title, "desc":desc});
       if(included){
         includedImageUrls.push(largeUrl);
