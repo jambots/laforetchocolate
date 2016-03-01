@@ -1030,7 +1030,7 @@ function thumbTap(i){
   thumbTappedMs=d.getTime();
   window.clearTimeout(loadTimeout);
   if(loadQueue.length>0){
-    loadTimeout=window.setTimeout("loadTick()", 2000);
+    loadTimeout=window.setTimeout("loadTick()", 100);
     }
   }
 function thumbRelease(i){
@@ -1224,7 +1224,7 @@ function prepareRotor(){
   document.getElementById("rotor").style.width=portraitScreenWidth+"px";
   // desktop stops here, no ref wtf?
   //dbuga('prepareRotor completed setTimeout');
-  window.setTimeout("resumePrepareRotor()", 2000);
+  window.setTimeout("resumePrepareRotor()", 100);
   }
 function resumePrepareRotor(){
 
@@ -1326,7 +1326,7 @@ function resumePrepareRotor(){
   window.clearTimeout(loadTimeout);
   updateLoadingCanvas();
   if(loadQueue.length>0){
-    loadTimeout=window.setTimeout("loadTick()", 2000);
+    loadTimeout=window.setTimeout("loadTick()", 100);
     //dbuga('in resumePrepareRotor loadQueue.length='+loadQueue.length+' so setTimeout loadTick()');
     }
   //dbuga('resumePrepareRotor complete');
@@ -1955,7 +1955,7 @@ urlToSrcs = function(imageUrl,imageIds) {
       window.clearTimeout(loadTimeout);
       updateLoadingCanvas();
       if(loadQueue.length>0){
-        loadTimeout=window.setTimeout("loadTick()", 2000);
+        loadTimeout=window.setTimeout("loadTick()", 100);
         }
 
   }
@@ -2158,7 +2158,6 @@ function loadDataWp(){
   }
 function parseDataWp(entries, included){
   if(included==false){
-    return false;
     entries=entries.posts;
     }
   dbuga('parseDataWp  entries.length='+entries.length);
