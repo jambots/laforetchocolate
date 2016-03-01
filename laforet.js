@@ -1891,7 +1891,7 @@ function base64toCanv(data, canv){
   img.src = data;
   }
 urlToSrcs = function(imageUrl,imageIds) {
-  //dbuga("urlToSrcs "+imageUrl);
+  dbuga("urlToSrcs "+imageUrl);
   var included=false;
   var loadUrl=imageUrl;
   if(inArray(loadUrl,includedImageUrls)){
@@ -1905,26 +1905,26 @@ urlToSrcs = function(imageUrl,imageIds) {
   this.loadUrl = loadUrl;
   this.included = included;
   this.myIds = imageIds;
-  //dbuga("imageIds ="+ imageIds.length);
+  dbuga("imageIds ="+ imageIds.length);
   var req = this;
   function onLoad (e){
       var blob = new Blob([e.target.response], {type: "image/jpeg"});
       var reader = new FileReader();
       reader.targetImageIds=req.myIds;
-      //dbuga("req.myIds="+req.myIds.length);
+      dbuga("req.myIds="+req.myIds.length);
       reader.onloadend = (function(theBlob,targetImageIds,loadUrl,webUrl,included) {
         return function(e) {
           var result=e.target.result;
           for(var t=0; t<targetImageIds.length; t++){
             var el=document.getElementById(targetImageIds[t]);
-            //dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
+            dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
             base64toElement(result, el);
             }
           if(included==false){
             saveImageData(webUrl, result);
             }
           else{
-            //dbuga("included "+loadUrl);
+            dbuga("included "+loadUrl);
             }
           }
         })(blob,req.myIds,req.loadUrl,req.webUrl,req.included);
@@ -2142,7 +2142,7 @@ function parseDataWp(entries, included){
     dbuga("<br >setKey="+setKey +"<br>included="+included);
     var set=[];
 
-    var items=entries[i].attachments;
+    var items=entry.attachments;
     dbuga("items.length="+ items.length);
     for (var i=0; i<items.length; i++){
       var item=items[i];
