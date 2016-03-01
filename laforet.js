@@ -500,6 +500,7 @@ function measure(){ //fires after window.innerWidth changed in orientation tick
     }
   cellsAcross=32;
   if(absScreenWidth>540){cellsAcross=48;}
+  cellsAcross=48;
   var newGrid=absScreenWidth/cellsAcross;
   if(grid != newGrid){// init or resize somehow, not on rotate
     grid=newGrid;
