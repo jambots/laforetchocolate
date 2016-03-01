@@ -1908,27 +1908,29 @@ urlToSrcs = function(imageUrl,imageIds) {
   dbuga("imageIds ="+ imageIds.length);
   var req = this;
   function onLoad (e){
+      dbuga("onLoad(e) req.myIds="+req.myIds.length);
       var blob = new Blob([e.target.response], {type: "image/jpeg"});
       var reader = new FileReader();
       reader.targetImageIds=req.myIds;
-      dbuga("req.myIds="+req.myIds.length);
       reader.onloadend = (function(theBlob,targetImageIds,loadUrl,webUrl,included) {
         return function(e) {
+          dbuga('reader.onloadend');
           var result=e.target.result;
           for(var t=0; t<targetImageIds.length; t++){
             var el=document.getElementById(targetImageIds[t]);
-            //dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
+            dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
             base64toElement(result, el);
             }
           if(included==false){
             saveImageData(webUrl, result);
             }
           else{
-            //dbuga("included "+loadUrl);
+            dbuga("included "+loadUrl);
             }
+          dbuga('reader.onloadend completed');
+
           }
-        })(blob,req.myIds,req.loadUrl,req.webUrl,req.included);
-    
+        })(blob,req.myIds,req.loadUrl,req.webUrl,req.included);    
       reader.readAsDataURL(blob);
       window.clearTimeout(loadTimeout);
       updateLoadingCanvas();
