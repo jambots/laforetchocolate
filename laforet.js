@@ -1321,7 +1321,7 @@ function loadTick(){
     }
 
   var loadItem=loadQueue.shift();
-  //dbuga('loadTick '+JSON.stringify(loadItem));
+  dbuga('loadTick '+JSON.stringify(loadItem));
   var tempObj = new urlToSrcs(loadItem.targetUrl, loadItem.targetIds);
   tempObj.LoadPage();
   }
@@ -1891,7 +1891,7 @@ function base64toCanv(data, canv){
   img.src = data;
   }
 urlToSrcs = function(imageUrl,imageIds) {
-  dbuga("urlToSrcs "+imageUrl);
+  //dbuga("urlToSrcs "+imageUrl);
   var included=false;
   var loadUrl=imageUrl;
   if(inArray(loadUrl,includedImageUrls)){
@@ -1917,14 +1917,14 @@ urlToSrcs = function(imageUrl,imageIds) {
           var result=e.target.result;
           for(var t=0; t<targetImageIds.length; t++){
             var el=document.getElementById(targetImageIds[t]);
-            dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
+            //dbuga('el.tagName='+el.tagName+" "+targetImageIds[t]);
             base64toElement(result, el);
             }
           if(included==false){
             saveImageData(webUrl, result);
             }
           else{
-            dbuga("included "+loadUrl);
+            //dbuga("included "+loadUrl);
             }
           }
         })(blob,req.myIds,req.loadUrl,req.webUrl,req.included);
