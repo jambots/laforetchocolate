@@ -1224,6 +1224,8 @@ function prepareRotor(){
   // desktop stops here, no ref wtf?
   dbuga('prepareRotor 2');
   for (var i=0; i<set.length; i++){
+    dbuga('prepareRotor 3 i='+i);
+
     var rotorRef=document.getElementById("rotorImage~"+set[i].largeUrl);
     var rotorBackRef=document.getElementById("rotorBack~"+set[i].largeUrl);
     var flowRef=document.getElementById("flowImage~"+set[i].largeUrl);
@@ -1307,7 +1309,9 @@ function prepareRotor(){
 
         }
       }
+    dbuga('prepareRotor 3 end i='+i);
     }
+  dbuga('prepareRotor 4');
 
   window.clearTimeout(loadTimeout);
   updateLoadingCanvas();
@@ -1315,6 +1319,7 @@ function prepareRotor(){
     loadTimeout=window.setTimeout("loadTick()", 2000);
     dbuga('in prepareRotor loadQueue.length='+loadQueue.length+' so setTimeout loadTick()');
     }
+  dbuga('prepareRotor complete');
   }
 function loadTick(){
   dbuga('<br>loadTick '+loadQueue.length);
