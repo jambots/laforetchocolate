@@ -105,6 +105,7 @@ function init(){
   if(navigator.userAgent.indexOf('Linux')>-1){agent="droid";}
   if(navigator.userAgent.indexOf('Mac')>-1){agent="mac";}
   if(navigator.userAgent.indexOf('iPad')>-1){agent="ios";}
+  if(navigator.userAgent.indexOf('iPhone')>-1){agent="ios";}
   //dbuga("agent="+agent);
   //dbuga("web="+web);
   
@@ -1232,9 +1233,10 @@ function resumePrepareRotor(){
   var set=sets[selectedSetKey];
 
   for (var i=0; i<set.length; i++){
-    dbuga('resumePrepareRotor 3 i='+i);
-
-    var rotorRef=document.getElementById("rotorImage~"+set[i].largeUrl);
+    var rotorRefId="rotorImage~"+set[i].largeUrl;
+    dbuga('resumePrepareRotor 3 i='+i+" "+rotorRefId);
+    
+    var rotorRef=document.getElementById(rotorRefId);
     var rotorBackRef=document.getElementById("rotorBack~"+set[i].largeUrl);
     var flowRef=document.getElementById("flowImage~"+set[i].largeUrl);
     var ctx=rotorRef.getContext("2d");
