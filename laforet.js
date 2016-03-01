@@ -2126,8 +2126,9 @@ function updateSelectButtons(){
   }
 var pi=Math.PI;
 var dataLoaded=false;
+var feedURL="http://www.chromaris.org/api/get_category_posts/?slug=allocation-chocolates&count=100";
 //move to config.js 
-var feedURL="http://www.chromaris.org/category/allocation-chocolates/feed/?json=1";
+//var feedURL="http://www.chromaris.org/category/allocation-chocolates/feed/?json=1";
 //var feedURL="http://www.laforetchocolate.com/wordpress/category/allocation-chocolates/json";
 //feedURL="http://www.laforetchocolate.com/test/category/allocation-chocolates/json";
 // remember wordpress may need allow cors plugin then settings > cors to allow *. May not for app shell.
