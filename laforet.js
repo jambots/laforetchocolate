@@ -1222,9 +1222,17 @@ function prepareRotor(){
   document.getElementById("rotor").innerHTML=htmlString;
   document.getElementById("rotor").style.width=portraitScreenWidth+"px";
   // desktop stops here, no ref wtf?
-  dbuga('prepareRotor 2');
+  dbuga('prepareRotor completed setTimeout');
+  window.setTimeout("resumePrepareRotor()", 2000);
+  }
+function resumePrepareRotor(){
+
+  dbuga('resumePrepareRotor');
+  var selectedSetKey=setKeys[selectedSetNum];
+  var set=sets[selectedSetKey];
+
   for (var i=0; i<set.length; i++){
-    dbuga('prepareRotor 3 i='+i);
+    dbuga('resumePrepareRotor 3 i='+i);
 
     var rotorRef=document.getElementById("rotorImage~"+set[i].largeUrl);
     var rotorBackRef=document.getElementById("rotorBack~"+set[i].largeUrl);
@@ -1309,17 +1317,17 @@ function prepareRotor(){
 
         }
       }
-    dbuga('prepareRotor 3 end i='+i);
+    dbuga('resumePrepareRotor 3 end i='+i);
     }
-  dbuga('prepareRotor 4');
+  dbuga('resumePrepareRotor 4');
 
   window.clearTimeout(loadTimeout);
   updateLoadingCanvas();
   if(loadQueue.length>0){
     loadTimeout=window.setTimeout("loadTick()", 2000);
-    dbuga('in prepareRotor loadQueue.length='+loadQueue.length+' so setTimeout loadTick()');
+    dbuga('in resumePrepareRotor loadQueue.length='+loadQueue.length+' so setTimeout loadTick()');
     }
-  dbuga('prepareRotor complete');
+  dbuga('resumePrepareRotor complete');
   }
 function loadTick(){
   dbuga('<br>loadTick '+loadQueue.length);
