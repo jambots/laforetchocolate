@@ -158,7 +158,7 @@ function appResumed(){
   loadDataWp();
   }
 function resumeInit(){
-  //dbug('');
+  dbug('');
   document.addEventListener("pause", appPaused, false);
   document.addEventListener("resume", appResumed, false);
 
@@ -1250,7 +1250,7 @@ function resumePrepareRotor(){
     ctx.lineWidth=4;
     //ctx.strokeRect(0,0,rotorRef.width,rotorRef.height);
     var context = rotorBackRef.getContext('2d');
-    var maxWidth = rotorItemWidth*.8;
+    var maxWidth = rotorItemWidth*.95;
     var lineHeight = rotorItemWidth/10;
     var x = (rotorItemWidth) / 2;
     var y = lineHeight*2;
