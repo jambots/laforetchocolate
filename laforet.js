@@ -1260,9 +1260,11 @@ function resumePrepareRotor(){
     context.lineWidth = lineHeight/40;
     context.textAlign="center";
     context.textBaseline="middle";
-    var titleLines=wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
+    
+    //var titleLines=wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
+    //y=lineHeight*(2.5+titleLines);
+    y=lineHeight*2;
     context.font = rotorItemWidth/14+'pt filoital';
-    y=lineHeight*(2.5+titleLines);
     var descLines=wrapText(context, set[i].desc, x, y, maxWidth, lineHeight,false);
 
     
