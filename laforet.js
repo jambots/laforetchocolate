@@ -677,7 +677,7 @@ function prepareFlow(){
   for (var i=0; i<set.length; i++){
     var flowBackRef=document.getElementById('flowBack~'+set[i].largeUrl);
     var context = flowBackRef.getContext('2d');
-    var maxWidth = flowItemWidth*.9;// was .8 march 1 2016
+    var maxWidth = flowItemWidth*.95;// was .8 march 1 2016
     var lineHeight = flowItemWidth/10;
     var x = (flowItemWidth) / 2;
     var y = lineHeight*2;
@@ -688,16 +688,11 @@ function prepareFlow(){
     context.textAlign="center";
     context.textBaseline="middle";
 
-    //wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
-    var titleLines=wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
+    //var titleLines=wrapText(context, set[i].title, x, y, maxWidth, lineHeight,true);
+    //y=lineHeight*(2.5+titleLines);
+    y=lineHeight*2;
     context.font = flowItemWidth/14+'pt filoital';
-    //wrapText(context, set[i].desc, x, lineHeight*4.5, maxWidth, lineHeight,false);
-    y=lineHeight*(2.5+titleLines);
     var descLines=wrapText(context, set[i].desc, x, y, maxWidth, lineHeight,false);
-
-
-
-
     }
   }
 
