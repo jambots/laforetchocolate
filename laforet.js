@@ -2134,43 +2134,31 @@ var feedURL="http://www.chromaris.org/api/get_category_posts/?slug=allocation-ch
 // remember wordpress may need allow cors plugin then settings > cors to allow *. May not for app shell.
 
 function loadDataWp(){
-  //dbuga("loadDataWp()");     
-  //$(document).ready(function(){
-    //dbuga("doc ready so getJSON "+feedURL);     
-    //$.getJSON(feedURL, function(json) {
     $.getJSON(feedURL, function(json) {
       parseDataWp(json, false);
       if(setKeys.length>1){selectedSetNum=1;}
         dataLoaded=true;
-        //if(selectPopulated==false){
-          //dbuga('loadDataWp so populateSelect() updateSet()');
-          populateSelect();
-        //  }
+        populateSelect();
         updateSet();
       }).fail( function(d, textStatus, error) {
         if(setKeys.length>1){selectedSetNum=1;}
-        //if(selectPopulated==false){
-          //dbuga('loadDataWp so populateSelect() updateSet()');
-          populateSelect();
+        populateSelect();
         updateSet();
         dataLoaded=false;
       });
-  // });
   }
-function parseDataWp(entries, included){
-  if(included==false){
-    entries=entries.posts;
-    }
-  dbuga('parseDataWp  entries.length='+entries.length);
+function parseDataWp(feed, included){
+  entries=feed.posts;
+  //dbuga('parseDataWp  entries.length='+entries.length);
   for (var e=0; e<entries.length; e++){
     var entry=entries[e];
     var entryDate=entry.date.split(" ")[0];
     var setKey=entryDate+"_"+entry.title;
-    dbuga("<br >setKey="+setKey +"<br>included="+included);
+    //dbuga("<br >setKey="+setKey +"<br>included="+included);
     var set=[];
 
     var items=entry.attachments;
-    dbuga("items.length="+ items.length);
+    //dbuga("items.length="+ items.length);
     for (var i=0; i<items.length; i++){
       var item=items[i];
       var title=item.title;
