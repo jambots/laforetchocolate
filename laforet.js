@@ -677,7 +677,7 @@ function prepareFlow(){
   for (var i=0; i<set.length; i++){
     var flowBackRef=document.getElementById('flowBack~'+set[i].largeUrl);
     var context = flowBackRef.getContext('2d');
-    var maxWidth = flowItemWidth*.9;
+    var maxWidth = flowItemWidth*.9;// was .8 march 1 2016
     var lineHeight = flowItemWidth/10;
     var x = (flowItemWidth) / 2;
     var y = lineHeight*2;
