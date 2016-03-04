@@ -3,17 +3,15 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.jambots.laforetchocolate"
-        versionCode="9" 
-        version   = "2.0">
+        versionCode="10" 
+        version   = "2.1">
 
 <preference name="phonegap-version" value="cli-5.2.0" />
     <name>La Forêt</name>
     <description>La Forêt Chocolate</description>
-<!--
 <gap:platform name="android" />
--->
-<gap:platform name="ios" />
 
+<gap:platform name="ios" />
 <gap:config-file platform="android" parent="/manifest/application">
     <activity android:launchMode="singleInstance" />
     <preference name="keeprunning" value="false"/>
