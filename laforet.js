@@ -228,7 +228,7 @@ function setupLocalStorage(){
     }
   }
 function setupEvents(){
-  dbuga('setupEvents() '+agent);
+  //dbuga('setupEvents() '+agent);
   if((agent=="windows")||(agent=="mac")){
     document.onmousemove=function(e){
       //dbug(e.pageX);
@@ -1351,7 +1351,7 @@ function updateLoadingCanvas(){
   //if(pips==0){canv.width=0;}
   canv.height=Math.floor(grid*4);
   canv.style.top="0px";
-  canv.style.left=grid*(cellsAcross-12)+"px";
+  canv.style.left=grid*(cellsAcross-16)+"px";
   if(pips>0){
     canv.style.display="block";
     var ctx=canv.getContext("2d");
@@ -1692,10 +1692,11 @@ function hideInfo(){
   document.getElementById('infoDim').style.display="none";
   }
 function showInfo(){
-  //dbug("showSetSelect()" +selectUp);
+  //dbuga("showInfo()" +infoUp);
   infoUp=true;
   updateCacheButton();
   document.getElementById('infoDim').style.display="block";
+  //dbuga("showInfo completed");
   }
 
 function hideSetSelect(){
