@@ -327,7 +327,7 @@ function saveButton(){
 
     window.canvas2ImagePlugin.saveImageDataToLibrary(
         function(msg){
-            uiMessage('Saved to Device');
+            uiMessage('Saved');
         },
         function(err){
             uiMessage('Error: '+err);
@@ -1351,7 +1351,7 @@ function updateLoadingCanvas(){
   //if(pips==0){canv.width=0;}
   canv.height=Math.floor(grid*4);
   canv.style.top="0px";
-  canv.style.left=grid*(cellsAcross-16)+"px";
+  canv.style.left=grid*(cellsAcross-12)+"px";
   if(pips>0){
     canv.style.display="block";
     var ctx=canv.getContext("2d");
