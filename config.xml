@@ -6,10 +6,11 @@
         versionCode="10" 
         version   = "2.1">
 <!--
-<preference name="phonegap-version" value="3.7.0" />
 <plugin name="com.phonegap.plugins.childbrowser" spec="5.0.0" source="pgb" />
--->
 <preference name="phonegap-version" value="cli-5.2.0" />
+
+-->
+<preference name="phonegap-version" value="3.7.0" />
 
     <name>La Forêt</name>
     <description>La Forêt Chocolate</description>
@@ -37,19 +38,21 @@
 <gap:plugin name="org.apache.cordova.device" version="0.2.12" />
 <gap:plugin name="org.apache.cordova.media" version="0.2.8" />
 <gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
-
 <gap:plugin name="org.devgeeks.canvas2imageplugin" version="0.6.0" />
 <gap:plugin name="io.litehelpers.cordova.sqlitestorage" version="0.7.5" /><access origin="*" />
 
 
+<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
+<gap:plugin name="org.apache.cordova.file" version="1.0.1" />
+
+<plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
+
+
+<!--
 <plugin name="org.apache.cordova.file-transfer" spec="0.5.0" source="pgb" />
 <plugin name="cordova-plugin-file" spec="3.0.0" source="pgb" />
 
-<!--
 
-<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" /> old
-<gap:plugin name="org.apache.cordova.file" version="1.0.1" /> old
-<plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
 
 new
 
