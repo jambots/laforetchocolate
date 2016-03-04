@@ -45,7 +45,7 @@
 <plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
 -->
 
-<gap:plugin name="cordova-plugin-inappbrowser" source="npm" />
+<gap:plugin name="cordova-plugin-inappbrowser" source="pgb" />
 
 <gap:splash src="res/splash.png" />
 <icon src="res/icon512.png" />
