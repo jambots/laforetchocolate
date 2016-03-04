@@ -49,6 +49,7 @@
 
 <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" /> old
 <gap:plugin name="org.apache.cordova.file" version="1.0.1" /> old
+<plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
 
 new
 
