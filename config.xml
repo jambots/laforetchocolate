@@ -5,8 +5,8 @@
         id        = "com.jambots.laforetchocolate"
         versionCode="10" 
         version   = "2.1">
-
-<preference name="phonegap-version" value="cli-5.2.0" />
+<preference name="phonegap-version" value="3.7.0" />
+<!--<preference name="phonegap-version" value="cli-5.2.0" />-->
     <name>La Forêt</name>
     <description>La Forêt Chocolate</description>
 <gap:platform name="android" />
@@ -37,9 +37,10 @@
 <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
 <gap:plugin name="org.devgeeks.canvas2imageplugin" version="0.6.0" />
 <gap:plugin name="io.litehelpers.cordova.sqlitestorage" version="0.7.5" /><access origin="*" />
-
+<!--
 <plugin name="com.orcasinc.childbrowser" spec="5.0.1" source="pgb" />
-
+-->
+<plugin name="com.phonegap.plugins.childbrowser" spec="5.0.0" source="pgb" />
 <gap:splash src="res/splash.png" />
 <icon src="res/icon512.png" />
 
