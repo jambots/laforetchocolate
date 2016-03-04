@@ -228,6 +228,7 @@ function setupLocalStorage(){
     }
   }
 function setupEvents(){
+  dbuga('setupEvents() '+agent);
   if((agent=="windows")||(agent=="mac")){
     document.onmousemove=function(e){
       //dbug(e.pageX);
