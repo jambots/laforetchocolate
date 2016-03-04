@@ -281,13 +281,15 @@ function mailButton(){
   }
 function linkButton(){
   //dbuga('linkButton');
-  window.plugins.ChildBrowser.showWebPage('http://www.laforetchocolate.com',{ showLocationBar: true });
+  //window.plugins.ChildBrowser.showWebPage('http://www.laforetchocolate.com',{ showLocationBar: true });
   //navigator.app.loadUrl("http://www.laforetchocolate.com", {openExternal: true});
+  window.open("http://www.laforetchocolate.com", "_system");
   }
 function jambotsButton(){
   //dbuga('jambotsButton');
-  window.plugins.ChildBrowser.showWebPage('http://www.jambots.com',{ showLocationBar: true });
+  //window.plugins.ChildBrowser.showWebPage('http://www.jambots.com',{ showLocationBar: true });
   //navigator.app.loadUrl("http://www.jambots.com", {openExternal: true});
+  window.open("http://www.jambots.com", "_system");
   }
 function purgeCache(){
   dbuga('purgeCache()');
