@@ -41,7 +41,7 @@
 <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
 <gap:plugin name="org.devgeeks.canvas2imageplugin" version="0.6.0" />
 <gap:plugin name="io.litehelpers.cordova.sqlitestorage" version="0.7.5" /><access origin="*" />
-<plugin name="org.apache.cordova.inappbrowser" spec="0.6.0" source="pgb" />
+<plugin name="org.apache.cordova.inappbrowser" spec="0.6.0" source="npm" />
 <gap:splash src="res/splash.png" />
 <icon src="res/icon512.png" />
 
