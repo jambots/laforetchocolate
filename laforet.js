@@ -1453,8 +1453,8 @@ function updateRotorButtons(){
           roundRect(canv, "#666", "#222", "H", "#fff", Math.floor(grid*2)+"px signify", false);
           }
   }
-var flowPerspective=1;
-var flowZoom=.25;
+var flowPerspective=.9;
+var flowZoom=.2;
 function animTick(){
   window.clearTimeout(animTimeout);
   if(setReady){
