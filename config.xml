@@ -43,9 +43,9 @@
 
 
 <plugin name="org.apache.cordova.file-transfer" spec="0.5.0" source="pgb" />
-<plugin name="cordova-plugin-file" spec="3.0.0" source="pgb" />
 
 <!--
+<plugin name="cordova-plugin-file" spec="3.0.0" source="pgb" />
 
 <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" /> old
 <gap:plugin name="org.apache.cordova.file" version="1.0.1" /> old
