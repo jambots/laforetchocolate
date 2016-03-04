@@ -280,16 +280,17 @@ function mailButton(){
   window.location='mailto:info@laforetchocolate.com';
   }
 function linkButton(){
-  //window.plugins.childBrowser.openExternal("http://www.laforetchocolate.com");
-  navigator.app.loadUrl("http://www.laforetchocolate.com", {openExternal: true});
+  //dbuga('linkButton');
+  window.plugins.ChildBrowser.showWebPage('http://www.laforetchocolate.com',{ showLocationBar: true });
+  //navigator.app.loadUrl("http://www.laforetchocolate.com", {openExternal: true});
   }
 function jambotsButton(){
   //dbuga('jambotsButton');
-  //window.plugins.childBrowser.openExternal("http://www.jambots.com");
-  navigator.app.loadUrl("http://www.jambots.com", {openExternal: true});
+  window.plugins.ChildBrowser.showWebPage('http://www.jambots.com',{ showLocationBar: true });
+  //navigator.app.loadUrl("http://www.jambots.com", {openExternal: true});
   }
 function purgeCache(){
-  //dbuga('purgeCache()');
+  dbuga('purgeCache()');
   var nameStack=JSON.parse(localStorage.getItem('nameStack'));
   for (var n=0; n<nameStack.length; n++){
     localStorage.setItem(nameStack[n], "");
