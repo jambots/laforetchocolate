@@ -47,6 +47,8 @@ OK<gap:plugin name="io.litehelpers.cordova.sqlitestorage" version="0.7.5" />
 -->
 <plugin name="cordova-sqlite-storage" spec="~0.8.5" />
 <plugin name="cordova-plugin-network-information" spec="2.0.2" />
+<plugin name="cordova-plugin-inappbrowser" source="npm" />
+<plugin name="cordova-plugin-whitelist" source="npm" />
 <access origin="*" />
 <access origin="mailto:*" launch-external="yes"/>
 
