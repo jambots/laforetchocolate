@@ -46,7 +46,7 @@
 <gap:plugin name="org.apache.cordova.file" version="1.0.1" />
 <plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
 -->
-<plugin name="cordova-sqlite-storage" />
+<plugin name="cordova-sqlite-storage" spec="~0.8.5" />
 <access origin="*" />
 
 
