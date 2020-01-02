@@ -79,7 +79,7 @@ one of these
 
 
 <gap:splash src="res/splash.png" />
-<icon src="res/icon1024.png" />
+<icon src="res/icon1024.png" width="1024" height="1024" />
 
 
 <!-- Define app icon for each platform. -->
