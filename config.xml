@@ -3,14 +3,15 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.jambots.laforetchocolate"
-        versionCode="10" 
-        version   = "2.1">
+        versionCode="11"
+        version   = "2.2">
 <!--
 <plugin name="com.phonegap.plugins.childbrowser" spec="5.0.0" source="pgb" />
 <preference name="phonegap-version" value="cli-5.2.0" />
 
 -->
-<preference name="phonegap-version" value="3.7.0" />
+<preference name="phonegap-version" value="cli-9.0.0" />
+<preference name="android-targetSdkVersion" value="28" />
 
     <name>La Forêt</name>
     <description>La Forêt Chocolate</description>
@@ -61,7 +62,7 @@ one of these
 <plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
 <plugin name="org.apache.cordova.inappbrowser" spec="0.6.0" source="pgb" />
 <plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
-<gap:plugin name="cordova-plugin-inappbrowser" source="npm" /> 
+<gap:plugin name="cordova-plugin-inappbrowser" source="npm" />
 <gap:plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
 -->
 
