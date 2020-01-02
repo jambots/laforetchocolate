@@ -277,8 +277,9 @@ function setupEvents(){
     }
   }
 function mailButton(){
-  alert('mailButton');
-  window.location.href='mailto:info@laforetchocolate.com';
+  //alert('mailButton');
+  //window.location.href='mailto:info@laforetchocolate.com';
+  window.open("mailto:info@laforetchocolate.com", "_system");
   }
 function linkButton(){
   //dbuga('linkButton');
