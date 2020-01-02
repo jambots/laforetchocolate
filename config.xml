@@ -47,15 +47,13 @@ OK<gap:plugin name="io.litehelpers.cordova.sqlitestorage" version="0.7.5" />
 <plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
 -->
 <plugin name="cordova-sqlite-storage" spec="~0.8.5" />
+<plugin name="cordova-plugin-network-information" spec="2.0.2" />
 <access origin="*" />
 
 
 
 
 <feature name="http://api.phonegap.com/1.0/network" />
-<feature name="NetworkStatus">
-  <param name="android-package" value="CDVConnection" />
-</feature>
 <feature name="http://api.phonegap.com/1.0/media" />
 <feature name="http://api.phonegap.com/1.0/device" />
 <!--
