@@ -42,12 +42,12 @@
 <gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
 <gap:plugin name="org.devgeeks.canvas2imageplugin" version="0.6.0" />
 <gap:plugin name="io.litehelpers.cordova.sqlitestorage" version="0.7.5" />
+<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
+<gap:plugin name="org.apache.cordova.file" version="1.0.1" />
 -->
 <access origin="*" />
 
 
-<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
-<gap:plugin name="org.apache.cordova.file" version="1.0.1" />
 
 <plugin name="cordova-plugin-inappbrowser" spec="1.0.1" source="pgb" />
 
