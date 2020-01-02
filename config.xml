@@ -79,7 +79,7 @@ one of these
 
 
 <gap:splash src="res/splash.png" />
-<icon src="res/icon512.png" />
+<icon src="res/icon1024.png" />
 
 
 <!-- Define app icon for each platform. -->
@@ -87,6 +87,9 @@ one of these
 <!-- iOS 7+ -->
 <!-- iPhone 6 / 6+ -->
 <icon src="res/icon-60@3x.png" gap:platform="ios" width="180" height="180" />
+<!-- new idunno -->
+<icon src="res/icon-20.png" gap:platform="ios" width="20" height="20" />
+<icon src="res/icon-20@2x.png" gap:platform="ios" width="40" height="40" />
 
 <!-- iPhone / iPod Touch  -->
 <icon src="res/icon-60.png" gap:platform="ios" width="60" height="60" />
