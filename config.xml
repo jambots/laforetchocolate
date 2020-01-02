@@ -41,8 +41,8 @@
 <gap:plugin name="org.apache.cordova.media" version="0.2.8" />
 <gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
 <gap:plugin name="org.devgeeks.canvas2imageplugin" version="0.6.0" />
--->
 <gap:plugin name="io.litehelpers.cordova.sqlitestorage" version="0.7.5" />
+-->
 <access origin="*" />
 
 
