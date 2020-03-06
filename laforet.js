@@ -582,7 +582,8 @@ dbuga("selectedSetNum="+ selectedSetNum);
 
 function imageGeometry(){
   //dbuga('imageGeometry()');
-  flowItemHeight=Math.floor(landscapeScreenHeight*.8);
+  //flowItemHeight=Math.floor(landscapeScreenHeight*.8);
+  flowItemHeight=Math.floor(landscapeScreenHeight*.5);// fake iphone
   flowItemWidth=Math.floor(flowItemHeight*sourceAspect);
   if(orient=="landscape"){
     var prevWidth=landscapeScreenWidth;

@@ -3,8 +3,8 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.jambots.laforetchocolate"
-        versionCode="12"
-        version   = "2.3">
+        versionCode="14"
+        version   = "2.4">
 <!--
 <plugin name="com.phonegap.plugins.childbrowser" spec="5.0.0" source="pgb" />
 <preference name="phonegap-version" value="cli-5.2.0" />
